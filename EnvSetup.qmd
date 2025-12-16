@@ -1,6 +1,6 @@
 ---
 title: "Module 1: Environment Setup"
-subtitle: "Building Your Python AI Development Environment"
+subtitle: "Python, package management"
 author: [Speedykom GmbH, WINS Global Consult]
 format: html
 ---
@@ -85,11 +85,25 @@ Virtual environments let you experiment freely without fear of breaking anything
 
 ### The Old Way (Without uv)
 
-In the past, Python setup was painful: - You'd download Python from a website - Manually add it to your system PATH - Use `pip` to install packages (slow and sometimes broke) - Use separate tools like `virtualenv` or `venv` to create environments - Use yet another tool like `poetry` or `pipenv` to manage dependencies - Deal with conflicts between projects - Track dependencies in a `requirements.txt` file (which we'll discuss below)
+In the past, Python setup was painful: 
+
+- You'd download Python from a website 
+- Manually add it to your system PATH 
+- Use `pip` to install packages (slow and sometimes broke) 
+- Use separate tools like `virtualenv` or `venv` to create environments 
+- Use yet another tool like `poetry` or `pipenv` to manage dependencies 
+- Deal with conflicts between projects 
+- Track dependencies in a `requirements.txt` file (which we'll discuss below)
 
 ### The Modern Way (With uv)
 
-With **uv**, all of this becomes simple: - One tool for everything - Blazing fast installations (crucial when internet is slow) - Automatic dependency resolution (no more conflicts) - Rock-solid reliability (if it works on my computer, it works on yours) - Uses modern `pyproject.toml` standard (more on this below)
+With **uv**, all of this becomes simple: 
+
+- One tool for everything 
+- Blazing fast installations (crucial when internet is slow) 
+- Automatic dependency resolution (no more conflicts) 
+- Rock-solid reliability (if it works on my computer, it works on yours) 
+- Uses modern `pyproject.toml` standard (more on this below)
 
 ### Why uv is Essential: The Killer Features
 
@@ -299,12 +313,9 @@ When you create a project with uv:
 uv init my-project
 ```
 
-It automatically creates a `pyproject.toml` with sensible defaults. Then:
+It automatically creates a `pyproject.toml` with sensible defaults. 
 
--   `uv add torch` adds PyTorch to the dependencies
--   `uv add --dev pytest` adds pytest to dev dependencies
--   `uv lock` creates a lock file for exact reproducibility
--   `uv sync` installs everything listed in pyproject.toml
+When you want to add any other library to your project in the future a simple `uv add <library name>` adds that library to the dependencies. Also, when you want to share the same project with someone, they'd need the folder with the `pyproject.toml` file and all they'd need to do is `cd` into the folder and then run the code `uv sync` which installs everything listed in `pyproject.toml`.
 
 It's elegant, modern, and fast.
 

@@ -114,7 +114,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Module 1: Environment Setup</h1>
-<p class="subtitle lead">Building Your Python AI Development Environment</p>
+<p class="subtitle lead">Python, package management</p>
 </div>
 
 
@@ -220,11 +220,27 @@ Virtual environments are isolated “sandboxes” for your projects. This means 
 <h2 class="anchored" data-anchor-id="why-do-we-need-uv-why-is-it-essential">Why Do We Need uv? (Why is it Essential?)</h2>
 <section id="the-old-way-without-uv" class="level3">
 <h3 class="anchored" data-anchor-id="the-old-way-without-uv">The Old Way (Without uv)</h3>
-<p>In the past, Python setup was painful: - You’d download Python from a website - Manually add it to your system PATH - Use <code>pip</code> to install packages (slow and sometimes broke) - Use separate tools like <code>virtualenv</code> or <code>venv</code> to create environments - Use yet another tool like <code>poetry</code> or <code>pipenv</code> to manage dependencies - Deal with conflicts between projects - Track dependencies in a <code>requirements.txt</code> file (which we’ll discuss below)</p>
+<p>In the past, Python setup was painful:</p>
+<ul>
+<li>You’d download Python from a website</li>
+<li>Manually add it to your system PATH</li>
+<li>Use <code>pip</code> to install packages (slow and sometimes broke)</li>
+<li>Use separate tools like <code>virtualenv</code> or <code>venv</code> to create environments</li>
+<li>Use yet another tool like <code>poetry</code> or <code>pipenv</code> to manage dependencies</li>
+<li>Deal with conflicts between projects</li>
+<li>Track dependencies in a <code>requirements.txt</code> file (which we’ll discuss below)</li>
+</ul>
 </section>
 <section id="the-modern-way-with-uv" class="level3">
 <h3 class="anchored" data-anchor-id="the-modern-way-with-uv">The Modern Way (With uv)</h3>
-<p>With <strong>uv</strong>, all of this becomes simple: - One tool for everything - Blazing fast installations (crucial when internet is slow) - Automatic dependency resolution (no more conflicts) - Rock-solid reliability (if it works on my computer, it works on yours) - Uses modern <code>pyproject.toml</code> standard (more on this below)</p>
+<p>With <strong>uv</strong>, all of this becomes simple:</p>
+<ul>
+<li>One tool for everything</li>
+<li>Blazing fast installations (crucial when internet is slow)</li>
+<li>Automatic dependency resolution (no more conflicts)</li>
+<li>Rock-solid reliability (if it works on my computer, it works on yours)</li>
+<li>Uses modern <code>pyproject.toml</code> standard (more on this below)</li>
+</ul>
 </section>
 <section id="why-uv-is-essential-the-killer-features" class="level3">
 <h3 class="anchored" data-anchor-id="why-uv-is-essential-the-killer-features">Why uv is Essential: The Killer Features</h3>
@@ -427,13 +443,8 @@ pytest==7.4.0</code></pre>
 <h3 class="anchored" data-anchor-id="how-uv-uses-pyproject.toml">How uv Uses pyproject.toml</h3>
 <p>When you create a project with uv:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init my-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>It automatically creates a <code>pyproject.toml</code> with sensible defaults. Then:</p>
-<ul>
-<li><code>uv add torch</code> adds PyTorch to the dependencies</li>
-<li><code>uv add --dev pytest</code> adds pytest to dev dependencies</li>
-<li><code>uv lock</code> creates a lock file for exact reproducibility</li>
-<li><code>uv sync</code> installs everything listed in pyproject.toml</li>
-</ul>
+<p>It automatically creates a <code>pyproject.toml</code> with sensible defaults.</p>
+<p>When you want to add any other library to your project in the future a simple <code>uv add &lt;library name&gt;</code> adds that library to the dependencies. Also, when you want to share the same project with someone, they’d need the folder with the <code>pyproject.toml</code> file and all they’d need to do is <code>cd</code> into the folder and then run the code <code>uv sync</code> which installs everything listed in <code>pyproject.toml</code>.</p>
 <p>It’s elegant, modern, and fast.</p>
 <hr>
 </section>
