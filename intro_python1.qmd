@@ -1,6 +1,6 @@
 ---
 title: "Module 3: Python for MERN Developers"
-subtitle: "Part 1: Variables & Data Structures"
+subtitle: "Lesson 1: Variables & Data Structures"
 format: html
 editor: visual
 jupyter: python3
