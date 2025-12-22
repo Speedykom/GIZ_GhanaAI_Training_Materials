@@ -126,10 +126,18 @@ You're building a crop disease detection app. Filter and sort these image result
 #| eval: false
 
 images = [
+   
     {"filename": "cassava_01.jpg", "confidence": 0.92, "disease": "mosaic"},
     {"filename": "cassava_02.jpg", "confidence": 0.78, "disease": "healthy"},
     {"filename": "cassava_03.jpg", "confidence": 0.95, "disease": "blight"},
-    {"filename": "cassava_04.jpg", "confidence": 0.65, "disease": "healthy"}
+    {"filename": "cassava_04.jpg", "confidence": 0.65, "disease": "healthy"},
+    {"filename": "cassava_05.jpg", "confidence": 0.88, "disease": "brown_streak"},
+    {"filename": "cassava_06.jpg", "confidence": 0.91, "disease": "mosaic"},
+    {"filename": "cassava_07.jpg", "confidence": 0.72, "disease": "green_mite"},
+    {"filename": "cassava_08.jpg", "confidence": 0.84, "disease": "blight"},
+    {"filename": "cassava_09.jpg", "confidence": 0.97, "disease": "healthy"},
+    {"filename": "cassava_10.jpg", "confidence": 0.81, "disease": "brown_streak"}
+
 ]
 
 # TODO: Filter for images with confidence >= 0.80
@@ -155,10 +163,18 @@ for img in high_confidence:
 #| code-summary: "Show Solution"
 
 images = [
+    
     {"filename": "cassava_01.jpg", "confidence": 0.92, "disease": "mosaic"},
     {"filename": "cassava_02.jpg", "confidence": 0.78, "disease": "healthy"},
     {"filename": "cassava_03.jpg", "confidence": 0.95, "disease": "blight"},
-    {"filename": "cassava_04.jpg", "confidence": 0.65, "disease": "healthy"}
+    {"filename": "cassava_04.jpg", "confidence": 0.65, "disease": "healthy"},
+    {"filename": "cassava_05.jpg", "confidence": 0.88, "disease": "brown_streak"},
+    {"filename": "cassava_06.jpg", "confidence": 0.91, "disease": "mosaic"},
+    {"filename": "cassava_07.jpg", "confidence": 0.72, "disease": "green_mite"},
+    {"filename": "cassava_08.jpg", "confidence": 0.84, "disease": "blight"},
+    {"filename": "cassava_09.jpg", "confidence": 0.97, "disease": "healthy"},
+    {"filename": "cassava_10.jpg", "confidence": 0.81, "disease": "brown_streak"}
+
 ]
 
 # Filter for confidence >= 0.80
@@ -177,28 +193,19 @@ for img in high_confidence:
 
 # 2. Object-Oriented Programming: Classes Explained
 
-**Classes are recipe cards, objects are the actual meals.** A recipe card tells you how to make chocolate chip cookies. The card itself isn't edible – it's just instructions. But following that recipe, you can bake 50 different batches of cookies, each one a real, independent cookie batch.
+**The Delivery Metaphor: The "Order Form"**
 
-Classes are Python's way of bundling related data and functions together. Think of a class as a **blueprint** for creating objects.
+Imagine you are building a food delivery app like UberEats or DoorDash.
 
-## Understanding the Blueprint Concept
+**The Class (Order)**: This is the blank digital form in the app's code. It dictates that every order must have a delivery_address, a list_of_items, and a total_price. It also defines actions like `calculate_tax()` or `assign_driver()`.
 
-Let's start with a simple metaphor before we dive into code.
+**The Object (Your Lunch)**: When you hit "Checkout," you create an instance of that order.
 
-**Imagine a smartphone factory.** The factory has a **blueprint** that defines what every phone should have:
+* **Object 1**: Address: 123 Maple St; Items: Burger; Status: Out for delivery.
 
-- **Properties (data):** brand, model, battery level, storage capacity
-- **Methods (actions):** make_call(), send_message(), take_photo(), check_battery()
+* **Object 2**: Address: 456 Oak Ave; Items: Sushi; Status: Preparing.
 
-The blueprint itself isn't a phone – it's just instructions. When the factory manufactures a phone from that blueprint, it creates an **instance** (an actual, working phone).
-
-**Key insight:** When your phone's battery drops to 20%, other phones aren't affected. Each phone (instance) maintains its own state independently.
-
-In Python terms:
-
-- The **class** is the blueprint
-- Each **object** (instance) is a phone made from that blueprint
-- Every phone has its own battery level, model name, etc.
+**Key Takeaway**: The Class defines the structure (what it knows and what it can do), while the Object holds the actual data.
 
 ## The Simplest Possible Class
 
@@ -437,59 +444,113 @@ print(account.get_balance())
 
 ## Inheritance: Building on Existing Classes
 
-**Think of inheritance like smartphone models.** All iPhones share basic features (make calls, send texts, take photos) defined in a base "iPhone" blueprint. But the iPhone Pro model adds extra features (better camera, longer battery) without rewriting all the basic functionality.
+Let’s look at the **Master Dough** as the ultimate inheritance metaphor.
 
-This is how you customize pre-trained AI models without rewriting everything from scratch.
+In a bakery, you don't start from scratch (flour/water/yeast) for every single item. You make a massive batch of **Base Dough**, and then you branch out.
+
+### 1. The Parent Class: "The Master Dough"
+
+Think of this as the foundation. It contains everything that is **universal** to bread.
+
+* **Attributes (What it has):** Flour type, Water ratio, Yeast amount.
+* **Methods (What it can do):** `knead()`, `rise()`, and `bake()`.
+
+### 2. The Child Class: "The Cinnamon Roll"
+
+Now, a Cinnamon Roll **is-a** piece of dough, but it’s specialized.
+
+* **Inheritance:** It "inherits" the `knead()` and `rise()` steps from the Master Dough. You don't have to rewrite the science of how yeast works.
+* **Specialization:** It adds its own unique attributes (Cinnamon, Sugar, Frosting) and its own methods (`roll_up()`).
+
+### 3. The Child Class: "The Pizza Base"
+
+A Pizza Base also **is-a** piece of dough.
+
+* **Inheritance:** It also uses the same `knead()` and `rise()` logic from the Parent.
+* **Specialization:** It adds a `stretch()` method and a `topping` attribute.
+
+
+### Why this matters (The "Aha!" Moment)
+
+Imagine you are the Head Baker (the Tech Lead). You realize the bakery is too cold, so the dough needs to rise for **2 hours** instead of 1.
+
+* **Without Inheritance:** you would have to go to the Cinnamon Roll station, the Pizza station, and the Bagel station to tell everyone individually to change their timer.
+* **With Inheritance:** You simply update the `rise()` method in the **Master Dough** class. Because the Cinnamon Roll and Pizza "inherit" from it, they both automatically start rising for 2 hours.
+
+**Summary in Code Logic**
+
+1. **Parent:** Defines the "General" rules (How to be dough).
+2. **Child:** Inherits the general rules but adds "Specific" flair (Sugar vs. Salt).
+3. **The Result:** You write the hard logic (the chemistry of baking) only **once**.
+
+
+Actually, you can have a class with zero methods (just data), but it’s the **methods** that make a class powerful. Without them, it’s just a "dumb" container. Methods allow the object to **act** on its own data.
+
+In Python, a class usually feels "justified" when it handles its own logic so you don't have to write manual `if/else` statements everywhere in your main code.
+
+Let’s add two "Fullstack" style methods:
+
+1. **A Logic-based Method**: `calculate_bonus()` (Business logic).
+2. **A Utility Method**: `promote()` (State management).
+
+### The Enhanced Employee System
 
 ```{python}
-#| code-fold: false
+class Profile:
+    def __init__(self, first, last, age, qualification):
+        self.first = first
+        self.last = last
+        self.age = age
+        self.qualification = qualification
+        self.email = f"{first.lower()}.{last.lower()}@techafrica.io"
 
-# Base class - basic AI model
-class AIModel:
-    def __init__(self, name, version):
-        self.name = name
-        self.version = version
-        self.is_trained = False
-    
-    def train(self):
-        print(f"Training {self.name} v{self.version}...")
-        self.is_trained = True
-    
-    def status(self):
-        state = "trained" if self.is_trained else "untrained"
-        return f"{self.name} v{self.version} is {state}"
+class Employee(Profile):
+    def __init__(self, first, last, age, qualification, dept, title, salary):
+        super().__init__(first, last, age, qualification)
+        self.dept = dept
+        self.title = title
+        self.salary = salary
 
-# Child class - specialized for images
-class VisionModel(AIModel):  # Inherits from AIModel
-    def __init__(self, name, version, image_size):
-        # Call parent constructor
-        super().__init__(name, version)
-        
-        # Add new feature specific to vision models
-        self.image_size = image_size
-    
-    # Add new method that only vision models have
-    def scan_image(self, image_path):
-        if not self.is_trained:
-            return "Error: Model must be trained first!"
-        return f"Scanning {image_path} at {self.image_size}x{self.image_size}px..."
+    # METHOD 1: Business Logic (The Calculator)
+    # This keeps payroll logic inside the class, not scattered in your main code
+    def get_annual_bonus(self):
+        if self.dept == "Engineering":
+            return self.salary * 0.15  # 15% for devs
+        elif self.dept == "Accounts":
+            return self.salary * 0.10  # 10% for finance
+        return self.salary * 0.05      # 5% for everyone else
 
-# Usage
-vm = VisionModel("CassavaScanner", 2.0, 224)
+    # METHOD 2: State Management (The Updater)
+    # This allows the object to "evolve" over time
+    def promote(self, new_title, raise_amount):
+        self.title = new_title
+        self.salary += raise_amount
+        print(f"Congrats! {self.first} is now {self.title} with a new salary of ${self.salary:,}")
 
-print(vm.scan_image("leaf.jpg"))  # Error - not trained yet
-vm.train()                        # Inherited method works!
-print(vm.scan_image("leaf.jpg"))  # Now works
-print(vm.status())                # Inherited method works!
+# --- Testing the Logic ---
+emp1 = Employee("Amina", "Okonjo", 30, "Software Eng", "Engineering", "Junior Dev", 50000)
+
+# 1. Use the logic method
+bonus = emp1.get_annual_bonus()
+print(f"{emp1.first}'s Bonus: ${bonus:,.2f}")
+
+# 2. Use the state-change method
+emp1.promote("Senior Dev", 25000)
+
 ```
 
-**What's happening:**
+---
 
-- `VisionModel` inherits all methods from `AIModel` (like `train()` and `status()`)
-- `super().__init__()` calls the parent's constructor first
-- We add new functionality (`scan_image()`) without modifying the original class
+### Why this "justifies" the Class:
 
-**The benefit:** If you later improve the `train()` method in `AIModel`, all child classes automatically get the improvement.
+* **Encapsulation**: If the board decides "Accounts" now gets a 12% bonus instead of 10%, you change it inside the `get_annual_bonus` method. You don't have to hunt through your entire codebase to find every place you calculated a bonus.
+* **Self-Contained State**: The `promote` method ensures that the `title` and `salary` are updated together. You don't risk updating the title in one variable and forgetting to update the salary in another.
+
+### A Tech Lead's Perspective
+
+In a real-world app, these methods might also trigger external events. For example, the `promote` method could internally call a function to **update the database** or **send a Slack notification** to the team.
+
+
 
 ---
 
@@ -533,237 +594,53 @@ With error handling:
 
 - Robot: "Boil water" → Water runs out → Robot says "No water available, cannot make tea" → Continues functioning
 
-## Real-World Pattern: Processing Data Files
-
-In AI/ML, you'll often process hundreds or thousands of files. One bad file shouldn't crash everything.
-
-```{python}
-#| code-fold: false
-
-def process_image_batch(image_paths):
-    results = []
-    errors = []
-    
-    for path in image_paths:
-        try:
-            # Simulate image processing
-            if "corrupt" in path:
-                raise ValueError(f"Corrupted file: {path}")
-            
-            # If we get here, processing succeeded
-            results.append({"path": path, "status": "success"})
-            
-        except ValueError as e:
-            # Log the error but KEEP GOING
-            errors.append({"path": path, "error": str(e)})
-    
-    return results, errors
-
-# Test with mixed data
-image_paths = [
-    "image_01.jpg",
-    "image_02_corrupt.jpg",
-    "image_03.jpg"
-]
-
-successes, failures = process_image_batch(image_paths)
-
-print(f"Processed: {len(successes)} successful, {len(failures)} failed")
-print(f"Failures: {failures}")
-```
-
-**Key insight:** Notice we **continue processing** after an error. This is critical for production systems. If you're training on 10,000 images and one is corrupted, you want to log it and move on, not crash the entire training run.
-
----
-
-## 🧪 Practice: Safe Dictionary Lookup
-
-Build a function that safely gets values from a dictionary:
-
-```{python}
-#| eval: false
-
-def safe_get(dictionary, key, default="Not found"):
-    try:
-        # TODO: Try to get the value from the dictionary
-        value = dictionary[...]
-        return value
-    except KeyError:
-        # TODO: If the key doesn't exist, return the default value
-        return ...
-
-# Test cases
-user = {"name": "Kwame", "age": 25, "city": "Accra"}
-
-print(safe_get(user, "name"))        # Should return "Kwame"
-print(safe_get(user, "country"))     # Should return "Not found"
-print(safe_get(user, "country", "Ghana"))  # Should return "Ghana"
-```
-
-::: {.callout-tip collapse="true"}
-## 💡 Solution
-
-```{python}
-#| echo: true
-#| eval: true
-#| code-fold: true
-#| code-summary: "Show Solution"
-
-def safe_get(dictionary, key, default="Not found"):
-    try:
-        value = dictionary[key]
-        return value
-    except KeyError:
-        return default
-
-# Test cases
-user = {"name": "Kwame", "age": 25, "city": "Accra"}
-
-print(safe_get(user, "name"))        # Kwame
-print(safe_get(user, "country"))     # Not found
-print(safe_get(user, "country", "Ghana"))  # Ghana
-```
-:::
 
 ---
 
 # 4. Modules & Imports: Organizing Multi-File Projects
 
-**Think of modules like kitchen drawers.** You don't keep all your utensils in one giant pile. You organize: knives in one drawer, spoons in another, baking tools in a third. Modules are how you organize code into logical groups.
+To explain **Modules and Libraries** simply, let's go back to our bakery.
 
-This is the **#1 confusion point** for JavaScript developers moving to Python.
+### Modules: The "Spice Rack" Analogy
 
-**The problem:** Python doesn't have `export default`. Everything is a named export. And Python's import path logic works differently than JavaScript's relative imports.
+Imagine you are building a world-class bakery. You *could* build a flour mill, a sugar refinery, and a dairy farm in your backyard just to get started. But that’s a waste of time. Instead, you go to the store and buy pre-packaged ingredients.
 
-## The JavaScript Mental Model (What You're Used To)
-
-```javascript
-// utils/math_tools.js
-export default function calculateRisk() { ... }
-export function formatNumber() { ... }
-
-// main.js
-import calculateRisk from './utils/math_tools';      // default import
-import { formatNumber } from './utils/math_tools';   // named import
-```
-
-## The Python Way
-
-**Project structure:**
-```text
-my_project/
-├── main.py
-└── utils/
-    ├── __init__.py     ← Makes 'utils' a package
-    └── math_tools.py   ← Contains calculate_risk()
-```
-
-**In `utils/math_tools.py`:**
-```python
-def calculate_risk(amount, factor):
-    return amount * factor * 0.1
-
-def format_number(num):
-    return f"${num:,.2f}"
-```
-
-**In `main.py` (three different ways to import):**
-
-```python
-# Option 1: Import the module, use module.function()
-from utils import math_tools
-result = math_tools.calculate_risk(1000, 2)
-
-# Option 2: Import specific functions (like JS named imports)
-from utils.math_tools import calculate_risk, format_number
-result = calculate_risk(1000, 2)
-
-# Option 3: Import with alias (useful for long names)
-import utils.math_tools as mt
-result = mt.calculate_risk(1000, 2)
-```
-
-## What is `__init__.py`?
-
-You'll see empty `__init__.py` files in every Python package:
-
-```text
-utils/
-├── __init__.py    ← Often empty, but crucial!
-└── math_tools.py
-```
-
-**Purpose:** Tells Python "This folder is a package, not just a random directory."
-
-**History:** Required in Python 2. Optional in Python 3.3+, but **still recommended** because:
-
-- Makes your intent explicit to other developers
-- Required by many tools and IDEs
-- Allows you to customize what gets imported when someone does `from utils import *`
-
-**Pro tip:** Keep it empty unless you have a specific reason to add code to it.
+* **A Module** is like a **Spice Jar**. It’s a single file of code someone else wrote (or you wrote earlier) that contains specific "flavors" (functions like `calculate_tax` or `resize_image`).
+* **A Library (or Package)** is like a **Kitchen Kit**. It’s a collection of many modules. If you buy a "Baking Kit," it comes with a whisk, a bowl, and a timer. In Python, if you install a library like `pandas`, it comes with everything you need to handle data.
 
 ---
 
-## 🧪 Practice: Understanding Imports
+### Why do we use them?
 
-Let's simulate a multi-file project structure. Imagine you have this structure:
+You use modules because **you shouldn't reinvent the wheel.** If someone has already written a perfect piece of code to handle "M-Pesa payments" or "Image Recognition," you just "import" their hard work into your project.
 
-```text
-ai_project/
-├── main.py
-├── models/
-│   ├── __init__.py
-│   └── classifier.py         ← Contains class ImageClassifier
-└── utils/
-    ├── __init__.py
-    └── preprocessing.py      ← Contains function normalize_image()
-```
+### How to get them: `uv`
 
-**Fill in the import statements in `main.py`:**
+In the modern Python world, we use a tool called **`uv`**. Think of `uv` as your **Kitchen Supplier**. You tell it what you need, and it goes out, finds the best version, and puts it in your pantry.
 
-```python
-# TODO: Import ImageClassifier from models/classifier.py
-# Hint: from folder.file import ClassName
-from ... import ImageClassifier
+To add a library to your project, you just run:
+`uv add pandas` (This "buys" the data analysis kit and puts it in your kitchen).
 
-# TODO: Import normalize_image from utils/preprocessing.py
-from ... import normalize_image
+---
 
-# Usage (don't change this part)
-model = ImageClassifier()
-normalize_image(img)
-```
+### Importing & Aliases: "Nicknames"
 
-::: {.callout-tip collapse="true"}
-## 💡 Solution & Explanation
+When you bring a module into your code, you use the `import` command. Sometimes, module names are long and annoying to type, so we give them **aliases** (nicknames).
+
+**Think of it like this:**
+Your friend's name might be *Christopher*, but in the kitchen, you just yell **"Chris!"** to get his attention. It’s faster.
 
 ```python
-# Import ImageClassifier from models/classifier.py
-from models.classifier import ImageClassifier
+# Instead of typing this every time:
+import statistics
+print(statistics.mean([1, 2, 3]))
 
-# Import normalize_image from utils/preprocessing.py
-from utils.preprocessing import normalize_image
+# We use an alias (a nickname):
+import statistics as stats
+print(stats.mean([1, 2, 3])) # Much faster for a busy developer!
 
-# Usage
-model = ImageClassifier()
-normalize_image(img)
 ```
 
-**Alternative approaches:**
-
-```python
-# Option 2: Import the module, use with prefix
-from models import classifier
-from utils import preprocessing
-
-# Usage:
-model = classifier.ImageClassifier()
-preprocessing.normalize_image(img)
-```
-
-**Best practice:** Use specific imports (Option 1) for cleaner code. Use module imports (Option 2) when the module name adds useful context.
-:::
 
 ---
 
@@ -1063,19 +940,5 @@ In this lesson, you mastered the core architectural patterns for Python AI/ML de
 - Organized code with classes and methods
 
 ---
-
-## Next Steps
-
-You now have the fundamental Python patterns needed for AI/ML development. In the next module, we'll apply these concepts to:
-
-- Working with NumPy arrays
-- Processing data with Pandas
-- Building machine learning pipelines
-- Creating neural networks with PyTorch
-
-**Practice suggestion:** Try modifying the Student Registration System to add:
-- A method to remove grades
-- A method to calculate grade distribution (how many A's, B's, etc.)
-- A way to compare two students' averages
 
 Keep coding! 🚀

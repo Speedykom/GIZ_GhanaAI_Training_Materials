@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="basic-syntax" class="level2">
 <h2 class="anchored" data-anchor-id="basic-syntax">Basic Syntax</h2>
 <p>A lambda function is a compact way to write a function in one line.</p>
-<div id="86650467" class="cell" data-execution_count="1">
+<div id="33c599ea" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional function</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
@@ -156,7 +156,7 @@ Type: &lt;class 'function'&gt;</code></pre>
 <p><strong>The common pattern:</strong> “I need to tell this function HOW to do something, but the logic is so simple I don’t want to write a whole function for it.”</p>
 <section id="example-1-sorting-dictionaries" class="level3">
 <h3 class="anchored" data-anchor-id="example-1-sorting-dictionaries">Example 1: Sorting Dictionaries</h3>
-<div id="f8dab3bb" class="cell" data-execution_count="2">
+<div id="613f5c26" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>users <span class="op">=</span> [</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"role"</span>: <span class="st">"admin"</span>, <span class="st">"score"</span>: <span class="dv">88</span>},</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"role"</span>: <span class="st">"editor"</span>, <span class="st">"score"</span>: <span class="dv">95</span>},</span>
@@ -191,7 +191,7 @@ Top Scorer: Ama</code></pre>
 </section>
 <section id="example-2-filtering-data" class="level3">
 <h3 class="anchored" data-anchor-id="example-2-filtering-data">Example 2: Filtering Data</h3>
-<div id="3ef5725c" class="cell" data-execution_count="3">
+<div id="82a7e47a" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get only admins</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>admins <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> user: user[<span class="st">"role"</span>] <span class="op">==</span> <span class="st">"admin"</span>, users))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -215,25 +215,33 @@ Top Scorer: Ama</code></pre>
 <section id="practice-lambda-functions" class="level2">
 <h2 class="anchored" data-anchor-id="practice-lambda-functions">🧪 Practice: Lambda Functions</h2>
 <p>You’re building a crop disease detection app. Filter and sort these image results:</p>
-<div id="a8297127" class="cell" data-execution_count="4">
+<div id="a65cc8f6" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> [</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_01.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.92</span>, <span class="st">"disease"</span>: <span class="st">"mosaic"</span>},</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_02.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.78</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_03.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.95</span>, <span class="st">"disease"</span>: <span class="st">"blight"</span>},</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_04.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.65</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>}</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Filter for images with confidence &gt;= 0.80</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: The lambda should check if img["confidence"] is &gt;= 0.80</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>high_confidence <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> img: ..., images))</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Sort remaining images by confidence (highest first)</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: Use img["confidence"] as the sort key</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>high_confidence.sort(key<span class="op">=</span><span class="kw">lambda</span> img: ..., reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_01.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.92</span>, <span class="st">"disease"</span>: <span class="st">"mosaic"</span>},</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_02.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.78</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_03.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.95</span>, <span class="st">"disease"</span>: <span class="st">"blight"</span>},</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_04.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.65</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_05.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.88</span>, <span class="st">"disease"</span>: <span class="st">"brown_streak"</span>},</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_06.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.91</span>, <span class="st">"disease"</span>: <span class="st">"mosaic"</span>},</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_07.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.72</span>, <span class="st">"disease"</span>: <span class="st">"green_mite"</span>},</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_08.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.84</span>, <span class="st">"disease"</span>: <span class="st">"blight"</span>},</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_09.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.97</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_10.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.81</span>, <span class="st">"disease"</span>: <span class="st">"brown_streak"</span>}</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"High-confidence results:"</span>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> img <span class="kw">in</span> high_confidence:</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>img[<span class="st">'filename'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>img[<span class="st">'confidence'</span>]<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>img[<span class="st">'disease'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Filter for images with confidence &gt;= 0.80</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: The lambda should check if img["confidence"] is &gt;= 0.80</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>high_confidence <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> img: ..., images))</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Sort remaining images by confidence (highest first)</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: Use img["confidence"] as the sort key</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>high_confidence.sort(key<span class="op">=</span><span class="kw">lambda</span> img: ..., reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"High-confidence results:"</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> img <span class="kw">in</span> high_confidence:</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>img[<span class="st">'filename'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>img[<span class="st">'confidence'</span>]<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>img[<span class="st">'disease'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -247,30 +255,43 @@ Top Scorer: Ama</code></pre>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="3e53a9c2" class="cell" data-execution_count="5">
+<div id="af41687a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show Solution</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> [</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_01.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.92</span>, <span class="st">"disease"</span>: <span class="st">"mosaic"</span>},</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_02.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.78</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_03.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.95</span>, <span class="st">"disease"</span>: <span class="st">"blight"</span>},</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_04.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.65</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>}</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for confidence &gt;= 0.80</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>high_confidence <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> img: img[<span class="st">"confidence"</span>] <span class="op">&gt;=</span> <span class="fl">0.80</span>, images))</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by confidence (highest first)</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>high_confidence.sort(key<span class="op">=</span><span class="kw">lambda</span> img: img[<span class="st">"confidence"</span>], reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_01.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.92</span>, <span class="st">"disease"</span>: <span class="st">"mosaic"</span>},</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_02.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.78</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_03.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.95</span>, <span class="st">"disease"</span>: <span class="st">"blight"</span>},</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_04.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.65</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_05.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.88</span>, <span class="st">"disease"</span>: <span class="st">"brown_streak"</span>},</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_06.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.91</span>, <span class="st">"disease"</span>: <span class="st">"mosaic"</span>},</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_07.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.72</span>, <span class="st">"disease"</span>: <span class="st">"green_mite"</span>},</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_08.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.84</span>, <span class="st">"disease"</span>: <span class="st">"blight"</span>},</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_09.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.97</span>, <span class="st">"disease"</span>: <span class="st">"healthy"</span>},</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"filename"</span>: <span class="st">"cassava_10.jpg"</span>, <span class="st">"confidence"</span>: <span class="fl">0.81</span>, <span class="st">"disease"</span>: <span class="st">"brown_streak"</span>}</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"High-confidence results:"</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> img <span class="kw">in</span> high_confidence:</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>img[<span class="st">'filename'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>img[<span class="st">'confidence'</span>]<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>img[<span class="st">'disease'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for confidence &gt;= 0.80</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>high_confidence <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> img: img[<span class="st">"confidence"</span>] <span class="op">&gt;=</span> <span class="fl">0.80</span>, images))</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by confidence (highest first)</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>high_confidence.sort(key<span class="op">=</span><span class="kw">lambda</span> img: img[<span class="st">"confidence"</span>], reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"High-confidence results:"</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> img <span class="kw">in</span> high_confidence:</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>img[<span class="st">'filename'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>img[<span class="st">'confidence'</span>]<span class="sc">}</span><span class="ss"> - </span><span class="sc">{</span>img[<span class="st">'disease'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>High-confidence results:
+  cassava_09.jpg: 0.97 - healthy
   cassava_03.jpg: 0.95 - blight
-  cassava_01.jpg: 0.92 - mosaic</code></pre>
+  cassava_01.jpg: 0.92 - mosaic
+  cassava_06.jpg: 0.91 - mosaic
+  cassava_05.jpg: 0.88 - brown_streak
+  cassava_08.jpg: 0.84 - blight
+  cassava_10.jpg: 0.81 - brown_streak</code></pre>
 </div>
 </div>
 </div>
@@ -281,29 +302,19 @@ Top Scorer: Ama</code></pre>
 </section>
 <section id="object-oriented-programming-classes-explained" class="level1">
 <h1>2. Object-Oriented Programming: Classes Explained</h1>
-<p><strong>Classes are recipe cards, objects are the actual meals.</strong> A recipe card tells you how to make chocolate chip cookies. The card itself isn’t edible – it’s just instructions. But following that recipe, you can bake 50 different batches of cookies, each one a real, independent cookie batch.</p>
-<p>Classes are Python’s way of bundling related data and functions together. Think of a class as a <strong>blueprint</strong> for creating objects.</p>
-<section id="understanding-the-blueprint-concept" class="level2">
-<h2 class="anchored" data-anchor-id="understanding-the-blueprint-concept">Understanding the Blueprint Concept</h2>
-<p>Let’s start with a simple metaphor before we dive into code.</p>
-<p><strong>Imagine a smartphone factory.</strong> The factory has a <strong>blueprint</strong> that defines what every phone should have:</p>
+<p><strong>The Delivery Metaphor: The “Order Form”</strong></p>
+<p>Imagine you are building a food delivery app like UberEats or DoorDash.</p>
+<p><strong>The Class (Order)</strong>: This is the blank digital form in the app’s code. It dictates that every order must have a delivery_address, a list_of_items, and a total_price. It also defines actions like <code>calculate_tax()</code> or <code>assign_driver()</code>.</p>
+<p><strong>The Object (Your Lunch)</strong>: When you hit “Checkout,” you create an instance of that order.</p>
 <ul>
-<li><strong>Properties (data):</strong> brand, model, battery level, storage capacity</li>
-<li><strong>Methods (actions):</strong> make_call(), send_message(), take_photo(), check_battery()</li>
+<li><p><strong>Object 1</strong>: Address: 123 Maple St; Items: Burger; Status: Out for delivery.</p></li>
+<li><p><strong>Object 2</strong>: Address: 456 Oak Ave; Items: Sushi; Status: Preparing.</p></li>
 </ul>
-<p>The blueprint itself isn’t a phone – it’s just instructions. When the factory manufactures a phone from that blueprint, it creates an <strong>instance</strong> (an actual, working phone).</p>
-<p><strong>Key insight:</strong> When your phone’s battery drops to 20%, other phones aren’t affected. Each phone (instance) maintains its own state independently.</p>
-<p>In Python terms:</p>
-<ul>
-<li>The <strong>class</strong> is the blueprint</li>
-<li>Each <strong>object</strong> (instance) is a phone made from that blueprint</li>
-<li>Every phone has its own battery level, model name, etc.</li>
-</ul>
-</section>
+<p><strong>Key Takeaway</strong>: The Class defines the structure (what it knows and what it can do), while the Object holds the actual data.</p>
 <section id="the-simplest-possible-class" class="level2">
 <h2 class="anchored" data-anchor-id="the-simplest-possible-class">The Simplest Possible Class</h2>
 <p>Let’s start with something so simple you could explain it to a 10-year-old: a dog.</p>
-<div id="4eeb5490" class="cell" data-execution_count="6">
+<div id="c60e2b38" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dog:</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Constructor - runs when you create a new dog</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, breed):</span>
@@ -370,7 +381,7 @@ Bella's energy: 80</code></pre>
 <section id="a-practical-ai-example-mobile-money-account" class="level2">
 <h2 class="anchored" data-anchor-id="a-practical-ai-example-mobile-money-account">A Practical AI Example: Mobile Money Account</h2>
 <p>Let’s build something more relevant to African tech: a mobile money system.</p>
-<div id="c51e6c0c" class="cell" data-execution_count="7">
+<div id="da743e99" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MobileMoneyAccount:</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, owner_name, phone_number):</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.owner_name <span class="op">=</span> owner_name</span>
@@ -457,7 +468,7 @@ Ama Osei's balance: GHS 200.0
 <section id="practice-building-a-simple-bank-account" class="level2">
 <h2 class="anchored" data-anchor-id="practice-building-a-simple-bank-account">🧪 Practice: Building a Simple Bank Account</h2>
 <p>Create a <code>BankAccount</code> class with basic functionality. Fill in the missing parts:</p>
-<div id="3df49b3c" class="cell" data-execution_count="8">
+<div id="e43f10fc" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BankAccount:</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, owner, initial_balance<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the owner name</span></span>
@@ -514,7 +525,7 @@ Ama Osei's balance: GHS 200.0
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="fa5097fe" class="cell" data-execution_count="9">
+<div id="81802d93" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show Solution</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BankAccount:</span>
@@ -558,61 +569,115 @@ Kwame's balance: $1300</code></pre>
 </section>
 <section id="inheritance-building-on-existing-classes" class="level2">
 <h2 class="anchored" data-anchor-id="inheritance-building-on-existing-classes">Inheritance: Building on Existing Classes</h2>
-<p><strong>Think of inheritance like smartphone models.</strong> All iPhones share basic features (make calls, send texts, take photos) defined in a base “iPhone” blueprint. But the iPhone Pro model adds extra features (better camera, longer battery) without rewriting all the basic functionality.</p>
-<p>This is how you customize pre-trained AI models without rewriting everything from scratch.</p>
-<div id="21897d55" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base class - basic AI model</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AIModel:</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, version):</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.version <span class="op">=</span> version</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_trained <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> train(<span class="va">self</span>):</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Training </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> v</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>version<span class="sc">}</span><span class="ss">..."</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_trained <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> status(<span class="va">self</span>):</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        state <span class="op">=</span> <span class="st">"trained"</span> <span class="cf">if</span> <span class="va">self</span>.is_trained <span class="cf">else</span> <span class="st">"untrained"</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss"> v</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>version<span class="sc">}</span><span class="ss"> is </span><span class="sc">{</span>state<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Child class - specialized for images</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VisionModel(AIModel):  <span class="co"># Inherits from AIModel</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, version, image_size):</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Call parent constructor</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name, version)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add new feature specific to vision models</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.image_size <span class="op">=</span> image_size</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add new method that only vision models have</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> scan_image(<span class="va">self</span>, image_path):</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.is_trained:</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"Error: Model must be trained first!"</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Scanning </span><span class="sc">{</span>image_path<span class="sc">}</span><span class="ss"> at </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>image_size<span class="sc">}</span><span class="ss">x</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>image_size<span class="sc">}</span><span class="ss">px..."</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>vm <span class="op">=</span> VisionModel(<span class="st">"CassavaScanner"</span>, <span class="fl">2.0</span>, <span class="dv">224</span>)</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vm.scan_image(<span class="st">"leaf.jpg"</span>))  <span class="co"># Error - not trained yet</span></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>vm.train()                        <span class="co"># Inherited method works!</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vm.scan_image(<span class="st">"leaf.jpg"</span>))  <span class="co"># Now works</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vm.status())                <span class="co"># Inherited method works!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error: Model must be trained first!
-Training CassavaScanner v2.0...
-Scanning leaf.jpg at 224x224px...
-CassavaScanner v2.0 is trained</code></pre>
-</div>
-</div>
-<p><strong>What’s happening:</strong></p>
+<p>Let’s look at the <strong>Master Dough</strong> as the ultimate inheritance metaphor.</p>
+<p>In a bakery, you don’t start from scratch (flour/water/yeast) for every single item. You make a massive batch of <strong>Base Dough</strong>, and then you branch out.</p>
+<section id="the-parent-class-the-master-dough" class="level3">
+<h3 class="anchored" data-anchor-id="the-parent-class-the-master-dough">1. The Parent Class: “The Master Dough”</h3>
+<p>Think of this as the foundation. It contains everything that is <strong>universal</strong> to bread.</p>
 <ul>
-<li><code>VisionModel</code> inherits all methods from <code>AIModel</code> (like <code>train()</code> and <code>status()</code>)</li>
-<li><code>super().__init__()</code> calls the parent’s constructor first</li>
-<li>We add new functionality (<code>scan_image()</code>) without modifying the original class</li>
+<li><strong>Attributes (What it has):</strong> Flour type, Water ratio, Yeast amount.</li>
+<li><strong>Methods (What it can do):</strong> <code>knead()</code>, <code>rise()</code>, and <code>bake()</code>.</li>
 </ul>
-<p><strong>The benefit:</strong> If you later improve the <code>train()</code> method in <code>AIModel</code>, all child classes automatically get the improvement.</p>
+</section>
+<section id="the-child-class-the-cinnamon-roll" class="level3">
+<h3 class="anchored" data-anchor-id="the-child-class-the-cinnamon-roll">2. The Child Class: “The Cinnamon Roll”</h3>
+<p>Now, a Cinnamon Roll <strong>is-a</strong> piece of dough, but it’s specialized.</p>
+<ul>
+<li><strong>Inheritance:</strong> It “inherits” the <code>knead()</code> and <code>rise()</code> steps from the Master Dough. You don’t have to rewrite the science of how yeast works.</li>
+<li><strong>Specialization:</strong> It adds its own unique attributes (Cinnamon, Sugar, Frosting) and its own methods (<code>roll_up()</code>).</li>
+</ul>
+</section>
+<section id="the-child-class-the-pizza-base" class="level3">
+<h3 class="anchored" data-anchor-id="the-child-class-the-pizza-base">3. The Child Class: “The Pizza Base”</h3>
+<p>A Pizza Base also <strong>is-a</strong> piece of dough.</p>
+<ul>
+<li><strong>Inheritance:</strong> It also uses the same <code>knead()</code> and <code>rise()</code> logic from the Parent.</li>
+<li><strong>Specialization:</strong> It adds a <code>stretch()</code> method and a <code>topping</code> attribute.</li>
+</ul>
+</section>
+<section id="why-this-matters-the-aha-moment" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-matters-the-aha-moment">Why this matters (The “Aha!” Moment)</h3>
+<p>Imagine you are the Head Baker (the Tech Lead). You realize the bakery is too cold, so the dough needs to rise for <strong>2 hours</strong> instead of 1.</p>
+<ul>
+<li><strong>Without Inheritance:</strong> you would have to go to the Cinnamon Roll station, the Pizza station, and the Bagel station to tell everyone individually to change their timer.</li>
+<li><strong>With Inheritance:</strong> You simply update the <code>rise()</code> method in the <strong>Master Dough</strong> class. Because the Cinnamon Roll and Pizza “inherit” from it, they both automatically start rising for 2 hours.</li>
+</ul>
+<p><strong>Summary in Code Logic</strong></p>
+<ol type="1">
+<li><strong>Parent:</strong> Defines the “General” rules (How to be dough).</li>
+<li><strong>Child:</strong> Inherits the general rules but adds “Specific” flair (Sugar vs.&nbsp;Salt).</li>
+<li><strong>The Result:</strong> You write the hard logic (the chemistry of baking) only <strong>once</strong>.</li>
+</ol>
+<p>Actually, you can have a class with zero methods (just data), but it’s the <strong>methods</strong> that make a class powerful. Without them, it’s just a “dumb” container. Methods allow the object to <strong>act</strong> on its own data.</p>
+<p>In Python, a class usually feels “justified” when it handles its own logic so you don’t have to write manual <code>if/else</code> statements everywhere in your main code.</p>
+<p>Let’s add two “Fullstack” style methods:</p>
+<ol type="1">
+<li><strong>A Logic-based Method</strong>: <code>calculate_bonus()</code> (Business logic).</li>
+<li><strong>A Utility Method</strong>: <code>promote()</code> (State management).</li>
+</ol>
+</section>
+<section id="the-enhanced-employee-system" class="level3">
+<h3 class="anchored" data-anchor-id="the-enhanced-employee-system">The Enhanced Employee System</h3>
+<div id="2ef70f8b" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Profile:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, first, last, age, qualification):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.first <span class="op">=</span> first</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.last <span class="op">=</span> last</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.age <span class="op">=</span> age</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.qualification <span class="op">=</span> qualification</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.email <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>first<span class="sc">.</span>lower()<span class="sc">}</span><span class="ss">.</span><span class="sc">{</span>last<span class="sc">.</span>lower()<span class="sc">}</span><span class="ss">@techafrica.io"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Employee(Profile):</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, first, last, age, qualification, dept, title, salary):</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(first, last, age, qualification)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.dept <span class="op">=</span> dept</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.title <span class="op">=</span> title</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.salary <span class="op">=</span> salary</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># METHOD 1: Business Logic (The Calculator)</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This keeps payroll logic inside the class, not scattered in your main code</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_annual_bonus(<span class="va">self</span>):</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.dept <span class="op">==</span> <span class="st">"Engineering"</span>:</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">self</span>.salary <span class="op">*</span> <span class="fl">0.15</span>  <span class="co"># 15% for devs</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.dept <span class="op">==</span> <span class="st">"Accounts"</span>:</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">self</span>.salary <span class="op">*</span> <span class="fl">0.10</span>  <span class="co"># 10% for finance</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.salary <span class="op">*</span> <span class="fl">0.05</span>      <span class="co"># 5% for everyone else</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># METHOD 2: State Management (The Updater)</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This allows the object to "evolve" over time</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> promote(<span class="va">self</span>, new_title, raise_amount):</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.title <span class="op">=</span> new_title</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.salary <span class="op">+=</span> raise_amount</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Congrats! </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first<span class="sc">}</span><span class="ss"> is now </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>title<span class="sc">}</span><span class="ss"> with a new salary of $</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>salary<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Testing the Logic ---</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>emp1 <span class="op">=</span> Employee(<span class="st">"Amina"</span>, <span class="st">"Okonjo"</span>, <span class="dv">30</span>, <span class="st">"Software Eng"</span>, <span class="st">"Engineering"</span>, <span class="st">"Junior Dev"</span>, <span class="dv">50000</span>)</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Use the logic method</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>bonus <span class="op">=</span> emp1.get_annual_bonus()</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>emp1<span class="sc">.</span>first<span class="sc">}</span><span class="ss">'s Bonus: $</span><span class="sc">{</span>bonus<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Use the state-change method</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>emp1.promote(<span class="st">"Senior Dev"</span>, <span class="dv">25000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Amina's Bonus: $7,500.00
+Congrats! Amina is now Senior Dev with a new salary of $75,000</code></pre>
+</div>
+</div>
 <hr>
+</section>
+<section id="why-this-justifies-the-class" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-justifies-the-class">Why this “justifies” the Class:</h3>
+<ul>
+<li><strong>Encapsulation</strong>: If the board decides “Accounts” now gets a 12% bonus instead of 10%, you change it inside the <code>get_annual_bonus</code> method. You don’t have to hunt through your entire codebase to find every place you calculated a bonus.</li>
+<li><strong>Self-Contained State</strong>: The <code>promote</code> method ensures that the <code>title</code> and <code>salary</code> are updated together. You don’t risk updating the title in one variable and forgetting to update the salary in another.</li>
+</ul>
+</section>
+<section id="a-tech-leads-perspective" class="level3">
+<h3 class="anchored" data-anchor-id="a-tech-leads-perspective">A Tech Lead’s Perspective</h3>
+<p>In a real-world app, these methods might also trigger external events. For example, the <code>promote</code> method could internally call a function to <strong>update the database</strong> or <strong>send a Slack notification</strong> to the team.</p>
+<hr>
+</section>
 </section>
 </section>
 <section id="error-handling-building-robust-pipelines" class="level1">
@@ -627,7 +692,7 @@ CassavaScanner v2.0 is trained</code></pre>
 </ul>
 <section id="basic-pattern" class="level2">
 <h2 class="anchored" data-anchor-id="basic-pattern">Basic Pattern</h2>
-<div id="7bbc738c" class="cell" data-execution_count="11">
+<div id="9edd502c" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> safe_divide(a, b):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> a <span class="op">/</span> b</span>
@@ -655,223 +720,42 @@ Error: Both inputs must be numbers</code></pre>
 <ul>
 <li>Robot: “Boil water” → Water runs out → Robot says “No water available, cannot make tea” → Continues functioning</li>
 </ul>
-</section>
-<section id="real-world-pattern-processing-data-files" class="level2">
-<h2 class="anchored" data-anchor-id="real-world-pattern-processing-data-files">Real-World Pattern: Processing Data Files</h2>
-<p>In AI/ML, you’ll often process hundreds or thousands of files. One bad file shouldn’t crash everything.</p>
-<div id="3b90ed6d" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_image_batch(image_paths):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    errors <span class="op">=</span> []</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> path <span class="kw">in</span> image_paths:</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Simulate image processing</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">"corrupt"</span> <span class="kw">in</span> path:</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"Corrupted file: </span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If we get here, processing succeeded</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            results.append({<span class="st">"path"</span>: path, <span class="st">"status"</span>: <span class="st">"success"</span>})</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Log the error but KEEP GOING</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            errors.append({<span class="st">"path"</span>: path, <span class="st">"error"</span>: <span class="bu">str</span>(e)})</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results, errors</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with mixed data</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>image_paths <span class="op">=</span> [</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"image_01.jpg"</span>,</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"image_02_corrupt.jpg"</span>,</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"image_03.jpg"</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>successes, failures <span class="op">=</span> process_image_batch(image_paths)</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Processed: </span><span class="sc">{</span><span class="bu">len</span>(successes)<span class="sc">}</span><span class="ss"> successful, </span><span class="sc">{</span><span class="bu">len</span>(failures)<span class="sc">}</span><span class="ss"> failed"</span>)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Failures: </span><span class="sc">{</span>failures<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Processed: 2 successful, 1 failed
-Failures: [{'path': 'image_02_corrupt.jpg', 'error': 'Corrupted file: image_02_corrupt.jpg'}]</code></pre>
-</div>
-</div>
-<p><strong>Key insight:</strong> Notice we <strong>continue processing</strong> after an error. This is critical for production systems. If you’re training on 10,000 images and one is corrupted, you want to log it and move on, not crash the entire training run.</p>
-<hr>
-</section>
-<section id="practice-safe-dictionary-lookup" class="level2">
-<h2 class="anchored" data-anchor-id="practice-safe-dictionary-lookup">🧪 Practice: Safe Dictionary Lookup</h2>
-<p>Build a function that safely gets values from a dictionary:</p>
-<div id="bc323815" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> safe_get(dictionary, key, default<span class="op">=</span><span class="st">"Not found"</span>):</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Try to get the value from the dictionary</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> dictionary[...]</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">KeyError</span>:</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: If the key doesn't exist, return the default value</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ...</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Test cases</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"age"</span>: <span class="dv">25</span>, <span class="st">"city"</span>: <span class="st">"Accra"</span>}</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_get(user, <span class="st">"name"</span>))        <span class="co"># Should return "Kwame"</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_get(user, <span class="st">"country"</span>))     <span class="co"># Should return "Not found"</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_get(user, <span class="st">"country"</span>, <span class="st">"Ghana"</span>))  <span class="co"># Should return "Ghana"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>💡 Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="fc8db056" class="cell" data-execution_count="14">
-<details class="code-fold">
-<summary>Show Solution</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> safe_get(dictionary, key, default<span class="op">=</span><span class="st">"Not found"</span>):</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> dictionary[key]</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> value</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">KeyError</span>:</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> default</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Test cases</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"age"</span>: <span class="dv">25</span>, <span class="st">"city"</span>: <span class="st">"Accra"</span>}</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_get(user, <span class="st">"name"</span>))        <span class="co"># Kwame</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_get(user, <span class="st">"country"</span>))     <span class="co"># Not found</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_get(user, <span class="st">"country"</span>, <span class="st">"Ghana"</span>))  <span class="co"># Ghana</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Kwame
-Not found
-Ghana</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
 <hr>
 </section>
 </section>
 <section id="modules-imports-organizing-multi-file-projects" class="level1">
 <h1>4. Modules &amp; Imports: Organizing Multi-File Projects</h1>
-<p><strong>Think of modules like kitchen drawers.</strong> You don’t keep all your utensils in one giant pile. You organize: knives in one drawer, spoons in another, baking tools in a third. Modules are how you organize code into logical groups.</p>
-<p>This is the <strong>#1 confusion point</strong> for JavaScript developers moving to Python.</p>
-<p><strong>The problem:</strong> Python doesn’t have <code>export default</code>. Everything is a named export. And Python’s import path logic works differently than JavaScript’s relative imports.</p>
-<section id="the-javascript-mental-model-what-youre-used-to" class="level2">
-<h2 class="anchored" data-anchor-id="the-javascript-mental-model-what-youre-used-to">The JavaScript Mental Model (What You’re Used To)</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">// utils/math_tools.js</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="kw">function</span> <span class="fu">calculateRisk</span>() { <span class="op">...</span> }</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">formatNumber</span>() { <span class="op">...</span> }</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">// main.js</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> calculateRisk <span class="im">from</span> <span class="st">'./utils/math_tools'</span><span class="op">;</span>      <span class="co">// default import</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { formatNumber } <span class="im">from</span> <span class="st">'./utils/math_tools'</span><span class="op">;</span>   <span class="co">// named import</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="the-python-way" class="level2">
-<h2 class="anchored" data-anchor-id="the-python-way">The Python Way</h2>
-<p><strong>Project structure:</strong></p>
-<pre class="text"><code>my_project/
-├── main.py
-└── utils/
-    ├── __init__.py     ← Makes 'utils' a package
-    └── math_tools.py   ← Contains calculate_risk()</code></pre>
-<p><strong>In <code>utils/math_tools.py</code>:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_risk(amount, factor):</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> amount <span class="op">*</span> factor <span class="op">*</span> <span class="fl">0.1</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_number(num):</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"$</span><span class="sc">{</span>num<span class="sc">:,.2f}</span><span class="ss">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>In <code>main.py</code> (three different ways to import):</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 1: Import the module, use module.function()</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utils <span class="im">import</span> math_tools</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> math_tools.calculate_risk(<span class="dv">1000</span>, <span class="dv">2</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 2: Import specific functions (like JS named imports)</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utils.math_tools <span class="im">import</span> calculate_risk, format_number</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> calculate_risk(<span class="dv">1000</span>, <span class="dv">2</span>)</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 3: Import with alias (useful for long names)</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utils.math_tools <span class="im">as</span> mt</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> mt.calculate_risk(<span class="dv">1000</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="what-is-__init__.py" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-__init__.py">What is <code>__init__.py</code>?</h2>
-<p>You’ll see empty <code>__init__.py</code> files in every Python package:</p>
-<pre class="text"><code>utils/
-├── __init__.py    ← Often empty, but crucial!
-└── math_tools.py</code></pre>
-<p><strong>Purpose:</strong> Tells Python “This folder is a package, not just a random directory.”</p>
-<p><strong>History:</strong> Required in Python 2. Optional in Python 3.3+, but <strong>still recommended</strong> because:</p>
+<p>To explain <strong>Modules and Libraries</strong> simply, let’s go back to our bakery.</p>
+<section id="modules-the-spice-rack-analogy" class="level3">
+<h3 class="anchored" data-anchor-id="modules-the-spice-rack-analogy">Modules: The “Spice Rack” Analogy</h3>
+<p>Imagine you are building a world-class bakery. You <em>could</em> build a flour mill, a sugar refinery, and a dairy farm in your backyard just to get started. But that’s a waste of time. Instead, you go to the store and buy pre-packaged ingredients.</p>
 <ul>
-<li>Makes your intent explicit to other developers</li>
-<li>Required by many tools and IDEs</li>
-<li>Allows you to customize what gets imported when someone does <code>from utils import *</code></li>
+<li><strong>A Module</strong> is like a <strong>Spice Jar</strong>. It’s a single file of code someone else wrote (or you wrote earlier) that contains specific “flavors” (functions like <code>calculate_tax</code> or <code>resize_image</code>).</li>
+<li><strong>A Library (or Package)</strong> is like a <strong>Kitchen Kit</strong>. It’s a collection of many modules. If you buy a “Baking Kit,” it comes with a whisk, a bowl, and a timer. In Python, if you install a library like <code>pandas</code>, it comes with everything you need to handle data.</li>
 </ul>
-<p><strong>Pro tip:</strong> Keep it empty unless you have a specific reason to add code to it.</p>
 <hr>
 </section>
-<section id="practice-understanding-imports" class="level2">
-<h2 class="anchored" data-anchor-id="practice-understanding-imports">🧪 Practice: Understanding Imports</h2>
-<p>Let’s simulate a multi-file project structure. Imagine you have this structure:</p>
-<pre class="text"><code>ai_project/
-├── main.py
-├── models/
-│   ├── __init__.py
-│   └── classifier.py         ← Contains class ImageClassifier
-└── utils/
-    ├── __init__.py
-    └── preprocessing.py      ← Contains function normalize_image()</code></pre>
-<p><strong>Fill in the import statements in <code>main.py</code>:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Import ImageClassifier from models/classifier.py</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: from folder.file import ClassName</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ... <span class="im">import</span> ImageClassifier</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Import normalize_image from utils/preprocessing.py</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ... <span class="im">import</span> normalize_image</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage (don't change this part)</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ImageClassifier()</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>normalize_image(img)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>💡 Solution &amp; Explanation
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import ImageClassifier from models/classifier.py</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> models.classifier <span class="im">import</span> ImageClassifier</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import normalize_image from utils/preprocessing.py</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utils.preprocessing <span class="im">import</span> normalize_image</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ImageClassifier()</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>normalize_image(img)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Alternative approaches:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 2: Import the module, use with prefix</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> models <span class="im">import</span> classifier</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utils <span class="im">import</span> preprocessing</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage:</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> classifier.ImageClassifier()</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>preprocessing.normalize_image(img)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Best practice:</strong> Use specific imports (Option 1) for cleaner code. Use module imports (Option 2) when the module name adds useful context.</p>
-</div>
-</div>
-</div>
+<section id="why-do-we-use-them" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-use-them">Why do we use them?</h3>
+<p>You use modules because <strong>you shouldn’t reinvent the wheel.</strong> If someone has already written a perfect piece of code to handle “M-Pesa payments” or “Image Recognition,” you just “import” their hard work into your project.</p>
+</section>
+<section id="how-to-get-them-uv" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-get-them-uv">How to get them: <code>uv</code></h3>
+<p>In the modern Python world, we use a tool called <strong><code>uv</code></strong>. Think of <code>uv</code> as your <strong>Kitchen Supplier</strong>. You tell it what you need, and it goes out, finds the best version, and puts it in your pantry.</p>
+<p>To add a library to your project, you just run: <code>uv add pandas</code> (This “buys” the data analysis kit and puts it in your kitchen).</p>
+<hr>
+</section>
+<section id="importing-aliases-nicknames" class="level3">
+<h3 class="anchored" data-anchor-id="importing-aliases-nicknames">Importing &amp; Aliases: “Nicknames”</h3>
+<p>When you bring a module into your code, you use the <code>import</code> command. Sometimes, module names are long and annoying to type, so we give them <strong>aliases</strong> (nicknames).</p>
+<p><strong>Think of it like this:</strong> Your friend’s name might be <em>Christopher</em>, but in the kitchen, you just yell <strong>“Chris!”</strong> to get his attention. It’s faster.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instead of typing this every time:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(statistics.mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We use an alias (a nickname):</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics <span class="im">as</span> stats</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stats.mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="co"># Much faster for a busy developer!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -911,121 +795,121 @@ Ghana</code></pre>
 <section id="building-the-studentregistration-class" class="level2">
 <h2 class="anchored" data-anchor-id="building-the-studentregistration-class">Building the StudentRegistration Class</h2>
 <p>Fill in the missing parts marked with <code>...</code>:</p>
-<div id="568e0a30" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StudentRegistration:</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === ATTRIBUTES (Properties/Data) ===</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, first_name, last_name, date_of_birth, current_class):</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the student's first name</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.first_name <span class="op">=</span> ...</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the student's last name</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.last_name <span class="op">=</span> ...</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the birth date (format: "YYYY-MM-DD")</span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.date_of_birth <span class="op">=</span> ...</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the current grade level</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.current_class <span class="op">=</span> ...</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Initialize an empty list for grades</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grades <span class="op">=</span> ...</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set enrollment status to False</span></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> ...</span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === METHODS (Actions/Functions) ===</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate student's current age</span></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_age(<span class="va">self</span>):</span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate years difference</span></span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>        calculate_years <span class="op">=</span> <span class="kw">lambda</span> birth_year: datetime.now().year <span class="op">-</span> birth_year</span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Extract birth year from date_of_birth string</span></span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Hint: date_of_birth looks like "2010-05-15"</span></span>
-<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Split by "-" and get the first part</span></span>
-<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>        birth_year <span class="op">=</span> <span class="bu">int</span>(<span class="va">self</span>.date_of_birth.split(<span class="st">"-"</span>)[...])</span>
-<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Use the lambda to calculate age</span></span>
-<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> calculate_years(...)</span>
-<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> age</span>
-<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Enroll the student</span></span>
-<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> enroll(<span class="va">self</span>):</span>
-<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set is_enrolled to True</span></span>
-<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> ...</span>
-<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span><span class="ss"> enrolled in Class </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Add a grade (with validation)</span></span>
-<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_grade(<span class="va">self</span>, grade):</span>
-<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># </span><span class="al">TODO</span><span class="co">: Check if grade is between 0 and 100</span></span>
-<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If not, raise a ValueError</span></span>
-<span id="cb38-53"><a href="#cb38-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> grade <span class="op">&lt;</span> ... <span class="kw">or</span> grade <span class="op">&gt;</span> ...:</span>
-<span id="cb38-54"><a href="#cb38-54" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"Grade must be between 0 and 100"</span>)</span>
-<span id="cb38-55"><a href="#cb38-55" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb38-56"><a href="#cb38-56" aria-hidden="true" tabindex="-1"></a>            <span class="co"># </span><span class="al">TODO</span><span class="co">: Add the grade to self.grades</span></span>
-<span id="cb38-57"><a href="#cb38-57" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.grades.append(...)</span>
-<span id="cb38-58"><a href="#cb38-58" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb38-59"><a href="#cb38-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Grade </span><span class="sc">{</span>grade<span class="sc">}</span><span class="ss"> added for </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb38-60"><a href="#cb38-60" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb38-61"><a href="#cb38-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
-<span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a>            <span class="co"># </span><span class="al">TODO</span><span class="co">: Return error message</span></span>
-<span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb38-64"><a href="#cb38-64" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-65"><a href="#cb38-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate average grade</span></span>
-<span id="cb38-66"><a href="#cb38-66" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_average(<span class="va">self</span>):</span>
-<span id="cb38-67"><a href="#cb38-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Check if there are no grades yet</span></span>
-<span id="cb38-68"><a href="#cb38-68" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.grades) <span class="op">==</span> ...:</span>
-<span id="cb38-69"><a href="#cb38-69" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"No grades recorded yet"</span></span>
-<span id="cb38-70"><a href="#cb38-70" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-71"><a href="#cb38-71" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate average</span></span>
-<span id="cb38-72"><a href="#cb38-72" aria-hidden="true" tabindex="-1"></a>        calculate_avg <span class="op">=</span> <span class="kw">lambda</span> grades: <span class="bu">sum</span>(grades) <span class="op">/</span> <span class="bu">len</span>(grades)</span>
-<span id="cb38-73"><a href="#cb38-73" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-74"><a href="#cb38-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Use the lambda to calculate average</span></span>
-<span id="cb38-75"><a href="#cb38-75" aria-hidden="true" tabindex="-1"></a>        average <span class="op">=</span> calculate_avg(...)</span>
-<span id="cb38-76"><a href="#cb38-76" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-77"><a href="#cb38-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">round</span>(average, <span class="dv">2</span>)</span>
-<span id="cb38-78"><a href="#cb38-78" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-79"><a href="#cb38-79" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Get student's full information</span></span>
-<span id="cb38-80"><a href="#cb38-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_info(<span class="va">self</span>):</span>
-<span id="cb38-81"><a href="#cb38-81" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> <span class="va">self</span>.calculate_age()</span>
-<span id="cb38-82"><a href="#cb38-82" aria-hidden="true" tabindex="-1"></a>        avg <span class="op">=</span> <span class="va">self</span>.get_average()</span>
-<span id="cb38-83"><a href="#cb38-83" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">"Enrolled"</span> <span class="cf">if</span> <span class="va">self</span>.is_enrolled <span class="cf">else</span> <span class="st">"Not Enrolled"</span></span>
-<span id="cb38-84"><a href="#cb38-84" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-85"><a href="#cb38-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"""</span></span>
-<span id="cb38-86"><a href="#cb38-86" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
-<span id="cb38-87"><a href="#cb38-87" aria-hidden="true" tabindex="-1"></a><span class="ss">Student: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span></span>
-<span id="cb38-88"><a href="#cb38-88" aria-hidden="true" tabindex="-1"></a><span class="ss">Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old</span></span>
-<span id="cb38-89"><a href="#cb38-89" aria-hidden="true" tabindex="-1"></a><span class="ss">Class: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span></span>
-<span id="cb38-90"><a href="#cb38-90" aria-hidden="true" tabindex="-1"></a><span class="ss">Status: </span><span class="sc">{</span>status<span class="sc">}</span></span>
-<span id="cb38-91"><a href="#cb38-91" aria-hidden="true" tabindex="-1"></a><span class="ss">Average Grade: </span><span class="sc">{</span>avg<span class="sc">}</span></span>
-<span id="cb38-92"><a href="#cb38-92" aria-hidden="true" tabindex="-1"></a><span class="ss">Total Grades: </span><span class="sc">{</span><span class="bu">len</span>(<span class="va">self</span>.grades)<span class="sc">}</span></span>
-<span id="cb38-93"><a href="#cb38-93" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
-<span id="cb38-94"><a href="#cb38-94" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
-<span id="cb38-95"><a href="#cb38-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-96"><a href="#cb38-96" aria-hidden="true" tabindex="-1"></a><span class="co"># === </span><span class="al">TEST</span><span class="co"> YOUR CLASS ===</span></span>
-<span id="cb38-97"><a href="#cb38-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-98"><a href="#cb38-98" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Create a student instance</span></span>
-<span id="cb38-99"><a href="#cb38-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Use your own name and make up a birth date</span></span>
-<span id="cb38-100"><a href="#cb38-100" aria-hidden="true" tabindex="-1"></a>student1 <span class="op">=</span> StudentRegistration(..., ..., <span class="st">"2010-05-15"</span>, <span class="st">"Grade 8"</span>)</span>
-<span id="cb38-101"><a href="#cb38-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-102"><a href="#cb38-102" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Enroll the student</span></span>
-<span id="cb38-103"><a href="#cb38-103" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.enroll())</span>
-<span id="cb38-104"><a href="#cb38-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-105"><a href="#cb38-105" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Add some grades (try valid and invalid ones)</span></span>
-<span id="cb38-106"><a href="#cb38-106" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">85</span>))</span>
-<span id="cb38-107"><a href="#cb38-107" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">92</span>))</span>
-<span id="cb38-108"><a href="#cb38-108" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">150</span>))  <span class="co"># Should show error</span></span>
-<span id="cb38-109"><a href="#cb38-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-110"><a href="#cb38-110" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Display student info</span></span>
-<span id="cb38-111"><a href="#cb38-111" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.get_info())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0a996a75" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StudentRegistration:</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === ATTRIBUTES (Properties/Data) ===</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, first_name, last_name, date_of_birth, current_class):</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the student's first name</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.first_name <span class="op">=</span> ...</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the student's last name</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.last_name <span class="op">=</span> ...</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the birth date (format: "YYYY-MM-DD")</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.date_of_birth <span class="op">=</span> ...</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set the current grade level</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.current_class <span class="op">=</span> ...</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Initialize an empty list for grades</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grades <span class="op">=</span> ...</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set enrollment status to False</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> ...</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === METHODS (Actions/Functions) ===</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate student's current age</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_age(<span class="va">self</span>):</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate years difference</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        calculate_years <span class="op">=</span> <span class="kw">lambda</span> birth_year: datetime.now().year <span class="op">-</span> birth_year</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Extract birth year from date_of_birth string</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Hint: date_of_birth looks like "2010-05-15"</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Split by "-" and get the first part</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>        birth_year <span class="op">=</span> <span class="bu">int</span>(<span class="va">self</span>.date_of_birth.split(<span class="st">"-"</span>)[...])</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Use the lambda to calculate age</span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> calculate_years(...)</span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> age</span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Enroll the student</span></span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> enroll(<span class="va">self</span>):</span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Set is_enrolled to True</span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> ...</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span><span class="ss"> enrolled in Class </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Add a grade (with validation)</span></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_grade(<span class="va">self</span>, grade):</span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># </span><span class="al">TODO</span><span class="co">: Check if grade is between 0 and 100</span></span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a>            <span class="co"># If not, raise a ValueError</span></span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> grade <span class="op">&lt;</span> ... <span class="kw">or</span> grade <span class="op">&gt;</span> ...:</span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"Grade must be between 0 and 100"</span>)</span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a>            <span class="co"># </span><span class="al">TODO</span><span class="co">: Add the grade to self.grades</span></span>
+<span id="cb25-57"><a href="#cb25-57" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.grades.append(...)</span>
+<span id="cb25-58"><a href="#cb25-58" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb25-59"><a href="#cb25-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Grade </span><span class="sc">{</span>grade<span class="sc">}</span><span class="ss"> added for </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb25-60"><a href="#cb25-60" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb25-61"><a href="#cb25-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb25-62"><a href="#cb25-62" aria-hidden="true" tabindex="-1"></a>            <span class="co"># </span><span class="al">TODO</span><span class="co">: Return error message</span></span>
+<span id="cb25-63"><a href="#cb25-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb25-64"><a href="#cb25-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-65"><a href="#cb25-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate average grade</span></span>
+<span id="cb25-66"><a href="#cb25-66" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_average(<span class="va">self</span>):</span>
+<span id="cb25-67"><a href="#cb25-67" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Check if there are no grades yet</span></span>
+<span id="cb25-68"><a href="#cb25-68" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.grades) <span class="op">==</span> ...:</span>
+<span id="cb25-69"><a href="#cb25-69" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"No grades recorded yet"</span></span>
+<span id="cb25-70"><a href="#cb25-70" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-71"><a href="#cb25-71" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate average</span></span>
+<span id="cb25-72"><a href="#cb25-72" aria-hidden="true" tabindex="-1"></a>        calculate_avg <span class="op">=</span> <span class="kw">lambda</span> grades: <span class="bu">sum</span>(grades) <span class="op">/</span> <span class="bu">len</span>(grades)</span>
+<span id="cb25-73"><a href="#cb25-73" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-74"><a href="#cb25-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span><span class="al">TODO</span><span class="co">: Use the lambda to calculate average</span></span>
+<span id="cb25-75"><a href="#cb25-75" aria-hidden="true" tabindex="-1"></a>        average <span class="op">=</span> calculate_avg(...)</span>
+<span id="cb25-76"><a href="#cb25-76" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-77"><a href="#cb25-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">round</span>(average, <span class="dv">2</span>)</span>
+<span id="cb25-78"><a href="#cb25-78" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-79"><a href="#cb25-79" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Get student's full information</span></span>
+<span id="cb25-80"><a href="#cb25-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_info(<span class="va">self</span>):</span>
+<span id="cb25-81"><a href="#cb25-81" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> <span class="va">self</span>.calculate_age()</span>
+<span id="cb25-82"><a href="#cb25-82" aria-hidden="true" tabindex="-1"></a>        avg <span class="op">=</span> <span class="va">self</span>.get_average()</span>
+<span id="cb25-83"><a href="#cb25-83" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">"Enrolled"</span> <span class="cf">if</span> <span class="va">self</span>.is_enrolled <span class="cf">else</span> <span class="st">"Not Enrolled"</span></span>
+<span id="cb25-84"><a href="#cb25-84" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-85"><a href="#cb25-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"""</span></span>
+<span id="cb25-86"><a href="#cb25-86" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
+<span id="cb25-87"><a href="#cb25-87" aria-hidden="true" tabindex="-1"></a><span class="ss">Student: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span></span>
+<span id="cb25-88"><a href="#cb25-88" aria-hidden="true" tabindex="-1"></a><span class="ss">Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old</span></span>
+<span id="cb25-89"><a href="#cb25-89" aria-hidden="true" tabindex="-1"></a><span class="ss">Class: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span></span>
+<span id="cb25-90"><a href="#cb25-90" aria-hidden="true" tabindex="-1"></a><span class="ss">Status: </span><span class="sc">{</span>status<span class="sc">}</span></span>
+<span id="cb25-91"><a href="#cb25-91" aria-hidden="true" tabindex="-1"></a><span class="ss">Average Grade: </span><span class="sc">{</span>avg<span class="sc">}</span></span>
+<span id="cb25-92"><a href="#cb25-92" aria-hidden="true" tabindex="-1"></a><span class="ss">Total Grades: </span><span class="sc">{</span><span class="bu">len</span>(<span class="va">self</span>.grades)<span class="sc">}</span></span>
+<span id="cb25-93"><a href="#cb25-93" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
+<span id="cb25-94"><a href="#cb25-94" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
+<span id="cb25-95"><a href="#cb25-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-96"><a href="#cb25-96" aria-hidden="true" tabindex="-1"></a><span class="co"># === </span><span class="al">TEST</span><span class="co"> YOUR CLASS ===</span></span>
+<span id="cb25-97"><a href="#cb25-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-98"><a href="#cb25-98" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Create a student instance</span></span>
+<span id="cb25-99"><a href="#cb25-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Use your own name and make up a birth date</span></span>
+<span id="cb25-100"><a href="#cb25-100" aria-hidden="true" tabindex="-1"></a>student1 <span class="op">=</span> StudentRegistration(..., ..., <span class="st">"2010-05-15"</span>, <span class="st">"Grade 8"</span>)</span>
+<span id="cb25-101"><a href="#cb25-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-102"><a href="#cb25-102" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Enroll the student</span></span>
+<span id="cb25-103"><a href="#cb25-103" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.enroll())</span>
+<span id="cb25-104"><a href="#cb25-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-105"><a href="#cb25-105" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Add some grades (try valid and invalid ones)</span></span>
+<span id="cb25-106"><a href="#cb25-106" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">85</span>))</span>
+<span id="cb25-107"><a href="#cb25-107" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">92</span>))</span>
+<span id="cb25-108"><a href="#cb25-108" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">150</span>))  <span class="co"># Should show error</span></span>
+<span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Display student info</span></span>
+<span id="cb25-111"><a href="#cb25-111" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.get_info())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1034,107 +918,107 @@ Ghana</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="efe8a5f3" class="cell" data-execution_count="16">
+<div id="68e116c4" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show Solution</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StudentRegistration:</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === ATTRIBUTES (Properties/Data) ===</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, first_name, last_name, date_of_birth, current_class):</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.first_name <span class="op">=</span> first_name</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.last_name <span class="op">=</span> last_name</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.date_of_birth <span class="op">=</span> date_of_birth  <span class="co"># Format: "YYYY-MM-DD"</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.current_class <span class="op">=</span> current_class</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grades <span class="op">=</span> []</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === METHODS (Actions/Functions) ===</span></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate student's current age</span></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_age(<span class="va">self</span>):</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate years difference</span></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>        calculate_years <span class="op">=</span> <span class="kw">lambda</span> birth_year: datetime.now().year <span class="op">-</span> birth_year</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract birth year (e.g., "2010" from "2010-05-15")</span></span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>        birth_year <span class="op">=</span> <span class="bu">int</span>(<span class="va">self</span>.date_of_birth.split(<span class="st">"-"</span>)[<span class="dv">0</span>])</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use the lambda to calculate age</span></span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> calculate_years(birth_year)</span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> age</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Enroll the student</span></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> enroll(<span class="va">self</span>):</span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span><span class="ss"> enrolled in Class </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Add a grade (with validation)</span></span>
-<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_grade(<span class="va">self</span>, grade):</span>
-<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Check if grade is between 0 and 100</span></span>
-<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> grade <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> grade <span class="op">&gt;</span> <span class="dv">100</span>:</span>
-<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"Grade must be between 0 and 100"</span>)</span>
-<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Add the grade to self.grades</span></span>
-<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.grades.append(grade)</span>
-<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Grade </span><span class="sc">{</span>grade<span class="sc">}</span><span class="ss"> added for </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
-<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Return error message</span></span>
-<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate average grade</span></span>
-<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_average(<span class="va">self</span>):</span>
-<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check if there are no grades yet</span></span>
-<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.grades) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"No grades recorded yet"</span></span>
-<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate average</span></span>
-<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a>        calculate_avg <span class="op">=</span> <span class="kw">lambda</span> grades: <span class="bu">sum</span>(grades) <span class="op">/</span> <span class="bu">len</span>(grades)</span>
-<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use the lambda to calculate average</span></span>
-<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>        average <span class="op">=</span> calculate_avg(<span class="va">self</span>.grades)</span>
-<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">round</span>(average, <span class="dv">2</span>)</span>
-<span id="cb39-62"><a href="#cb39-62" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-63"><a href="#cb39-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Get student's full information</span></span>
-<span id="cb39-64"><a href="#cb39-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_info(<span class="va">self</span>):</span>
-<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> <span class="va">self</span>.calculate_age()</span>
-<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a>        avg <span class="op">=</span> <span class="va">self</span>.get_average()</span>
-<span id="cb39-67"><a href="#cb39-67" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">"Enrolled"</span> <span class="cf">if</span> <span class="va">self</span>.is_enrolled <span class="cf">else</span> <span class="st">"Not Enrolled"</span></span>
-<span id="cb39-68"><a href="#cb39-68" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb39-69"><a href="#cb39-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"""</span></span>
-<span id="cb39-70"><a href="#cb39-70" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
-<span id="cb39-71"><a href="#cb39-71" aria-hidden="true" tabindex="-1"></a><span class="ss">Student: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span></span>
-<span id="cb39-72"><a href="#cb39-72" aria-hidden="true" tabindex="-1"></a><span class="ss">Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old</span></span>
-<span id="cb39-73"><a href="#cb39-73" aria-hidden="true" tabindex="-1"></a><span class="ss">Class: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span></span>
-<span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a><span class="ss">Status: </span><span class="sc">{</span>status<span class="sc">}</span></span>
-<span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a><span class="ss">Average Grade: </span><span class="sc">{</span>avg<span class="sc">}</span></span>
-<span id="cb39-76"><a href="#cb39-76" aria-hidden="true" tabindex="-1"></a><span class="ss">Total Grades: </span><span class="sc">{</span><span class="bu">len</span>(<span class="va">self</span>.grades)<span class="sc">}</span></span>
-<span id="cb39-77"><a href="#cb39-77" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
-<span id="cb39-78"><a href="#cb39-78" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
-<span id="cb39-79"><a href="#cb39-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-80"><a href="#cb39-80" aria-hidden="true" tabindex="-1"></a><span class="co"># === </span><span class="al">TEST</span><span class="co"> THE CLASS ===</span></span>
-<span id="cb39-81"><a href="#cb39-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-82"><a href="#cb39-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a student instance</span></span>
-<span id="cb39-83"><a href="#cb39-83" aria-hidden="true" tabindex="-1"></a>student1 <span class="op">=</span> StudentRegistration(<span class="st">"Ama"</span>, <span class="st">"Osei"</span>, <span class="st">"2010-05-15"</span>, <span class="st">"Grade 8"</span>)</span>
-<span id="cb39-84"><a href="#cb39-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-85"><a href="#cb39-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Enroll the student</span></span>
-<span id="cb39-86"><a href="#cb39-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.enroll())</span>
-<span id="cb39-87"><a href="#cb39-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-88"><a href="#cb39-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Add some grades (try valid and invalid ones)</span></span>
-<span id="cb39-89"><a href="#cb39-89" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">85</span>))</span>
-<span id="cb39-90"><a href="#cb39-90" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">92</span>))</span>
-<span id="cb39-91"><a href="#cb39-91" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">78</span>))</span>
-<span id="cb39-92"><a href="#cb39-92" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">150</span>))  <span class="co"># Should show error - grade too high</span></span>
-<span id="cb39-93"><a href="#cb39-93" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="op">-</span><span class="dv">10</span>))  <span class="co"># Should show error - grade negative</span></span>
-<span id="cb39-94"><a href="#cb39-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-95"><a href="#cb39-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Display student info</span></span>
-<span id="cb39-96"><a href="#cb39-96" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.get_info())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StudentRegistration:</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === ATTRIBUTES (Properties/Data) ===</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, first_name, last_name, date_of_birth, current_class):</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.first_name <span class="op">=</span> first_name</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.last_name <span class="op">=</span> last_name</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.date_of_birth <span class="op">=</span> date_of_birth  <span class="co"># Format: "YYYY-MM-DD"</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.current_class <span class="op">=</span> current_class</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grades <span class="op">=</span> []</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === METHODS (Actions/Functions) ===</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate student's current age</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_age(<span class="va">self</span>):</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate years difference</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>        calculate_years <span class="op">=</span> <span class="kw">lambda</span> birth_year: datetime.now().year <span class="op">-</span> birth_year</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract birth year (e.g., "2010" from "2010-05-15")</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>        birth_year <span class="op">=</span> <span class="bu">int</span>(<span class="va">self</span>.date_of_birth.split(<span class="st">"-"</span>)[<span class="dv">0</span>])</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use the lambda to calculate age</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> calculate_years(birth_year)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> age</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Enroll the student</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> enroll(<span class="va">self</span>):</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.is_enrolled <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span><span class="ss"> enrolled in Class </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Add a grade (with validation)</span></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_grade(<span class="va">self</span>, grade):</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Check if grade is between 0 and 100</span></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> grade <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> grade <span class="op">&gt;</span> <span class="dv">100</span>:</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"Grade must be between 0 and 100"</span>)</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Add the grade to self.grades</span></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.grades.append(grade)</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Grade </span><span class="sc">{</span>grade<span class="sc">}</span><span class="ss"> added for </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Return error message</span></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Calculate average grade</span></span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_average(<span class="va">self</span>):</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check if there are no grades yet</span></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.grades) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"No grades recorded yet"</span></span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Lambda to calculate average</span></span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>        calculate_avg <span class="op">=</span> <span class="kw">lambda</span> grades: <span class="bu">sum</span>(grades) <span class="op">/</span> <span class="bu">len</span>(grades)</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use the lambda to calculate average</span></span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>        average <span class="op">=</span> calculate_avg(<span class="va">self</span>.grades)</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">round</span>(average, <span class="dv">2</span>)</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Method: Get student's full information</span></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_info(<span class="va">self</span>):</span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a>        age <span class="op">=</span> <span class="va">self</span>.calculate_age()</span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a>        avg <span class="op">=</span> <span class="va">self</span>.get_average()</span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">"Enrolled"</span> <span class="cf">if</span> <span class="va">self</span>.is_enrolled <span class="cf">else</span> <span class="st">"Not Enrolled"</span></span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"""</span></span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a><span class="ss">Student: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>first_name<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>last_name<span class="sc">}</span></span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a><span class="ss">Age: </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old</span></span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a><span class="ss">Class: </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>current_class<span class="sc">}</span></span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a><span class="ss">Status: </span><span class="sc">{</span>status<span class="sc">}</span></span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a><span class="ss">Average Grade: </span><span class="sc">{</span>avg<span class="sc">}</span></span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a><span class="ss">Total Grades: </span><span class="sc">{</span><span class="bu">len</span>(<span class="va">self</span>.grades)<span class="sc">}</span></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span></span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a><span class="co"># === </span><span class="al">TEST</span><span class="co"> THE CLASS ===</span></span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a student instance</span></span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a>student1 <span class="op">=</span> StudentRegistration(<span class="st">"Ama"</span>, <span class="st">"Osei"</span>, <span class="st">"2010-05-15"</span>, <span class="st">"Grade 8"</span>)</span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Enroll the student</span></span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.enroll())</span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Add some grades (try valid and invalid ones)</span></span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">85</span>))</span>
+<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">92</span>))</span>
+<span id="cb26-91"><a href="#cb26-91" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">78</span>))</span>
+<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="dv">150</span>))  <span class="co"># Should show error - grade too high</span></span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.add_grade(<span class="op">-</span><span class="dv">10</span>))  <span class="co"># Should show error - grade negative</span></span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Display student info</span></span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student1.get_info())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ama Osei enrolled in Class Grade 8
@@ -1206,17 +1090,6 @@ Total Grades: 3
 <li>Organized code with classes and methods</li>
 </ul>
 <hr>
-</section>
-<section id="next-steps" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
-<p>You now have the fundamental Python patterns needed for AI/ML development. In the next module, we’ll apply these concepts to:</p>
-<ul>
-<li>Working with NumPy arrays</li>
-<li>Processing data with Pandas</li>
-<li>Building machine learning pipelines</li>
-<li>Creating neural networks with PyTorch</li>
-</ul>
-<p><strong>Practice suggestion:</strong> Try modifying the Student Registration System to add: - A method to remove grades - A method to calculate grade distribution (how many A’s, B’s, etc.) - A way to compare two students’ averages</p>
 <p>Keep coding! 🚀</p>
 </section>
 </section>
