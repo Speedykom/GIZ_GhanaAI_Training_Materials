@@ -427,6 +427,22 @@ macOS users can install uv using a simple installation script.
     ``` bash
     uv --version
     ```
+## Launch Jupyter Lab
+You can launch Jupyter as a standalone tool or specifically tied to your project environment.
+
+### Standalone (Global):
+
+```{Bash}
+
+uvx jupyter lab
+```
+
+### Project-Integrated (Recommended for Labs):
+
+```{Bash}
+
+uv run --with jupyter jupyter lab
+```
 
 ------------------------------------------------------------------------
 

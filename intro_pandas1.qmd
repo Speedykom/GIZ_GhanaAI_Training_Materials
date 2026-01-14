@@ -1,0 +1,655 @@
+---
+title: "Notebook 1: Foundations & The Chaining Philosophy"
+subtitle: "Ghana AI Talent Accelerator - Practical Data Wrangling"
+author: "Ghana AI Accelerator"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+jupyter: python3
+---
+
+## 1. Introduction: From MERN to Machine Learning
+
+### Why This Matters for Your Career
+
+As experienced full-stack MERN developers, you've built responsive applications handling real-time data. Now, you're transitioning to AI engineering—a field where **data processing speed and accuracy** directly impact model performance and business outcomes.
+
+Consider this: A typical e-commerce recommendation engine processes millions of transactions daily. Using JavaScript's `Array.map()` would take hours; Pandas completes the same task in seconds.
+
+### The Three Pillars of Pandas Advantage
+
+**1. Vectorization vs. Iteration**
+
+JavaScript approach (slow):
+```javascript
+// Processing 1 million prices
+let total = 0;
+prices.forEach(price => total += price); // Visits each element sequentially
+```
+
+Pandas approach (100x faster):
+```python
+# Same operation, vectorized
+total = df['price'].sum()  # Entire column processed in parallel at CPU level
+```
+
+**2. Memory Efficiency**
+
+Pandas uses optimized data types (`int8`, `float32`, `category`) that can reduce memory usage by 90% compared to Python lists. This means processing datasets that would crash a Node.js application on your 8GB laptop.
+
+**3. Reproducibility**
+
+Unlike Excel or manual data manipulation, every Pandas operation is scripted. Your entire data pipeline—from raw input to model-ready output—is auditable, version-controlled, and production-ready.
+
+### Setting Up Your Environment
+
+```{python}
+import pandas as pd
+import numpy as np
+
+# Verify versions (critical for reproducibility)
+print(f"Pandas version: {pd.__version__}")
+print(f"NumPy version: {np.__version__}")
+
+# Recommended display settings for cleaner output
+pd.set_option('display.max_columns', None)
+pd.set_option('display.precision', 2)
+```
+
+---
+
+## 2. Core Data Structures: The Building Blocks
+
+### Understanding Series: The Column
+
+A **Series** is a one-dimensional labeled array. Think of it as a single column from a database table, but with powerful computational capabilities.
+
+```{python}
+# Creating a Series: Ghana Mobile Money Transaction Volumes
+momo_volumes = pd.Series(
+    data=[1500000, 2300000, 1800000, 2100000],
+    index=['MTN', 'Vodafone', 'AirtelTigo', 'Telecel'],
+    name='monthly_transactions'
+)
+
+print(momo_volumes)
+print(f"\nData Type: {momo_volumes.dtype}")
+print(f"Total Transactions: {momo_volumes.sum():,}")
+```
+
+**Key Series Attributes:**
+
+- `.values` → The actual data as a NumPy array
+- `.index` → Row labels
+- `.name` → Column name
+- `.dtype` → Data type
+
+### Understanding DataFrames: The Table
+
+A **DataFrame** is a collection of Series objects sharing a common index. It's your primary tool for AI data preparation.
+
+```{python}
+# Real-world example: Ghana Tech Startup Dataset
+startup_data = {
+    "company": ["Hubtel", "Zeepay", "Jetstream", "Farmerline"],
+    "sector": ["FinTech", "FinTech", "E-commerce", "AgriTech"],
+    "employees": [250, 180, 120, 95],
+    "funding_usd_millions": [12.5, 8.0, 5.2, 3.8],
+    "founded_year": [2005, 2016, 2018, 2013]
+}
+
+df_startups = pd.DataFrame(startup_data)
+df_startups
+```
+
+---
+
+## 3. Attributes vs. Methods: The Grammar of Pandas
+
+Understanding this distinction is fundamental to writing professional Pandas code.
+
+### Attributes: Describing State (No Parentheses)
+
+Attributes are **properties** that describe the DataFrame's current state.
+
+```{python}
+# Essential attributes every data engineer uses
+print("📊 DataFrame Shape:", df_startups.shape)  # (rows, columns)
+print("\n📋 Column Names:", df_startups.columns.to_list())
+print("\n🔢 Data Types:\n", df_startups.dtypes)
+print("\n📍 Index:", df_startups.index.to_list())
+print("\n💾 Memory Usage:\n", df_startups.memory_usage(deep=True))
+```
+
+**Pro Tip:** Always check `.dtypes` early. The `object` dtype for numbers usually indicates data quality issues (like strings in numeric columns).
+
+### Methods: Taking Action (With Parentheses)
+
+Methods are **functions** that perform operations on the DataFrame.
+
+```{python}
+# Inspection methods
+print("First 2 rows:")
+print(df_startups.head(2))
+print("\n" + "="*50 + "\n")
+
+print("Statistical summary:")
+print(df_startups.describe())
+print("\n" + "="*50 + "\n")
+
+print("Structure overview:")
+df_startups.info()
+```
+
+```{python}
+# Transformation methods (covered in detail below)
+print("Sorted by funding:")
+df_startups.sort_values('funding_usd_millions', ascending=False)
+```
+
+```{python}
+print("With age calculation:")
+df_startups.assign(age=2025 - df_startups['founded_year'])
+```
+
+---
+
+## 4. Method Chaining: The Professional Standard
+
+This is the most important concept in this notebook. Method chaining transforms chaotic code into elegant, readable pipelines.
+
+### ❌ The Anti-Pattern: Intermediate Variables
+
+```{python}
+# DON'T DO THIS - The "Variable Soup" approach
+# (This is demonstration code - we're showing what NOT to do)
+
+# Create sample data
+sample_df = pd.DataFrame({
+    'amount': [100, -50, 200, 300, None],
+    'date': ['2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05']
+})
+
+df1 = sample_df.copy()
+df2 = df1.dropna()
+df3 = df2[df2['amount'] > 0]
+df4 = df3.assign(vat=df3['amount'] * 0.125)
+df5 = df4.sort_values('amount', ascending=False)
+
+print("Result using intermediate variables:")
+print(df5)
+
+# Problems:
+# - 5 variables polluting namespace
+# - Memory inefficient (5 copies of data)
+# - Hard to debug (where did the transformation go wrong?)
+# - Jupyter cell order dependency (run cell 5 before 3? Broken!)
+```
+
+### ✅ The Professional Pattern: Method Chaining
+
+```{python}
+# DO THIS - The "Pipeline" approach
+sample_df = pd.DataFrame({
+    'amount': [100, -50, 200, 300, None],
+    'date': ['2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05']
+})
+
+processed_transactions = (
+    sample_df
+    .dropna(subset=['amount'])
+    .query('amount > 0')
+    .assign(
+        vat=lambda df: df['amount'] * 0.125,
+        total=lambda df: df['amount'] + df['vat']
+    )
+    .sort_values('amount', ascending=False)
+    .reset_index(drop=True)
+)
+
+print("Result using method chaining:")
+processed_transactions
+
+# Benefits:
+# ✓ One variable to manage
+# ✓ Clear data flow (top to bottom)
+# ✓ Memory efficient
+# ✓ Easy to debug (comment out one line to test)
+```
+
+**The Golden Rule:** If you're creating a variable just to immediately modify it in the next line, use a chain instead.
+
+---
+
+## 5. Essential Chain Operations
+
+### 5.1 Column Creation with `.assign()`
+
+**Never** use `df['new_col'] = value` inside a chain. Always use `.assign()`.
+
+```{python}
+# Example: Processing Ghana Census Data
+census_data = pd.DataFrame({
+    "district": ["Accra Metro", "Kumasi Metro", "Tamale Metro"],
+    "population": [2500000, 2000000, 600000],
+    "land_area_km2": [225, 254, 750]
+})
+
+enriched_census = (
+    census_data
+    .assign(
+        # Simple calculation
+        density=lambda df: df['population'] / df['land_area_km2'],
+        
+        # Conditional logic using numpy
+        classification=lambda df: np.where(
+            df['density'] > 5000,
+            'High Density',
+            'Medium Density'
+        ),
+        
+        # Multiple conditions with np.select
+        urban_tier=lambda df: np.select(
+            [df['population'] > 2000000, df['population'] > 1000000],
+            ['Tier 1', 'Tier 2'],
+            default='Tier 3'
+        )
+    )
+)
+
+enriched_census
+```
+
+**Why `lambda df:`?** It allows you to reference columns created earlier in the same `.assign()` call.
+
+### 5.2 Data Cleaning with `.dropna()` and `.fillna()`
+
+AI models cannot process `NaN` values. You must handle them early in your pipeline.
+
+```{python}
+# Realistic example: Student enrollment data with missing values
+student_data = pd.DataFrame({
+    "student_id": [1, 2, 3, 4, 5],
+    "age": [22, np.nan, 25, 23, np.nan],
+    "gpa": [3.5, 3.8, np.nan, 3.2, 3.9],
+    "scholarship": [True, False, True, np.nan, False]
+})
+
+print("Original data with missing values:")
+print(student_data)
+print("\n" + "="*60 + "\n")
+
+# Strategy 1: Drop rows with ANY missing value
+complete_cases = student_data.dropna()
+print("Strategy 1 - Complete cases only:")
+print(complete_cases)
+print("\n" + "="*60 + "\n")
+
+# Strategy 2: Drop rows missing CRITICAL columns only
+critical_complete = student_data.dropna(subset=['student_id', 'gpa'])
+print("Strategy 2 - Keep rows with student_id and gpa:")
+print(critical_complete)
+print("\n" + "="*60 + "\n")
+
+# Strategy 3: Impute (fill) missing values
+imputed_data = (
+    student_data
+    .fillna({
+        'age': student_data['age'].median(),  # Median for numeric
+        'scholarship': False  # Default value for boolean
+    })
+)
+print("Strategy 3 - Imputed missing values:")
+imputed_data
+```
+
+**Decision Framework:**
+
+- **Drop** if missing data is < 5% of rows
+- **Impute** if missing data is 5-30% and not random
+- **Investigate** if missing data is > 30%
+
+### 5.3 Combining Data with `pd.concat()`
+
+In production, data arrives in fragments. You must assemble it programmatically.
+
+```{python}
+# Example: Quarterly sales reports from 4 regions
+q1_sales = pd.DataFrame({
+    "product": ["Rice", "Maize"],
+    "revenue_ghs": [50000, 30000],
+    "quarter": ["Q1", "Q1"]
+})
+
+q2_sales = pd.DataFrame({
+    "product": ["Rice", "Maize"],
+    "revenue_ghs": [55000, 32000],
+    "quarter": ["Q2", "Q2"]
+})
+
+# Combine and process in one chain
+annual_analysis = (
+    pd.concat([q1_sales, q2_sales], ignore_index=True)
+    .assign(
+        revenue_usd=lambda df: df['revenue_ghs'] * 0.08,
+        growth=lambda df: df.groupby('product')['revenue_ghs'].pct_change() * 100
+    )
+    .sort_values(['product', 'quarter'])
+)
+
+annual_analysis
+```
+
+**Critical Parameter:** `ignore_index=True` creates a new sequential index (0, 1, 2...). Without it, you'd have duplicate indices (0, 1, 0, 1...).
+
+---
+
+## 6. Advanced Chaining Patterns
+
+### 6.1 Filtering with `.query()`
+
+More readable than boolean indexing inside chains.
+
+```{python}
+# Ghana E-commerce transaction data
+transactions = pd.DataFrame({
+    "order_id": range(1, 6),
+    "amount_ghs": [150, 2500, 450, 3200, 890],
+    "payment_method": ["MoMo", "Card", "MoMo", "Card", "Cash"],
+    "region": ["Accra", "Kumasi", "Accra", "Takoradi", "Tamale"]
+})
+
+high_value_card = (
+    transactions
+    .query('amount_ghs > 1000 and payment_method == "Card"')
+    .assign(
+        commission=lambda df: df['amount_ghs'] * 0.025
+    )
+)
+
+high_value_card
+```
+
+### 6.2 Grouping and Aggregation in Chains
+
+```{python}
+# Sales by region with chained aggregation
+regional_summary = (
+    transactions
+    .groupby('region', as_index=False)
+    .agg(
+        total_sales=('amount_ghs', 'sum'),
+        avg_order_value=('amount_ghs', 'mean'),
+        num_orders=('order_id', 'count')
+    )
+    .assign(
+        sales_rank=lambda df: df['total_sales'].rank(ascending=False)
+    )
+    .sort_values('total_sales', ascending=False)
+)
+
+regional_summary
+```
+
+---
+
+## 7. Real-World Complete Pipeline
+
+This example combines everything: multiple files, cleaning, feature engineering, and aggregation.
+
+```{python}
+# Simulating three months of customer data
+jan_customers = pd.DataFrame({
+    "customer_id": [101, 102, 103],
+    "orders": [5, np.nan, 8],
+    "total_spent_ghs": [1200, 300, 1800],
+    "month": "Jan"
+})
+
+feb_customers = pd.DataFrame({
+    "customer_id": [101, 102, 104],
+    "orders": [3, 2, 12],
+    "total_spent_ghs": [800, np.nan, 2200],
+    "month": "Feb"
+})
+
+mar_customers = pd.DataFrame({
+    "customer_id": [103, 104, 105],
+    "orders": [6, 10, 4],
+    "total_spent_ghs": [1500, 2100, 950],
+    "month": "Mar"
+})
+
+# Production-grade pipeline
+customer_insights = (
+    # 1. Assemble data
+    pd.concat([jan_customers, feb_customers, mar_customers], ignore_index=True)
+    
+    # 2. Handle missing values
+    .fillna({'orders': 0, 'total_spent_ghs': 0})
+    
+    # 3. Feature engineering
+    .assign(
+        avg_order_value=lambda df: df['total_spent_ghs'] / df['orders'].replace(0, 1),
+        customer_segment=lambda df: pd.cut(
+            df['total_spent_ghs'],
+            bins=[0, 500, 1500, np.inf],
+            labels=['Bronze', 'Silver', 'Gold']
+        )
+    )
+    
+    # 4. Aggregate by customer
+    .groupby('customer_id', as_index=False)
+    .agg(
+        total_orders=('orders', 'sum'),
+        lifetime_value=('total_spent_ghs', 'sum'),
+        months_active=('month', 'nunique'),
+        primary_segment=('customer_segment', lambda x: x.mode()[0] if len(x.mode()) > 0 else 'Bronze')
+    )
+    
+    # 5. Final calculations
+    .assign(
+        monthly_avg_spend=lambda df: df['lifetime_value'] / df['months_active']
+    )
+    
+    # 6. Sort by value
+    .sort_values('lifetime_value', ascending=False)
+    .reset_index(drop=True)
+)
+
+customer_insights
+```
+
+---
+
+## 8. Common Mistakes and How to Avoid Them
+
+### Mistake 1: Forgetting `inplace=False`
+
+```{python}
+# Demonstration of the issue
+demo_df = pd.DataFrame({'col': [1, 2, 3]})
+
+# ❌ BAD: Breaks the chain (returns None)
+result_bad = demo_df.dropna(inplace=True)
+print("Using inplace=True returns:", result_bad)
+print("\n" + "="*60 + "\n")
+
+# ✅ GOOD: Returns new DataFrame, keeps chain alive
+demo_df = pd.DataFrame({'col': [1, 2, 3]})
+result_good = (
+    demo_df
+    .dropna()
+    .sort_values('col')
+)
+print("Using method chaining returns:")
+print(result_good)
+```
+
+### Mistake 2: Not Using `lambda` in `.assign()`
+
+```{python}
+# Demonstration of the correct approach
+demo_df = pd.DataFrame({'old_col': [10, 20, 30]})
+
+# ✅ GOOD: Lambda allows referencing newly created columns
+result = demo_df.assign(
+    new_col_1=lambda x: x['old_col'] * 2,
+    new_col_2=lambda x: x['new_col_1'] / 10  # Can reference new_col_1!
+)
+
+result
+```
+
+### Mistake 3: Chaining Without Parentheses
+
+```{python}
+# Create sample data
+demo_df = pd.DataFrame({'a': [3, 1, 2], 'b': [6, 4, 5]})
+
+# ❌ BAD: Hard to read, prone to errors (but works)
+result_bad = demo_df.dropna().assign(x=lambda d: d['a'] * 2).sort_values('x').reset_index(drop=True)
+print("Without parentheses (hard to read):")
+print(result_bad)
+print("\n" + "="*60 + "\n")
+
+# ✅ GOOD: Each operation on its own line
+result_good = (
+    demo_df
+    .dropna()
+    .assign(x=lambda d: d['a'] * 2)
+    .sort_values('x')
+    .reset_index(drop=True)
+)
+print("With parentheses (easy to read):")
+result_good
+```
+
+---
+
+## 9. Performance Tips for Large Datasets
+
+```{python}
+# Create a sample DataFrame to demonstrate optimization
+sample_large_df = pd.DataFrame({
+    'category': ['A', 'B', 'C', 'A', 'B'] * 1000,
+    'year': [2020, 2021, 2022, 2023, 2024] * 1000,
+    'price': np.random.randint(100, 10000, 5000),
+    'region': ['Accra', 'Kumasi', 'Tamale', 'Takoradi', 'Cape Coast'] * 1000
+})
+
+print("Original memory usage:")
+print(sample_large_df.memory_usage(deep=True))
+print(f"\nTotal: {sample_large_df.memory_usage(deep=True).sum() / 1024:.2f} KB")
+print("\n" + "="*60 + "\n")
+
+# Optimize data types
+optimized_df = sample_large_df.copy()
+optimized_df['category'] = optimized_df['category'].astype('category')
+optimized_df['region'] = optimized_df['region'].astype('category')
+optimized_df['year'] = optimized_df['year'].astype('int16')  # Instead of int64
+
+print("Optimized memory usage:")
+print(optimized_df.memory_usage(deep=True))
+print(f"\nTotal: {optimized_df.memory_usage(deep=True).sum() / 1024:.2f} KB")
+print(f"\nMemory saved: {(1 - optimized_df.memory_usage(deep=True).sum() / sample_large_df.memory_usage(deep=True).sum()) * 100:.1f}%")
+```
+
+```{python}
+# Demonstrate query() performance advantage
+import time
+
+# Using query() - cleaner and faster for large datasets
+start = time.time()
+result_query = optimized_df.query('price > 1000 and region == "Accra"')
+time_query = time.time() - start
+
+# Using boolean indexing - works but less efficient
+start = time.time()
+result_bool = optimized_df[(optimized_df['price'] > 1000) & (optimized_df['region'] == "Accra")]
+time_bool = time.time() - start
+
+print(f"Query method: {time_query*1000:.2f}ms")
+print(f"Boolean indexing: {time_bool*1000:.2f}ms")
+print(f"\nBoth return {len(result_query)} rows")
+```
+
+---
+
+## 10. Summary & Professional Checklist
+
+### Key Takeaways
+
+1. **Attributes vs. Methods**: Attributes describe (no `()`), methods transform (with `()`)
+2. **Method Chaining**: One pipeline, zero intermediate variables
+3. **Lambda Functions**: Enable referencing columns within same `.assign()`
+4. **Data Integrity**: Handle `NaN` values early with `.dropna()` or `.fillna()`
+5. **Concatenation**: Assemble fragmented data with `pd.concat()`
+
+### Code Review Checklist (What European Employers Look For)
+
+- ✅ No intermediate variables between transformations
+- ✅ All operations wrapped in parentheses for readability
+- ✅ Lambda functions used in `.assign()` when referencing new columns
+- ✅ Missing values handled explicitly
+- ✅ Data types verified with `.dtypes` early
+- ✅ Comments explain **why**, not **what**
+
+### The Pandas Mindset
+
+> "Data flows through your code like water through pipes. Method chaining ensures there are no leaks, no detours, and a clear path from raw input to model-ready output."
+
+---
+
+## Next Lesson Preview
+
+**Notebook 2: Data Visualization with Matplotlib & Seaborn**
+
+- The explicit interface pattern
+- Creating publication-quality plots
+- Integrating visualizations into chains
+
+---
+
+## Practice Exercise
+
+Using the provided patterns, create a chain that:
+
+1. Combines three CSV files of mobile money transactions
+2. Removes rows with negative amounts
+3. Calculates a 2.5% merchant commission
+4. Groups by merchant and calculates total commission
+5. Identifies the top 5 merchants by volume
+
+**Hint:** Use `pd.concat()`, `.query()`, `.assign()`, `.groupby()`, and `.nlargest()`
+
+```{python}
+# Practice exercise solution space
+# Try implementing the exercise here!
+
+# Sample data to get you started:
+momo_file1 = pd.DataFrame({
+    'merchant': ['Shop A', 'Shop B', 'Shop C'],
+    'amount': [1000, -50, 1500]
+})
+
+momo_file2 = pd.DataFrame({
+    'merchant': ['Shop A', 'Shop C', 'Shop D'],
+    'amount': [2000, 800, 1200]
+})
+
+momo_file3 = pd.DataFrame({
+    'merchant': ['Shop B', 'Shop D', 'Shop E'],
+    'amount': [1800, 2500, 900]
+})
+
+# Your solution here:
+# merchant_analysis = (
+#     ...
+# )
+```
