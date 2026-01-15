@@ -432,14 +432,14 @@ You can launch Jupyter as a standalone tool or specifically tied to your project
 
 ### Standalone (Global):
 
-```{Bash}
+```Bash
 
 uvx jupyter lab
 ```
 
 ### Project-Integrated (Recommended for Labs):
 
-```{Bash}
+```Bash
 
 uv run --with jupyter jupyter lab
 ```
