@@ -9,7 +9,10 @@ format: html
 
 Before we can build AI applications, we need the right tools. Think of this like setting up a workshop before building furniture—you need quality tools that work reliably together.
 
-In this module, we'll install two essential tools: 1. **uv** (by Astral) - Our Python project manager 2. **VS Code** - Our code editor
+In this module, we'll install two essential tools:
+
+ 1. **uv** (by Astral) - Our Python project manager
+ 2. **VS Code** - Our code editor
 
 Let's understand what these are and why we need them.
 
@@ -77,7 +80,10 @@ Think of it like having separate toolboxes: your woodworking toolbox doesn't mix
 
 **Why This Matters for AI Development:**
 
-AI and machine learning libraries are notorious for version conflicts: - TensorFlow 2.10 might require NumPy 1.23 - PyTorch 2.0 might require NumPy 1.24 - Without virtual environments, you can't work on both projects
+AI and machine learning libraries are notorious for version conflicts: 
+
+- TensorFlow 2.10 might require NumPy 1.23 
+- PyTorch 2.0 might require NumPy 1.24 - Without virtual environments, you can't work on both projects
 
 Virtual environments let you experiment freely without fear of breaking anything.
 
@@ -427,23 +433,6 @@ macOS users can install uv using a simple installation script.
     ``` bash
     uv --version
     ```
-## Launch Jupyter Lab
-You can launch Jupyter as a standalone tool or specifically tied to your project environment.
-
-### Standalone (Global):
-
-```Bash
-
-uvx jupyter lab
-```
-
-### Project-Integrated (Recommended for Labs):
-
-```Bash
-
-uv run --with jupyter jupyter lab
-```
-
 ------------------------------------------------------------------------
 
 ### 🐧 Linux (Ubuntu/Debian) Installation
@@ -790,12 +779,15 @@ Let's create a simple AI project to practice with.
 ``` bash
 mkdir my-first-ai-project
 cd my-first-ai-project
-uv init -p 3.13
+uv init -p 3.12
 ```
 
-Let's break down what we just did: - `mkdir my-first-ai-project` creates a new folder - `cd my-first-ai-project` navigates into that folder - `uv init -p 3.13` initializes a uv project with Python 3.13
+Let's break down what we just did: 
+- `mkdir my-first-ai-project` creates a new folder 
+- `cd my-first-ai-project` navigates into that folder 
+- `uv init -p 3.12` initializes a uv project with Python 3.12
 
-The `-p 3.13` flag tells uv to use Python 3.13 specifically. If you don't have Python 3.13 installed, uv will automatically download and install it for you.
+The `-p 3.12` flag tells uv to use Python 3.12 specifically. If you don't have Python 3.12 installed, uv will automatically download and install it for you.
 
 This creates the following structure:
 
@@ -803,7 +795,7 @@ This creates the following structure:
 my-first-ai-project/
 ├── pyproject.toml       # Project configuration
 ├── README.md            # Project documentation
-├── .python-version      # Specifies Python version (3.13)
+├── .python-version      # Specifies Python version (3.12)
 └── hello.py            # Sample Python file
 ```
 
@@ -841,12 +833,17 @@ This is your project's configuration file. Notice: - **name**: Your project name
 
 ## Step 4: Adding Dependencies (Packages)
 
-Let's add PyTorch to our project, along with Jupyter for interactive development.
+Let's add some essential data science and machine learning libraries to our project, along with Jupyter for interactive development.
 
-**Add PyTorch:**
+::: callout-note
+## Why Not PyTorch Locally?
+Deep learning libraries like **PyTorch** and **TensorFlow** are very large and often require a powerful GPU (Graphics Card) to run efficiently. For this course, we'll use **Google Colab** for our deep learning modules because it provides free access to high-end GPUs. For our local setup, we'll focus on the core libraries used for data analysis and traditional machine learning.
+:::
+
+**Add Data Science libraries:**
 
 ``` bash
-uv add torch torchvision
+uv add pandas scikit-learn matplotlib seaborn
 ```
 
 **Add Jupyter tools for interactive notebooks:**
@@ -865,10 +862,12 @@ name = "my-first-ai-project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
-    "torch>=2.1.0",
-    "torchvision>=0.16.0",
+    "pandas>=2.1.0",
+    "scikit-learn>=1.3.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
     "ipykernel>=6.29.0",
     "jupyter>=1.0.0",
     "notebook>=7.0.0",
@@ -905,35 +904,51 @@ There are three main ways to work with Python in your uv project.
 
 ### Method 1: Using uv run (Recommended for Scripts)
 
-**Create a simple test file.** In VS Code, create a new file called `test_pytorch.py`:
+**Create a simple test file.** In VS Code, create a new file called `test_setup.py`:
 
 ``` python
-import torch
+import pandas as pd
+import sklearn
+import matplotlib.pyplot as plt
 
-print(f"PyTorch version: {torch.__version__}")
-print(f"CUDA available: {torch.cuda.is_available()}")
+print(f"Pandas version: {pd.__version__}")
+print(f"Scikit-learn version: {sklearn.__version__}")
 
-# Create a simple tensor
-x = torch.tensor([1, 2, 3, 4, 5])
-print(f"Tensor: {x}")
-print(f"Mean: {x.float().mean()}")
+# Create a simple DataFrame
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Score': [85, 92, 78]
+})
+
+print("\nSample Data:")
+print(df)
+print(f"\nAverage Score: {df['Score'].mean():.2f}")
 ```
 
 **Run it with uv:**
 
 ``` bash
-uv run test_pytorch.py
+uv run test_setup.py
 ```
 
-The `uv run` command automatically: - Activates the virtual environment - Ensures all dependencies are installed - Runs your Python script
+The `uv run` command automatically: 
+- Activates the virtual environment 
+- Ensures all dependencies are installed 
+- Runs your Python script
 
 **Expected output:**
 
 ```         
-PyTorch version: 2.1.0
-CUDA available: False
-Tensor: tensor([1, 2, 3, 4, 5])
-Mean: 3.0
+Pandas version: 2.1.0
+Scikit-learn version: 1.3.0
+
+Sample Data:
+      Name  Score
+0    Alice     85
+1      Bob     92
+2  Charlie     78
+
+Average Score: 85.00
 ```
 
 ### Method 2: Using Jupyter Lab (Recommended for AI/ML Development)
@@ -950,16 +965,23 @@ This will: 1. Start the Jupyter Lab server 2. Automatically open your browser to
 
 **Create a new notebook:** 1. Click the "+" button or go to File → New → Notebook 2. Select "Python 3 (ipykernel)" as your kernel 3. Start coding!
 
-**Test PyTorch in a notebook cell:**
+**Test the libraries in a notebook cell:**
 
 ``` python
-import torch
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-print(f"PyTorch version: {torch.__version__}")
+# Load a sample dataset
+tips = sns.load_dataset("tips")
 
-# Create a tensor
-x = torch.tensor([[1, 2], [3, 4]])
-print(x)
+# Display the first few rows
+print(tips.head())
+
+# Create a simple plot
+tips.groupby('day')['total_bill'].mean().plot(kind='bar')
+plt.title('Average Bill by Day')
+plt.show()
 ```
 
 Press `Shift+Enter` to run the cell.
@@ -1001,7 +1023,7 @@ You'll see `(.venv)` appear in your terminal prompt, indicating the environment 
 **Now run Python or Jupyter normally:**
 
 ``` bash
-python test_pytorch.py
+python test_setup.py
 # or
 jupyter lab
 ```
@@ -1032,7 +1054,7 @@ Here are the essential commands you'll use regularly:
 # Create a project directory and initialize with specific Python version
 mkdir my-project
 cd my-project
-uv init -p 3.13
+uv init -p 3.12
 
 # Initialize in current directory
 uv init
@@ -1048,10 +1070,10 @@ uv init -p 3.12
 uv python list
 
 # Install a specific Python version
-uv python install 3.13
+uv python install 3.12
 
 # Install multiple versions
-uv python install 3.11 3.12 3.13
+uv python install 3.11 3.12
 
 # Check currently active Python
 uv python find
@@ -1061,10 +1083,10 @@ uv python find
 
 ``` bash
 # Add a package
-uv add torch
+uv add pandas
 
 # Add multiple packages at once
-uv add torch torchvision torchaudio
+uv add pandas scikit-learn matplotlib seaborn
 
 # Add Jupyter tools
 uv add ipykernel jupyter notebook jupyterlab
@@ -1073,13 +1095,13 @@ uv add ipykernel jupyter notebook jupyterlab
 uv add --dev pytest
 
 # Add a specific version
-uv add "torch==2.1.0"
+uv add "pandas==2.1.0"
 
 # Add with version constraint
-uv add "torch>=2.1.0,<3.0.0"
+uv add "pandas>=2.1.0,<3.0.0"
 
 # Remove a package
-uv remove torch
+uv remove pandas
 
 # Update all packages to latest compatible versions
 uv lock --upgrade
@@ -1104,7 +1126,7 @@ uv run jupyter lab
 uv run jupyter notebook
 
 # Run with specific Python version
-uv run --python 3.13 my_script.py
+uv run --python 3.12 my_script.py
 ```
 
 ### Environment Management
@@ -1130,20 +1152,20 @@ uv tree
 
 ## Step 7: A Complete Example Workflow
 
-Let's put it all together with a real example. We'll create a simple image classification project with Jupyter Lab.
+Let's put it all together with a real example. We'll create a simple data analysis project that predicts house prices (a classic ML task) with Jupyter Lab.
 
 **1. Create the project:**
 
 ``` bash
-mkdir image-classifier
-cd image-classifier
-uv init -p 3.13
+mkdir housing-analysis
+cd housing-analysis
+uv init -p 3.12
 ```
 
 **2. Add necessary packages:**
 
 ``` bash
-uv add torch torchvision pillow matplotlib
+uv add pandas scikit-learn matplotlib seaborn
 uv add ipykernel jupyter notebook jupyterlab
 uv add --dev pytest ruff black
 ```
@@ -1163,63 +1185,51 @@ uv run jupyter lab
 **5. Create a new notebook** (File → New → Notebook) and add this code:
 
 ``` python
-import torch
-import torchvision
-from torchvision import transforms
-from PIL import Image
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
-print(f"PyTorch version: {torch.__version__}")
-print(f"Torchvision version: {torchvision.__version__}")
+# 1. Create a synthetic dataset (Square footage vs Price)
+np.random.seed(42)
+sqft = np.random.randint(500, 5000, 100)
+price = sqft * 150 + np.random.normal(0, 20000, 100) # Price = $150/sqft + noise
 
-# Load a pre-trained model
-model = torchvision.models.resnet18(pretrained=True)
-model.eval()
+df = pd.DataFrame({'sqft': sqft, 'price': price})
 
-print("✅ Model loaded successfully!")
-print(f"Model architecture: ResNet18")
+print("✅ Data generated successfully!")
+print(df.head())
 ```
 
 **6. Run the cell** by pressing `Shift+Enter`
 
-**7. Create a classification function** in a new cell:
+**7. Train a simple model** in a new cell:
 
 ``` python
-def classify_image(image_path):
-    """Classify an image using ResNet18"""
-    
-    # Define image transformations
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(
-            mean=[0.485, 0.456, 0.406],
-            std=[0.229, 0.224, 0.225]
-        )
-    ])
-    
-    # Load and transform image
-    img = Image.open(image_path)
-    img_tensor = transform(img).unsqueeze(0)
-    
-    # Make prediction
-    with torch.no_grad():
-        output = model(img_tensor)
-    
-    # Get top prediction
-    _, predicted = torch.max(output, 1)
-    
-    # Display image
-    plt.figure(figsize=(8, 6))
-    plt.imshow(img)
-    plt.title(f"Predicted class: {predicted.item()}")
-    plt.axis('off')
-    plt.show()
-    
-    return predicted.item()
+# Split the data
+X = df[['sqft']]
+y = df['price']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-print("✅ Classification function ready!")
+# Train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Make predictions
+predictions = model.predict(X_test)
+
+# Visualize results
+plt.scatter(X_test, y_test, color='blue', label='Actual')
+plt.plot(X_test, predictions, color='red', label='Predicted')
+plt.xlabel('Square Footage')
+plt.ylabel('Price')
+plt.title('House Price Prediction')
+plt.legend()
+plt.show()
+
+print(f"✅ Model trained! MSE: {mean_squared_error(y_test, predictions):.2f}")
 ```
 
 This example shows the power of Jupyter Lab: - Interactive development - Immediate feedback - Inline visualizations - Easy experimentation
@@ -1269,7 +1279,7 @@ code .
 
 1.  **Always use `uv run`** for scripts to ensure correct environment
 2.  **Commit `pyproject.toml` and `uv.lock`** to Git - never commit `.venv/`
-3.  **Use version ranges** in dependencies (`torch>=2.1.0`) for flexibility
+3.  **Use version ranges** in dependencies (`pandas>=2.1.0`) for flexibility
 4.  **Separate dev dependencies** using `--dev` flag
 5.  **Run `uv sync`** after pulling changes from Git
 6.  **Use `uv lock --upgrade`** periodically to get security updates
@@ -1298,7 +1308,7 @@ uv python install 3.12
 
 ``` bash
 uv cache clean
-uv add torch --reinstall
+uv add pandas --reinstall
 ```
 
 ### Issue 4: VS Code doesn't recognize Python
@@ -1360,6 +1370,5 @@ You now know how to:
 - ✅ Add and manage dependencies 
 - ✅ Run Python code 
 - ✅ Work with existing projects
-
 
 
