@@ -13,11 +13,11 @@ format:
 jupyter: python3
 ---
 
-## 1. Introduction: From MERN to Machine Learning
+## 1. Introduction: From Web Development to Machine Learning
 
 ### Why This Matters for Your Career
 
-As experienced full-stack MERN developers, you've built responsive applications handling real-time data. Now, you're transitioning to AI engineering—a field where **data processing speed and accuracy** directly impact model performance and business outcomes.
+As experienced full-stack developers, you've built responsive applications handling real-time data. Now, you're transitioning to AI engineering—a field where **data processing speed and accuracy** directly impact model performance and business outcomes.
 
 Consider this: A typical e-commerce recommendation engine processes millions of transactions daily. Using JavaScript's `Array.map()` would take hours; Pandas completes the same task in seconds.
 

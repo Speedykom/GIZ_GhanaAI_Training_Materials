@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Module 3: Python for MERN Developers</title>
+<title>Module 3: Python for Full-Stack Developers</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Module 3: Python for MERN Developers</h1>
+<h1 class="title">Module 3: Python for Full-Stack Developers</h1>
 <p class="subtitle lead">Lesson 2: Control Flow, Loops &amp; Functions</p>
 </div>
 
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>1. Conditionals: The Syntax Switch</h1>
 <p>You already know logic from JavaScript. You just need the new keywords.</p>
 <p><strong>Key Differences:</strong> - JavaScript: <code>else if</code> and <code>{ }</code> - Python: <code>elif</code> and <strong>indentation</strong></p>
-<div id="3c1e94e3" class="cell" data-execution_count="1">
+<div id="d445cdcb" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>status <span class="op">=</span> <span class="dv">404</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> status <span class="op">==</span> <span class="dv">200</span>:</span>
@@ -133,7 +133,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-truthiness-trap">The “Truthiness” Trap</h2>
 <p><strong>Critical Difference:</strong> In JavaScript, <code>[]</code> is <code>true</code>.<br>
 In Python, empty structures are <strong>Falsy</strong>: <code>[]</code>, <code>{}</code>, <code>""</code>, <code>0</code>, <code>None</code></p>
-<div id="51219d9a" class="cell" data-execution_count="2">
+<div id="1ffe339a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>users <span class="op">=</span> []</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pythonic check for empty list</span></span>
@@ -161,12 +161,12 @@ In Python, empty structures are <strong>Falsy</strong>: <code>[]</code>, <code>{
 </section>
 <section id="the-pythonic-loop" class="level1">
 <h1>2. The “Pythonic” Loop</h1>
-<p><strong>Golden Rule:</strong> MERN developers often try to write C-style loops. <strong>Don’t.</strong><br>
+<p><strong>Golden Rule:</strong> Developers often try to write C-style loops. <strong>Don’t.</strong><br>
 In Python, we iterate directly over objects.</p>
 <section id="a.-basic-iteration-for...in" class="level2">
 <h2 class="anchored" data-anchor-id="a.-basic-iteration-for...in">A. Basic Iteration (<code>for...in</code>)</h2>
 <p>This is equivalent to JavaScript’s <code>for...of</code> loop.</p>
-<div id="004da60c" class="cell" data-execution_count="3">
+<div id="b383efbc" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stack <span class="op">=</span> [<span class="st">"React"</span>, <span class="st">"Express"</span>, <span class="st">"Node"</span>, <span class="st">"Python"</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The Python Way</span></span>
@@ -189,7 +189,7 @@ Learning: Python</code></pre>
 <h2 class="anchored" data-anchor-id="b.-the-index-problem-enumerate">B. The Index Problem (<code>enumerate</code>)</h2>
 <p><em>“But how do I get the index <code>i</code>?”</em><br>
 Use <code>enumerate()</code>. It gives you a tuple of <code>(index, item)</code> each step.</p>
-<div id="9485c465" class="cell" data-execution_count="4">
+<div id="9bbfb7cc" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JS Equivalent: stack.forEach((tech, i) =&gt; { ... })</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, tech <span class="kw">in</span> <span class="bu">enumerate</span>(stack):</span>
@@ -219,7 +219,7 @@ Index 3: Python</code></pre>
 <h2 class="anchored" data-anchor-id="c.-looping-two-lists-zip">C. Looping Two Lists (<code>zip</code>)</h2>
 <p>AI data often comes in separate lists (e.g., <code>images</code> and <code>labels</code>).<br>
 Use <code>zip()</code> to loop them together like a zipper on a jacket.</p>
-<div id="53e1451b" class="cell" data-execution_count="5">
+<div id="0c7f3292" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [<span class="dv">85</span>, <span class="dv">92</span>, <span class="dv">78</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -230,6 +230,19 @@ Use <code>zip()</code> to loop them together like a zipper on a jacket.</p>
 <pre><code>Kwame scored 85
 Ama scored 92
 Yaw scored 78</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-World AI Connection: Pairing Data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Machine Learning, we almost always have two separate lists: <strong>Features</strong> (the inputs like image pixels) and <strong>Labels</strong> (the answers like “cat” or “dog”). We use <code>zip()</code> to pair them together so the computer can learn that <em>this</em> specific input belongs to <em>that</em> specific answer.</p>
 </div>
 </div>
 <p><strong>Why this matters:</strong> In data science, you’ll often have parallel arrays (features and labels, timestamps and values). <code>zip()</code> is essential.</p>
@@ -246,7 +259,7 @@ Yaw scored 78</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p><strong><code>zip()</code> stops at the shortest list!</strong> Data is silently lost.</p>
-<div id="06cea557" class="cell" data-execution_count="6">
+<div id="e8aa7674" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>, <span class="st">"Akosua"</span>]  <span class="co"># 4 items</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> [<span class="dv">85</span>, <span class="dv">92</span>]                           <span class="co"># 2 items</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -261,7 +274,7 @@ Ama: 92</code></pre>
 </div>
 </div>
 <p><strong>Safe Alternative:</strong> Use <code>zip_longest()</code> from <code>itertools</code> if you need all items:</p>
-<div id="59fbb6e8" class="cell" data-execution_count="7">
+<div id="a9bfdb0f" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> zip_longest</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>, <span class="st">"Akosua"</span>]</span>
@@ -284,7 +297,7 @@ Akosua: 0</code></pre>
 <section id="what-can-you-zip" class="level3">
 <h3 class="anchored" data-anchor-id="what-can-you-zip">What can you <code>zip()</code>?</h3>
 <p><strong>Answer:</strong> Any iterable! Not just lists.</p>
-<div id="0f3ec69f" class="cell" data-execution_count="8">
+<div id="810ba36b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Works with tuples</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>tuple1 <span class="op">=</span> (<span class="st">"React"</span>, <span class="st">"Vue"</span>, <span class="st">"Angular"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>tuple2 <span class="op">=</span> (<span class="st">"Frontend"</span>, <span class="st">"Frontend"</span>, <span class="st">"Frontend"</span>)</span>
@@ -297,7 +310,7 @@ Vue is a Frontend framework
 Angular is a Frontend framework</code></pre>
 </div>
 </div>
-<div id="8ea82c27" class="cell" data-execution_count="9">
+<div id="82e657c9" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Works with sets (but order is unpredictable!)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>set1 <span class="op">=</span> {<span class="st">"Python"</span>, <span class="st">"JavaScript"</span>, <span class="st">"Go"</span>}</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>set2 <span class="op">=</span> {<span class="st">"Backend"</span>, <span class="st">"Fullstack"</span>, <span class="st">"Backend"</span>}</span>
@@ -306,11 +319,11 @@ Angular is a Frontend framework</code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>lang<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>role<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ Order is NOT guaranteed with sets!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>JavaScript: Fullstack
-Go: Backend</code></pre>
+<pre><code>Go: Fullstack
+JavaScript: Backend</code></pre>
 </div>
 </div>
-<div id="a030ccb5" class="cell" data-execution_count="10">
+<div id="753ba82f" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Even works with strings (they're iterables too)</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>letters <span class="op">=</span> <span class="st">"ABC"</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
@@ -345,7 +358,7 @@ C3</code></pre>
 <section id="quick-exercise-debugging-zip" class="level3">
 <h3 class="anchored" data-anchor-id="quick-exercise-debugging-zip">Quick Exercise: Debugging <code>zip()</code></h3>
 <p><strong>What’s wrong with this code?</strong></p>
-<div id="fa93a358" class="cell" data-execution_count="11">
+<div id="8c79b052" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a simple dataset</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>], [<span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>]]</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]  <span class="co"># Oops! Only 3 labels for 4 samples</span></span>
@@ -355,7 +368,7 @@ C3</code></pre>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># What will this print? Why is this dangerous?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -364,9 +377,9 @@ C3</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="49b65ba9" class="cell" data-execution_count="12">
+<div id="71897032" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>], [<span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>]]</span>
@@ -389,7 +402,7 @@ C3</code></pre>
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[22]</span><span class="ansi-green-fg">, line 12</span>
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 12</span>
 <span class="ansi-green-fg">      7</span> <span style="font-style:italic;color:rgb(95,135,135)"># The last feature [7, 8] is SILENTLY DROPPED!</span>
 <span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># This is a common bug in ML pipelines.</span>
 <span class="ansi-green-fg">      9</span> 
@@ -416,7 +429,7 @@ C3</code></pre>
 <section id="example-1-the-.map-equivalent" class="level2">
 <h2 class="anchored" data-anchor-id="example-1-the-.map-equivalent">Example 1: The <code>.map()</code> Equivalent</h2>
 <p>Multiply every number by 2.</p>
-<div id="d3687171" class="cell" data-execution_count="13">
+<div id="c4c1688a" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>nums <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># JS: const doubled = nums.map(x =&gt; x * 2)</span></span>
@@ -431,7 +444,7 @@ C3</code></pre>
 <section id="example-2-the-.filter-equivalent" class="level2">
 <h2 class="anchored" data-anchor-id="example-2-the-.filter-equivalent">Example 2: The <code>.filter()</code> Equivalent</h2>
 <p>Keep only even numbers.</p>
-<div id="1ab535b9" class="cell" data-execution_count="14">
+<div id="3fbddfaf" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JS: const evens = nums.filter(x =&gt; x % 2 === 0)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>evens <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> nums <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>]</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -444,13 +457,26 @@ C3</code></pre>
 <section id="example-3-chaining-filter-map" class="level2">
 <h2 class="anchored" data-anchor-id="example-3-chaining-filter-map">Example 3: Chaining (Filter + Map)</h2>
 <p>In JavaScript: <code>nums.filter(x =&gt; x % 2 === 0).map(x =&gt; x * 2)</code></p>
-<div id="3cd90d2b" class="cell" data-execution_count="15">
+<div id="377122bc" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter AND transform in one line</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> [x <span class="op">*</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> nums <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>]</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[4, 8]</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-World AI Connection: Feature Scaling
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before feeding data into an AI model, we often need to “scale” it (e.g., converting all numbers to be between 0 and 1). List comprehensions are the fastest way to apply a mathematical formula to thousands of data points instantly.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -479,7 +505,7 @@ C3</code></pre>
 <section id="worked-example-temperature-converter" class="level3">
 <h3 class="anchored" data-anchor-id="worked-example-temperature-converter">Worked Example: Temperature Converter</h3>
 <p>Let’s convert this loop together:</p>
-<div id="6d13c6cf" class="cell" data-execution_count="16">
+<div id="26b30eb9" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original For Loop</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>celsius_temps <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>]</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>fahrenheit <span class="op">=</span> []</span>
@@ -507,7 +533,7 @@ C3</code></pre>
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine them:</span></span>
 <span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>fahrenheit <span class="op">=</span> [temp <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span> <span class="cf">for</span> temp <span class="kw">in</span> celsius_temps <span class="cf">if</span> temp <span class="op">&gt;=</span> <span class="dv">20</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Let’s verify they produce the same result:</p>
-<div id="92facdff" class="cell" data-execution_count="17">
+<div id="dff22a0a" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The comprehension version</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>celsius_temps <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>]</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>fahrenheit <span class="op">=</span> [temp <span class="op">*</span> <span class="dv">9</span><span class="op">/</span><span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span> <span class="cf">for</span> temp <span class="kw">in</span> celsius_temps <span class="cf">if</span> temp <span class="op">&gt;=</span> <span class="dv">20</span>]</span>
@@ -534,7 +560,7 @@ C3</code></pre>
 <section id="example-exercise-student-grades" class="level3">
 <h3 class="anchored" data-anchor-id="example-exercise-student-grades">Example Exercise: Student Grades</h3>
 <p>Let’s do another one together. Here’s the for loop:</p>
-<div id="efa3545e" class="cell" data-execution_count="18">
+<div id="a3e61421" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original For Loop</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>, <span class="st">"Akosua"</span>, <span class="st">"Kofi"</span>]</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>grades <span class="op">=</span> [<span class="dv">45</span>, <span class="dv">78</span>, <span class="dv">52</span>, <span class="dv">88</span>, <span class="dv">91</span>]</span>
@@ -557,7 +583,7 @@ C3</code></pre>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># The comprehension:</span></span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>passing_students <span class="op">=</span> [student <span class="cf">for</span> student, grade <span class="kw">in</span> <span class="bu">zip</span>(students, grades) <span class="cf">if</span> grade <span class="op">&gt;=</span> <span class="dv">50</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="734ee3f6" class="cell" data-execution_count="19">
+<div id="29e8c525" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify it works</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>, <span class="st">"Akosua"</span>, <span class="st">"Kofi"</span>]</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>grades <span class="op">=</span> [<span class="dv">45</span>, <span class="dv">78</span>, <span class="dv">52</span>, <span class="dv">88</span>, <span class="dv">91</span>]</span>
@@ -574,7 +600,7 @@ C3</code></pre>
 <section id="exercise-1-your-turn---price-calculator" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1-your-turn---price-calculator">Exercise 1: Your Turn - Price Calculator</h2>
 <p><strong>Task:</strong> Rewrite this “clunky” loop using a List Comprehension.</p>
-<div id="eef49cfc" class="cell" data-execution_count="20">
+<div id="262334b1" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>raw_prices <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">50</span>, <span class="dv">300</span>]</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>tax_rate <span class="op">=</span> <span class="fl">1.15</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>final_prices <span class="op">=</span> []</span>
@@ -594,7 +620,7 @@ C3</code></pre>
 <span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a><span class="co"># final_prices = [...]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -603,9 +629,9 @@ C3</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="d2597fcd" class="cell" data-execution_count="21">
+<div id="6890d135" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>raw_prices <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">50</span>, <span class="dv">300</span>]</span>
@@ -631,7 +657,7 @@ C3</code></pre>
 <section id="exercise-2-data-cleaning-challenge" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-2-data-cleaning-challenge">Exercise 2: Data Cleaning Challenge</h2>
 <p><strong>Scenario:</strong> You’re cleaning user input from a web form. Convert this validation loop into a comprehension.</p>
-<div id="5edfa4f6" class="cell" data-execution_count="22">
+<div id="bb7ae4e1" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original Loop</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>user_inputs <span class="op">=</span> [<span class="st">"  Accra "</span>, <span class="st">"kumasi"</span>, <span class="st">"  TAMALE"</span>, <span class="st">"Cape Coast  "</span>, <span class="st">"wa"</span>]</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>cleaned_cities <span class="op">=</span> []</span>
@@ -649,7 +675,7 @@ C3</code></pre>
 <span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co"># cleaned_cities = [...]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -658,9 +684,9 @@ C3</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="b84e7af2" class="cell" data-execution_count="23">
+<div id="a12cdada" class="cell" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>user_inputs <span class="op">=</span> [<span class="st">"  Accra "</span>, <span class="st">"kumasi"</span>, <span class="st">"  TAMALE"</span>, <span class="st">"Cape Coast  "</span>, <span class="st">"wa"</span>]</span>
@@ -713,7 +739,7 @@ C3</code></pre>
 <section id="exercise-3-the-real-world-test" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-the-real-world-test">Exercise 3: The Real-World Test</h2>
 <p><strong>Challenge:</strong> Convert this API response processor into a comprehension.</p>
-<div id="747f156b" class="cell" data-execution_count="24">
+<div id="66d48dd3" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You fetched data from an API - it returns a list of user objects</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>api_response <span class="op">=</span> [</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"age"</span>: <span class="dv">28</span>, <span class="st">"active"</span>: <span class="va">True</span>},</span>
@@ -735,7 +761,7 @@ C3</code></pre>
 <span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="co"># adult_active_users = [...]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -744,9 +770,9 @@ C3</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="c3d3bbf5" class="cell" data-execution_count="25">
+<div id="7c965d8a" class="cell" data-execution_count="25">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>api_response <span class="op">=</span> [</span>
@@ -777,360 +803,68 @@ C3</code></pre>
 <hr>
 </section>
 </section>
-<section id="lambda-functions-anonymous-functions-for-quick-operations" class="level1">
-<h1>4. Lambda Functions: Anonymous Functions for Quick Operations</h1>
-<section id="what-are-lambda-functions" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-lambda-functions">What Are Lambda Functions?</h2>
-<p>In JavaScript, you write arrow functions for quick operations:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">// JavaScript</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> double <span class="op">=</span> x <span class="kw">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> add <span class="op">=</span> (a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">+</span> b<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Python’s equivalent is the <strong>lambda function</strong> (also called an “anonymous function”):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>double <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> <span class="dv">2</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>add <span class="op">=</span> <span class="kw">lambda</span> a, b: a <span class="op">+</span> b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Syntax:</strong> <code>lambda arguments: expression</code></p>
+<section id="lambda-functions-a-brief-intro" class="level1">
+<h1>4. Lambda Functions: A Brief Intro</h1>
+<p>In JavaScript, you often use arrow functions for quick operations: <code>(x) =&gt; x * 2</code>. Python’s equivalent is the <strong>lambda function</strong>.</p>
+<p>We use lambdas for <strong>quick, one-line operations</strong> where defining a full function with <code>def</code> would be overkill. You’ll see these most often when sorting data or using specific libraries.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The Syntax: lambda arguments: expression</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>double <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(double(<span class="dv">5</span>)) <span class="co"># 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="common-use-sorting-data" class="level3">
+<h3 class="anchored" data-anchor-id="common-use-sorting-data">Common Use: Sorting Data</h3>
+<p>You have a list of students and want to sort by age. The <code>key</code> parameter expects a function that tells it <em>how</em> to sort.</p>
+<div id="68e47f15" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"age"</span>: <span class="dv">22</span>},</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"age"</span>: <span class="dv">19</span>},</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"age"</span>: <span class="dv">25</span>}</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lambda to tell sort() to look at the "age" key</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>students.sort(key<span class="op">=</span><span class="kw">lambda</span> s: s[<span class="st">"age"</span>])</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[{'name': 'Ama', 'age': 19}, {'name': 'Kwame', 'age': 22}, {'name': 'Yaw', 'age': 25}]</code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Key Difference from Regular Functions
+<span class="screen-reader-only">Note</span>Moving Forward
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li><strong>Regular function:</strong> Can have multiple lines, statements, and complex logic</li>
-<li><strong>Lambda:</strong> Single expression only, returns the result automatically</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="why-do-we-need-lambda-functions" class="level2">
-<h2 class="anchored" data-anchor-id="why-do-we-need-lambda-functions">Why Do We Need Lambda Functions?</h2>
-<p>Lambda functions are <strong>not</strong> about saving lines of code. They’re about <strong>inline operations</strong> where defining a full function would be overkill.</p>
-<section id="use-case-1-sorting-custom-data" class="level3">
-<h3 class="anchored" data-anchor-id="use-case-1-sorting-custom-data">Use Case 1: Sorting Custom Data</h3>
-<p>You have a list of dictionaries and want to sort by a specific key:</p>
-<div id="61398982" class="cell" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"age"</span>: <span class="dv">22</span>},</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"age"</span>: <span class="dv">19</span>},</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"age"</span>: <span class="dv">25</span>}</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Without lambda - you'd need a separate function</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_age(student):</span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> student[<span class="st">"age"</span>]</span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>students.sort(key<span class="op">=</span>get_age)</span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[{'name': 'Ama', 'age': 19}, {'name': 'Kwame', 'age': 22}, {'name': 'Yaw', 'age': 25}]</code></pre>
-</div>
-</div>
-<div id="98b43fb6" class="cell" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With lambda - inline and cleaner</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"age"</span>: <span class="dv">22</span>},</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"age"</span>: <span class="dv">19</span>},</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"age"</span>: <span class="dv">25</span>}</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>students.sort(key<span class="op">=</span><span class="kw">lambda</span> student: student[<span class="st">"age"</span>])</span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(students)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[{'name': 'Ama', 'age': 19}, {'name': 'Kwame', 'age': 22}, {'name': 'Yaw', 'age': 25}]</code></pre>
-</div>
-</div>
-</section>
-<section id="use-case-2-the-map-function" class="level3">
-<h3 class="anchored" data-anchor-id="use-case-2-the-map-function">Use Case 2: The <code>map()</code> Function</h3>
-<p><code>map()</code> applies a function to every item in an iterable (like JS <code>.map()</code>):</p>
-<div id="2d4310b0" class="cell" data-execution_count="28">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">150</span>, <span class="dv">300</span>]</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to cedis (multiply by 0.12)</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>prices_in_cedis <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> price: price <span class="op">*</span> <span class="fl">0.12</span>, prices))</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prices_in_cedis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[12.0, 24.0, 18.0, 36.0]</code></pre>
-</div>
-</div>
-<p><strong>But wait…</strong> You’d usually use a list comprehension instead:</p>
-<div id="e8ef843d" class="cell" data-execution_count="29">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># More Pythonic (preferred)</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>prices_in_cedis <span class="op">=</span> [price <span class="op">*</span> <span class="fl">0.12</span> <span class="cf">for</span> price <span class="kw">in</span> prices]</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prices_in_cedis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[12.0, 24.0, 18.0, 36.0]</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>When to Use Lambda vs List Comprehension
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Use lambda when:</strong> - Working with <code>sort()</code>, <code>sorted()</code>, <code>filter()</code>, <code>map()</code> where a key function is expected - The operation is truly simple (one expression) - You’re not storing the function for reuse</p>
-<p><strong>Use list comprehension when:</strong> - You’re transforming or filtering a list - The operation might grow more complex later - Readability is important (comprehensions are more “Pythonic”)</p>
-</div>
-</div>
-</section>
-<section id="use-case-3-the-filter-function" class="level3">
-<h3 class="anchored" data-anchor-id="use-case-3-the-filter-function">Use Case 3: The <code>filter()</code> Function</h3>
-<p><code>filter()</code> keeps items that pass a test (like JS <code>.filter()</code>):</p>
-<div id="0efe545c" class="cell" data-execution_count="30">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only even numbers</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>evens <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, numbers))</span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(evens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[2, 4, 6, 8, 10]</code></pre>
-</div>
-</div>
-<p>Again, list comprehension is usually clearer:</p>
-<div id="57983863" class="cell" data-execution_count="31">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># More readable</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>evens <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> numbers <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(evens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[2, 4, 6, 8, 10]</code></pre>
-</div>
-</div>
-</section>
-<section id="use-case-4-sorting-by-multiple-criteria" class="level3">
-<h3 class="anchored" data-anchor-id="use-case-4-sorting-by-multiple-criteria">Use Case 4: Sorting by Multiple Criteria</h3>
-<p>This is where lambdas truly shine:</p>
-<div id="fed2a4c2" class="cell" data-execution_count="32">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> [</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"user"</span>: <span class="st">"Kwame"</span>, <span class="st">"amount"</span>: <span class="dv">500</span>, <span class="st">"date"</span>: <span class="st">"2024-01-15"</span>},</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"user"</span>: <span class="st">"Ama"</span>, <span class="st">"amount"</span>: <span class="dv">500</span>, <span class="st">"date"</span>: <span class="st">"2024-01-10"</span>},</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"user"</span>: <span class="st">"Yaw"</span>, <span class="st">"amount"</span>: <span class="dv">300</span>, <span class="st">"date"</span>: <span class="st">"2024-01-20"</span>}</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by amount (descending), then by date (ascending)</span></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>sorted_trans <span class="op">=</span> <span class="bu">sorted</span>(transactions, </span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>                      key<span class="op">=</span><span class="kw">lambda</span> t: (<span class="op">-</span>t[<span class="st">"amount"</span>], t[<span class="st">"date"</span>]))</span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> sorted_trans:</span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(t)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>{'user': 'Ama', 'amount': 500, 'date': '2024-01-10'}
-{'user': 'Kwame', 'amount': 500, 'date': '2024-01-15'}
-{'user': 'Yaw', 'amount': 300, 'date': '2024-01-20'}</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="lambda-limitations" class="level2">
-<h2 class="anchored" data-anchor-id="lambda-limitations">Lambda Limitations</h2>
-<p><strong>You CANNOT do these things in a lambda:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ Multiple statements</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x: <span class="bu">print</span>(x)<span class="op">;</span> <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span>  <span class="co"># Syntax Error!</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ Assignments</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x: y <span class="op">=</span> x <span class="op">*</span> <span class="dv">2</span>  <span class="co"># Syntax Error!</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ Control flow</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="kw">lambda</span> x: <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span>: <span class="cf">return</span> x  <span class="co"># Syntax Error!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>If you need any of these, write a regular function!</strong></p>
-<hr>
-</section>
-<section id="exercise-4-lambda-practice" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-4-lambda-practice">Exercise 4: Lambda Practice</h2>
-<section id="part-a-product-sorter" class="level3">
-<h3 class="anchored" data-anchor-id="part-a-product-sorter">Part A: Product Sorter</h3>
-<p>You have an e-commerce inventory. Sort products by price (low to high):</p>
-<div id="d2e69da5" class="cell" data-execution_count="33">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> [</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Laptop"</span>, <span class="st">"price"</span>: <span class="dv">3000</span>},</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Mouse"</span>, <span class="st">"price"</span>: <span class="dv">50</span>},</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Keyboard"</span>, <span class="st">"price"</span>: <span class="dv">150</span>},</span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Monitor"</span>, <span class="st">"price"</span>: <span class="dv">800</span>}</span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR </span><span class="al">TASK</span><span class="co">: Sort by price using sorted() and lambda</span></span>
-<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="co"># sorted_products = sorted(products, key=...)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="6b01f6dd" class="cell" data-execution_count="34">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> [</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Laptop"</span>, <span class="st">"price"</span>: <span class="dv">3000</span>},</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Mouse"</span>, <span class="st">"price"</span>: <span class="dv">50</span>},</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Keyboard"</span>, <span class="st">"price"</span>: <span class="dv">150</span>},</span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Monitor"</span>, <span class="st">"price"</span>: <span class="dv">800</span>}</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>sorted_products <span class="op">=</span> <span class="bu">sorted</span>(products, key<span class="op">=</span><span class="kw">lambda</span> p: p[<span class="st">"price"</span>])</span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> product <span class="kw">in</span> sorted_products:</span>
-<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>product[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">: ₵</span><span class="sc">{</span>product[<span class="st">'price'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Mouse: ₵50
-Keyboard: ₵150
-Monitor: ₵800
-Laptop: ₵3000</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-b-name-filter" class="level3">
-<h3 class="anchored" data-anchor-id="part-b-name-filter">Part B: Name Filter</h3>
-<p>Filter out names that are shorter than 5 characters:</p>
-<div id="1789e04e" class="cell" data-execution_count="35">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>, <span class="st">"Akosua"</span>, <span class="st">"Kofi"</span>, <span class="st">"Abena"</span>]</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR </span><span class="al">TASK</span><span class="co">: Use filter() and lambda to keep names with len &gt;= 5</span></span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co"># long_names = list(filter(...))</span></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="co"># BONUS: Rewrite using a list comprehension. Which is clearer?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="5cf75fce" class="cell" data-execution_count="36">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"Kwame"</span>, <span class="st">"Ama"</span>, <span class="st">"Yaw"</span>, <span class="st">"Akosua"</span>, <span class="st">"Kofi"</span>, <span class="st">"Abena"</span>]</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1: Using filter() and lambda</span></span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>long_names <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> name: <span class="bu">len</span>(name) <span class="op">&gt;=</span> <span class="dv">5</span>, names))</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Using filter():"</span>, long_names)</span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 2: List comprehension (More Pythonic!)</span></span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>long_names_v2 <span class="op">=</span> [name <span class="cf">for</span> name <span class="kw">in</span> names <span class="cf">if</span> <span class="bu">len</span>(name) <span class="op">&gt;=</span> <span class="dv">5</span>]</span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Using comprehension:"</span>, long_names_v2)</span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Most Python developers prefer the comprehension!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Using filter(): ['Kwame', 'Akosua', 'Abena']
-Using comprehension: ['Kwame', 'Akosua', 'Abena']</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="part-c-multi-level-sort-advanced" class="level3">
-<h3 class="anchored" data-anchor-id="part-c-multi-level-sort-advanced">Part C: Multi-Level Sort (Advanced)</h3>
-<p>You’re managing a school database. Sort students by: 1. Grade (highest first) 2. Then by name (alphabetically)</p>
-<div id="a41e3668" class="cell" data-execution_count="37">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"grade"</span>: <span class="dv">85</span>},</span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"grade"</span>: <span class="dv">92</span>},</span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"grade"</span>: <span class="dv">92</span>},</span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Akosua"</span>, <span class="st">"grade"</span>: <span class="dv">78</span>}</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR </span><span class="al">TASK</span><span class="co">: Sort by grade descending (-grade), then name ascending</span></span>
-<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: key=lambda s: (-s["grade"], s["name"])</span></span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sorted_students = sorted(...)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div id="fb72e786" class="cell" data-execution_count="38">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>students <span class="op">=</span> [</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"grade"</span>: <span class="dv">85</span>},</span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"grade"</span>: <span class="dv">92</span>},</span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"grade"</span>: <span class="dv">92</span>},</span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Akosua"</span>, <span class="st">"grade"</span>: <span class="dv">78</span>}</span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by grade (descending), then by name (ascending)</span></span>
-<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>sorted_students <span class="op">=</span> <span class="bu">sorted</span>(students, key<span class="op">=</span><span class="kw">lambda</span> s: (<span class="op">-</span>s[<span class="st">"grade"</span>], s[<span class="st">"name"</span>]))</span>
-<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> student <span class="kw">in</span> sorted_students:</span>
-<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>student[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>student[<span class="st">'grade'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Output:</span></span>
-<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Ama: 92      (tied at 92, but "Ama" comes before "Kwame")</span></span>
-<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Kwame: 92</span></span>
-<span id="cb76-17"><a href="#cb76-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Yaw: 85</span></span>
-<span id="cb76-18"><a href="#cb76-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Akosua: 78</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Ama: 92
-Kwame: 92
-Yaw: 85
-Akosua: 78</code></pre>
-</div>
-</div>
-</div>
+<p>We’ll dive much deeper into advanced Lambda patterns (like filtering, data mapping, and multi-level sorting) in <strong>Lesson 3</strong>.</p>
 </div>
 </div>
 <hr>
-</section>
 </section>
 <section id="real-world-example-processing-api-data" class="level2">
 <h2 class="anchored" data-anchor-id="real-world-example-processing-api-data">Real-World Example: Processing API Data</h2>
 <p>Here’s how lambda functions are used in actual data engineering:</p>
-<div id="7570c261" class="cell" data-execution_count="39">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You fetch weather data from an API</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>weather_data <span class="op">=</span> [</span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Accra"</span>, <span class="st">"temp"</span>: <span class="dv">32</span>, <span class="st">"humidity"</span>: <span class="dv">75</span>},</span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Kumasi"</span>, <span class="st">"temp"</span>: <span class="dv">28</span>, <span class="st">"humidity"</span>: <span class="dv">80</span>},</span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Tamale"</span>, <span class="st">"temp"</span>: <span class="dv">35</span>, <span class="st">"humidity"</span>: <span class="dv">60</span>},</span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Cape Coast"</span>, <span class="st">"temp"</span>: <span class="dv">30</span>, <span class="st">"humidity"</span>: <span class="dv">85</span>}</span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the hottest city</span></span>
-<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>hottest <span class="op">=</span> <span class="bu">max</span>(weather_data, key<span class="op">=</span><span class="kw">lambda</span> city: city[<span class="st">"temp"</span>])</span>
-<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hottest city: </span><span class="sc">{</span>hottest[<span class="st">'city'</span>]<span class="sc">}</span><span class="ss"> at </span><span class="sc">{</span>hottest[<span class="st">'temp'</span>]<span class="sc">}</span><span class="ss">°C"</span>)</span>
-<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Find cities with high humidity (&gt;70%)</span></span>
-<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a>humid_cities <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> c: c[<span class="st">"humidity"</span>] <span class="op">&gt;</span> <span class="dv">70</span>, weather_data))</span>
-<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Humid cities: </span><span class="sc">{</span>[c[<span class="st">'city'</span>] <span class="cf">for</span> c <span class="kw">in</span> humid_cities]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-17"><a href="#cb78-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract just the temperatures</span></span>
-<span id="cb78-18"><a href="#cb78-18" aria-hidden="true" tabindex="-1"></a>temps <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> c: c[<span class="st">"temp"</span>], weather_data))</span>
-<span id="cb78-19"><a href="#cb78-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"All temperatures: </span><span class="sc">{</span>temps<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="53e4263b" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You fetch weather data from an API</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>weather_data <span class="op">=</span> [</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Accra"</span>, <span class="st">"temp"</span>: <span class="dv">32</span>, <span class="st">"humidity"</span>: <span class="dv">75</span>},</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Kumasi"</span>, <span class="st">"temp"</span>: <span class="dv">28</span>, <span class="st">"humidity"</span>: <span class="dv">80</span>},</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Tamale"</span>, <span class="st">"temp"</span>: <span class="dv">35</span>, <span class="st">"humidity"</span>: <span class="dv">60</span>},</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"city"</span>: <span class="st">"Cape Coast"</span>, <span class="st">"temp"</span>: <span class="dv">30</span>, <span class="st">"humidity"</span>: <span class="dv">85</span>}</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the hottest city</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>hottest <span class="op">=</span> <span class="bu">max</span>(weather_data, key<span class="op">=</span><span class="kw">lambda</span> city: city[<span class="st">"temp"</span>])</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hottest city: </span><span class="sc">{</span>hottest[<span class="st">'city'</span>]<span class="sc">}</span><span class="ss"> at </span><span class="sc">{</span>hottest[<span class="st">'temp'</span>]<span class="sc">}</span><span class="ss">°C"</span>)</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Find cities with high humidity (&gt;70%)</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>humid_cities <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> c: c[<span class="st">"humidity"</span>] <span class="op">&gt;</span> <span class="dv">70</span>, weather_data))</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Humid cities: </span><span class="sc">{</span>[c[<span class="st">'city'</span>] <span class="cf">for</span> c <span class="kw">in</span> humid_cities]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract just the temperatures</span></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>temps <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> c: c[<span class="st">"temp"</span>], weather_data))</span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"All temperatures: </span><span class="sc">{</span>temps<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hottest city: Tamale at 35°C
 Humid cities: ['Accra', 'Kumasi', 'Cape Coast']
@@ -1148,13 +882,13 @@ All temperatures: [32, 28, 35, 30]</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>While the above code works, experienced Python developers would write:</p>
-<div id="ebf5b2c5" class="cell" data-execution_count="40">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># More readable and Pythonic</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>hottest <span class="op">=</span> <span class="bu">max</span>(weather_data, key<span class="op">=</span><span class="kw">lambda</span> c: c[<span class="st">"temp"</span>])  <span class="co"># Lambda is good here</span></span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>humid_cities <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> weather_data <span class="cf">if</span> c[<span class="st">"humidity"</span>] <span class="op">&gt;</span> <span class="dv">70</span>]  <span class="co"># Comprehension</span></span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>temps <span class="op">=</span> [c[<span class="st">"temp"</span>] <span class="cf">for</span> c <span class="kw">in</span> weather_data]  <span class="co"># Comprehension</span></span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Rule of thumb: Use lambda for key functions, comprehensions for transformations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="11b543a2" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># More readable and Pythonic</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>hottest <span class="op">=</span> <span class="bu">max</span>(weather_data, key<span class="op">=</span><span class="kw">lambda</span> c: c[<span class="st">"temp"</span>])  <span class="co"># Lambda is good here</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>humid_cities <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> weather_data <span class="cf">if</span> c[<span class="st">"humidity"</span>] <span class="op">&gt;</span> <span class="dv">70</span>]  <span class="co"># Comprehension</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>temps <span class="op">=</span> [c[<span class="st">"temp"</span>] <span class="cf">for</span> c <span class="kw">in</span> weather_data]  <span class="co"># Comprehension</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Rule of thumb: Use lambda for key functions, comprehensions for transformations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1164,12 +898,12 @@ All temperatures: [32, 28, 35, 30]</code></pre>
 <section id="a.-default-arguments" class="level2">
 <h2 class="anchored" data-anchor-id="a.-default-arguments">A. Default Arguments</h2>
 <p>You can set default values directly in the function definition.</p>
-<div id="1228ede4" class="cell" data-execution_count="41">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name, greeting<span class="op">=</span><span class="st">"Akwaaba"</span>):</span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>greeting<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greet(<span class="st">"Kofi"</span>))            <span class="co"># Uses default</span></span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greet(<span class="st">"Kofi"</span>, <span class="st">"Hello"</span>))   <span class="co"># Overrides default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d727cd71" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> greet(name, greeting<span class="op">=</span><span class="st">"Akwaaba"</span>):</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>greeting<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greet(<span class="st">"Kofi"</span>))            <span class="co"># Uses default</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greet(<span class="st">"Kofi"</span>, <span class="st">"Hello"</span>))   <span class="co"># Overrides default</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Akwaaba, Kofi!
 Hello, Kofi!</code></pre>
@@ -1183,25 +917,46 @@ Hello, Kofi!</code></pre>
 <li><code>*args</code>: Collects extra positional arguments into a <strong>Tuple</strong> (like JS <code>...args</code>)</li>
 <li><code>**kwargs</code>: Collects extra keyword arguments into a <strong>Dictionary</strong></li>
 </ul>
-<div id="9ad52277" class="cell" data-execution_count="42">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_model(name, <span class="op">**</span>config):</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Building: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Config:"</span>, config)  <span class="co"># It's just a dict!</span></span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can pass ANY arguments we want</span></span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>build_model(<span class="st">"ChatBot"</span>, layers<span class="op">=</span><span class="dv">12</span>, speed<span class="op">=</span><span class="st">"fast"</span>, gpu<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e10a6197" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_model(name, <span class="op">**</span>config):</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Building: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Config:"</span>, config)  <span class="co"># It's just a dict!</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can pass ANY arguments we want</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>build_model(<span class="st">"ChatBot"</span>, layers<span class="op">=</span><span class="dv">12</span>, speed<span class="op">=</span><span class="st">"fast"</span>, gpu<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Building: ChatBot
 Config: {'layers': 12, 'speed': 'fast', 'gpu': True}</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Real-World AI Example: The “Config Builder”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In AI libraries like <strong>HuggingFace Transformers</strong>, models take dozens of settings (dropout rates, attention heads, etc.). Instead of writing a function with 50 parameters, developers use <code>**kwargs</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A realistic look at how AI models are initialized</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> initialize_ai_model(model_name, <span class="op">**</span>hyperparameters):</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Loading weights for: </span><span class="sc">{</span>model_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> param, value <span class="kw">in</span> hyperparameters.items():</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  -&gt; Setting </span><span class="sc">{</span>param<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The user can pass only the settings they want to change</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>initialize_ai_model(<span class="st">"BERT-Base"</span>, learning_rate<span class="op">=</span><span class="fl">2e-5</span>, batch_size<span class="op">=</span><span class="dv">32</span>, layers<span class="op">=</span><span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
 <p><strong>Why this matters:</strong> When you use HuggingFace or PyTorch, you’ll constantly pass configuration objects this way.</p>
-<div id="d881b5da" class="cell" data-execution_count="43">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> super_function(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Positional arguments (tuple):"</span>, args)</span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Keyword arguments (dict):"</span>, kwargs)</span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>super_function(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, mode<span class="op">=</span><span class="st">"turbo"</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="301b7ab0" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> super_function(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Positional arguments (tuple):"</span>, args)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Keyword arguments (dict):"</span>, kwargs)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>super_function(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, mode<span class="op">=</span><span class="st">"turbo"</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Positional arguments (tuple): (1, 2, 3)
 Keyword arguments (dict): {'mode': 'turbo', 'verbose': True}</code></pre>
@@ -1211,19 +966,19 @@ Keyword arguments (dict): {'mode': 'turbo', 'verbose': True}</code></pre>
 <section id="exercise-5-the-config-builder" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-5-the-config-builder">Exercise 5: The Config Builder</h2>
 <p><strong>Task:</strong> Create a function <code>connect_db</code> that requires a <code>url</code>, but accepts any other connection options via <code>**kwargs</code>. Loop through and print the options.</p>
-<div id="c3e9dbc9" class="cell" data-execution_count="44">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> connect_db(url, <span class="op">**</span>options):</span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Connecting to: </span><span class="sc">{</span>url<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through the options dictionary here</span></span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hint: Use .items() to get key and value</span></span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
-<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
-<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>connect_db(<span class="st">"postgres://localhost:5432"</span>, timeout<span class="op">=</span><span class="dv">30</span>, ssl<span class="op">=</span><span class="va">True</span>, user<span class="op">=</span><span class="st">"admin"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3ced0e37" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> connect_db(url, <span class="op">**</span>options):</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Connecting to: </span><span class="sc">{</span>url<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through the options dictionary here</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hint: Use .items() to get key and value</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>connect_db(<span class="st">"postgres://localhost:5432"</span>, timeout<span class="op">=</span><span class="dv">30</span>, ssl<span class="op">=</span><span class="va">True</span>, user<span class="op">=</span><span class="st">"admin"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1232,18 +987,18 @@ Keyword arguments (dict): {'mode': 'turbo', 'verbose': True}</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="c295580f" class="cell" data-execution_count="45">
+<div id="aa62c3ae" class="cell" data-execution_count="33">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> connect_db(url, <span class="op">**</span>options):</span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Connecting to: </span><span class="sc">{</span>url<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> options.items():</span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f" - Setting </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>connect_db(<span class="st">"postgres://localhost:5432"</span>, timeout<span class="op">=</span><span class="dv">30</span>, ssl<span class="op">=</span><span class="va">True</span>, user<span class="op">=</span><span class="st">"admin"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> connect_db(url, <span class="op">**</span>options):</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Connecting to: </span><span class="sc">{</span>url<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key, value <span class="kw">in</span> options.items():</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f" - Setting </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>connect_db(<span class="st">"postgres://localhost:5432"</span>, timeout<span class="op">=</span><span class="dv">30</span>, ssl<span class="op">=</span><span class="va">True</span>, user<span class="op">=</span><span class="st">"admin"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Connecting to: postgres://localhost:5432
@@ -1265,27 +1020,27 @@ In Python, <strong>every file is automatically a module</strong>.</p>
 <section id="a.-importing" class="level2">
 <h2 class="anchored" data-anchor-id="a.-importing">A. Importing</h2>
 <p>Assume we have a file named <code>math_utils.py</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the whole file</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>math_utils.calculate()</span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import specific function (Like destructuring in JS)</span></span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> calculate</span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>calculate()</span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Alias (Renaming) - Very common in data science</span></span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the whole file</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>math_utils.calculate()</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import specific function (Like destructuring in JS)</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> calculate</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>calculate()</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Alias (Renaming) - Very common in data science</span></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="b.-the-if-__name__-__main__-block" class="level2">
 <h2 class="anchored" data-anchor-id="b.-the-if-__name__-__main__-block">B. The <code>if __name__ == "__main__":</code> Block</h2>
 <p>You will see this everywhere. It’s a guard block.</p>
 <p>Code inside this block <strong>only runs if you execute the file directly</strong> (e.g., <code>python file.py</code>). It does <strong>not</strong> run if you import the file into another script.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Running main logic..."</span>)</span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Running main logic..."</span>)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Use case:</strong> You can write reusable functions at the top of a file, and testing code at the bottom that only runs when you test the file directly.</p>
 <hr>
 </section>
@@ -1294,12 +1049,12 @@ In Python, <strong>every file is automatically a module</strong>.</p>
 <h1>7. Final Challenge: The Log Parser</h1>
 <p><strong>Scenario:</strong> You have a list of server logs. You need to extract and clean only the “ERROR” messages.</p>
 <p><strong>Input:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> [</span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: User logged in"</span>,</span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Database connection failed"</span>,</span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: Page loaded"</span>,</span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Timeout 500ms"</span></span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> [</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: User logged in"</span>,</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Database connection failed"</span>,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: Page loaded"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Timeout 500ms"</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Requirements:</strong></p>
 <ol type="1">
 <li>Define a function <code>parse_logs(log_list)</code></li>
@@ -1308,25 +1063,25 @@ In Python, <strong>every file is automatically a module</strong>.</p>
 <li>Return the clean list</li>
 </ol>
 <p><strong>Expected Output:</strong> <code>['Database connection failed', 'Timeout 500ms']</code></p>
-<div id="e9e98de6" class="cell" data-execution_count="46">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_logs(log_list):</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Write your list comprehension here</span></span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hint: string.startswith("ERROR") and string.replace(...)</span></span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test your function</span></span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> [</span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: User logged in"</span>,</span>
-<span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Database connection failed"</span>,</span>
-<span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: Page loaded"</span>,</span>
-<span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Timeout 500ms"</span></span>
-<span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>cleaned_errors <span class="op">=</span> parse_logs(logs)</span>
-<span id="cb93-15"><a href="#cb93-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cleaned_errors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="21afdc6e" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_logs(log_list):</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Write your list comprehension here</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hint: string.startswith("ERROR") and string.replace(...)</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test your function</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> [</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: User logged in"</span>,</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Database connection failed"</span>,</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: Page loaded"</span>,</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Timeout 500ms"</span></span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>cleaned_errors <span class="op">=</span> parse_logs(logs)</span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cleaned_errors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1335,25 +1090,25 @@ In Python, <strong>every file is automatically a module</strong>.</p>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="1402e8a1" class="cell" data-execution_count="47">
+<div id="c889156b" class="cell" data-execution_count="35">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> [</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: User logged in"</span>,</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Database connection failed"</span>,</span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: Page loaded"</span>,</span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Timeout 500ms"</span></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_logs(log_list):</span>
-<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for "ERROR" AND remove the prefix</span></span>
-<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [entry.replace(<span class="st">"ERROR: "</span>, <span class="st">""</span>) <span class="cf">for</span> entry <span class="kw">in</span> log_list <span class="cf">if</span> entry.startswith(<span class="st">"ERROR"</span>)]</span>
-<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>cleaned_errors <span class="op">=</span> parse_logs(logs)</span>
-<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cleaned_errors) </span>
-<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: ['Database connection failed', 'Timeout 500ms']</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>logs <span class="op">=</span> [</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: User logged in"</span>,</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Database connection failed"</span>,</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"INFO: Page loaded"</span>,</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ERROR: Timeout 500ms"</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_logs(log_list):</span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter for "ERROR" AND remove the prefix</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [entry.replace(<span class="st">"ERROR: "</span>, <span class="st">""</span>) <span class="cf">for</span> entry <span class="kw">in</span> log_list <span class="cf">if</span> entry.startswith(<span class="st">"ERROR"</span>)]</span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>cleaned_errors <span class="op">=</span> parse_logs(logs)</span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cleaned_errors) </span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: ['Database connection failed', 'Timeout 500ms']</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>['Database connection failed', 'Timeout 500ms']</code></pre>
@@ -1394,11 +1149,11 @@ In Python, <strong>every file is automatically a module</strong>.</p>
 Write a function that accepts a list of temperatures in Celsius and returns Fahrenheit. Use a list comprehension. Formula: <code>F = C * 9/5 + 32</code></p></li>
 <li><p><strong>User Filter:</strong><br>
 Given a list of user dictionaries, filter out inactive users and extract just their names:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>users <span class="op">=</span> [</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"active"</span>: <span class="va">True</span>},</span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"active"</span>: <span class="va">False</span>},</span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"active"</span>: <span class="va">True</span>}</span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>users <span class="op">=</span> [</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"active"</span>: <span class="va">True</span>},</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"active"</span>: <span class="va">False</span>},</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Yaw"</span>, <span class="st">"active"</span>: <span class="va">True</span>}</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Config Merger:</strong><br>
 Write a function <code>merge_configs(defaults, **overrides)</code> that takes a default config dictionary and merges it with any keyword arguments passed in.</p></li>
 </ol>

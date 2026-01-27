@@ -1,5 +1,5 @@
 ---
-title: "Module 3: Python for MERN Developers"
+title: "Module 3: Python for Full-Stack Developers"
 subtitle: "Part 3: Advanced Structure (Classes, Lambdas, & Modules)"
 format: html
 editor: visual
@@ -206,6 +206,11 @@ Imagine you are building a food delivery app like UberEats or DoorDash.
 * **Object 2**: Address: 456 Oak Ave; Items: Sushi; Status: Preparing.
 
 **Key Takeaway**: The Class defines the structure (what it knows and what it can do), while the Object holds the actual data.
+
+::: {.callout-note}
+## Real-World AI Connection: Model Architectures
+In AI, almost every "Model" (like a Neural Network) is a **Class**. When you use libraries like PyTorch or TensorFlow, you create a class that inherits from a base "Module". This class defines the "Layers" (Attributes) and the "Forward Pass" or how data moves through the brain (Methods).
+:::
 
 ## The Simplest Possible Class
 
@@ -565,6 +570,11 @@ In JavaScript, you use `try...catch`. Python uses `try...except`. The concept is
 - One corrupted image shouldn't crash your entire training pipeline processing 10,000 images
 - Missing data in row 5,000 of a CSV shouldn't stop processing
 - API rate limits need graceful handling
+
+::: {.callout-note}
+## Real-World AI Connection: Robust Pipelines
+Industrial AI systems run on millions of data points. If your code is scraping 10,000 websites and site #452 is down, you don't want the whole program to stop. You use `try...except` to log the error for that one site and then immediately skip to #453. This is how "pipelines" stay running 24/7.
+:::
 
 ## Basic Pattern
 

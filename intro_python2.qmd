@@ -1,5 +1,5 @@
 ---
-title: "Module 3: Python for MERN Developers"
+title: "Module 3: Python for Full-Stack Developers"
 subtitle: "Lesson 2: Control Flow, Loops & Functions"
 format: html
 editor: visual
@@ -61,7 +61,7 @@ Always use `if not collection:` to check for empty lists/dicts, rather than chec
 
 # 2. The "Pythonic" Loop
 
-**Golden Rule:** MERN developers often try to write C-style loops. **Don't.**  
+**Golden Rule:** Developers often try to write C-style loops. **Don't.**  
 In Python, we iterate directly over objects.
 
 ## A. Basic Iteration (`for...in`)
@@ -117,6 +117,11 @@ scores = [85, 92, 78]
 for name, score in zip(names, scores):
     print(f"{name} scored {score}")
 ```
+
+::: {.callout-note}
+## Real-World AI Connection: Pairing Data
+In Machine Learning, we almost always have two separate lists: **Features** (the inputs like image pixels) and **Labels** (the answers like "cat" or "dog"). We use `zip()` to pair them together so the computer can learn that *this* specific input belongs to *that* specific answer.
+:::
 
 **Why this matters:** In data science, you'll often have parallel arrays (features and labels, timestamps and values). `zip()` is essential.
 
@@ -283,6 +288,11 @@ result = [x * 2 for x in nums if x % 2 == 0]
 
 print(result)
 ```
+
+::: {.callout-note}
+## Real-World AI Connection: Feature Scaling
+Before feeding data into an AI model, we often need to "scale" it (e.g., converting all numbers to be between 0 and 1). List comprehensions are the fastest way to apply a mathematical formula to thousands of data points instantly.
+:::
 
 ::: {.callout-warning}
 ## Readability First
@@ -561,280 +571,37 @@ print(adult_active_users)  # ['Kwame', 'Akosua']
 
 ---
 
-# 4. Lambda Functions: Anonymous Functions for Quick Operations
+# 4. Lambda Functions: A Brief Intro
 
-## What Are Lambda Functions?
+In JavaScript, you often use arrow functions for quick operations: `(x) => x * 2`. Python's equivalent is the **lambda function**.
 
-In JavaScript, you write arrow functions for quick operations:
-```javascript
-// JavaScript
-const double = x => x * 2;
-const add = (a, b) => a + b;
-```
+We use lambdas for **quick, one-line operations** where defining a full function with `def` would be overkill. You'll see these most often when sorting data or using specific libraries.
 
-Python's equivalent is the **lambda function** (also called an "anonymous function"):
 ```python
-# Python
+# The Syntax: lambda arguments: expression
 double = lambda x: x * 2
-add = lambda a, b: a + b
+print(double(5)) # 10
 ```
 
-**Syntax:** `lambda arguments: expression`
+### Common Use: Sorting Data
+You have a list of students and want to sort by age. The `key` parameter expects a function that tells it *how* to sort.
+
+```{python}
+#| code-fold: false
+students = [
+    {"name": "Kwame", "age": 22},
+    {"name": "Ama", "age": 19},
+    {"name": "Yaw", "age": 25}
+]
+
+# Use lambda to tell sort() to look at the "age" key
+students.sort(key=lambda s: s["age"])
+print(students)
+```
 
 ::: {.callout-note}
-## Key Difference from Regular Functions
-- **Regular function:** Can have multiple lines, statements, and complex logic
-- **Lambda:** Single expression only, returns the result automatically
-:::
-
-## Why Do We Need Lambda Functions?
-
-Lambda functions are **not** about saving lines of code. They're about **inline operations** where defining a full function would be overkill.
-
-### Use Case 1: Sorting Custom Data
-
-You have a list of dictionaries and want to sort by a specific key:
-
-```{python}
-#| code-fold: false
-students = [
-    {"name": "Kwame", "age": 22},
-    {"name": "Ama", "age": 19},
-    {"name": "Yaw", "age": 25}
-]
-
-# Without lambda - you'd need a separate function
-def get_age(student):
-    return student["age"]
-
-students.sort(key=get_age)
-print(students)
-```
-
-```{python}
-#| code-fold: false
-# With lambda - inline and cleaner
-students = [
-    {"name": "Kwame", "age": 22},
-    {"name": "Ama", "age": 19},
-    {"name": "Yaw", "age": 25}
-]
-
-students.sort(key=lambda student: student["age"])
-print(students)
-```
-
-### Use Case 2: The `map()` Function
-
-`map()` applies a function to every item in an iterable (like JS `.map()`):
-
-```{python}
-#| code-fold: false
-prices = [100, 200, 150, 300]
-
-# Convert to cedis (multiply by 0.12)
-prices_in_cedis = list(map(lambda price: price * 0.12, prices))
-
-print(prices_in_cedis)
-```
-
-**But wait...** You'd usually use a list comprehension instead:
-```{python}
-#| code-fold: false
-# More Pythonic (preferred)
-prices_in_cedis = [price * 0.12 for price in prices]
-print(prices_in_cedis)
-```
-
-::: {.callout-tip}
-## When to Use Lambda vs List Comprehension
-
-**Use lambda when:**
-- Working with `sort()`, `sorted()`, `filter()`, `map()` where a key function is expected
-- The operation is truly simple (one expression)
-- You're not storing the function for reuse
-
-**Use list comprehension when:**
-- You're transforming or filtering a list
-- The operation might grow more complex later
-- Readability is important (comprehensions are more "Pythonic")
-:::
-
-### Use Case 3: The `filter()` Function
-
-`filter()` keeps items that pass a test (like JS `.filter()`):
-
-```{python}
-#| code-fold: false
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-# Keep only even numbers
-evens = list(filter(lambda x: x % 2 == 0, numbers))
-
-print(evens)
-```
-
-Again, list comprehension is usually clearer:
-```{python}
-#| code-fold: false
-# More readable
-evens = [x for x in numbers if x % 2 == 0]
-print(evens)
-```
-
-### Use Case 4: Sorting by Multiple Criteria
-
-This is where lambdas truly shine:
-
-```{python}
-#| code-fold: false
-transactions = [
-    {"user": "Kwame", "amount": 500, "date": "2024-01-15"},
-    {"user": "Ama", "amount": 500, "date": "2024-01-10"},
-    {"user": "Yaw", "amount": 300, "date": "2024-01-20"}
-]
-
-# Sort by amount (descending), then by date (ascending)
-sorted_trans = sorted(transactions, 
-                      key=lambda t: (-t["amount"], t["date"]))
-
-for t in sorted_trans:
-    print(t)
-```
-
-## Lambda Limitations
-
-**You CANNOT do these things in a lambda:**
-```python
-# ❌ Multiple statements
-lambda x: print(x); return x * 2  # Syntax Error!
-
-# ❌ Assignments
-lambda x: y = x * 2  # Syntax Error!
-
-# ❌ Control flow
-lambda x: if x > 0: return x  # Syntax Error!
-```
-
-**If you need any of these, write a regular function!**
-
----
-
-## Exercise 4: Lambda Practice
-
-### Part A: Product Sorter
-
-You have an e-commerce inventory. Sort products by price (low to high):
-
-```{python}
-#| eval: false
-products = [
-    {"name": "Laptop", "price": 3000},
-    {"name": "Mouse", "price": 50},
-    {"name": "Keyboard", "price": 150},
-    {"name": "Monitor", "price": 800}
-]
-
-# YOUR TASK: Sort by price using sorted() and lambda
-# sorted_products = sorted(products, key=...)
-```
-
-::: {.callout-note collapse="true"}
-## Solution
-
-```{python}
-#| code-fold: true
-products = [
-    {"name": "Laptop", "price": 3000},
-    {"name": "Mouse", "price": 50},
-    {"name": "Keyboard", "price": 150},
-    {"name": "Monitor", "price": 800}
-]
-
-sorted_products = sorted(products, key=lambda p: p["price"])
-
-for product in sorted_products:
-    print(f"{product['name']}: ₵{product['price']}")
-```
-:::
-
-### Part B: Name Filter
-
-Filter out names that are shorter than 5 characters:
-
-```{python}
-#| eval: false
-names = ["Kwame", "Ama", "Yaw", "Akosua", "Kofi", "Abena"]
-
-# YOUR TASK: Use filter() and lambda to keep names with len >= 5
-# long_names = list(filter(...))
-
-# BONUS: Rewrite using a list comprehension. Which is clearer?
-```
-
-::: {.callout-note collapse="true"}
-## Solution
-
-```{python}
-#| code-fold: true
-names = ["Kwame", "Ama", "Yaw", "Akosua", "Kofi", "Abena"]
-
-# Method 1: Using filter() and lambda
-long_names = list(filter(lambda name: len(name) >= 5, names))
-print("Using filter():", long_names)
-
-# Method 2: List comprehension (More Pythonic!)
-long_names_v2 = [name for name in names if len(name) >= 5]
-print("Using comprehension:", long_names_v2)
-
-# Most Python developers prefer the comprehension!
-```
-:::
-
-### Part C: Multi-Level Sort (Advanced)
-
-You're managing a school database. Sort students by:
-1. Grade (highest first)
-2. Then by name (alphabetically)
-
-```{python}
-#| eval: false
-students = [
-    {"name": "Yaw", "grade": 85},
-    {"name": "Ama", "grade": 92},
-    {"name": "Kwame", "grade": 92},
-    {"name": "Akosua", "grade": 78}
-]
-
-# YOUR TASK: Sort by grade descending (-grade), then name ascending
-# Hint: key=lambda s: (-s["grade"], s["name"])
-# sorted_students = sorted(...)
-```
-
-::: {.callout-note collapse="true"}
-## Solution
-
-```{python}
-#| code-fold: true
-students = [
-    {"name": "Yaw", "grade": 85},
-    {"name": "Ama", "grade": 92},
-    {"name": "Kwame", "grade": 92},
-    {"name": "Akosua", "grade": 78}
-]
-
-# Sort by grade (descending), then by name (ascending)
-sorted_students = sorted(students, key=lambda s: (-s["grade"], s["name"]))
-
-for student in sorted_students:
-    print(f"{student['name']}: {student['grade']}")
-
-# Output:
-# Ama: 92      (tied at 92, but "Ama" comes before "Kwame")
-# Kwame: 92
-# Yaw: 85
-# Akosua: 78
-```
+## Moving Forward
+We'll dive much deeper into advanced Lambda patterns (like filtering, data mapping, and multi-level sorting) in **Lesson 3**.
 :::
 
 ---
@@ -915,6 +682,22 @@ def build_model(name, **config):
 # We can pass ANY arguments we want
 build_model("ChatBot", layers=12, speed="fast", gpu=True)
 ```
+
+::: {.callout-tip}
+## Real-World AI Example: The "Config Builder"
+In AI libraries like **HuggingFace Transformers**, models take dozens of settings (dropout rates, attention heads, etc.). Instead of writing a function with 50 parameters, developers use `**kwargs`.
+
+```python
+# A realistic look at how AI models are initialized
+def initialize_ai_model(model_name, **hyperparameters):
+    print(f"Loading weights for: {model_name}")
+    for param, value in hyperparameters.items():
+        print(f"  -> Setting {param} to {value}")
+
+# The user can pass only the settings they want to change
+initialize_ai_model("BERT-Base", learning_rate=2e-5, batch_size=32, layers=12)
+```
+:::
 
 **Why this matters:** When you use HuggingFace or PyTorch, you'll constantly pass configuration objects this way.
 

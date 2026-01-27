@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Module 3: Python for MERN Developers</title>
+<title>Module 3: Python for Full-Stack Developers</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,8 +82,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Module 3: Python for MERN Developers</h1>
-<p class="subtitle lead">Part 1: Variables &amp; Data Structures</p>
+<h1 class="title">Module 3: Python for Full-Stack Developers</h1>
+<p class="subtitle lead">Lesson 1: Variables &amp; Data Structures</p>
 </div>
 
 
@@ -102,8 +102,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="the-mindset-shift-js-vs.-python" class="level1">
 <h1>1. The Mindset Shift: JS vs.&nbsp;Python</h1>
-<p>Welcome to Python. As MERN developers, you already know logic. You just need to learn the new syntax and the “Pythonic” way of thinking.</p>
+<p>Welcome to Python. As developers, you already know logic. You just need to learn the new syntax and the “Pythonic” way of thinking.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 32%">
+<col style="width: 44%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Feature</th>
@@ -144,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="variables-f-strings" class="level1">
 <h1>2. Variables &amp; F-Strings</h1>
 <p>In Python, variables are labels, not boxes. You don’t declare types, but you <em>can</em> hint them (similar to TypeScript).</p>
-<div id="d742b516" class="cell" data-execution_count="1">
+<div id="e65629ba" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The Old Way</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Kwame"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>role <span class="op">=</span> <span class="st">"AI Engineer"</span></span>
@@ -180,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="a.-lists-the-array" class="level2">
 <h2 class="anchored" data-anchor-id="a.-lists-the-array">A. Lists (The “Array”)</h2>
 <p><strong>Mutable, ordered sequences.</strong> “Mutable” means you can change the list after creating it - you can add items, remove items, or modify existing items. Think of it like a shopping list you can edit anytime.</p>
-<div id="ea93de25" class="cell" data-execution_count="2">
+<div id="f21002ec" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>stack <span class="op">=</span> [<span class="st">"React"</span>, <span class="st">"Express"</span>, <span class="st">"Node"</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -202,10 +207,23 @@ Node
 ['React', 'Express', 'Node', 'Python']</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-World AI Connection: Sequences
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In AI, we use <strong>Lists</strong> to store sequences of data. For example, in NLP (Natural Language Processing), a sentence is often broken down into a list of words or “tokens”: <code>["The", "quick", "brown", "fox", "jumps", "over"]</code>.</p>
+</div>
+</div>
 <section id="understanding-indexing-in-python" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-indexing-in-python">Understanding Indexing in Python</h3>
 <p><strong>Indexing</strong> is how we access individual items in a list by their position. Python uses <strong>zero-based indexing</strong>, meaning the first item is at position 0, the second at position 1, and so on 😕.</p>
-<div id="4b34ad94" class="cell" data-execution_count="3">
+<div id="40687a8c" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>languages <span class="op">=</span> [<span class="st">"Python"</span>, <span class="st">"JavaScript"</span>, <span class="st">"Java"</span>, <span class="st">"C++"</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#            [0]       [1]           [2]     [3]     &lt;- Positive indices</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#            [-4]      [-3]          [-2]    [-1]    &lt;- Negative indices</span></span>
@@ -231,7 +249,7 @@ Second to last (index -2): Java</code></pre>
 <section id="exercise-1-list-manipulation" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-1-list-manipulation">Exercise 1: List Manipulation</h3>
 <p><strong>Task:</strong> Given a list of programming languages, perform the following operations:</p>
-<div id="9409f3a3" class="cell" data-execution_count="4">
+<div id="4be3b811" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>languages <span class="op">=</span> [<span class="st">"JavaScript"</span>, <span class="st">"Python"</span>, <span class="st">"Java"</span>, <span class="st">"C++"</span>, <span class="st">"Ruby"</span>, <span class="st">"Go"</span>]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Print the first three languages (use slicing)</span></span>
@@ -256,7 +274,7 @@ Second to last (index -2): Java</code></pre>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final length:"</span>, ...(...))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -265,9 +283,9 @@ Second to last (index -2): Java</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="2a6408da" class="cell" data-execution_count="5">
+<div id="cc0e50f8" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>languages <span class="op">=</span> [<span class="st">"JavaScript"</span>, <span class="st">"Python"</span>, <span class="st">"Java"</span>, <span class="st">"C++"</span>, <span class="st">"Ruby"</span>, <span class="st">"Go"</span>]</span>
@@ -316,7 +334,7 @@ Final length: 7</code></pre>
 <li><strong>Why use it?</strong> It’s faster than a list and protects data integrity. AI models often return data as tuples.</li>
 <li><strong>Syntax:</strong> Uses <code>(parentheses)</code> instead of <code>[brackets]</code>.</li>
 </ul>
-<div id="12e11fcc" class="cell" data-execution_count="6">
+<div id="486db3b6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a tuple</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>coordinates <span class="op">=</span> (<span class="fl">5.55602</span>, <span class="op">-</span><span class="fl">0.19690</span>) <span class="co"># Accra Lat/Long</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(coordinates)</span>
@@ -334,10 +352,23 @@ Latitude: 5.55602, Longitude: -0.1969
 New coordinates: (6.67, -1.57)</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-World AI Connection: Fixed Dimensions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Computer Vision, we use <strong>Tuples</strong> for data that should never change during processing, like <strong>image dimensions</strong> <code>(height, width, channels)</code> or <strong>bounding box coordinates</strong> <code>(x_min, y_min, x_max, y_max)</code>. It prevents accidental bugs where code might try to “resize” the data incorrectly!</p>
+</div>
+</div>
 <section id="exercise-2-working-with-tuples" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2-working-with-tuples">Exercise 2: Working with Tuples</h3>
 <p><strong>Task:</strong> You’re building a system to store API response metadata.</p>
-<div id="7b181586" class="cell" data-execution_count="7">
+<div id="85e28833" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># API response metadata (status_code, message, timestamp, user_id)</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>api_response <span class="op">=</span> (<span class="dv">200</span>, <span class="st">"Success"</span>, <span class="st">"2024-12-16T10:30:00"</span>, <span class="st">"user_12345"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -358,7 +389,7 @@ New coordinates: (6.67, -1.57)</code></pre>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Full response:"</span>, full_response)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -367,9 +398,9 @@ New coordinates: (6.67, -1.57)</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="a1be26be" class="cell" data-execution_count="8">
+<div id="a11c3b08" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>api_response <span class="op">=</span> (<span class="dv">200</span>, <span class="st">"Success"</span>, <span class="st">"2024-12-16T10:30:00"</span>, <span class="st">"user_12345"</span>)</span>
@@ -412,7 +443,7 @@ Full response: (200, 'Success', '2024-12-16T10:30:00', 'user_12345', '/api/users
 <li>❌ <strong>Not hashable</strong> (cannot be dictionary keys): lists, dictionaries, sets</li>
 </ul>
 <p>Think of it this way: Python needs to quickly look up values by their keys. To do this efficiently, the keys must be stable and unchangeable. That’s why you can use <code>"name"</code> or <code>123</code> as keys, but not <code>["name"]</code> (a list).</p>
-<div id="af29cce1" class="cell" data-execution_count="9">
+<div id="46bac55a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> {</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"id"</span>: <span class="dv">101</span>,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"name"</span>: <span class="st">"Ama"</span>,</span>
@@ -429,10 +460,23 @@ Full response: (200, 'Success', '2024-12-16T10:30:00', 'user_12345', '/api/users
 0</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-World AI Connection: Model Metadata
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In modern AI, <strong>Dictionaries</strong> are used to store model configurations and metadata. When you download a model from HuggingFace, it often comes with a <code>config.json</code> that Python loads as a dictionary, containing keys like <code>"architecture"</code>, <code>"vocab_size"</code>, and <code>"hidden_layers"</code>.</p>
+</div>
+</div>
 <section id="exercise-3-dictionary-operations" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3-dictionary-operations">Exercise 3: Dictionary Operations</h3>
 <p><strong>Task:</strong> You’re building a user profile system.</p>
-<div id="7b4804d6" class="cell" data-execution_count="10">
+<div id="9384bd58" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"username"</span>: <span class="st">"kwame_dev"</span>,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"email"</span>: <span class="st">"kwame@example.com"</span>,</span>
@@ -462,7 +506,7 @@ Full response: (200, 'Success', '2024-12-16T10:30:00', 'user_12345', '/api/users
 <span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Email exists in profile"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -471,9 +515,9 @@ Full response: (200, 'Success', '2024-12-16T10:30:00', 'user_12345', '/api/users
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="494e83b4" class="cell" data-execution_count="11">
+<div id="bfd70b85" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> {</span>
@@ -522,7 +566,7 @@ Email exists in profile</code></pre>
 <section id="d.-sets-the-unique-list" class="level2">
 <h2 class="anchored" data-anchor-id="d.-sets-the-unique-list">D. Sets (The “Unique List”)</h2>
 <p>Unordered collection of <em>unique</em> elements. Great for deduplicating data.</p>
-<div id="c4da2dce" class="cell" data-execution_count="12">
+<div id="d42c73f2" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>raw_data <span class="op">=</span> [<span class="st">"id_1"</span>, <span class="st">"id_2"</span>, <span class="st">"id_1"</span>, <span class="st">"id_3"</span>]</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>unique_ids <span class="op">=</span> <span class="bu">set</span>(raw_data) </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(unique_ids) <span class="co"># {'id_3', 'id_2', 'id_1'} (Order is random!)</span></span>
@@ -533,14 +577,27 @@ Email exists in profile</code></pre>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(set_a.intersection(set_b)) <span class="co"># {3}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'id_1', 'id_3', 'id_2'}
+<pre><code>{'id_1', 'id_2', 'id_3'}
 {3}</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Real-World AI Connection: Vocabulary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We use <strong>Sets</strong> in data cleaning to find the <strong>unique vocabulary</strong> in a dataset. If you have 1 million tweets, you can convert the entire list of words into a set to instantly remove duplicates and see how many unique words your model needs to handle.</p>
 </div>
 </div>
 <section id="exercise-4-set-operations" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-4-set-operations">Exercise 4: Set Operations</h3>
 <p><strong>Task:</strong> You’re analyzing user permissions across two teams.</p>
-<div id="de1f1228" class="cell" data-execution_count="13">
+<div id="52c5239e" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>team_a_permissions <span class="op">=</span> {<span class="st">"read"</span>, <span class="st">"write"</span>, <span class="st">"delete"</span>, <span class="st">"admin"</span>}</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>team_b_permissions <span class="op">=</span> {<span class="st">"read"</span>, <span class="st">"write"</span>, <span class="st">"execute"</span>, <span class="st">"deploy"</span>}</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -573,7 +630,7 @@ Email exists in profile</code></pre>
 <span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Is admin in Team B?"</span>, is_admin_in_b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -582,9 +639,9 @@ Email exists in profile</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="5be599e9" class="cell" data-execution_count="14">
+<div id="80b7c661" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>team_a_permissions <span class="op">=</span> {<span class="st">"read"</span>, <span class="st">"write"</span>, <span class="st">"delete"</span>, <span class="st">"admin"</span>}</span>
@@ -620,10 +677,10 @@ Email exists in profile</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Common permissions: {'read', 'write'}
-All permissions: {'read', 'execute', 'deploy', 'write', 'delete', 'admin'}
+All permissions: {'write', 'admin', 'execute', 'read', 'deploy', 'delete'}
 Only Team A: {'delete', 'admin'}
-Exclusive permissions: {'deploy', 'execute', 'delete', 'admin'}
-Team A after adding audit: {'read', 'audit', 'write', 'delete', 'admin'}
+Exclusive permissions: {'admin', 'execute', 'deploy', 'delete'}
+Team A after adding audit: {'write', 'admin', 'audit', 'read', 'delete'}
 Is admin in Team B? False</code></pre>
 </div>
 </div>

@@ -7,7 +7,7 @@ format: html
 
 # 1. The "Time Machine" for Code
 
-As MERN stack developers, you likely know Git. But in AI Engineering, version control is not just about saving code—it is about reproducibility, experiment tracking, and managing your professional portfolio.
+As Web developers, you likely know Git. But in AI Engineering, version control is not just about saving code—it is about reproducibility, experiment tracking, and managing your professional portfolio.
 
 ## Git vs. GitHub: The Distinction
 
@@ -204,7 +204,7 @@ git push -u origin main
 
 # 5. Critical Pitfalls in AI Engineering
 
-As you move from MERN to AI, the stakes with Git get higher. Here are the most common mistakes to avoid.
+As you move from Web Development to AI, the stakes with Git get higher. Here are the most common mistakes to avoid.
 
 ### ❌ 1. Committing API Keys (The #1 Sin)
 
