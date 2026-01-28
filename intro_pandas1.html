@@ -86,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction-from-mern-to-machine-learning" id="toc-introduction-from-mern-to-machine-learning" class="nav-link active" data-scroll-target="#introduction-from-mern-to-machine-learning">1. Introduction: From MERN to Machine Learning</a>
+  <li><a href="#introduction-from-web-development-to-machine-learning" id="toc-introduction-from-web-development-to-machine-learning" class="nav-link active" data-scroll-target="#introduction-from-web-development-to-machine-learning">1. Introduction: From Web Development to Machine Learning</a>
   <ul class="collapse">
   <li><a href="#why-this-matters-for-your-career" id="toc-why-this-matters-for-your-career" class="nav-link" data-scroll-target="#why-this-matters-for-your-career">Why This Matters for Your Career</a></li>
   <li><a href="#the-three-pillars-of-pandas-advantage" id="toc-the-three-pillars-of-pandas-advantage" class="nav-link" data-scroll-target="#the-three-pillars-of-pandas-advantage">The Three Pillars of Pandas Advantage</a></li>
@@ -95,12 +95,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#core-data-structures-the-building-blocks" id="toc-core-data-structures-the-building-blocks" class="nav-link" data-scroll-target="#core-data-structures-the-building-blocks">2. Core Data Structures: The Building Blocks</a>
   <ul class="collapse">
   <li><a href="#understanding-series-the-column" id="toc-understanding-series-the-column" class="nav-link" data-scroll-target="#understanding-series-the-column">Understanding Series: The Column</a></li>
-  <li><a href="#understanding-dataframes-the-table" id="toc-understanding-dataframes-the-table" class="nav-link" data-scroll-target="#understanding-dataframes-the-table">Understanding DataFrames: The Table</a></li>
+  <li><a href="#creating-dataframes-from-scratch" id="toc-creating-dataframes-from-scratch" class="nav-link" data-scroll-target="#creating-dataframes-from-scratch">2.2 Creating DataFrames from Scratch</a></li>
   </ul></li>
-  <li><a href="#attributes-vs.-methods-the-grammar-of-pandas" id="toc-attributes-vs.-methods-the-grammar-of-pandas" class="nav-link" data-scroll-target="#attributes-vs.-methods-the-grammar-of-pandas">3. Attributes vs.&nbsp;Methods: The Grammar of Pandas</a>
+  <li><a href="#data-io-reading-and-writing-files" id="toc-data-io-reading-and-writing-files" class="nav-link" data-scroll-target="#data-io-reading-and-writing-files">2.3 Data I/O: Reading and Writing Files</a>
   <ul class="collapse">
-  <li><a href="#attributes-describing-state-no-parentheses" id="toc-attributes-describing-state-no-parentheses" class="nav-link" data-scroll-target="#attributes-describing-state-no-parentheses">Attributes: Describing State (No Parentheses)</a></li>
-  <li><a href="#methods-taking-action-with-parentheses" id="toc-methods-taking-action-with-parentheses" class="nav-link" data-scroll-target="#methods-taking-action-with-parentheses">Methods: Taking Action (With Parentheses)</a></li>
+  <li><a href="#reading-data" id="toc-reading-data" class="nav-link" data-scroll-target="#reading-data">Reading Data</a></li>
+  <li><a href="#saving-data" id="toc-saving-data" class="nav-link" data-scroll-target="#saving-data">Saving Data</a></li>
+  </ul></li>
+  <li><a href="#the-oop-mental-model-attributes-vs.-methods" id="toc-the-oop-mental-model-attributes-vs.-methods" class="nav-link" data-scroll-target="#the-oop-mental-model-attributes-vs.-methods">3. The OOP Mental Model: Attributes vs.&nbsp;Methods</a>
+  <ul class="collapse">
+  <li><a href="#attributes-the-nouns-no-parentheses" id="toc-attributes-the-nouns-no-parentheses" class="nav-link" data-scroll-target="#attributes-the-nouns-no-parentheses">Attributes: The “Nouns” (No Parentheses)</a></li>
+  <li><a href="#methods-the-verbs-with-parentheses" id="toc-methods-the-verbs-with-parentheses" class="nav-link" data-scroll-target="#methods-the-verbs-with-parentheses">Methods: The “Verbs” (With Parentheses)</a></li>
   </ul></li>
   <li><a href="#method-chaining-the-professional-standard" id="toc-method-chaining-the-professional-standard" class="nav-link" data-scroll-target="#method-chaining-the-professional-standard">4. Method Chaining: The Professional Standard</a>
   <ul class="collapse">
@@ -132,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#code-review-checklist-what-european-employers-look-for" id="toc-code-review-checklist-what-european-employers-look-for" class="nav-link" data-scroll-target="#code-review-checklist-what-european-employers-look-for">Code Review Checklist (What European Employers Look For)</a></li>
   <li><a href="#the-pandas-mindset" id="toc-the-pandas-mindset" class="nav-link" data-scroll-target="#the-pandas-mindset">The Pandas Mindset</a></li>
   </ul></li>
-  <li><a href="#next-lesson-preview" id="toc-next-lesson-preview" class="nav-link" data-scroll-target="#next-lesson-preview">Next Lesson Preview</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">11. What’s Next?</a></li>
   <li><a href="#practice-exercise" id="toc-practice-exercise" class="nav-link" data-scroll-target="#practice-exercise">Practice Exercise</a></li>
   </ul>
 </nav>
@@ -165,11 +170,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction-from-mern-to-machine-learning" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-from-mern-to-machine-learning">1. Introduction: From MERN to Machine Learning</h2>
+<section id="introduction-from-web-development-to-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-from-web-development-to-machine-learning">1. Introduction: From Web Development to Machine Learning</h2>
 <section id="why-this-matters-for-your-career" class="level3">
 <h3 class="anchored" data-anchor-id="why-this-matters-for-your-career">Why This Matters for Your Career</h3>
-<p>As experienced full-stack MERN developers, you’ve built responsive applications handling real-time data. Now, you’re transitioning to AI engineering—a field where <strong>data processing speed and accuracy</strong> directly impact model performance and business outcomes.</p>
+<p>As experienced full-stack developers, you’ve built responsive applications handling real-time data. Now, you’re transitioning to AI engineering—a field where <strong>data processing speed and accuracy</strong> directly impact model performance and business outcomes.</p>
 <p>Consider this: A typical e-commerce recommendation engine processes millions of transactions daily. Using JavaScript’s <code>Array.map()</code> would take hours; Pandas completes the same task in seconds.</p>
 </section>
 <section id="the-three-pillars-of-pandas-advantage" class="level3">
@@ -189,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setting-up-your-environment" class="level3">
 <h3 class="anchored" data-anchor-id="setting-up-your-environment">Setting Up Your Environment</h3>
-<div id="1b235266" class="cell" data-execution_count="1">
+<div id="94473bc8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -205,6 +210,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 NumPy version: 2.3.5</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why Python 3.12?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We are using <strong>Python 3.12</strong> for this course because it currently offers the best balance between modern features and stability for core data science libraries like Scikit-Learn and PyTorch. While 3.13 is available, many specialized AI packages are still being optimized for it.</p>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -213,7 +231,7 @@ NumPy version: 2.3.5</code></pre>
 <section id="understanding-series-the-column" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-series-the-column">Understanding Series: The Column</h3>
 <p>A <strong>Series</strong> is a one-dimensional labeled array. Think of it as a single column from a database table, but with powerful computational capabilities.</p>
-<div id="3dca2bb0" class="cell" data-execution_count="2">
+<div id="dc8c6b12" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a Series: Ghana Mobile Money Transaction Volumes</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>momo_volumes <span class="op">=</span> pd.Series(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[<span class="dv">1500000</span>, <span class="dv">2300000</span>, <span class="dv">1800000</span>, <span class="dv">2100000</span>],</span>
@@ -243,12 +261,15 @@ Total Transactions: 7,700,000</code></pre>
 <li><code>.dtype</code> → Data type</li>
 </ul>
 </section>
-<section id="understanding-dataframes-the-table" class="level3">
-<h3 class="anchored" data-anchor-id="understanding-dataframes-the-table">Understanding DataFrames: The Table</h3>
-<p>A <strong>DataFrame</strong> is a collection of Series objects sharing a common index. It’s your primary tool for AI data preparation.</p>
-<div id="877d890d" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Real-world example: Ghana Tech Startup Dataset</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>startup_data <span class="op">=</span> {</span>
+<section id="creating-dataframes-from-scratch" class="level3">
+<h3 class="anchored" data-anchor-id="creating-dataframes-from-scratch">2.2 Creating DataFrames from Scratch</h3>
+<p>While you’ll usually read data from files, as an AI Engineer, you’ll often need to create small DataFrames for testing or to structure data from API responses.</p>
+<section id="a.-from-a-dictionary-of-lists-most-common" class="level4">
+<h4 class="anchored" data-anchor-id="a.-from-a-dictionary-of-lists-most-common">A. From a Dictionary of Lists (Most Common)</h4>
+<p>Each key becomes a column name, and the list becomes the column data.</p>
+<div id="f5773ef0" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ghana Tech Startup Dataset</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>startup_dict <span class="op">=</span> {</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"company"</span>: [<span class="st">"Hubtel"</span>, <span class="st">"Zeepay"</span>, <span class="st">"Jetstream"</span>, <span class="st">"Farmerline"</span>],</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sector"</span>: [<span class="st">"FinTech"</span>, <span class="st">"FinTech"</span>, <span class="st">"E-commerce"</span>, <span class="st">"AgriTech"</span>],</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"employees"</span>: [<span class="dv">250</span>, <span class="dv">180</span>, <span class="dv">120</span>, <span class="dv">95</span>],</span>
@@ -256,7 +277,7 @@ Total Transactions: 7,700,000</code></pre>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"founded_year"</span>: [<span class="dv">2005</span>, <span class="dv">2016</span>, <span class="dv">2018</span>, <span class="dv">2013</span>]</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_startups <span class="op">=</span> pd.DataFrame(startup_data)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>df_startups <span class="op">=</span> pd.DataFrame(startup_dict)</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>df_startups</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -312,22 +333,241 @@ Total Transactions: 7,700,000</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="b.-from-a-list-of-dictionaries-api-format" class="level4">
+<h4 class="anchored" data-anchor-id="b.-from-a-list-of-dictionaries-api-format">B. From a List of Dictionaries (API Format)</h4>
+<p>This reflects how JSON data usually arrives from web services.</p>
+<div id="407b961a" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data from a hypothetical IoT sensor API in Kumasi</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sensor_data <span class="op">=</span> [</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"timestamp"</span>: <span class="st">"2025-01-01 10:00"</span>, <span class="st">"temp"</span>: <span class="fl">31.5</span>, <span class="st">"humidity"</span>: <span class="dv">45</span>},</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"timestamp"</span>: <span class="st">"2025-01-01 11:00"</span>, <span class="st">"temp"</span>: <span class="fl">32.2</span>, <span class="st">"humidity"</span>: <span class="dv">42</span>},</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"timestamp"</span>: <span class="st">"2025-01-01 12:00"</span>, <span class="st">"temp"</span>: <span class="fl">33.0</span>, <span class="st">"humidity"</span>: <span class="dv">40</span>}</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>df_sensors <span class="op">=</span> pd.DataFrame(sensor_data)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df_sensors</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">timestamp</th>
+<th data-quarto-table-cell-role="th">temp</th>
+<th data-quarto-table-cell-role="th">humidity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2025-01-01 10:00</td>
+<td>31.5</td>
+<td>45</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2025-01-01 11:00</td>
+<td>32.2</td>
+<td>42</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2025-01-01 12:00</td>
+<td>33.0</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="c.-from-a-list-of-lists-table-like" class="level4">
+<h4 class="anchored" data-anchor-id="c.-from-a-list-of-lists-table-like">C. From a List of Lists (Table-like)</h4>
+<p>Useful when your data has no labels initially. You must provide the <code>columns</code> argument.</p>
+<div id="66351f84" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agricultural yields (Crop, Weight_kg)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yield_data <span class="op">=</span> [</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Cocoa"</span>, <span class="dv">1500</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Cassava"</span>, <span class="dv">2800</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Yam"</span>, <span class="dv">1200</span>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>df_yield <span class="op">=</span> pd.DataFrame(yield_data, columns<span class="op">=</span>[<span class="st">"crop"</span>, <span class="st">"yield_kg"</span>])</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>df_yield</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">crop</th>
+<th data-quarto-table-cell-role="th">yield_kg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Cocoa</td>
+<td>1500</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Cassava</td>
+<td>2800</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Yam</td>
+<td>1200</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <hr>
 </section>
 </section>
-<section id="attributes-vs.-methods-the-grammar-of-pandas" class="level2">
-<h2 class="anchored" data-anchor-id="attributes-vs.-methods-the-grammar-of-pandas">3. Attributes vs.&nbsp;Methods: The Grammar of Pandas</h2>
-<p>Understanding this distinction is fundamental to writing professional Pandas code.</p>
-<section id="attributes-describing-state-no-parentheses" class="level3">
-<h3 class="anchored" data-anchor-id="attributes-describing-state-no-parentheses">Attributes: Describing State (No Parentheses)</h3>
-<p>Attributes are <strong>properties</strong> that describe the DataFrame’s current state.</p>
-<div id="6238f0ff" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Essential attributes every data engineer uses</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"📊 DataFrame Shape:"</span>, df_startups.shape)  <span class="co"># (rows, columns)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">📋 Column Names:"</span>, df_startups.columns.to_list())</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">🔢 Data Types:</span><span class="ch">\n</span><span class="st">"</span>, df_startups.dtypes)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">📍 Index:"</span>, df_startups.index.to_list())</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">💾 Memory Usage:</span><span class="ch">\n</span><span class="st">"</span>, df_startups.memory_usage(deep<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="data-io-reading-and-writing-files" class="level2">
+<h2 class="anchored" data-anchor-id="data-io-reading-and-writing-files">2.3 Data I/O: Reading and Writing Files</h2>
+<p>In production AI pipelines, your data usually lives in CSVs, Databases, or specialized formats like Parquet.</p>
+<section id="reading-data" class="level3">
+<h3 class="anchored" data-anchor-id="reading-data">Reading Data</h3>
+<p>The most common method is <code>.read_csv()</code>. It has dozens of parameters, but these are the essentials:</p>
+<div id="04f5d3c3" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading from a URL (e.g., World Bank or Github)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the 'Pandas for Everyone' gapminder dataset</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>gapminder_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/chendaniely/pandas_for_everyone/master/data/gapminder.tsv"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This is a TSV (Tab Separated), so we use sep='\t'</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df_gap <span class="op">=</span> pd.read_csv(gapminder_url, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Always inspect the head immediately!</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df_gap.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Afghanistan</td>
+<td>Asia</td>
+<td>1952</td>
+<td>28.80</td>
+<td>8425333</td>
+<td>779.45</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Afghanistan</td>
+<td>Asia</td>
+<td>1957</td>
+<td>30.33</td>
+<td>9240934</td>
+<td>820.85</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Afghanistan</td>
+<td>Asia</td>
+<td>1962</td>
+<td>32.00</td>
+<td>10267083</td>
+<td>853.10</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Afghanistan</td>
+<td>Asia</td>
+<td>1967</td>
+<td>34.02</td>
+<td>11537966</td>
+<td>836.20</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Afghanistan</td>
+<td>Asia</td>
+<td>1972</td>
+<td>36.09</td>
+<td>13079460</td>
+<td>739.98</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="saving-data" class="level3">
+<h3 class="anchored" data-anchor-id="saving-data">Saving Data</h3>
+<p>Once you’ve cleaned your data, you save it using <code>.to_csv()</code>.</p>
+<div id="16a34f0e" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save our startup dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: index=False prevents Pandas from adding a row_number column to your file</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df_startups.to_csv(<span class="st">"processed_startups.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ File saved successfully as processed_startups.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ File saved successfully as processed_startups.csv</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>AI Production Formats: Parquet
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While CSV is great for humans, <strong>Parquet</strong> is preferred for AI production. It is compressed, faster to read, and preserves column types perfectly.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df.to_parquet('data.parquet') </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df = pd.read_parquet('data.parquet')</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="the-oop-mental-model-attributes-vs.-methods" class="level2">
+<h2 class="anchored" data-anchor-id="the-oop-mental-model-attributes-vs.-methods">3. The OOP Mental Model: Attributes vs.&nbsp;Methods</h2>
+<p>In Python, everything is an object. To master Pandas, you must distinguish between <strong>Nouns (Attributes)</strong> and <strong>Verbs (Methods)</strong>.</p>
+<section id="attributes-the-nouns-no-parentheses" class="level3">
+<h3 class="anchored" data-anchor-id="attributes-the-nouns-no-parentheses">Attributes: The “Nouns” (No Parentheses)</h3>
+<p>Attributes are <strong>properties</strong> that describe the DataFrame’s current state. Think of them as the “metadata” or characteristics of your data object.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rule of Thumb: If it's a fixed property, it has no ()</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c93f1efd" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Essential attributes every data engineer uses</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"📊 DataFrame Shape:"</span>, df_startups.shape)  <span class="co"># (rows, columns)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">📋 Column Names:"</span>, df_startups.columns.to_list())</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">🔢 Data Types:</span><span class="ch">\n</span><span class="st">"</span>, df_startups.dtypes)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">📍 Index:"</span>, df_startups.index.to_list())</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">💾 Memory Usage:</span><span class="ch">\n</span><span class="st">"</span>, df_startups.memory_usage(deep<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>📊 DataFrame Shape: (4, 5)
 
@@ -355,21 +595,23 @@ dtype: int64</code></pre>
 </div>
 <p><strong>Pro Tip:</strong> Always check <code>.dtypes</code> early. The <code>object</code> dtype for numbers usually indicates data quality issues (like strings in numeric columns).</p>
 </section>
-<section id="methods-taking-action-with-parentheses" class="level3">
-<h3 class="anchored" data-anchor-id="methods-taking-action-with-parentheses">Methods: Taking Action (With Parentheses)</h3>
-<p>Methods are <strong>functions</strong> that perform operations on the DataFrame.</p>
-<div id="22a0430d" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspection methods</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"First 2 rows:"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_startups.head(<span class="dv">2</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Statistical summary:"</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_startups.describe())</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Structure overview:"</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>df_startups.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="methods-the-verbs-with-parentheses" class="level3">
+<h3 class="anchored" data-anchor-id="methods-the-verbs-with-parentheses">Methods: The “Verbs” (With Parentheses)</h3>
+<p>Methods are <strong>functions</strong> that belong to the object. They <strong>do something</strong> to the data—transforming, cleaning, or calculating. Because they are functions, they <strong>must</strong> have parentheses <code>()</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rule of Thumb: If it's an action, it needs ()</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b10f5f89" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspection methods</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"First 2 rows:"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_startups.head(<span class="dv">2</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Statistical summary:"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_startups.describe())</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Structure overview:"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>df_startups.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>First 2 rows:
   company   sector  employees  funding_usd_millions  founded_year
@@ -406,14 +648,14 @@ dtypes: float64(1), int64(2), object(2)
 memory usage: 292.0+ bytes</code></pre>
 </div>
 </div>
-<div id="f0d9d2d4" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformation methods (covered in detail below)</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sorted by funding:"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df_startups.sort_values(<span class="st">'funding_usd_millions'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c20608c3" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformation methods (covered in detail below)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sorted by funding:"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_startups.sort_values(<span class="st">'funding_usd_millions'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sorted by funding:</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -467,13 +709,13 @@ memory usage: 292.0+ bytes</code></pre>
 </div>
 </div>
 </div>
-<div id="71e99c31" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"With age calculation:"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_startups.assign(age<span class="op">=</span><span class="dv">2025</span> <span class="op">-</span> df_startups[<span class="st">'founded_year'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f4a9f264" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"With age calculation:"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_startups.assign(age<span class="op">=</span><span class="dv">2025</span> <span class="op">-</span> df_startups[<span class="st">'founded_year'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>With age calculation:</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -540,30 +782,30 @@ memory usage: 292.0+ bytes</code></pre>
 <p>This is the most important concept in this notebook. Method chaining transforms chaotic code into elegant, readable pipelines.</p>
 <section id="the-anti-pattern-intermediate-variables" class="level3">
 <h3 class="anchored" data-anchor-id="the-anti-pattern-intermediate-variables">❌ The Anti-Pattern: Intermediate Variables</h3>
-<div id="48d7deba" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DON'T DO THIS - The "Variable Soup" approach</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (This is demonstration code - we're showing what NOT to do)</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>sample_df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">100</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="va">None</span>],</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'date'</span>: [<span class="st">'2025-01-01'</span>, <span class="st">'2025-01-02'</span>, <span class="st">'2025-01-03'</span>, <span class="st">'2025-01-04'</span>, <span class="st">'2025-01-05'</span>]</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> sample_df.copy()</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df1.dropna()</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>df3 <span class="op">=</span> df2[df2[<span class="st">'amount'</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>df4 <span class="op">=</span> df3.assign(vat<span class="op">=</span>df3[<span class="st">'amount'</span>] <span class="op">*</span> <span class="fl">0.125</span>)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>df5 <span class="op">=</span> df4.sort_values(<span class="st">'amount'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Result using intermediate variables:"</span>)</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df5)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Problems:</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># - 5 variables polluting namespace</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># - Memory inefficient (5 copies of data)</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># - Hard to debug (where did the transformation go wrong?)</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># - Jupyter cell order dependency (run cell 5 before 3? Broken!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="26ca2bdb" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DON'T DO THIS - The "Variable Soup" approach</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (This is demonstration code - we're showing what NOT to do)</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>sample_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">100</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="va">None</span>],</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'date'</span>: [<span class="st">'2025-01-01'</span>, <span class="st">'2025-01-02'</span>, <span class="st">'2025-01-03'</span>, <span class="st">'2025-01-04'</span>, <span class="st">'2025-01-05'</span>]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> sample_df.copy()</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df1.dropna()</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>df3 <span class="op">=</span> df2[df2[<span class="st">'amount'</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>df4 <span class="op">=</span> df3.assign(vat<span class="op">=</span>df3[<span class="st">'amount'</span>] <span class="op">*</span> <span class="fl">0.125</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>df5 <span class="op">=</span> df4.sort_values(<span class="st">'amount'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Result using intermediate variables:"</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df5)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Problems:</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co"># - 5 variables polluting namespace</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># - Memory inefficient (5 copies of data)</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co"># - Hard to debug (where did the transformation go wrong?)</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co"># - Jupyter cell order dependency (run cell 5 before 3? Broken!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Result using intermediate variables:
    amount        date   vat
@@ -575,37 +817,37 @@ memory usage: 292.0+ bytes</code></pre>
 </section>
 <section id="the-professional-pattern-method-chaining" class="level3">
 <h3 class="anchored" data-anchor-id="the-professional-pattern-method-chaining">✅ The Professional Pattern: Method Chaining</h3>
-<div id="5f238c4b" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DO THIS - The "Pipeline" approach</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sample_df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">100</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="va">None</span>],</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'date'</span>: [<span class="st">'2025-01-01'</span>, <span class="st">'2025-01-02'</span>, <span class="st">'2025-01-03'</span>, <span class="st">'2025-01-04'</span>, <span class="st">'2025-01-05'</span>]</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>processed_transactions <span class="op">=</span> (</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    sample_df</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    .dropna(subset<span class="op">=</span>[<span class="st">'amount'</span>])</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">'amount &gt; 0'</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        vat<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'amount'</span>] <span class="op">*</span> <span class="fl">0.125</span>,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        total<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'amount'</span>] <span class="op">+</span> df[<span class="st">'vat'</span>]</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'amount'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Result using method chaining:"</span>)</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>processed_transactions</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Benefits:</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ One variable to manage</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Clear data flow (top to bottom)</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Memory efficient</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Easy to debug (comment out one line to test)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="816b2c3d" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DO THIS - The "Pipeline" approach</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sample_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">100</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="va">None</span>],</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'date'</span>: [<span class="st">'2025-01-01'</span>, <span class="st">'2025-01-02'</span>, <span class="st">'2025-01-03'</span>, <span class="st">'2025-01-04'</span>, <span class="st">'2025-01-05'</span>]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>processed_transactions <span class="op">=</span> (</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    sample_df</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    .dropna(subset<span class="op">=</span>[<span class="st">'amount'</span>])</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">'amount &gt; 0'</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        vat<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'amount'</span>] <span class="op">*</span> <span class="fl">0.125</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        total<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'amount'</span>] <span class="op">+</span> x[<span class="st">'vat'</span>]</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'amount'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Result using method chaining:"</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>processed_transactions</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Benefits:</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ One variable to manage</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Clear data flow (top to bottom)</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Memory efficient</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ✓ Easy to debug (comment out one line to test)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Result using method chaining:</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -656,38 +898,38 @@ memory usage: 292.0+ bytes</code></pre>
 <section id="column-creation-with-.assign" class="level3">
 <h3 class="anchored" data-anchor-id="column-creation-with-.assign">5.1 Column Creation with <code>.assign()</code></h3>
 <p><strong>Never</strong> use <code>df['new_col'] = value</code> inside a chain. Always use <code>.assign()</code>.</p>
-<div id="e8cc906c" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Processing Ghana Census Data</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>census_data <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"district"</span>: [<span class="st">"Accra Metro"</span>, <span class="st">"Kumasi Metro"</span>, <span class="st">"Tamale Metro"</span>],</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"population"</span>: [<span class="dv">2500000</span>, <span class="dv">2000000</span>, <span class="dv">600000</span>],</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"land_area_km2"</span>: [<span class="dv">225</span>, <span class="dv">254</span>, <span class="dv">750</span>]</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>enriched_census <span class="op">=</span> (</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    census_data</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Simple calculation</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        density<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'population'</span>] <span class="op">/</span> df[<span class="st">'land_area_km2'</span>],</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Conditional logic using numpy</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        classification<span class="op">=</span><span class="kw">lambda</span> df: np.where(</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>            df[<span class="st">'density'</span>] <span class="op">&gt;</span> <span class="dv">5000</span>,</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'High Density'</span>,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Medium Density'</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Multiple conditions with np.select</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        urban_tier<span class="op">=</span><span class="kw">lambda</span> df: np.select(</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            [df[<span class="st">'population'</span>] <span class="op">&gt;</span> <span class="dv">2000000</span>, df[<span class="st">'population'</span>] <span class="op">&gt;</span> <span class="dv">1000000</span>],</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>            [<span class="st">'Tier 1'</span>, <span class="st">'Tier 2'</span>],</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>            default<span class="op">=</span><span class="st">'Tier 3'</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>enriched_census</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="2fa042c0" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Processing Ghana Census Data</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>census_data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"district"</span>: [<span class="st">"Accra Metro"</span>, <span class="st">"Kumasi Metro"</span>, <span class="st">"Tamale Metro"</span>],</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"population"</span>: [<span class="dv">2500000</span>, <span class="dv">2000000</span>, <span class="dv">600000</span>],</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"land_area_km2"</span>: [<span class="dv">225</span>, <span class="dv">254</span>, <span class="dv">750</span>]</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>enriched_census <span class="op">=</span> (</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    census_data</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Simple calculation</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        density<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'population'</span>] <span class="op">/</span> x[<span class="st">'land_area_km2'</span>],</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Conditional logic using numpy</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>        classification<span class="op">=</span><span class="kw">lambda</span> x: np.where(</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>            x[<span class="st">'density'</span>] <span class="op">&gt;</span> <span class="dv">5000</span>,</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'High Density'</span>,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Medium Density'</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Multiple conditions with np.select</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        urban_tier<span class="op">=</span><span class="kw">lambda</span> x: np.select(</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>            [x[<span class="st">'population'</span>] <span class="op">&gt;</span> <span class="dv">2000000</span>, x[<span class="st">'population'</span>] <span class="op">&gt;</span> <span class="dv">1000000</span>],</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>            [<span class="st">'Tier 1'</span>, <span class="st">'Tier 2'</span>],</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>            default<span class="op">=</span><span class="st">'Tier 3'</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>enriched_census</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -737,46 +979,46 @@ memory usage: 292.0+ bytes</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Why <code>lambda df:</code>?</strong> It allows you to reference columns created earlier in the same <code>.assign()</code> call.</p>
+<p><strong>Why <code>lambda x:</code>?</strong> It allows you to reference columns created earlier in the same <code>.assign()</code> call.</p>
 </section>
 <section id="data-cleaning-with-.dropna-and-.fillna" class="level3">
 <h3 class="anchored" data-anchor-id="data-cleaning-with-.dropna-and-.fillna">5.2 Data Cleaning with <code>.dropna()</code> and <code>.fillna()</code></h3>
 <p>AI models cannot process <code>NaN</code> values. You must handle them early in your pipeline.</p>
-<div id="fd3e5020" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Realistic example: Student enrollment data with missing values</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>student_data <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"student_id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>: [<span class="dv">22</span>, np.nan, <span class="dv">25</span>, <span class="dv">23</span>, np.nan],</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gpa"</span>: [<span class="fl">3.5</span>, <span class="fl">3.8</span>, np.nan, <span class="fl">3.2</span>, <span class="fl">3.9</span>],</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"scholarship"</span>: [<span class="va">True</span>, <span class="va">False</span>, <span class="va">True</span>, np.nan, <span class="va">False</span>]</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original data with missing values:"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student_data)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 1: Drop rows with ANY missing value</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>complete_cases <span class="op">=</span> student_data.dropna()</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Strategy 1 - Complete cases only:"</span>)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(complete_cases)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 2: Drop rows missing CRITICAL columns only</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>critical_complete <span class="op">=</span> student_data.dropna(subset<span class="op">=</span>[<span class="st">'student_id'</span>, <span class="st">'gpa'</span>])</span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Strategy 2 - Keep rows with student_id and gpa:"</span>)</span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(critical_complete)</span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 3: Impute (fill) missing values</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>imputed_data <span class="op">=</span> (</span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    student_data</span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    .fillna({</span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">'age'</span>: student_data[<span class="st">'age'</span>].median(),  <span class="co"># Median for numeric</span></span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">'scholarship'</span>: <span class="va">False</span>  <span class="co"># Default value for boolean</span></span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Strategy 3 - Imputed missing values:"</span>)</span>
-<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>imputed_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="83d835ee" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Realistic example: Student enrollment data with missing values</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>student_data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"student_id"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"age"</span>: [<span class="dv">22</span>, np.nan, <span class="dv">25</span>, <span class="dv">23</span>, np.nan],</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gpa"</span>: [<span class="fl">3.5</span>, <span class="fl">3.8</span>, np.nan, <span class="fl">3.2</span>, <span class="fl">3.9</span>],</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"scholarship"</span>: [<span class="va">True</span>, <span class="va">False</span>, <span class="va">True</span>, np.nan, <span class="va">False</span>]</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original data with missing values:"</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(student_data)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 1: Drop rows with ANY missing value</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>complete_cases <span class="op">=</span> student_data.dropna()</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Strategy 1 - Complete cases only:"</span>)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(complete_cases)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 2: Drop rows missing CRITICAL columns only</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>critical_complete <span class="op">=</span> student_data.dropna(subset<span class="op">=</span>[<span class="st">'student_id'</span>, <span class="st">'gpa'</span>])</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Strategy 2 - Keep rows with student_id and gpa:"</span>)</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(critical_complete)</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 3: Impute (fill) missing values</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>imputed_data <span class="op">=</span> (</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    student_data</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    .fillna({</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">'age'</span>: student_data[<span class="st">'age'</span>].median(),  <span class="co"># Median for numeric</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">'scholarship'</span>: <span class="va">False</span>  <span class="co"># Default value for boolean</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Strategy 3 - Imputed missing values:"</span>)</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>imputed_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Original data with missing values:
    student_id   age  gpa scholarship
@@ -806,12 +1048,12 @@ Strategy 2 - Keep rows with student_id and gpa:
 Strategy 3 - Imputed missing values:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_2233411/1373261355.py:28: FutureWarning:
+<pre><code>/tmp/ipykernel_790548/1373261355.py:28: FutureWarning:
 
 Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -877,32 +1119,32 @@ Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and wil
 <section id="combining-data-with-pd.concat" class="level3">
 <h3 class="anchored" data-anchor-id="combining-data-with-pd.concat">5.3 Combining Data with <code>pd.concat()</code></h3>
 <p>In production, data arrives in fragments. You must assemble it programmatically.</p>
-<div id="e3f343a1" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Quarterly sales reports from 4 regions</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>q1_sales <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Rice"</span>, <span class="st">"Maize"</span>],</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"revenue_ghs"</span>: [<span class="dv">50000</span>, <span class="dv">30000</span>],</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quarter"</span>: [<span class="st">"Q1"</span>, <span class="st">"Q1"</span>]</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>q2_sales <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Rice"</span>, <span class="st">"Maize"</span>],</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"revenue_ghs"</span>: [<span class="dv">55000</span>, <span class="dv">32000</span>],</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quarter"</span>: [<span class="st">"Q2"</span>, <span class="st">"Q2"</span>]</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine and process in one chain</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>annual_analysis <span class="op">=</span> (</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    pd.concat([q1_sales, q2_sales], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        revenue_usd<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'revenue_ghs'</span>] <span class="op">*</span> <span class="fl">0.08</span>,</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>        growth<span class="op">=</span><span class="kw">lambda</span> df: df.groupby(<span class="st">'product'</span>)[<span class="st">'revenue_ghs'</span>].pct_change() <span class="op">*</span> <span class="dv">100</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    .sort_values([<span class="st">'product'</span>, <span class="st">'quarter'</span>])</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>annual_analysis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="a8afafe1" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Quarterly sales reports from 4 regions</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>q1_sales <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Rice"</span>, <span class="st">"Maize"</span>],</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"revenue_ghs"</span>: [<span class="dv">50000</span>, <span class="dv">30000</span>],</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quarter"</span>: [<span class="st">"Q1"</span>, <span class="st">"Q1"</span>]</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>q2_sales <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"product"</span>: [<span class="st">"Rice"</span>, <span class="st">"Maize"</span>],</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"revenue_ghs"</span>: [<span class="dv">55000</span>, <span class="dv">32000</span>],</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quarter"</span>: [<span class="st">"Q2"</span>, <span class="st">"Q2"</span>]</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine and process in one chain</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>annual_analysis <span class="op">=</span> (</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    pd.concat([q1_sales, q2_sales], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>        revenue_usd<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'revenue_ghs'</span>] <span class="op">*</span> <span class="fl">0.08</span>,</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>        growth<span class="op">=</span><span class="kw">lambda</span> x: x.groupby(<span class="st">'product'</span>)[<span class="st">'revenue_ghs'</span>].pct_change() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    .sort_values([<span class="st">'product'</span>, <span class="st">'quarter'</span>])</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>annual_analysis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -965,25 +1207,25 @@ Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and wil
 <section id="filtering-with-.query" class="level3">
 <h3 class="anchored" data-anchor-id="filtering-with-.query">6.1 Filtering with <code>.query()</code></h3>
 <p>More readable than boolean indexing inside chains.</p>
-<div id="fd5c1b15" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ghana E-commerce transaction data</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"order_id"</span>: <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"amount_ghs"</span>: [<span class="dv">150</span>, <span class="dv">2500</span>, <span class="dv">450</span>, <span class="dv">3200</span>, <span class="dv">890</span>],</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"payment_method"</span>: [<span class="st">"MoMo"</span>, <span class="st">"Card"</span>, <span class="st">"MoMo"</span>, <span class="st">"Card"</span>, <span class="st">"Cash"</span>],</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"region"</span>: [<span class="st">"Accra"</span>, <span class="st">"Kumasi"</span>, <span class="st">"Accra"</span>, <span class="st">"Takoradi"</span>, <span class="st">"Tamale"</span>]</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>high_value_card <span class="op">=</span> (</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    transactions</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">'amount_ghs &gt; 1000 and payment_method == "Card"'</span>)</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        commission<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'amount_ghs'</span>] <span class="op">*</span> <span class="fl">0.025</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>high_value_card</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div id="87d12a23" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ghana E-commerce transaction data</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"order_id"</span>: <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"amount_ghs"</span>: [<span class="dv">150</span>, <span class="dv">2500</span>, <span class="dv">450</span>, <span class="dv">3200</span>, <span class="dv">890</span>],</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"payment_method"</span>: [<span class="st">"MoMo"</span>, <span class="st">"Card"</span>, <span class="st">"MoMo"</span>, <span class="st">"Card"</span>, <span class="st">"Cash"</span>],</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"region"</span>: [<span class="st">"Accra"</span>, <span class="st">"Kumasi"</span>, <span class="st">"Accra"</span>, <span class="st">"Takoradi"</span>, <span class="st">"Tamale"</span>]</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>high_value_card <span class="op">=</span> (</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    transactions</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">'amount_ghs &gt; 1000 and payment_method == "Card"'</span>)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>        commission<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'amount_ghs'</span>] <span class="op">*</span> <span class="fl">0.025</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>high_value_card</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -1024,24 +1266,24 @@ Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and wil
 </section>
 <section id="grouping-and-aggregation-in-chains" class="level3">
 <h3 class="anchored" data-anchor-id="grouping-and-aggregation-in-chains">6.2 Grouping and Aggregation in Chains</h3>
-<div id="0c00cf43" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sales by region with chained aggregation</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>regional_summary <span class="op">=</span> (</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    transactions</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'region'</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        total_sales<span class="op">=</span>(<span class="st">'amount_ghs'</span>, <span class="st">'sum'</span>),</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        avg_order_value<span class="op">=</span>(<span class="st">'amount_ghs'</span>, <span class="st">'mean'</span>),</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        num_orders<span class="op">=</span>(<span class="st">'order_id'</span>, <span class="st">'count'</span>)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        sales_rank<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'total_sales'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'total_sales'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>regional_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="2b56ec47" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sales by region with chained aggregation</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>regional_summary <span class="op">=</span> (</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    transactions</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'region'</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        total_sales<span class="op">=</span>(<span class="st">'amount_ghs'</span>, <span class="st">'sum'</span>),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        avg_order_value<span class="op">=</span>(<span class="st">'amount_ghs'</span>, <span class="st">'mean'</span>),</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        num_orders<span class="op">=</span>(<span class="st">'order_id'</span>, <span class="st">'count'</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>        sales_rank<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'total_sales'</span>].rank(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'total_sales'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>regional_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 
 
@@ -1101,68 +1343,68 @@ Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and wil
 <section id="real-world-complete-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="real-world-complete-pipeline">7. Real-World Complete Pipeline</h2>
 <p>This example combines everything: multiple files, cleaning, feature engineering, and aggregation.</p>
-<div id="b8ca6bf2" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulating three months of customer data</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>jan_customers <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>],</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orders"</span>: [<span class="dv">5</span>, np.nan, <span class="dv">8</span>],</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_spent_ghs"</span>: [<span class="dv">1200</span>, <span class="dv">300</span>, <span class="dv">1800</span>],</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: <span class="st">"Jan"</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>feb_customers <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">104</span>],</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orders"</span>: [<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">12</span>],</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_spent_ghs"</span>: [<span class="dv">800</span>, np.nan, <span class="dv">2200</span>],</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: <span class="st">"Feb"</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>mar_customers <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>],</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orders"</span>: [<span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">4</span>],</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_spent_ghs"</span>: [<span class="dv">1500</span>, <span class="dv">2100</span>, <span class="dv">950</span>],</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: <span class="st">"Mar"</span></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Production-grade pipeline</span></span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>customer_insights <span class="op">=</span> (</span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Assemble data</span></span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    pd.concat([jan_customers, feb_customers, mar_customers], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Handle missing values</span></span>
-<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    .fillna({<span class="st">'orders'</span>: <span class="dv">0</span>, <span class="st">'total_spent_ghs'</span>: <span class="dv">0</span>})</span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Feature engineering</span></span>
-<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>        avg_order_value<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'total_spent_ghs'</span>] <span class="op">/</span> df[<span class="st">'orders'</span>].replace(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>        customer_segment<span class="op">=</span><span class="kw">lambda</span> df: pd.cut(</span>
-<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>            df[<span class="st">'total_spent_ghs'</span>],</span>
-<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>            bins<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">1500</span>, np.inf],</span>
-<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>            labels<span class="op">=</span>[<span class="st">'Bronze'</span>, <span class="st">'Silver'</span>, <span class="st">'Gold'</span>]</span>
-<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. Aggregate by customer</span></span>
-<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'customer_id'</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>        total_orders<span class="op">=</span>(<span class="st">'orders'</span>, <span class="st">'sum'</span>),</span>
-<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>        lifetime_value<span class="op">=</span>(<span class="st">'total_spent_ghs'</span>, <span class="st">'sum'</span>),</span>
-<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>        months_active<span class="op">=</span>(<span class="st">'month'</span>, <span class="st">'nunique'</span>),</span>
-<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>        primary_segment<span class="op">=</span>(<span class="st">'customer_segment'</span>, <span class="kw">lambda</span> x: x.mode()[<span class="dv">0</span>] <span class="cf">if</span> <span class="bu">len</span>(x.mode()) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'Bronze'</span>)</span>
-<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5. Final calculations</span></span>
-<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
-<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>        monthly_avg_spend<span class="op">=</span><span class="kw">lambda</span> df: df[<span class="st">'lifetime_value'</span>] <span class="op">/</span> df[<span class="st">'months_active'</span>]</span>
-<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 6. Sort by value</span></span>
-<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'lifetime_value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>customer_insights</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div id="f0135b52" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulating three months of customer data</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>jan_customers <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>],</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orders"</span>: [<span class="dv">5</span>, np.nan, <span class="dv">8</span>],</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_spent_ghs"</span>: [<span class="dv">1200</span>, <span class="dv">300</span>, <span class="dv">1800</span>],</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: <span class="st">"Jan"</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>feb_customers <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">104</span>],</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orders"</span>: [<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">12</span>],</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_spent_ghs"</span>: [<span class="dv">800</span>, np.nan, <span class="dv">2200</span>],</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: <span class="st">"Feb"</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>mar_customers <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customer_id"</span>: [<span class="dv">103</span>, <span class="dv">104</span>, <span class="dv">105</span>],</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"orders"</span>: [<span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">4</span>],</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_spent_ghs"</span>: [<span class="dv">1500</span>, <span class="dv">2100</span>, <span class="dv">950</span>],</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"month"</span>: <span class="st">"Mar"</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Production-grade pipeline</span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>customer_insights <span class="op">=</span> (</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Assemble data</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    pd.concat([jan_customers, feb_customers, mar_customers], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Handle missing values</span></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>    .fillna({<span class="st">'orders'</span>: <span class="dv">0</span>, <span class="st">'total_spent_ghs'</span>: <span class="dv">0</span>})</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Feature engineering</span></span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>        avg_order_value<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'total_spent_ghs'</span>] <span class="op">/</span> x[<span class="st">'orders'</span>].replace(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>        customer_segment<span class="op">=</span><span class="kw">lambda</span> x: pd.cut(</span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>            x[<span class="st">'total_spent_ghs'</span>],</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>            bins<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">1500</span>, np.inf],</span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a>            labels<span class="op">=</span>[<span class="st">'Bronze'</span>, <span class="st">'Silver'</span>, <span class="st">'Gold'</span>]</span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. Aggregate by customer</span></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'customer_id'</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a>        total_orders<span class="op">=</span>(<span class="st">'orders'</span>, <span class="st">'sum'</span>),</span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a>        lifetime_value<span class="op">=</span>(<span class="st">'total_spent_ghs'</span>, <span class="st">'sum'</span>),</span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a>        months_active<span class="op">=</span>(<span class="st">'month'</span>, <span class="st">'nunique'</span>),</span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>        primary_segment<span class="op">=</span>(<span class="st">'customer_segment'</span>, <span class="kw">lambda</span> x: x.mode()[<span class="dv">0</span>] <span class="cf">if</span> <span class="bu">len</span>(x.mode()) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'Bronze'</span>)</span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5. Final calculations</span></span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a>        monthly_avg_spend<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'lifetime_value'</span>] <span class="op">/</span> x[<span class="st">'months_active'</span>]</span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 6. Sort by value</span></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'lifetime_value'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a>customer_insights</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 
 
@@ -1236,24 +1478,24 @@ Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and wil
 <h2 class="anchored" data-anchor-id="common-mistakes-and-how-to-avoid-them">8. Common Mistakes and How to Avoid Them</h2>
 <section id="mistake-1-forgetting-inplacefalse" class="level3">
 <h3 class="anchored" data-anchor-id="mistake-1-forgetting-inplacefalse">Mistake 1: Forgetting <code>inplace=False</code></h3>
-<div id="f6a736c5" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstration of the issue</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'col'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]})</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ BAD: Breaks the chain (returns None)</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>result_bad <span class="op">=</span> demo_df.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Using inplace=True returns:"</span>, result_bad)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ GOOD: Returns new DataFrame, keeps chain alive</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'col'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]})</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>result_good <span class="op">=</span> (</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    demo_df</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'col'</span>)</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Using method chaining returns:"</span>)</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result_good)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c32e3e99" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstration of the issue</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'col'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]})</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ BAD: Breaks the chain (returns None)</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>result_bad <span class="op">=</span> demo_df.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Using inplace=True returns:"</span>, result_bad)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ GOOD: Returns new DataFrame, keeps chain alive</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'col'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]})</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>result_good <span class="op">=</span> (</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    demo_df</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'col'</span>)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Using method chaining returns:"</span>)</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result_good)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using inplace=True returns: None
 
@@ -1269,18 +1511,18 @@ Using method chaining returns:
 </section>
 <section id="mistake-2-not-using-lambda-in-.assign" class="level3">
 <h3 class="anchored" data-anchor-id="mistake-2-not-using-lambda-in-.assign">Mistake 2: Not Using <code>lambda</code> in <code>.assign()</code></h3>
-<div id="62581b3d" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstration of the correct approach</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'old_col'</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>]})</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ GOOD: Lambda allows referencing newly created columns</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> demo_df.assign(</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    new_col_1<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'old_col'</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    new_col_2<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'new_col_1'</span>] <span class="op">/</span> <span class="dv">10</span>  <span class="co"># Can reference new_col_1!</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div id="a5546445" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstration of the correct approach</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'old_col'</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>]})</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ GOOD: Lambda allows referencing newly created columns</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> demo_df.assign(</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    new_col_1<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'old_col'</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    new_col_2<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'new_col_1'</span>] <span class="op">/</span> <span class="dv">10</span>  <span class="co"># Can reference new_col_1!</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -1321,26 +1563,26 @@ Using method chaining returns:
 </section>
 <section id="mistake-3-chaining-without-parentheses" class="level3">
 <h3 class="anchored" data-anchor-id="mistake-3-chaining-without-parentheses">Mistake 3: Chaining Without Parentheses</h3>
-<div id="7cb5e41a" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'a'</span>: [<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>], <span class="st">'b'</span>: [<span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>]})</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ BAD: Hard to read, prone to errors (but works)</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>result_bad <span class="op">=</span> demo_df.dropna().assign(x<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">'a'</span>] <span class="op">*</span> <span class="dv">2</span>).sort_values(<span class="st">'x'</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Without parentheses (hard to read):"</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result_bad)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ GOOD: Each operation on its own line</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>result_good <span class="op">=</span> (</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    demo_df</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    .assign(x<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">'a'</span>] <span class="op">*</span> <span class="dv">2</span>)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'x'</span>)</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"With parentheses (easy to read):"</span>)</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>result_good</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f26545a4" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>demo_df <span class="op">=</span> pd.DataFrame({<span class="st">'a'</span>: [<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>], <span class="st">'b'</span>: [<span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>]})</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ❌ BAD: Hard to read, prone to errors (but works)</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>result_bad <span class="op">=</span> demo_df.dropna().assign(x<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">'a'</span>] <span class="op">*</span> <span class="dv">2</span>).sort_values(<span class="st">'x'</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Without parentheses (hard to read):"</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result_bad)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ GOOD: Each operation on its own line</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>result_good <span class="op">=</span> (</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    demo_df</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    .assign(x<span class="op">=</span><span class="kw">lambda</span> d: d[<span class="st">'a'</span>] <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'x'</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"With parentheses (easy to read):"</span>)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>result_good</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Without parentheses (hard to read):
    a  b  x
@@ -1352,7 +1594,7 @@ Using method chaining returns:
 
 With parentheses (easy to read):</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
 
@@ -1395,30 +1637,30 @@ With parentheses (easy to read):</code></pre>
 </section>
 <section id="performance-tips-for-large-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="performance-tips-for-large-datasets">9. Performance Tips for Large Datasets</h2>
-<div id="fd3c934f" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sample DataFrame to demonstrate optimization</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sample_large_df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'category'</span>: [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'A'</span>, <span class="st">'B'</span>] <span class="op">*</span> <span class="dv">1000</span>,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'year'</span>: [<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2023</span>, <span class="dv">2024</span>] <span class="op">*</span> <span class="dv">1000</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'price'</span>: np.random.randint(<span class="dv">100</span>, <span class="dv">10000</span>, <span class="dv">5000</span>),</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'region'</span>: [<span class="st">'Accra'</span>, <span class="st">'Kumasi'</span>, <span class="st">'Tamale'</span>, <span class="st">'Takoradi'</span>, <span class="st">'Cape Coast'</span>] <span class="op">*</span> <span class="dv">1000</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original memory usage:"</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sample_large_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total: </span><span class="sc">{</span>sample_large_df<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>() <span class="op">/</span> <span class="dv">1024</span><span class="sc">:.2f}</span><span class="ss"> KB"</span>)</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimize data types</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>optimized_df <span class="op">=</span> sample_large_df.copy()</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>optimized_df[<span class="st">'category'</span>] <span class="op">=</span> optimized_df[<span class="st">'category'</span>].astype(<span class="st">'category'</span>)</span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>optimized_df[<span class="st">'region'</span>] <span class="op">=</span> optimized_df[<span class="st">'region'</span>].astype(<span class="st">'category'</span>)</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>optimized_df[<span class="st">'year'</span>] <span class="op">=</span> optimized_df[<span class="st">'year'</span>].astype(<span class="st">'int16'</span>)  <span class="co"># Instead of int64</span></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Optimized memory usage:"</span>)</span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(optimized_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total: </span><span class="sc">{</span>optimized_df<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>() <span class="op">/</span> <span class="dv">1024</span><span class="sc">:.2f}</span><span class="ss"> KB"</span>)</span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Memory saved: </span><span class="sc">{</span>(<span class="dv">1</span> <span class="op">-</span> optimized_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> sample_large_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>()) <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a353191e" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sample DataFrame to demonstrate optimization</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>sample_large_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'category'</span>: [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'A'</span>, <span class="st">'B'</span>] <span class="op">*</span> <span class="dv">1000</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'year'</span>: [<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2023</span>, <span class="dv">2024</span>] <span class="op">*</span> <span class="dv">1000</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'price'</span>: np.random.randint(<span class="dv">100</span>, <span class="dv">10000</span>, <span class="dv">5000</span>),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'region'</span>: [<span class="st">'Accra'</span>, <span class="st">'Kumasi'</span>, <span class="st">'Tamale'</span>, <span class="st">'Takoradi'</span>, <span class="st">'Cape Coast'</span>] <span class="op">*</span> <span class="dv">1000</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original memory usage:"</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sample_large_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total: </span><span class="sc">{</span>sample_large_df<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>() <span class="op">/</span> <span class="dv">1024</span><span class="sc">:.2f}</span><span class="ss"> KB"</span>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">60</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimize data types</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>optimized_df <span class="op">=</span> sample_large_df.copy()</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>optimized_df[<span class="st">'category'</span>] <span class="op">=</span> optimized_df[<span class="st">'category'</span>].astype(<span class="st">'category'</span>)</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>optimized_df[<span class="st">'region'</span>] <span class="op">=</span> optimized_df[<span class="st">'region'</span>].astype(<span class="st">'category'</span>)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>optimized_df[<span class="st">'year'</span>] <span class="op">=</span> optimized_df[<span class="st">'year'</span>].astype(<span class="st">'int16'</span>)  <span class="co"># Instead of int64</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Optimized memory usage:"</span>)</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(optimized_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total: </span><span class="sc">{</span>optimized_df<span class="sc">.</span>memory_usage(deep<span class="op">=</span><span class="va">True</span>)<span class="sc">.</span><span class="bu">sum</span>() <span class="op">/</span> <span class="dv">1024</span><span class="sc">:.2f}</span><span class="ss"> KB"</span>)</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Memory saved: </span><span class="sc">{</span>(<span class="dv">1</span> <span class="op">-</span> optimized_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> sample_large_df.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>()) <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Original memory usage:
 Index          132
@@ -1445,28 +1687,28 @@ Total: 59.42 KB
 Memory saved: 90.0%</code></pre>
 </div>
 </div>
-<div id="f57f9377" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate query() performance advantage</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using query() - cleaner and faster for large datasets</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.time()</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>result_query <span class="op">=</span> optimized_df.query(<span class="st">'price &gt; 1000 and region == "Accra"'</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>time_query <span class="op">=</span> time.time() <span class="op">-</span> start</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Using boolean indexing - works but less efficient</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.time()</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>result_bool <span class="op">=</span> optimized_df[(optimized_df[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">1000</span>) <span class="op">&amp;</span> (optimized_df[<span class="st">'region'</span>] <span class="op">==</span> <span class="st">"Accra"</span>)]</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>time_bool <span class="op">=</span> time.time() <span class="op">-</span> start</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Query method: </span><span class="sc">{</span>time_query<span class="op">*</span><span class="dv">1000</span><span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Boolean indexing: </span><span class="sc">{</span>time_bool<span class="op">*</span><span class="dv">1000</span><span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Both return </span><span class="sc">{</span><span class="bu">len</span>(result_query)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="29f3870d" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate query() performance advantage</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using query() - cleaner and faster for large datasets</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.time()</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>result_query <span class="op">=</span> optimized_df.query(<span class="st">'price &gt; 1000 and region == "Accra"'</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>time_query <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Using boolean indexing - works but less efficient</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> time.time()</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>result_bool <span class="op">=</span> optimized_df[(optimized_df[<span class="st">'price'</span>] <span class="op">&gt;</span> <span class="dv">1000</span>) <span class="op">&amp;</span> (optimized_df[<span class="st">'region'</span>] <span class="op">==</span> <span class="st">"Accra"</span>)]</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>time_bool <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Query method: </span><span class="sc">{</span>time_query<span class="op">*</span><span class="dv">1000</span><span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Boolean indexing: </span><span class="sc">{</span>time_bool<span class="op">*</span><span class="dv">1000</span><span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Both return </span><span class="sc">{</span><span class="bu">len</span>(result_query)<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Query method: 2.29ms
-Boolean indexing: 0.56ms
+<pre><code>Query method: 4.52ms
+Boolean indexing: 0.65ms
 
-Both return 921 rows</code></pre>
+Both return 899 rows</code></pre>
 </div>
 </div>
 <hr>
@@ -1502,13 +1744,14 @@ Both return 921 rows</code></pre>
 <hr>
 </section>
 </section>
-<section id="next-lesson-preview" class="level2">
-<h2 class="anchored" data-anchor-id="next-lesson-preview">Next Lesson Preview</h2>
-<p><strong>Notebook 2: Data Visualization with Matplotlib &amp; Seaborn</strong></p>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">11. What’s Next?</h2>
+<p>Now that you’ve mastered the foundations and the philosophy of method chaining, we’ll move from numbers to visuals.</p>
+<p><strong>Next Module: <a href="file:///home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/intro_pandas2.qmd">Notebook 2: Visual Storytelling with Matplotlib &amp; Seaborn</a></strong></p>
 <ul>
-<li>The explicit interface pattern</li>
-<li>Creating publication-quality plots</li>
-<li>Integrating visualizations into chains</li>
+<li>Learn the Explicit (OOP) way to plot</li>
+<li>Combine Pandas plotting with professional Matplotlib control</li>
+<li>Create stunning statistical visuals with Seaborn</li>
 </ul>
 <hr>
 </section>
@@ -1523,30 +1766,30 @@ Both return 921 rows</code></pre>
 <li>Identifies the top 5 merchants by volume</li>
 </ol>
 <p><strong>Hint:</strong> Use <code>pd.concat()</code>, <code>.query()</code>, <code>.assign()</code>, <code>.groupby()</code>, and <code>.nlargest()</code></p>
-<div id="4063ec5b" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice exercise solution space</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try implementing the exercise here!</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data to get you started:</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>momo_file1 <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: [<span class="st">'Shop A'</span>, <span class="st">'Shop B'</span>, <span class="st">'Shop C'</span>],</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">1000</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">1500</span>]</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>momo_file2 <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: [<span class="st">'Shop A'</span>, <span class="st">'Shop C'</span>, <span class="st">'Shop D'</span>],</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">2000</span>, <span class="dv">800</span>, <span class="dv">1200</span>]</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>momo_file3 <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: [<span class="st">'Shop B'</span>, <span class="st">'Shop D'</span>, <span class="st">'Shop E'</span>],</span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">1800</span>, <span class="dv">2500</span>, <span class="dv">900</span>]</span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Your solution here:</span></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># merchant_analysis = (</span></span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     ...</span></span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d844c55c" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice exercise solution space</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try implementing the exercise here!</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data to get you started:</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>momo_file1 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: [<span class="st">'Shop A'</span>, <span class="st">'Shop B'</span>, <span class="st">'Shop C'</span>],</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">1000</span>, <span class="op">-</span><span class="dv">50</span>, <span class="dv">1500</span>]</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>momo_file2 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: [<span class="st">'Shop A'</span>, <span class="st">'Shop C'</span>, <span class="st">'Shop D'</span>],</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">2000</span>, <span class="dv">800</span>, <span class="dv">1200</span>]</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>momo_file3 <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: [<span class="st">'Shop B'</span>, <span class="st">'Shop D'</span>, <span class="st">'Shop E'</span>],</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: [<span class="dv">1800</span>, <span class="dv">2500</span>, <span class="dv">900</span>]</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Your solution here:</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="co"># merchant_analysis = (</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     ...</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 

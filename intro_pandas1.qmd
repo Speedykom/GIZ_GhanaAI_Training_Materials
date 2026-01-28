@@ -38,6 +38,7 @@ Pandas approach (100x faster):
 total = df['price'].sum()  # Entire column processed in parallel at CPU level
 ```
 
+
 **2. Memory Efficiency**
 
 Pandas uses optimized data types (`int8`, `float32`, `category`) that can reduce memory usage by 90% compared to Python lists. This means processing datasets that would crash a Node.js application on your 8GB laptop.
@@ -60,6 +61,11 @@ print(f"NumPy version: {np.__version__}")
 pd.set_option('display.max_columns', None)
 pd.set_option('display.precision', 2)
 ```
+
+::: {.callout-note}
+## Why Python 3.12?
+We are using **Python 3.12** for this course because it currently offers the best balance between modern features and stability for core data science libraries like Scikit-Learn and PyTorch. While 3.13 is available, many specialized AI packages are still being optimized for it.
+:::
 
 ---
 
@@ -89,13 +95,16 @@ print(f"Total Transactions: {momo_volumes.sum():,}")
 - `.name` → Column name
 - `.dtype` → Data type
 
-### Understanding DataFrames: The Table
+### 2.2 Creating DataFrames from Scratch
 
-A **DataFrame** is a collection of Series objects sharing a common index. It's your primary tool for AI data preparation.
+While you'll usually read data from files, as an AI Engineer, you'll often need to create small DataFrames for testing or to structure data from API responses.
+
+#### A. From a Dictionary of Lists (Most Common)
+Each key becomes a column name, and the list becomes the column data.
 
 ```{python}
-# Real-world example: Ghana Tech Startup Dataset
-startup_data = {
+# Ghana Tech Startup Dataset
+startup_dict = {
     "company": ["Hubtel", "Zeepay", "Jetstream", "Farmerline"],
     "sector": ["FinTech", "FinTech", "E-commerce", "AgriTech"],
     "employees": [250, 180, 120, 95],
@@ -103,19 +112,98 @@ startup_data = {
     "founded_year": [2005, 2016, 2018, 2013]
 }
 
-df_startups = pd.DataFrame(startup_data)
+df_startups = pd.DataFrame(startup_dict)
 df_startups
+```
+
+#### B. From a List of Dictionaries (API Format)
+This reflects how JSON data usually arrives from web services.
+
+```{python}
+# Data from a hypothetical IoT sensor API in Kumasi
+sensor_data = [
+    {"timestamp": "2025-01-01 10:00", "temp": 31.5, "humidity": 45},
+    {"timestamp": "2025-01-01 11:00", "temp": 32.2, "humidity": 42},
+    {"timestamp": "2025-01-01 12:00", "temp": 33.0, "humidity": 40}
+]
+
+df_sensors = pd.DataFrame(sensor_data)
+df_sensors
+```
+
+#### C. From a List of Lists (Table-like)
+Useful when your data has no labels initially. You must provide the `columns` argument.
+
+```{python}
+# Agricultural yields (Crop, Weight_kg)
+yield_data = [
+    ["Cocoa", 1500],
+    ["Cassava", 2800],
+    ["Yam", 1200]
+]
+
+df_yield = pd.DataFrame(yield_data, columns=["crop", "yield_kg"])
+df_yield
 ```
 
 ---
 
-## 3. Attributes vs. Methods: The Grammar of Pandas
+## 2.3 Data I/O: Reading and Writing Files
 
-Understanding this distinction is fundamental to writing professional Pandas code.
+In production AI pipelines, your data usually lives in CSVs, Databases, or specialized formats like Parquet.
 
-### Attributes: Describing State (No Parentheses)
+### Reading Data
 
-Attributes are **properties** that describe the DataFrame's current state.
+The most common method is `.read_csv()`. It has dozens of parameters, but these are the essentials:
+
+```{python}
+# Reading from a URL (e.g., World Bank or Github)
+# Use the 'Pandas for Everyone' gapminder dataset
+gapminder_url = "https://raw.githubusercontent.com/chendaniely/pandas_for_everyone/master/data/gapminder.tsv"
+
+# Note: This is a TSV (Tab Separated), so we use sep='\t'
+df_gap = pd.read_csv(gapminder_url, sep='\t')
+
+# Always inspect the head immediately!
+df_gap.head()
+```
+
+### Saving Data
+
+Once you've cleaned your data, you save it using `.to_csv()`.
+
+```{python}
+# Save our startup dataset
+# Note: index=False prevents Pandas from adding a row_number column to your file
+df_startups.to_csv("processed_startups.csv", index=False)
+
+print("✅ File saved successfully as processed_startups.csv")
+```
+
+::: {.callout-tip}
+## AI Production Formats: Parquet
+While CSV is great for humans, **Parquet** is preferred for AI production. It is compressed, faster to read, and preserves column types perfectly.
+
+```python
+# df.to_parquet('data.parquet') 
+# df = pd.read_parquet('data.parquet')
+```
+:::
+
+---
+
+## 3. The OOP Mental Model: Attributes vs. Methods
+
+In Python, everything is an object. To master Pandas, you must distinguish between **Nouns (Attributes)** and **Verbs (Methods)**.
+
+### Attributes: The "Nouns" (No Parentheses)
+
+Attributes are **properties** that describe the DataFrame's current state. Think of them as the "metadata" or characteristics of your data object.
+
+```python
+# Rule of Thumb: If it's a fixed property, it has no ()
+df.shape
+```
 
 ```{python}
 # Essential attributes every data engineer uses
@@ -128,9 +216,14 @@ print("\n💾 Memory Usage:\n", df_startups.memory_usage(deep=True))
 
 **Pro Tip:** Always check `.dtypes` early. The `object` dtype for numbers usually indicates data quality issues (like strings in numeric columns).
 
-### Methods: Taking Action (With Parentheses)
+### Methods: The "Verbs" (With Parentheses)
 
-Methods are **functions** that perform operations on the DataFrame.
+Methods are **functions** that belong to the object. They **do something** to the data—transforming, cleaning, or calculating. Because they are functions, they **must** have parentheses `()`.
+
+```python
+# Rule of Thumb: If it's an action, it needs ()
+df.head()
+```
 
 ```{python}
 # Inspection methods
@@ -205,8 +298,8 @@ processed_transactions = (
     .dropna(subset=['amount'])
     .query('amount > 0')
     .assign(
-        vat=lambda df: df['amount'] * 0.125,
-        total=lambda df: df['amount'] + df['vat']
+        vat=lambda x: x['amount'] * 0.125,
+        total=lambda x: x['amount'] + x['vat']
     )
     .sort_values('amount', ascending=False)
     .reset_index(drop=True)
@@ -244,18 +337,18 @@ enriched_census = (
     census_data
     .assign(
         # Simple calculation
-        density=lambda df: df['population'] / df['land_area_km2'],
+        density=lambda x: x['population'] / x['land_area_km2'],
         
         # Conditional logic using numpy
-        classification=lambda df: np.where(
-            df['density'] > 5000,
+        classification=lambda x: np.where(
+            x['density'] > 5000,
             'High Density',
             'Medium Density'
         ),
         
         # Multiple conditions with np.select
-        urban_tier=lambda df: np.select(
-            [df['population'] > 2000000, df['population'] > 1000000],
+        urban_tier=lambda x: np.select(
+            [x['population'] > 2000000, x['population'] > 1000000],
             ['Tier 1', 'Tier 2'],
             default='Tier 3'
         )
@@ -265,7 +358,7 @@ enriched_census = (
 enriched_census
 ```
 
-**Why `lambda df:`?** It allows you to reference columns created earlier in the same `.assign()` call.
+**Why `lambda x:`?** It allows you to reference columns created earlier in the same `.assign()` call.
 
 ### 5.2 Data Cleaning with `.dropna()` and `.fillna()`
 
@@ -336,8 +429,8 @@ q2_sales = pd.DataFrame({
 annual_analysis = (
     pd.concat([q1_sales, q2_sales], ignore_index=True)
     .assign(
-        revenue_usd=lambda df: df['revenue_ghs'] * 0.08,
-        growth=lambda df: df.groupby('product')['revenue_ghs'].pct_change() * 100
+        revenue_usd=lambda x: x['revenue_ghs'] * 0.08,
+        growth=lambda x: x.groupby('product')['revenue_ghs'].pct_change() * 100
     )
     .sort_values(['product', 'quarter'])
 )
@@ -368,7 +461,7 @@ high_value_card = (
     transactions
     .query('amount_ghs > 1000 and payment_method == "Card"')
     .assign(
-        commission=lambda df: df['amount_ghs'] * 0.025
+        commission=lambda x: x['amount_ghs'] * 0.025
     )
 )
 
@@ -388,7 +481,7 @@ regional_summary = (
         num_orders=('order_id', 'count')
     )
     .assign(
-        sales_rank=lambda df: df['total_sales'].rank(ascending=False)
+        sales_rank=lambda x: x['total_sales'].rank(ascending=False)
     )
     .sort_values('total_sales', ascending=False)
 )
@@ -435,9 +528,9 @@ customer_insights = (
     
     # 3. Feature engineering
     .assign(
-        avg_order_value=lambda df: df['total_spent_ghs'] / df['orders'].replace(0, 1),
-        customer_segment=lambda df: pd.cut(
-            df['total_spent_ghs'],
+        avg_order_value=lambda x: x['total_spent_ghs'] / x['orders'].replace(0, 1),
+        customer_segment=lambda x: pd.cut(
+            x['total_spent_ghs'],
             bins=[0, 500, 1500, np.inf],
             labels=['Bronze', 'Silver', 'Gold']
         )
@@ -454,7 +547,7 @@ customer_insights = (
     
     # 5. Final calculations
     .assign(
-        monthly_avg_spend=lambda df: df['lifetime_value'] / df['months_active']
+        monthly_avg_spend=lambda x: x['lifetime_value'] / x['months_active']
     )
     
     # 6. Sort by value
@@ -606,13 +699,15 @@ print(f"\nBoth return {len(result_query)} rows")
 
 ---
 
-## Next Lesson Preview
+## 11. What's Next?
 
-**Notebook 2: Data Visualization with Matplotlib & Seaborn**
+Now that you've mastered the foundations and the philosophy of method chaining, we'll move from numbers to visuals.
 
-- The explicit interface pattern
-- Creating publication-quality plots
-- Integrating visualizations into chains
+**Next Module: [Notebook 2: Visual Storytelling with Matplotlib & Seaborn](file:///home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/intro_pandas2.qmd)**
+
+- Learn the Explicit (OOP) way to plot
+- Combine Pandas plotting with professional Matplotlib control
+- Create stunning statistical visuals with Seaborn
 
 ---
 
