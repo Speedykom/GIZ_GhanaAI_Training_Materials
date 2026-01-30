@@ -29,11 +29,13 @@ Each model has weaknesses. **Ensemble methods** combine multiple models to creat
 Imagine you want to estimate the weight of an ox at a fair:
 
 **Scenario 1: Ask one expert**
+
 - Expert guesses: 1,200 kg
 - Actual weight: 1,198 kg
 - Error: 2 kg
 
 **Scenario 2: Ask 100 random people**
+
 - Each person guesses different values
 - Average of all guesses: 1,200 kg
 - Error: 2 kg
@@ -41,6 +43,7 @@ Imagine you want to estimate the weight of an ox at a fair:
 **Result**: The crowd's average is often as accurate as the expert's best guess!
 
 **Why it works**:
+
 - Individual errors are random and cancel out
 - Wisdom comes from diversity, not just expertise
 
@@ -213,6 +216,7 @@ ax.set_title('Random Forest: Feature Importance for Ghana Housing Prices',
              fontsize=14, fontweight='bold')
 ax.invert_yaxis()  # Put most important feature at top
 ax.grid(True, alpha=0.3, axis='x')
+ax.tick_params(axis='y', rotation=45)
 
 plt.tight_layout()
 plt.show()
@@ -495,7 +499,7 @@ print(comparison_df.round(2))
 ### Step 4: Visualize Performance
 
 ```{python}
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 6))
 
 # Plot 1: RMSE (lower is better)
 names = list(results.keys())
@@ -507,6 +511,7 @@ ax1.set_ylabel('RMSE (GHS)', fontsize=12)
 ax1.set_title('Root Mean Squared Error (Lower is Better)', fontsize=14, fontweight='bold')
 ax1.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'₵{x:,.0f}'))
 ax1.grid(True, alpha=0.3, axis='y')
+ax1.set_xticklabels(names, rotation=45, ha='right')
 
 # Add value labels on bars
 for bar, rmse in zip(bars, rmses):
@@ -524,6 +529,7 @@ ax2.set_ylabel('R² Score', fontsize=12)
 ax2.set_title('R² Score (Higher is Better)', fontsize=14, fontweight='bold')
 ax2.set_ylim(0.5, 0.9)
 ax2.grid(True, alpha=0.3, axis='y')
+ax2.set_xticklabels(names, rotation=45, ha='right')
 
 # Add value labels
 for bar, r2 in zip(bars2, r2_scores):
@@ -539,7 +545,7 @@ plt.show()
 ### Step 5: Actual vs. Predicted Comparison
 
 ```{python}
-fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+fig, axes = plt.subplots(2, 2, figsize=(9, 6))
 
 colors_dict = {
     'Decision Tree': '#FF6B6B',
@@ -573,6 +579,8 @@ for idx, name in enumerate(names):
     # Format axes
     ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'₵{x:,.0f}'))
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'₵{x:,.0f}'))
+    ax.tick_params(axis='x', rotation=45)
+    ax.tick_params(axis='y', rotation=45)
 
 plt.tight_layout()
 plt.show()
@@ -682,6 +690,8 @@ Each model has many parameters. How do we choose the best values?
 ### Tuning Random Forest Regressor
 
 ```{python}
+#| eval: false
+
 from sklearn.model_selection import GridSearchCV
 
 # Define parameter grid
@@ -713,6 +723,8 @@ print(f"Test R²: {grid_search_rf.score(X_test, y_test):.3f}")
 ### Tuning XGBoost Regressor
 
 ```{python}
+#| eval: false
+
 # Define parameter grid
 param_grid_xgb = {
     'n_estimators': [100, 200, 300],
@@ -743,6 +755,8 @@ print(f"Test R²: {grid_search_xgb.score(X_test, y_test):.3f}")
 ### Comparing Tuned Models
 
 ```{python}
+#| eval: false
+
 # Compare best models
 print("Tuned Model Performance:")
 print("=" * 50)
@@ -846,19 +860,6 @@ df_ghana = pd.read_csv('data/house_rentals.csv')
 # (RMSE shows average error in GHS, R² shows how much variance the model explains)
 ```
 
-# 1. Explore the data (describe(), correlations, distributions)
-# 2. Handle missing values and outliers
-# 3. Feature engineering (one-hot encoding, feature selection)
-# 4. Train multiple regression models (Decision Tree, Random Forest, XGBoost)
-# 5. Evaluate using appropriate metrics (RMSE, R²)
-# 6. Compare performance across models
-# 7. Tune hyperparameters using GridSearchCV
-# 8. Identify which features matter most (feature importance)
-
-# Hint: For fraud detection, RECALL is often more important than accuracy
-# (you want to catch as many fraud cases as possible, even if it means some false alarms)
-```
-
 ---
 
 # 9. What's Next?
@@ -904,6 +905,7 @@ Apply everything you've learned to a complete ML project:
 **Problem**: Predict house prices in Ghana using multiple features
 
 **Requirements**:
+
 1. Generate synthetic housing data with multiple features
 2. Perform exploratory data analysis
 3. Train multiple models (Linear Regression, Random Forest, XGBoost Regressor)

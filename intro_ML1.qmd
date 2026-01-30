@@ -151,6 +151,7 @@ Or using math notation:
 $$\hat{y} = b + wx$$
 
 Where:
+
 - $\hat{y}$ = predicted value (Fahrenheit)
 - $b$ = bias (intercept - baseline value)
 - $w$ = weight (coefficient - slope)
@@ -177,6 +178,7 @@ print(f"\n✅ Verification: 50°C should be 122°F")
 ## The Key Insight
 
 We just did **machine learning manually**! We:
+
 1. Collected data (two temperature points)
 2. Observed the pattern (linear relationship)
 3. Derived a formula (F = 1.8 × C + 32)
@@ -205,6 +207,7 @@ In machine learning, we write:
 $$\hat{y} = b + wx$$
 
 Where:
+
 - $\hat{y}$ = predicted value (with "hat" to indicate it's a prediction)
 - $b$ = bias (intercept - baseline value when all features are zero)
 - $w$ = weight (coefficient - how much the feature affects the prediction)
@@ -248,6 +251,12 @@ import matplotlib.pyplot as plt
 # Set random seed for reproducibility
 np.random.seed(42)
 
+# Note: We use random seeds to ensure reproducible results.
+# This way, every time you run this code, you'll get the same random numbers.
+# The number 42 is commonly used as a playful reference to "The Hitchhiker's Guide to the Galaxy"
+# (it's the "Answer to the Ultimate Question of Life, the Universe, and Everything").
+# You can use any number - try changing 42 to 67 or any other number!
+
 # Generate synthetic Ghana housing data
 size_sqm = np.random.randint(80, 400, 100)
 
@@ -270,7 +279,7 @@ print(f"Price range: {df_houses['price_ghs'].min():,.0f} - {df_houses['price_ghs
 ### Visualizing the Relationship
 
 ```{python}
-fig, ax = plt.subplots(figsize=(12, 7))
+fig, ax = plt.subplots()
 
 ax.scatter(df_houses['size_sqm'], df_houses['price_ghs'], 
            color='teal', alpha=0.6, s=60, edgecolor='black', linewidth=0.5)
@@ -348,7 +357,7 @@ print(f"R² Score: {r2:.3f}")
 ### Visualizing the Model
 
 ```{python}
-fig, ax = plt.subplots(figsize=(12, 7))
+fig, ax = plt.subplots()
 
 # Plot actual data
 ax.scatter(X_test['size_sqm'], y_test, 
@@ -401,6 +410,7 @@ With multiple features, our formula becomes:
 $$\hat{y} = b + w_1x_1 + w_2x_2 + w_3x_3$$
 
 Where:
+
 - $x_1$ = size in sqm
 - $x_2$ = number of rooms
 - $x_3$ = location (encoded)
@@ -425,7 +435,7 @@ location_premium = {'Accra': 50000, 'Kumasi': 25000, 'Tamale': 10000}
 price_ghs = base_price + np.array([location_premium[loc] for loc in location])
 
 # Add random noise
-price_ghs += np.random.normal(0, 20000, 100)
+price_ghs = price_ghs + np.random.normal(0, 20000, 100)
 
 # Create DataFrame
 df_houses_enhanced = pd.DataFrame({
@@ -568,7 +578,7 @@ print(df_ghana['region'].value_counts())
 ### Visualizing Price Distribution
 
 ```{python}
-fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+fig, axes = plt.subplots(2, 2, figsize=(9, 8))
 
 # 1. Price distribution
 ax1 = axes[0, 0]
@@ -598,6 +608,7 @@ ax3.set_title('Price by Number of Bedrooms', fontsize=12, fontweight='bold')
 ax3.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'₵{x:,.0f}'))
 ax3.grid(True, alpha=0.3, axis='y')
 ax3.get_figure().suptitle('')
+ax3.tick_params(axis='x', rotation=45)
 
 # 4. Price by Region
 ax4 = axes[1, 1]
@@ -719,7 +730,7 @@ print(f"Model improvement over baseline: {(r2_ghana - baseline_r2):.3f}")
 ### Visualizing Predictions vs. Actual
 
 ```{python}
-fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+fig, axes = plt.subplots(1, 2, figsize=(9, 6))
 
 # Plot 1: Predicted vs. Actual
 ax1 = axes[0]
@@ -778,7 +789,7 @@ print(feature_importance_ghana.head(15).round(2))
 ```{python}
 from matplotlib.patches import Patch
 
-fig, ax = plt.subplots(figsize=(12, 8))
+fig, ax = plt.subplots(figsize=(9, 6))
 
 # Get top 15 features
 top_15 = feature_importance_ghana.head(15)
@@ -789,7 +800,7 @@ bars = ax.barh(range(len(top_15)), top_15['Abs_Coefficient'], color=colors,
                 edgecolor='black', linewidth=0.5)
 
 ax.set_yticks(range(len(top_15)))
-ax.set_yticklabels(top_15['Feature'], fontsize=10)
+ax.set_yticklabels(top_15['Feature'], fontsize=10, rotation=45)
 ax.set_xlabel('Absolute Coefficient Value', fontsize=11)
 ax.set_title('Top 15 Features Affecting Ghana Housing Prices', fontsize=14, fontweight='bold')
 ax.invert_yaxis()  # Put most important feature at top
@@ -812,6 +823,7 @@ plt.show()
 **R² of 0.75** means: Our model explains 75% of the variation in housing prices.
 
 **Top features** show which characteristics matter most:
+
 - **Floor area**: Bigger houses cost more (positive coefficient)
 - **Region**: Certain areas (Accra) command higher prices
 - **Property category**: Detached houses vs. apartments affects price
@@ -833,7 +845,7 @@ print(f"  MAE (Mean Absolute Error): {mae:,.0f}")
 
 print("\nExample using 3 predictions:")
 predictions = y_pred_ghana[:3]
-actuals = y_test[:3]
+actuals = y_test.iloc[:3].values
 errors = predictions - actuals
 print(f"  Actual: {actuals[0]:,.0f}, Predicted: {predictions[0]:,.0f}, Error: {errors[0]:,.0f}")
 print(f"  Actual: {actuals[1]:,.0f}, Predicted: {predictions[1]:,.0f}, Error: {errors[1]:,.0f}")
@@ -853,7 +865,7 @@ print("- Consider: Winsorize data first, or use MAE")
 ### Visualizing Errors: Actual vs. Predicted
 
 ```{python}
-fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+fig, axes = plt.subplots(1, 2, figsize=(9, 6))
 
 # Plot 1: Actual vs. Predicted Scatter
 ax1 = axes[0]
@@ -1080,7 +1092,7 @@ car_data = pd.DataFrame({
 
 Congratulations! You've built your first machine learning models. In the next notebook, we'll tackle **classification**—predicting categories instead of numbers.
 
-**Next Module: [Notebook 2: Classification - From Regression to Decision Boundaries](file:///home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/intro_ML2.qmd)**
+**Next Module: Notebook 2: Classification - From Regression to Decision Boundaries**
 
 - The Iris Dataset: Multi-class classification introduction
 - The Titanic Dataset: Real-world binary classification

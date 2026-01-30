@@ -66,6 +66,7 @@ The Iris dataset is one of the most famous datasets in machine learning. It cont
 - **Virginica**: 50 samples
 
 For each flower, we have **4 features**:
+
 1. **Sepal length** (in centimeters)
 2. **Sepal width** (in centimeters)
 3. **Petal length** (in centimeters)
@@ -113,7 +114,7 @@ Let's visualize the data to see how the different species are separated:
 ```{python}
 import matplotlib.pyplot as plt
 
-fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+fig, axes = plt.subplots(2, 2, figsize=(9, 6))
 
 # Plot 1: Sepal Length vs Sepal Width
 ax1 = axes[0, 0]
@@ -251,8 +252,6 @@ print(f"Accuracy: {results_iris['Correct'].mean():.1%}")
 
 Now that we've learned classification with the Iris dataset, let's tackle a more complex, real-world problem: **predicting passenger survival on the Titanic**.
 
-Let's dive into a classic classification problem: **predicting passenger survival on the Titanic**.
-
 ### Loading the Dataset
 
 ```{python}
@@ -312,19 +311,21 @@ print(survival_by_sex)
 ### Visualizing Survival Patterns
 
 ```{python}
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+fig, axes = plt.subplots(2, 2, figsize=(9, 6))
 
 # 1. Survival by Class
 sns.barplot(data=titanic, x='pclass', y='survived', ax=axes[0, 0], palette='Set2')
 axes[0, 0].set_title('Survival Rate by Passenger Class', fontsize=12, fontweight='bold')
 axes[0, 0].set_ylabel('Survival Rate')
 axes[0, 0].set_xlabel('Passenger Class')
+axes[0, 0].tick_params(axis='x', rotation=45)
 
 # 2. Survival by Gender
 sns.barplot(data=titanic, x='sex', y='survived', ax=axes[0, 1], palette='Set2')
 axes[0, 1].set_title('Survival Rate by Gender', fontsize=12, fontweight='bold')
 axes[0, 1].set_ylabel('Survival Rate')
 axes[0, 1].set_xlabel('Gender')
+axes[0, 1].tick_params(axis='x', rotation=45)
 
 # 3. Age distribution by survival
 sns.histplot(data=titanic, x='age', hue='survived', kde=True, ax=axes[1, 0], 
@@ -444,7 +445,7 @@ Let's visualize it:
 z = np.linspace(-10, 10, 100)
 sigmoid = 1 / (1 + np.exp(-z))
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(9, 6))
 ax.plot(z, sigmoid, color='teal', linewidth=3, label='Sigmoid Function')
 
 ax.axhline(y=0, color='gray', linestyle='--', alpha=0.5)
@@ -473,6 +474,7 @@ The logistic regression model is:
 $$P(y=1) = \sigma(b + w_1x_1 + w_2x_2 + \dots)$$
 
 Where:
+
 - $P(y=1)$ = probability of class 1 (survival)
 - $\sigma$ = sigmoid function
 - $b, w_1, w_2, \dots$ = model parameters
@@ -482,11 +484,13 @@ Where:
 ## Binary vs. Multi-Class Classification
 
 **Binary Classification** (like Titanic):
+
 - Two classes: 0 (no) or 1 (yes)
 - One sigmoid function gives probability of class 1
 - $P(y=0) = 1 - P(y=1)$
 
 **Multi-Class Classification** (like Iris):
+
 - Multiple classes: 3 species
 - Logistic Regression uses **One-vs-Rest** strategy
 - Trains multiple binary classifiers, one for each class
@@ -595,6 +599,7 @@ print(results.head(10).round(3))
 ```
 
 **Key observations:**
+
 - `Predicted Class`: Either 0 or 1 (did not survive / survived)
 - `Probability (Class 1)`: How confident the model is about survival
 - Threshold is typically 0.5: if probability > 0.5 → predict class 1
@@ -711,68 +716,36 @@ y_pred_dtree_titanic = dtree_titanic.predict(X_test)
 print(f"Decision Tree Accuracy on Titanic: {accuracy_score(y_test, y_pred_dtree_titanic):.1%}")
 ```
 
-### Visualizing Decision Trees: Titanic and Iris
+### Visualizing Decision Tree: Titanic Survival
 
 ```{python}
-fig, axes = plt.subplots(1, 2, figsize=(24, 10))
+fig, ax = plt.subplots(figsize=(10, 6))
 
-# Plot Titanic tree
-ax1 = axes[0]
+# Plot Titanic tree - only first split
 feature_names = X.columns.tolist()
 class_names_titanic = ['Did Not Survive', 'Survived']
 
 plot_tree(dtree_titanic, feature_names=feature_names, class_names=class_names_titanic,
-          filled=True, rounded=True, fontsize=10, ax=ax1)
+          filled=True, rounded=True, fontsize=11, max_depth=1, ax=ax)
 
-ax1.set_title('Decision Tree: Titanic Survival (Max Depth = 3)', 
-             fontsize=16, fontweight='bold')
-
-# Plot Iris tree
-ax2 = axes[1]
-
-plot_tree(dtree_iris, feature_names=iris.feature_names, class_names=iris.target_names,
-          filled=True, rounded=True, fontsize=10, ax=ax2)
-
-ax2.set_title('Decision Tree: Iris Classification (Max Depth = 3)', 
-             fontsize=16, fontweight='bold')
+ax.set_title('Decision Tree: First Split - Titanic Survival', 
+             fontsize=14, fontweight='bold')
 
 plt.tight_layout()
 plt.show()
 ```
 
-### Comparing Decision Trees: Titanic vs. Iris
-
-| Aspect | Titanic (Binary) | Iris (Multi-Class) |
-| :--- | :--- | :--- |
-| **Number of classes** | 2 (Did Not Survive, Survived) | 3 (Setosa, Versicolor, Virginica) |
-| **Tree depth** | Often needs 3-5 levels | Can be simple (2-3 levels) |
-| **Feature importance** | Gender, Class, Fare most important | Petal measurements most important |
-| **Interpretability** | Clear (yes/no questions) | Clear (thresholds on measurements) |
-| **Accuracy** | ~80% with depth=3 | ~97% with depth=3 |
-| **Complexity** | Missing values, categorical data | Clean, numerical features |
-
-::: {.callout-tip}
-## Why Iris is Simpler
-
-Iris has no missing values and features are well-separated by petal measurements. Titanic is more complex:
-- Missing values (age)
-- Categorical features (sex, embarked)
-- Imbalanced classes (only 38% survived)
-
-This makes Iris a perfect **learning dataset** and Titanic a great **real-world challenge**!
-:::
-
 ### Interpreting the Tree
 
-- **Nodes**: Decision points (e.g., "sex_male <= 0.5")
-- **Edges**: Branches (True/False)
-- **Leaves**: Final predictions
-- **Color**: Darker blue = more "Survived" predictions, darker orange = more "Did Not Survive"
+- **Root Node**: The first decision point (most important feature)
+- **Edges**: Branches (True/False paths)
+- **Leaves**: Final predictions at this split level
+- **Color**: Blue = more "Survived" predictions, Orange = more "Did Not Survive"
 
-**Key insights from this tree:**
-1. **Gender is the most important feature** (first split)
-2. **Fare and class** are also important
-3. The tree is **interpretable**—you can explain each decision!
+**Key insight from first split:**
+The tree chooses the **most informative feature** for the first split—typically `sex_male` for Titanic, showing that gender is the strongest predictor of survival.
+
+This simple visualization demonstrates how decision trees make interpretable, rule-based decisions by asking a series of yes/no questions.
 
 ### The Overfitting Problem
 
@@ -792,6 +765,7 @@ print(f"\nHighest accuracy: {max(accuracies):.1%} at depth {depths[accuracies.in
 ```
 
 **The tradeoff:**
+
 - **Shallow tree** (depth=3): Simple, interpretable, may underfit
 - **Deep tree** (depth=10+): Complex, can memorize data, may overfit
 
@@ -839,12 +813,14 @@ print(f"Number of leaves: {dt_pruned.tree_.n_leaves}")
 ## Decision Tree Pros and Cons
 
 **Pros:**
+
 - ✅ Highly interpretable (you can explain decisions)
 - ✅ Handles both numerical and categorical data
 - ✅ No feature scaling required
 - ✅ Captures non-linear relationships
 
 **Cons:**
+
 - ❌ Prone to overfitting (without pruning)
 - ❌ Can be unstable (small data changes = different tree)
 - ❌ May not achieve highest accuracy
@@ -1005,7 +981,7 @@ titanic = sns.load_dataset('titanic')
 
 Congratulations! You've learned the fundamentals of classification. In the next notebook, we'll explore **ensemble methods**—combining multiple models to achieve even better performance.
 
-**Next Module: [Notebook 3: Ensemble Methods - The Power of Many](file:///home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/intro_ML3.qmd)**
+**Next Module: Notebook 3: Ensemble Methods - The Power of Many**
 
 - Random Forest: Bagging many decision trees
 - Gradient Boosting: Learning from mistakes
