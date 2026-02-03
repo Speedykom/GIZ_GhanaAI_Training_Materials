@@ -1,0 +1,316 @@
+---
+title: "Notebook 3: Production - Transfer Learning"
+subtitle: "Ghana AI Talent Accelerator - Deep Learning Foundations"
+author: "Ghana AI Accelerator"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: cosmo
+    code-fold: false
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+jupyter: python3
+---
+
+<a href="https://colab.research.google.com/github/sisengai/TrainingMaterials/blob/main/intro_DL3.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+# 1. The Transfer Learning Revolution
+
+## 1.1 Why Train From Scratch?
+
+Training a deep neural network from scratch requires:
+- **Millions of labeled images**
+- **Hundreds of GPU hours**
+- **Expert hyperparameter tuning**
+- **Massive computational resources**
+
+Most organizations don't have these resources. But here is the good news: **we don't need to!**
+
+## 1.2 The Transfer Learning Insight
+
+**Transfer Learning** means taking a model trained on one task and adapting it for another.
+
+**The analogy:** Imagine learning to drive a truck after learning to drive a car. You don't relearn what a steering wheel is or how brakes work. You just adapt your existing knowledge.
+
+**In deep learning:**
+- Models trained on ImageNet learn general visual features
+- Early layers detect edges, textures, shapes
+- These features are useful for almost any vision task
+- We just need to retrain the final layers for our specific problem
+
+## 1.3 Benefits of Transfer Learning
+
+| Aspect | From Scratch | Transfer Learning |
+|--------|--------------|-------------------|
+| **Training Data** | 1M+ images | 1,000-10,000 images |
+| **Training Time** | Days/weeks | Minutes/hours |
+| **Accuracy** | Variable | Often better |
+| **GPU Cost** | $1000s | $10s |
+
+**Bottom line:** Transfer learning democratizes deep learning.
+
+---
+
+# 2. Understanding Pre-trained Models
+
+## 2.1 What is ImageNet?
+
+ImageNet is a dataset of 1.4 million labeled images across 1000 categories.
+
+Models trained on ImageNet learn a **general-purpose visual representation** useful for almost any vision task.
+
+## 2.2 Loading a Pre-trained Model
+
+```{python}
+import torch
+import torch.nn as nn
+from torchvision import models
+
+# Load pre-trained ResNet18
+resnet18 = models.resnet18(weights='IMAGENET1K_V1')
+
+print("ResNet18 loaded")
+print(f"Total parameters: {sum(p.numel() for p in resnet18.parameters()):,}")
+
+# Look at the final layer
+print(f"\nOriginal final layer: {resnet18.fc}")
+print(f"Input features: {resnet18.fc.in_features}")
+print(f"Output classes: {resnet18.fc.out_features}")
+```
+
+---
+
+# 3. Transfer Learning in Practice
+
+## 3.1 The Two-Phase Approach
+
+**Phase 1: Feature Extraction**
+- Freeze all pre-trained layers
+- Only train a new final layer
+- Fast training, prevents overfitting
+
+**Phase 2: Fine-Tuning (optional)**
+- Unfreeze later layers
+- Train with very low learning rate
+- Adapts features to your specific task
+
+## 3.2 Phase 1 - Feature Extraction
+
+```{python}
+# Load pre-trained ResNet
+model = models.resnet18(weights='IMAGENET1K_V1')
+
+# Freeze all layers
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace final layer for our task (5 classes for cassava disease)
+num_classes = 5
+model.fc = nn.Linear(model.fc.in_features, num_classes)
+
+# Check trainable parameters
+trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+total = sum(p.numel() for p in model.parameters())
+print(f"Trainable parameters: {trainable:,} ({trainable/total*100:.2f}%)")
+print(f"Frozen parameters: {total-trainable:,}")
+```
+
+## 3.3 Phase 2 - Fine-Tuning
+
+```{python}
+# Unfreeze all layers
+for param in model.parameters():
+    param.requires_grad = True
+
+# Use a much lower learning rate for fine-tuning
+import torch.optim as optim
+optimizer = optim.Adam(model.parameters(), lr=0.0001)  # 10x lower!
+
+print("Phase 2: Fine-tuning entire network")
+print(f"Learning rate: 0.0001")
+print(f"All {total:,} parameters now trainable")
+```
+
+---
+
+# 4. Advanced Training Techniques
+
+## 4.1 Learning Rate Scheduling
+
+```{python}
+# OneCycle LR - starts low, ramps up, then down
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+scheduler = optim.lr_scheduler.OneCycleLR(
+    optimizer,
+    max_lr=0.01,
+    steps_per_epoch=100,
+    epochs=10
+)
+```
+
+**Benefits:**
+- Escapes local minima during high LR phase
+- Fine convergence during low LR phase
+
+## 4.2 Data Augmentation
+
+```{python}
+from torchvision import transforms
+
+train_transform = transforms.Compose([
+    transforms.RandomResizedCrop(224, scale=(0.8, 1.0)),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(15),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+])
+```
+
+---
+
+# 5. Model Interpretability
+
+## 5.1 Why Interpretability Matters
+
+In production (especially healthcare, agriculture, finance):
+- **Regulations** may require explainable decisions
+- **Trust:** Users need to understand why
+- **Debugging:** Find failure modes
+
+## 5.2 Class Activation Mapping (CAM)
+
+CAM shows which image regions influenced the prediction.
+
+---
+
+# 6. Production Deployment
+
+## 6.1 Model Export Formats
+
+### PyTorch Native Format
+
+```{python}
+#| eval: false
+# Save only weights (recommended)
+torch.save(model.state_dict(), 'model_weights.pth')
+
+# Load weights into architecture
+model = models.resnet18(weights=None)
+model.fc = nn.Linear(model.fc.in_features, 5)
+model.load_state_dict(torch.load('model_weights.pth', weights_only=True))
+```
+
+### TorchScript
+
+```{python}
+#| eval: false
+# Convert to TorchScript
+model.eval()
+example_input = torch.randn(1, 3, 224, 224)
+traced_model = torch.jit.trace(model, example_input)
+traced_model.save('model_traced.pt')
+```
+
+### ONNX Format
+
+```{python}
+#| eval: false
+dummy_input = torch.randn(1, 3, 224, 224)
+torch.onnx.export(
+    model,
+    dummy_input,
+    'model.onnx',
+    input_names=['input'],
+    output_names=['output'],
+    opset_version=11
+)
+```
+
+## 6.2 Production Inference Pipeline
+
+```{python}
+class Predictor:
+    def __init__(self, model_path, class_names, device='cpu'):
+        self.device = torch.device(device)
+        self.class_names = class_names
+        self.model = torch.jit.load(model_path)
+        self.model.to(self.device)
+        self.model.eval()
+        
+        self.transform = transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+    
+    def predict(self, image_path):
+        from PIL import Image
+        img = Image.open(image_path).convert('RGB')
+        img_tensor = self.transform(img).unsqueeze(0).to(self.device)
+        
+        with torch.no_grad():
+            output = self.model(img_tensor)
+            probs = torch.softmax(output, dim=1)[0]
+        
+        pred_idx = probs.argmax().item()
+        return {
+            'class': self.class_names[pred_idx],
+            'confidence': probs[pred_idx].item()
+        }
+```
+
+---
+
+# 7. Summary
+
+## 7.1 Transfer Learning Workflow
+
+1. **Load pre-trained model** (ResNet, MobileNet, etc.)
+2. **Freeze base layers** to preserve learned features
+3. **Replace final layer** for your number of classes
+4. **Train new layer** with moderate learning rate
+5. **(Optional) Fine-tune** with very low learning rate
+6. **Export** to production format (TorchScript/ONNX)
+
+## 7.2 When to Use Transfer Learning
+
+| Scenario | Recommendation |
+|----------|----------------|
+| **Less than 1000 images** | Must use transfer learning |
+| **1000-10000 images** | Transfer learning recommended |
+| **More than 10000 images** | Can train from scratch or fine-tune |
+
+## 7.3 Common Pitfalls
+
+**Forgetting to freeze:** Training all layers on small data = overfitting
+
+**Wrong normalization:** Must use ImageNet stats for pre-trained models
+
+**Too high LR:** Destroys pre-trained features during fine-tuning
+
+---
+
+# 8. Practice Exercises
+
+## Exercise 1: Compare Architectures
+
+Test different pre-trained models and compare parameters.
+
+## Exercise 2: Build a Web API
+
+Create a simple Flask API for your model.
+
+---
+
+**Congratulations!** You now know how to apply transfer learning and deploy models to production.
+
+**Next Steps:**
+- Experiment with different architectures
+- Deploy your model to the cloud or mobile
+- Monitor performance in production
