@@ -18,9 +18,9 @@ jupyter: python3
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-# 1. The Transfer Learning Revolution
+## The Transfer Learning Revolution
 
-## 1.1 Why Train From Scratch?
+## Why Train From Scratch?
 
 Training a deep neural network from scratch requires:
 - **Millions of labeled images**
@@ -30,7 +30,7 @@ Training a deep neural network from scratch requires:
 
 Most organizations don't have these resources. But here is the good news: **we don't need to!**
 
-## 1.2 The Transfer Learning Insight
+## The Transfer Learning Insight
 
 **Transfer Learning** means taking a model trained on one task and adapting it for another.
 
@@ -42,7 +42,7 @@ Most organizations don't have these resources. But here is the good news: **we d
 - These features are useful for almost any vision task
 - We just need to retrain the final layers for our specific problem
 
-## 1.3 Benefits of Transfer Learning
+## Benefits of Transfer Learning
 
 | Aspect | From Scratch | Transfer Learning |
 |--------|--------------|-------------------|
@@ -55,15 +55,15 @@ Most organizations don't have these resources. But here is the good news: **we d
 
 ---
 
-# 2. Understanding Pre-trained Models
+## Understanding Pre-trained Models
 
-## 2.1 What is ImageNet?
+## What is ImageNet?
 
 ImageNet is a dataset of 1.4 million labeled images across 1000 categories.
 
 Models trained on ImageNet learn a **general-purpose visual representation** useful for almost any vision task.
 
-## 2.2 Loading a Pre-trained Model
+## Loading a Pre-trained Model
 
 ```{python}
 import torch
@@ -84,9 +84,9 @@ print(f"Output classes: {resnet18.fc.out_features}")
 
 ---
 
-# 3. Transfer Learning in Practice
+## Transfer Learning in Practice
 
-## 3.1 The Two-Phase Approach
+## The Two-Phase Approach
 
 **Phase 1: Feature Extraction**
 - Freeze all pre-trained layers
@@ -98,7 +98,7 @@ print(f"Output classes: {resnet18.fc.out_features}")
 - Train with very low learning rate
 - Adapts features to your specific task
 
-## 3.2 Phase 1 - Feature Extraction
+## Phase 1 - Feature Extraction
 
 ```{python}
 # Load pre-trained ResNet
@@ -119,7 +119,7 @@ print(f"Trainable parameters: {trainable:,} ({trainable/total*100:.2f}%)")
 print(f"Frozen parameters: {total-trainable:,}")
 ```
 
-## 3.3 Phase 2 - Fine-Tuning
+## Phase 2 - Fine-Tuning
 
 ```{python}
 # Unfreeze all layers
@@ -137,9 +137,402 @@ print(f"All {total:,} parameters now trainable")
 
 ---
 
-# 4. Advanced Training Techniques
+## Practical Project: Cassava Disease Classification
 
-## 4.1 Learning Rate Scheduling
+## About the Dataset
+
+The cassava dataset is located in `cassava_dataset/data/` and contains 5 classes:
+
+| Class | Description |
+|-------|-------------|
+| **Cassava___bacterial_blight** | Cassava bacterial blight (CBB) |
+| **Cassava___brown_streak_disease** | Cassava brown streak disease (CBSD) |
+| **Cassava___green_mottle** | Cassava green mottle (CGM) |
+| **Cassava___healthy** | Healthy cassava plants |
+| **Cassava___mosaic_disease** | Cassava mosaic disease (CMD) |
+
+**Note:** The `cassava_dataset/` folder is excluded from git (see `.gitignore`), so make sure you have the dataset locally before running the code.
+
+## Student Workflow Guide
+
+Follow these steps to build your cassava disease classifier:
+
+### Setup and Explore
+
+```{python}
+# Required imports
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torchvision import models, datasets, transforms
+from torch.utils.data import DataLoader, random_split
+import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+from PIL import Image
+
+# Check device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+```
+
+### Explore Dataset Structure
+
+```{python}
+# Set the path to your dataset
+data_dir = Path('cassava_dataset/data')
+
+# Explore the structure
+print("Cassava Disease Dataset")
+print("=" * 40)
+
+class_names = []
+for class_dir in sorted(data_dir.iterdir()):
+    if class_dir.is_dir():
+        class_name = class_dir.name
+        class_names.append(class_name)
+        num_images = len(list(class_dir.glob('*.jpg')))
+        print(f"{class_name}: {num_images} images")
+
+print(f"\nTotal classes: {len(class_names)}")
+```
+
+### Create Data Pipeline
+
+```{python}
+# ImageNet normalization (IMPORTANT for pre-trained models!)
+normalize_mean = [0.485, 0.456, 0.406]
+normalize_std = [0.229, 0.224, 0.225]
+
+# Training transforms with augmentation
+train_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomRotation(15),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2),
+    transforms.ToTensor(),
+    transforms.Normalize(normalize_mean, normalize_std)
+])
+
+# Validation transforms (no augmentation)
+val_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    transforms.Normalize(normalize_mean, normalize_std)
+])
+
+# Load full dataset
+full_dataset = datasets.ImageFolder(root=data_dir, transform=train_transform)
+
+# Split: 80% train, 20% validation
+train_size = int(0.8 * len(full_dataset))
+val_size = len(full_dataset) - train_size
+train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
+
+# Apply validation transforms to validation set
+val_dataset.dataset.transform = val_transform
+
+# Create data loaders
+batch_size = 32
+train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
+val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
+
+print(f"Training samples: {len(train_dataset)}")
+print(f"Validation samples: {len(val_dataset)}")
+print(f"Classes: {full_dataset.classes}")
+```
+
+### Visualize Sample Images
+
+```{python}
+# Get a batch of training images
+images, labels = next(iter(train_loader))
+
+# Create class mapping
+class_to_idx = full_dataset.class_to_idx
+idx_to_class = {v: k.replace('Cassava___', '').replace('_', ' ').title() 
+                for k, v in class_to_idx.items()}
+
+# Plot sample images
+fig, axes = plt.subplots(2, 4, figsize=(14, 7))
+axes = axes.flatten()
+
+for i in range(min(8, len(images))):
+    img = images[i]
+    label = labels[i].item()
+    
+    # Denormalize for display
+    img_np = img.numpy().transpose((1, 2, 0))
+    mean = np.array(normalize_mean)
+    std = np.array(normalize_std)
+    img_np = std * img_np + mean
+    img_np = np.clip(img_np, 0, 1)
+    
+    axes[i].imshow(img_np)
+    axes[i].set_title(idx_to_class[label], fontsize=10)
+    axes[i].axis('off')
+
+plt.suptitle('Sample Cassava Disease Images', fontsize=14)
+plt.tight_layout()
+plt.show()
+```
+
+### Build Transfer Learning Model
+
+```{python}
+# Load pre-trained ResNet18
+model = models.resnet18(weights='IMAGENET1K_V1')
+
+# PHASE 1: Freeze all layers (Feature Extraction)
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace final layer for 5 classes
+num_classes = len(class_names)
+model.fc = nn.Linear(model.fc.in_features, num_classes)
+
+# Move to device
+model = model.to(device)
+
+# Count parameters
+total_params = sum(p.numel() for p in model.parameters())
+trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+print(f"Model Architecture: ResNet18 (pre-trained on ImageNet)")
+print(f"Total parameters: {total_params:,}")
+print(f"Trainable parameters: {trainable_params:,} ({trainable_params/total_params*100:.2f}%)")
+print(f"Frozen parameters: {total_params-trainable_params:,}")
+```
+
+### Setup Training
+
+```{python}
+# Loss function
+criterion = nn.CrossEntropyLoss()
+
+# Optimizer (only train the final layer in Phase 1)
+optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
+
+# Learning rate scheduler
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
+
+print("Training Configuration (Phase 1 - Feature Extraction)")
+print("-" * 50)
+print(f"Loss function: CrossEntropyLoss")
+print(f"Optimizer: Adam (learning rate: 0.001)")
+print(f"Only final layer is trainable")
+print(f"LR Scheduler: StepLR (step=5, gamma=0.1)")
+```
+
+### Training Functions
+
+```{python}
+def train_one_epoch(model, loader, criterion, optimizer, device):
+    """Train for one epoch"""
+    model.train()
+    running_loss = 0.0
+    correct = 0
+    total = 0
+    
+    for batch_idx, (images, labels) in enumerate(loader):
+        images, labels = images.to(device), labels.to(device)
+        
+        # Forward pass
+        optimizer.zero_grad()
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        
+        # Backward pass
+        loss.backward()
+        optimizer.step()
+        
+        # Statistics
+        running_loss += loss.item()
+        _, predicted = outputs.max(1)
+        total += labels.size(0)
+        correct += predicted.eq(labels).sum().item()
+    
+    epoch_loss = running_loss / len(loader)
+    epoch_acc = 100. * correct / total
+    return epoch_loss, epoch_acc
+
+def validate(model, loader, criterion, device):
+    """Validate the model"""
+    model.eval()
+    running_loss = 0.0
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():
+        for images, labels in loader:
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            
+            running_loss += loss.item()
+            _, predicted = outputs.max(1)
+            total += labels.size(0)
+            correct += predicted.eq(labels).sum().item()
+    
+    epoch_loss = running_loss / len(loader)
+    epoch_acc = 100. * correct / total
+    return epoch_loss, epoch_acc
+```
+
+### Train the Model
+
+```{python}
+# Training loop
+num_epochs = 10
+train_losses, train_accs = [], []
+val_losses, val_accs = [], []
+
+best_val_acc = 0.0
+
+print("Starting Training (Phase 1 - Feature Extraction)")
+print("=" * 50)
+
+for epoch in range(num_epochs):
+    print(f"\nEpoch {epoch+1}/{num_epochs}")
+    print("-" * 30)
+    
+    # Train
+    train_loss, train_acc = train_one_epoch(
+        model, train_loader, criterion, optimizer, device
+    )
+    train_losses.append(train_loss)
+    train_accs.append(train_acc)
+    
+    # Validate
+    val_loss, val_acc = validate(model, val_loader, criterion, device)
+    val_losses.append(val_loss)
+    val_accs.append(val_acc)
+    
+    # Step the scheduler
+    scheduler.step()
+    
+    print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.2f}%")
+    print(f"Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.2f}%")
+    
+    # Save best model
+    if val_acc > best_val_acc:
+        best_val_acc = val_acc
+        torch.save(model.state_dict(), 'best_cassava_model.pth')
+        print(f"** Best model saved! (Val Acc: {val_acc:.2f}%)")
+
+print(f"\nTraining complete! Best validation accuracy: {best_val_acc:.2f}%")
+```
+
+### Visualize Training Progress
+
+```{python}
+# Plot training curves
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+# Loss plot
+ax1.plot(train_losses, label='Train Loss', marker='o')
+ax1.plot(val_losses, label='Val Loss', marker='s')
+ax1.set_xlabel('Epoch')
+ax1.set_ylabel('Loss')
+ax1.set_title('Training and Validation Loss')
+ax1.legend()
+ax1.grid(True, alpha=0.3)
+
+# Accuracy plot
+ax2.plot(train_accs, label='Train Acc', marker='o')
+ax2.plot(val_accs, label='Val Acc', marker='s')
+ax2.set_xlabel('Epoch')
+ax2.set_ylabel('Accuracy (%)')
+ax2.set_title('Training and Validation Accuracy')
+ax2.legend()
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+### Optional - Phase 2 Fine-Tuning
+
+```{python}
+#| eval: false
+# Uncomment to run fine-tuning
+
+print("Starting Phase 2: Fine-Tuning")
+print("=" * 40)
+
+# Load best model from Phase 1
+model.load_state_dict(torch.load('best_cassava_model.pth'))
+
+# Unfreeze all layers
+for param in model.parameters():
+    param.requires_grad = True
+
+# Use much lower learning rate
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
+
+print("All layers unfrozen with lr=0.0001")
+print("Fine-tune for 5 more epochs...")
+
+# Fine-tune for 5 epochs
+for epoch in range(5):
+    print(f"\nFine-tune Epoch {epoch+1}/5")
+    train_loss, train_acc = train_one_epoch(
+        model, train_loader, criterion, optimizer, device
+    )
+    val_loss, val_acc = validate(model, val_loader, criterion, device)
+    
+    print(f"Train: Loss={train_loss:.4f}, Acc={train_acc:.2f}%")
+    print(f"Val: Loss={val_loss:.4f}, Acc={val_acc:.2f}%")
+```
+
+### Make Predictions
+
+```{python}
+#| eval: false
+# Load the best model
+model.load_state_dict(torch.load('best_cassava_model.pth'))
+model.eval()
+
+def predict_image(image_path, model, transform, class_names, device):
+    """Predict the class of a single image"""
+    # Load and transform image
+    img = Image.open(image_path).convert('RGB')
+    img_tensor = transform(img).unsqueeze(0).to(device)
+    
+    # Predict
+    with torch.no_grad():
+        outputs = model(img_tensor)
+        probs = torch.softmax(outputs, dim=1)[0]
+        pred_idx = probs.argmax().item()
+        confidence = probs[pred_idx].item()
+    
+    # Get class name
+    class_name = class_names[pred_idx].replace('Cassava___', '').replace('_', ' ').title()
+    
+    return class_name, confidence, img
+
+# Test on a sample image
+test_image_path = 'cassava_dataset/data/Cassava___healthy/995123333.jpg'
+pred_class, confidence, img = predict_image(
+    test_image_path, model, val_transform, full_dataset.classes, device
+)
+
+print(f"Prediction: {pred_class}")
+print(f"Confidence: {confidence:.2%}")
+
+# Display the image
+plt.figure(figsize=(6, 6))
+plt.imshow(img)
+plt.title(f"Predicted: {pred_class}\nConfidence: {confidence:.2%}", fontsize=12)
+plt.axis('off')
+plt.show()
+```
+
+---
+
+## Advanced Training Techniques
+
+## Learning Rate Scheduling
 
 ```{python}
 # OneCycle LR - starts low, ramps up, then down
@@ -156,53 +549,45 @@ scheduler = optim.lr_scheduler.OneCycleLR(
 - Escapes local minima during high LR phase
 - Fine convergence during low LR phase
 
-## 4.2 Data Augmentation
+## Data Augmentation
 
-```{python}
-from torchvision import transforms
-
-train_transform = transforms.Compose([
-    transforms.RandomResizedCrop(224, scale=(0.8, 1.0)),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(15),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-])
-```
+Already included in our pipeline above:
+- Random horizontal flip
+- Random rotation
+- Color jitter (brightness, contrast)
 
 ---
 
-# 5. Model Interpretability
+## Model Interpretability
 
-## 5.1 Why Interpretability Matters
+## Why Interpretability Matters
 
 In production (especially healthcare, agriculture, finance):
 - **Regulations** may require explainable decisions
 - **Trust:** Users need to understand why
 - **Debugging:** Find failure modes
 
-## 5.2 Class Activation Mapping (CAM)
+## Class Activation Mapping (CAM)
 
 CAM shows which image regions influenced the prediction.
 
 ---
 
-# 6. Production Deployment
+## Production Deployment
 
-## 6.1 Model Export Formats
+## Model Export Formats
 
 ### PyTorch Native Format
 
 ```{python}
 #| eval: false
 # Save only weights (recommended)
-torch.save(model.state_dict(), 'model_weights.pth')
+torch.save(model.state_dict(), 'cassava_model_weights.pth')
 
 # Load weights into architecture
 model = models.resnet18(weights=None)
 model.fc = nn.Linear(model.fc.in_features, 5)
-model.load_state_dict(torch.load('model_weights.pth', weights_only=True))
+model.load_state_dict(torch.load('cassava_model_weights.pth', weights_only=True))
 ```
 
 ### TorchScript
@@ -213,7 +598,7 @@ model.load_state_dict(torch.load('model_weights.pth', weights_only=True))
 model.eval()
 example_input = torch.randn(1, 3, 224, 224)
 traced_model = torch.jit.trace(model, example_input)
-traced_model.save('model_traced.pt')
+traced_model.save('cassava_model_traced.pt')
 ```
 
 ### ONNX Format
@@ -224,33 +609,44 @@ dummy_input = torch.randn(1, 3, 224, 224)
 torch.onnx.export(
     model,
     dummy_input,
-    'model.onnx',
+    'cassava_model.onnx',
     input_names=['input'],
     output_names=['output'],
     opset_version=11
 )
 ```
 
-## 6.2 Production Inference Pipeline
+## Production Inference Pipeline
 
 ```{python}
-class Predictor:
-    def __init__(self, model_path, class_names, device='cpu'):
+class CassavaPredictor:
+    def __init__(self, model_path, device='cpu'):
         self.device = torch.device(device)
-        self.class_names = class_names
-        self.model = torch.jit.load(model_path)
+        
+        # Load model architecture
+        self.model = models.resnet18(weights=None)
+        self.model.fc = nn.Linear(self.model.fc.in_features, 5)
+        
+        # Load weights
+        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
         self.model.to(self.device)
         self.model.eval()
         
+        # Class names
+        self.class_names = [
+            'Bacterial Blight', 'Brown Streak Disease', 
+            'Green Mottle', 'Healthy', 'Mosaic Disease'
+        ]
+        
+        # Transforms
         self.transform = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
+            transforms.Resize((224, 224)),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
     
     def predict(self, image_path):
-        from PIL import Image
+        """Predict disease from image path"""
         img = Image.open(image_path).convert('RGB')
         img_tensor = self.transform(img).unsqueeze(0).to(self.device)
         
@@ -260,16 +656,24 @@ class Predictor:
         
         pred_idx = probs.argmax().item()
         return {
-            'class': self.class_names[pred_idx],
-            'confidence': probs[pred_idx].item()
+            'disease': self.class_names[pred_idx],
+            'confidence': probs[pred_idx].item(),
+            'all_probabilities': {
+                name: prob.item() for name, prob in zip(self.class_names, probs)
+            }
         }
+
+# Usage example
+# predictor = CassavaPredictor('cassava_model_weights.pth')
+# result = predictor.predict('path/to/cassava_image.jpg')
+# print(result)
 ```
 
 ---
 
-# 7. Summary
+## Summary
 
-## 7.1 Transfer Learning Workflow
+## Transfer Learning Workflow
 
 1. **Load pre-trained model** (ResNet, MobileNet, etc.)
 2. **Freeze base layers** to preserve learned features
@@ -278,7 +682,21 @@ class Predictor:
 5. **(Optional) Fine-tune** with very low learning rate
 6. **Export** to production format (TorchScript/ONNX)
 
-## 7.2 When to Use Transfer Learning
+## Cassava Project Checklist
+
+- [ ] Dataset is in `cassava_dataset/data/` folder
+- [ ] Data loaders created with proper transforms
+- [ ] Model loaded with pre-trained weights
+- [ ] Final layer replaced for 5 classes
+- [ ] Base layers frozen (Phase 1)
+- [ ] Training loop implemented
+- [ ] Validation metrics tracked
+- [ ] Best model saved
+- [ ] Training curves visualized
+- [ ] Optional fine-tuning completed
+- [ ] Model exported for deployment
+
+## When to Use Transfer Learning
 
 | Scenario | Recommendation |
 |----------|----------------|
@@ -286,7 +704,7 @@ class Predictor:
 | **1000-10000 images** | Transfer learning recommended |
 | **More than 10000 images** | Can train from scratch or fine-tune |
 
-## 7.3 Common Pitfalls
+## Common Pitfalls
 
 **Forgetting to freeze:** Training all layers on small data = overfitting
 
@@ -296,21 +714,44 @@ class Predictor:
 
 ---
 
-# 8. Practice Exercises
+## Practice Exercises
 
-## Exercise 1: Compare Architectures
+### Compare Architectures
 
-Test different pre-trained models and compare parameters.
+Test different pre-trained models (ResNet34, MobileNet, EfficientNet) and compare:
+- Number of parameters
+- Training time
+- Final accuracy
 
-## Exercise 2: Build a Web API
+### Data Augmentation Experiments
 
-Create a simple Flask API for your model.
+Try different augmentation strategies:
+- Remove rotation
+- Add more color jitter
+- Try random crop with different scales
+
+### Build a Web API
+
+Create a simple Flask or FastAPI application that:
+- Accepts image uploads
+- Returns disease prediction and confidence
+- Shows top-3 predictions
+
+### Mobile Deployment
+
+Convert your model to TensorFlow Lite or Core ML for mobile deployment.
 
 ---
 
-**Congratulations!** You now know how to apply transfer learning and deploy models to production.
+**Congratulations!** You now know how to apply transfer learning to real agricultural problems and deploy models to production.
 
 **Next Steps:**
 - Experiment with different architectures
-- Deploy your model to the cloud or mobile
+- Collect more training data for better accuracy
+- Deploy your model as a mobile app for farmers
 - Monitor performance in production
+
+**Additional Resources:**
+- Check the `docs/` folder for reference materials
+- PyTorch documentation: https://pytorch.org/docs/
+- Transfer learning tutorial: https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html
