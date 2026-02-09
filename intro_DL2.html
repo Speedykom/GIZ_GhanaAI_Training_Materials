@@ -495,7 +495,7 @@ Update ALL weights SIMULTANEOUSLY</code></pre>
 <section id="checking-your-gpu" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="checking-your-gpu"><span class="header-section-number">3.5</span> Checking Your GPU</h2>
 <p>Let’s check what hardware you have available:</p>
-<div id="acc8db28" class="cell" data-execution_count="1">
+<div id="3f546ea6" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if GPU is available</span></span>
@@ -582,7 +582,7 @@ Using device: cuda:0</code></pre>
 <li>The kernel naturally operates on local neighborhoods</li>
 </ul>
 <p>Let’s see this in action:</p>
-<div id="d1ab5e93" class="cell" data-execution_count="2">
+<div id="0b8a99e1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import PyTorch - our deep learning framework</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn          <span class="co"># Neural network layers (Conv2d, Linear, etc.)</span></span>
@@ -619,7 +619,7 @@ Using device: cuda:0</code></pre>
 </div>
 <section id="manual-edge-detection" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="manual-edge-detection"><span class="header-section-number">4.1.1</span> Manual Edge Detection</h3>
-<div id="87d7d44e" class="cell" data-execution_count="3">
+<div id="3e05f328" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple 7x7 image with a vertical edge</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> torch.zeros(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">7</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>image[<span class="dv">0</span>, <span class="dv">0</span>, :, <span class="dv">3</span>:] <span class="op">=</span> <span class="fl">1.0</span>  <span class="co"># Right half is white</span></span>
@@ -710,7 +710,7 @@ Convolution Output:
 </section>
 <section id="different-kernels-detect-different-features" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="different-kernels-detect-different-features"><span class="header-section-number">4.1.2</span> Different Kernels Detect Different Features</h3>
-<div id="ae97d9ab" class="cell" data-execution_count="4">
+<div id="68591deb" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>kernels <span class="op">=</span> {</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Vertical Edge'</span>: torch.tensor([[<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]], dtype<span class="op">=</span>torch.float32),</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Horizontal Edge'</span>: torch.tensor([[<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]], dtype<span class="op">=</span>torch.float32),</span>
@@ -776,7 +776,7 @@ Convolution Output:
 <li><strong>1 channel</strong>: Grayscale intensity (0-255)</li>
 <li><strong>Tensor structure</strong>: <code>[batch, channels, height, width]</code></li>
 </ul>
-<div id="54723171" class="cell" data-execution_count="5">
+<div id="ce3ad79a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load MNIST to remind ourselves</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> datasets</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -812,7 +812,7 @@ PyTorch format (N, C, H, W): (1, 1, 28, 28)</code></pre>
 <li><strong>Blue channel</strong>: How much blue (0-255)</li>
 </ul>
 <p><strong>White pixel</strong>: (255, 255, 255) - all colors at max <strong>Black pixel</strong>: (0, 0, 0) - no color <strong>Red pixel</strong>: (255, 0, 0) - only red <strong>Yellow pixel</strong>: (255, 255, 0) - red + green</p>
-<div id="91cae066" class="cell" data-execution_count="6">
+<div id="ae0cd56e" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple RGB demonstration</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -875,7 +875,7 @@ PyTorch format (N, C, H, W): (1, 1, 28, 28)</code></pre>
 <section id="visualizing-individual-channels" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="visualizing-individual-channels"><span class="header-section-number">5.3</span> Visualizing Individual Channels</h2>
 <p>Let’s decompose a color image into its RGB channels:</p>
-<div id="86695fa8" class="cell" data-execution_count="7">
+<div id="a3b6d2e6" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple traffic sign-like image</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>img_size <span class="op">=</span> <span class="dv">64</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sign_image <span class="op">=</span> torch.zeros(<span class="dv">3</span>, img_size, img_size)</span>
@@ -945,7 +945,7 @@ PyTorch format (N, C, H, W): (1, 1, 28, 28)</code></pre>
 <li><strong>Output</strong>: 1 channel (feature map)</li>
 </ol>
 <p><strong>The kernel has depth!</strong> Each of the 3 input channels gets its own 3×3 filter, and the results are summed.</p>
-<div id="6d08670e" class="cell" data-execution_count="8">
+<div id="883a81d1" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate multi-channel convolution</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Multi-Channel Convolution:"</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">50</span>)</span>
@@ -1016,7 +1016,7 @@ Actual Conv2d parameters: 28
 <p>The dataset contains: - <strong>43 different traffic sign classes</strong> - <strong>Over 50,000 images</strong> with varying lighting, angles, and weather conditions - <strong>Real-world photographs</strong> (not synthetic)</p>
 <p>We’ll focus on 4 important signs: - <strong>Priority Road</strong> (yellow diamond) - Class 12 - <strong>Give Way</strong> (inverted triangle) - Class 13<br>
 - <strong>Stop</strong> (octagon) - Class 14 - <strong>No Entry</strong> (red circle) - Class 17</p>
-<div id="da6f90c6" class="cell" data-execution_count="9">
+<div id="d2137fb4" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and prepare the dataset</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This downloads ~300MB of real traffic sign images</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1066,7 +1066,7 @@ Actual Conv2d parameters: 28
 <section id="organizing-the-data" class="level3" data-number="6.2.2">
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="organizing-the-data"><span class="header-section-number">6.2.2</span> Organizing the Data</h3>
 <p>Now we’ll organize the images into train/validation/test splits:</p>
-<div id="907940d9" class="cell" data-execution_count="10">
+<div id="3c2776a4" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> glob <span class="im">import</span> glob</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1129,7 +1129,7 @@ Actual Conv2d parameters: 28
 <section id="loading-the-dataset-with-pytorch" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="loading-the-dataset-with-pytorch"><span class="header-section-number">6.2.3</span> Loading the Dataset with PyTorch</h3>
 <p>Now we use PyTorch’s <code>ImageFolder</code> to easily load the organized images:</p>
-<div id="0c1b63d8" class="cell" data-execution_count="11">
+<div id="f136f255" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision.datasets <span class="im">import</span> ImageFolder</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load datasets from organized directories</span></span>
@@ -1159,7 +1159,7 @@ Actual Conv2d parameters: 28
 <section id="visualize-sample-images" class="level3" data-number="6.2.4">
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="visualize-sample-images"><span class="header-section-number">6.2.4</span> Visualize Sample Images</h3>
 <p>Let’s look at some real traffic sign images from our dataset:</p>
-<div id="098e87a2" class="cell" data-execution_count="12">
+<div id="a8637e1e" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1222,7 +1222,7 @@ Actual Conv2d parameters: 28
 </section>
 <section id="setting-up-transforms" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="setting-up-transforms"><span class="header-section-number">6.3.2</span> Setting Up Transforms</h3>
-<div id="21470303" class="cell" data-execution_count="13">
+<div id="841912ec" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ImageNet normalization values (standard for pre-trained models)</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># These are the mean and std of ImageNet dataset</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>mean_nums <span class="op">=</span> [<span class="fl">0.485</span>, <span class="fl">0.456</span>, <span class="fl">0.406</span>]</span>
@@ -1280,7 +1280,7 @@ Test samples: 615</code></pre>
 <li><strong>Automatic collation</strong>: ImageFolder handles combining samples automatically</li>
 </ul>
 <p><strong>Why batch_size = 32?</strong> - Too small (e.g., 1): Slow training, noisy gradients - Too large (e.g., 256): Might run out of GPU memory - 32 is a good balance for most GPUs</p>
-<div id="d9e67330" class="cell" data-execution_count="14">
+<div id="90e21d06" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data loaders</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">32</span>  <span class="co"># Number of images processed together</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1369,7 +1369,7 @@ First 5 labels in batch: [0, 2, 0, 3, 0]
 <li>Prevents overfitting</li>
 <li>Forces network to learn robust features</li>
 </ul>
-<div id="c4f1bc27" class="cell" data-execution_count="15">
+<div id="3542d1f2" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TrafficSignCNN(nn.Module):</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">    CNN for German traffic sign classification.</span></span>
@@ -1484,7 +1484,7 @@ Model size: 16.37 MB</code></pre>
 </section>
 <section id="training-and-evaluation-functions" class="level3" data-number="6.5.2">
 <h3 data-number="6.5.2" class="anchored" data-anchor-id="training-and-evaluation-functions"><span class="header-section-number">6.5.2</span> Training and Evaluation Functions</h3>
-<div id="0cb50955" class="cell" data-execution_count="16">
+<div id="e5e22cfe" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_epoch(model, loader, optimizer, criterion, device):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Train the model for one complete epoch.</span></span>
@@ -1616,7 +1616,7 @@ Model size: 16.37 MB</code></pre>
 <li><code>gamma=0.1</code>: Multiply LR by 0.1 (reduce to 10%)</li>
 </ul>
 <p><strong>Why?</strong>: Start with big steps (explore), end with small steps (fine-tune)</p>
-<div id="b27e622d" class="cell" data-execution_count="17">
+<div id="f95d1c72" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup 1: Loss function</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># CrossEntropyLoss expects raw logits, applies softmax internally</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.CrossEntropyLoss()</span>
@@ -1688,403 +1688,403 @@ Batches per epoch: 154
 ============================================================
 
 🚀 Epoch 1/20
-  Batch 10/154, Loss: 1.6702
-  Batch 20/154, Loss: 0.8304
-  Batch 30/154, Loss: 0.5432
-  Batch 40/154, Loss: 0.4961
-  Batch 50/154, Loss: 0.3593
-  Batch 60/154, Loss: 0.1660
-  Batch 70/154, Loss: 0.3096
-  Batch 80/154, Loss: 0.1842
-  Batch 90/154, Loss: 0.0427
-  Batch 100/154, Loss: 0.1823
-  Batch 110/154, Loss: 0.0487
-  Batch 120/154, Loss: 0.0410
-  Batch 130/154, Loss: 0.0284
-  Batch 140/154, Loss: 0.0250
-  Batch 150/154, Loss: 0.0714
-  📊 Training:   Loss=0.4005 | Acc=86.20%
-  📊 Validation: Loss=0.0371 | Acc=99.02%
+  Batch 10/154, Loss: 1.6701
+  Batch 20/154, Loss: 0.8234
+  Batch 30/154, Loss: 0.5439
+  Batch 40/154, Loss: 0.5031
+  Batch 50/154, Loss: 0.3367
+  Batch 60/154, Loss: 0.1512
+  Batch 70/154, Loss: 0.2892
+  Batch 80/154, Loss: 0.1893
+  Batch 90/154, Loss: 0.0327
+  Batch 100/154, Loss: 0.2085
+  Batch 110/154, Loss: 0.0421
+  Batch 120/154, Loss: 0.0409
+  Batch 130/154, Loss: 0.0271
+  Batch 140/154, Loss: 0.0198
+  Batch 150/154, Loss: 0.0733
+  📊 Training:   Loss=0.4013 | Acc=86.16%
+  📊 Validation: Loss=0.0377 | Acc=98.86%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 2/20
-  Batch 10/154, Loss: 0.0232
-  Batch 20/154, Loss: 0.0080
-  Batch 30/154, Loss: 0.0258
-  Batch 40/154, Loss: 0.0049
-  Batch 50/154, Loss: 0.0132
-  Batch 60/154, Loss: 0.1355
-  Batch 70/154, Loss: 0.0017
-  Batch 80/154, Loss: 0.0429
-  Batch 90/154, Loss: 0.0121
-  Batch 100/154, Loss: 0.0088
-  Batch 110/154, Loss: 0.0234
-  Batch 120/154, Loss: 0.0565
-  Batch 130/154, Loss: 0.0038
-  Batch 140/154, Loss: 0.0188
-  Batch 150/154, Loss: 0.1812
-  📊 Training:   Loss=0.0503 | Acc=98.60%
-  📊 Validation: Loss=0.0073 | Acc=99.84%
+  Batch 10/154, Loss: 0.0292
+  Batch 20/154, Loss: 0.0159
+  Batch 30/154, Loss: 0.0100
+  Batch 40/154, Loss: 0.0045
+  Batch 50/154, Loss: 0.0308
+  Batch 60/154, Loss: 0.1533
+  Batch 70/154, Loss: 0.0028
+  Batch 80/154, Loss: 0.0525
+  Batch 90/154, Loss: 0.0128
+  Batch 100/154, Loss: 0.0098
+  Batch 110/154, Loss: 0.0250
+  Batch 120/154, Loss: 0.0730
+  Batch 130/154, Loss: 0.0082
+  Batch 140/154, Loss: 0.1879
+  Batch 150/154, Loss: 0.1027
+  📊 Training:   Loss=0.0522 | Acc=98.41%
+  📊 Validation: Loss=0.0200 | Acc=99.35%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 3/20
-  Batch 10/154, Loss: 0.0144
-  Batch 20/154, Loss: 0.0317
-  Batch 30/154, Loss: 0.0692
-  Batch 40/154, Loss: 0.0047
-  Batch 50/154, Loss: 0.0223
-  Batch 60/154, Loss: 0.0081
-  Batch 70/154, Loss: 0.0835
-  Batch 80/154, Loss: 0.0032
-  Batch 90/154, Loss: 0.0241
-  Batch 100/154, Loss: 0.0001
-  Batch 110/154, Loss: 0.0063
-  Batch 120/154, Loss: 0.0000
-  Batch 130/154, Loss: 0.0017
-  Batch 140/154, Loss: 0.0109
-  Batch 150/154, Loss: 0.0113
-  📊 Training:   Loss=0.0347 | Acc=98.90%
-  📊 Validation: Loss=0.0224 | Acc=99.35%
+  Batch 10/154, Loss: 0.0080
+  Batch 20/154, Loss: 0.0040
+  Batch 30/154, Loss: 0.0039
+  Batch 40/154, Loss: 0.0093
+  Batch 50/154, Loss: 0.0252
+  Batch 60/154, Loss: 0.0041
+  Batch 70/154, Loss: 0.0176
+  Batch 80/154, Loss: 0.0061
+  Batch 90/154, Loss: 0.0036
+  Batch 100/154, Loss: 0.0004
+  Batch 110/154, Loss: 0.0260
+  Batch 120/154, Loss: 0.0001
+  Batch 130/154, Loss: 0.0015
+  Batch 140/154, Loss: 0.0049
+  Batch 150/154, Loss: 0.0044
+  📊 Training:   Loss=0.0316 | Acc=99.07%
+  📊 Validation: Loss=0.0177 | Acc=99.67%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 4/20
-  Batch 10/154, Loss: 0.0071
-  Batch 20/154, Loss: 0.0008
-  Batch 30/154, Loss: 0.0060
-  Batch 40/154, Loss: 0.0352
-  Batch 50/154, Loss: 0.0037
-  Batch 60/154, Loss: 0.0252
-  Batch 70/154, Loss: 0.1428
-  Batch 80/154, Loss: 0.0230
-  Batch 90/154, Loss: 0.0529
-  Batch 100/154, Loss: 0.0077
-  Batch 110/154, Loss: 0.0112
-  Batch 120/154, Loss: 0.0148
-  Batch 130/154, Loss: 0.0007
-  Batch 140/154, Loss: 0.0027
-  Batch 150/154, Loss: 0.0008
-  📊 Training:   Loss=0.0234 | Acc=99.27%
-  📊 Validation: Loss=0.0089 | Acc=99.67%
+  Batch 10/154, Loss: 0.0060
+  Batch 20/154, Loss: 0.0001
+  Batch 30/154, Loss: 0.0015
+  Batch 40/154, Loss: 0.0639
+  Batch 50/154, Loss: 0.0448
+  Batch 60/154, Loss: 0.0235
+  Batch 70/154, Loss: 0.0241
+  Batch 80/154, Loss: 0.1152
+  Batch 90/154, Loss: 0.0522
+  Batch 100/154, Loss: 0.0134
+  Batch 110/154, Loss: 0.0075
+  Batch 120/154, Loss: 0.0125
+  Batch 130/154, Loss: 0.0043
+  Batch 140/154, Loss: 0.0401
+  Batch 150/154, Loss: 0.0006
+  📊 Training:   Loss=0.0300 | Acc=99.02%
+  📊 Validation: Loss=0.0079 | Acc=99.84%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 5/20
-  Batch 10/154, Loss: 0.0212
-  Batch 20/154, Loss: 0.0003
-  Batch 30/154, Loss: 0.0111
-  Batch 40/154, Loss: 0.0311
-  Batch 50/154, Loss: 0.0822
-  Batch 60/154, Loss: 0.0051
-  Batch 70/154, Loss: 0.0391
-  Batch 80/154, Loss: 0.0282
-  Batch 90/154, Loss: 0.0581
-  Batch 100/154, Loss: 0.0008
-  Batch 110/154, Loss: 0.0164
-  Batch 120/154, Loss: 0.0509
-  Batch 130/154, Loss: 0.0066
-  Batch 140/154, Loss: 0.0141
-  Batch 150/154, Loss: 0.0058
-  📊 Training:   Loss=0.0264 | Acc=99.19%
-  📊 Validation: Loss=0.0072 | Acc=99.84%
+  Batch 10/154, Loss: 0.0024
+  Batch 20/154, Loss: 0.0008
+  Batch 30/154, Loss: 0.0107
+  Batch 40/154, Loss: 0.2597
+  Batch 50/154, Loss: 0.0138
+  Batch 60/154, Loss: 0.0005
+  Batch 70/154, Loss: 0.0084
+  Batch 80/154, Loss: 0.0362
+  Batch 90/154, Loss: 0.0913
+  Batch 100/154, Loss: 0.0038
+  Batch 110/154, Loss: 0.0107
+  Batch 120/154, Loss: 0.2560
+  Batch 130/154, Loss: 0.0237
+  Batch 140/154, Loss: 0.0371
+  Batch 150/154, Loss: 0.0094
+  📊 Training:   Loss=0.0400 | Acc=98.82%
+  📊 Validation: Loss=0.0044 | Acc=99.84%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 6/20
-  Batch 10/154, Loss: 0.0123
-  Batch 20/154, Loss: 0.1049
-  Batch 30/154, Loss: 0.0002
-  Batch 40/154, Loss: 0.1703
-  Batch 50/154, Loss: 0.0292
-  Batch 60/154, Loss: 0.0092
-  Batch 70/154, Loss: 0.0028
-  Batch 80/154, Loss: 0.0001
-  Batch 90/154, Loss: 0.3156
-  Batch 100/154, Loss: 0.0045
-  Batch 110/154, Loss: 0.0179
-  Batch 120/154, Loss: 0.0039
-  Batch 130/154, Loss: 0.0008
-  Batch 140/154, Loss: 0.0154
-  Batch 150/154, Loss: 0.0009
-  📊 Training:   Loss=0.0400 | Acc=98.88%
-  📊 Validation: Loss=0.0083 | Acc=99.84%
+  Batch 10/154, Loss: 0.0006
+  Batch 20/154, Loss: 0.0298
+  Batch 30/154, Loss: 0.0062
+  Batch 40/154, Loss: 0.0003
+  Batch 50/154, Loss: 0.0003
+  Batch 60/154, Loss: 0.1190
+  Batch 70/154, Loss: 0.0011
+  Batch 80/154, Loss: 0.0028
+  Batch 90/154, Loss: 0.0032
+  Batch 100/154, Loss: 0.0004
+  Batch 110/154, Loss: 0.0087
+  Batch 120/154, Loss: 0.0004
+  Batch 130/154, Loss: 0.0028
+  Batch 140/154, Loss: 0.0145
+  Batch 150/154, Loss: 0.0007
+  📊 Training:   Loss=0.0226 | Acc=99.39%
+  📊 Validation: Loss=0.0090 | Acc=99.67%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 7/20
-  Batch 10/154, Loss: 0.0543
-  Batch 20/154, Loss: 0.0003
-  Batch 30/154, Loss: 0.0050
-  Batch 40/154, Loss: 0.0959
-  Batch 50/154, Loss: 0.0000
-  Batch 60/154, Loss: 0.2740
-  Batch 70/154, Loss: 0.0262
-  Batch 80/154, Loss: 0.0010
-  Batch 90/154, Loss: 0.0016
-  Batch 100/154, Loss: 0.0109
-  Batch 110/154, Loss: 0.0215
-  Batch 120/154, Loss: 0.0003
-  Batch 130/154, Loss: 0.0058
-  Batch 140/154, Loss: 0.0001
-  Batch 150/154, Loss: 0.0002
-  📊 Training:   Loss=0.0263 | Acc=99.19%
-  📊 Validation: Loss=0.0026 | Acc=100.00%
+  Batch 10/154, Loss: 0.0004
+  Batch 20/154, Loss: 0.0014
+  Batch 30/154, Loss: 0.0105
+  Batch 40/154, Loss: 0.0006
+  Batch 50/154, Loss: 0.0003
+  Batch 60/154, Loss: 0.0765
+  Batch 70/154, Loss: 0.0037
+  Batch 80/154, Loss: 0.0009
+  Batch 90/154, Loss: 0.0003
+  Batch 100/154, Loss: 0.0053
+  Batch 110/154, Loss: 0.0003
+  Batch 120/154, Loss: 0.0174
+  Batch 130/154, Loss: 0.0142
+  Batch 140/154, Loss: 0.0062
+  Batch 150/154, Loss: 0.0001
+  📊 Training:   Loss=0.0315 | Acc=99.09%
+  📊 Validation: Loss=0.0022 | Acc=100.00%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 8/20
-  Batch 10/154, Loss: 0.0002
-  Batch 20/154, Loss: 0.0145
+  Batch 10/154, Loss: 0.0000
+  Batch 20/154, Loss: 0.0086
   Batch 30/154, Loss: 0.0005
-  Batch 40/154, Loss: 0.0047
-  Batch 50/154, Loss: 0.0037
-  Batch 60/154, Loss: 0.0006
-  Batch 70/154, Loss: 0.0001
-  Batch 80/154, Loss: 0.0139
-  Batch 90/154, Loss: 0.0767
-  Batch 100/154, Loss: 0.0629
-  Batch 110/154, Loss: 0.0112
-  Batch 120/154, Loss: 0.0241
-  Batch 130/154, Loss: 0.0020
-  Batch 140/154, Loss: 0.1811
-  Batch 150/154, Loss: 0.0000
-  📊 Training:   Loss=0.0257 | Acc=99.19%
-  📊 Validation: Loss=0.0083 | Acc=99.84%
+  Batch 40/154, Loss: 0.0001
+  Batch 50/154, Loss: 0.0004
+  Batch 60/154, Loss: 0.0000
+  Batch 70/154, Loss: 0.0006
+  Batch 80/154, Loss: 0.0138
+  Batch 90/154, Loss: 0.0407
+  Batch 100/154, Loss: 0.0101
+  Batch 110/154, Loss: 0.0143
+  Batch 120/154, Loss: 0.0180
+  Batch 130/154, Loss: 0.0005
+  Batch 140/154, Loss: 0.0010
+  Batch 150/154, Loss: 0.0002
+  📊 Training:   Loss=0.0234 | Acc=99.29%
+  📊 Validation: Loss=0.0074 | Acc=99.84%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 9/20
-  Batch 10/154, Loss: 0.0002
-  Batch 20/154, Loss: 0.0105
-  Batch 30/154, Loss: 0.0325
-  Batch 40/154, Loss: 0.0008
-  Batch 50/154, Loss: 0.0024
-  Batch 60/154, Loss: 0.0653
-  Batch 70/154, Loss: 0.0000
-  Batch 80/154, Loss: 0.0001
-  Batch 90/154, Loss: 0.0002
-  Batch 100/154, Loss: 0.0017
-  Batch 110/154, Loss: 0.0998
-  Batch 120/154, Loss: 0.0005
-  Batch 130/154, Loss: 0.2830
-  Batch 140/154, Loss: 0.0081
-  Batch 150/154, Loss: 0.0000
-  📊 Training:   Loss=0.0249 | Acc=99.17%
-  📊 Validation: Loss=0.0063 | Acc=99.67%
+  Batch 10/154, Loss: 0.0028
+  Batch 20/154, Loss: 0.0097
+  Batch 30/154, Loss: 0.1001
+  Batch 40/154, Loss: 0.0000
+  Batch 50/154, Loss: 0.0003
+  Batch 60/154, Loss: 0.0158
+  Batch 70/154, Loss: 0.0005
+  Batch 80/154, Loss: 0.0006
+  Batch 90/154, Loss: 0.0000
+  Batch 100/154, Loss: 0.0002
+  Batch 110/154, Loss: 0.0900
+  Batch 120/154, Loss: 0.0028
+  Batch 130/154, Loss: 0.0506
+  Batch 140/154, Loss: 0.0005
+  Batch 150/154, Loss: 0.0948
+  📊 Training:   Loss=0.0145 | Acc=99.59%
+  📊 Validation: Loss=0.0033 | Acc=99.67%
   📉 Learning Rate: 0.001000
 
 🚀 Epoch 10/20
-  Batch 10/154, Loss: 0.0002
+  Batch 10/154, Loss: 0.0000
   Batch 20/154, Loss: 0.0001
-  Batch 30/154, Loss: 0.0437
-  Batch 40/154, Loss: 0.0859
-  Batch 50/154, Loss: 0.0004
-  Batch 60/154, Loss: 0.0015
-  Batch 70/154, Loss: 0.1220
-  Batch 80/154, Loss: 0.0014
-  Batch 90/154, Loss: 0.0003
-  Batch 100/154, Loss: 0.0229
-  Batch 110/154, Loss: 0.0025
-  Batch 120/154, Loss: 0.0000
-  Batch 130/154, Loss: 0.0202
-  Batch 140/154, Loss: 0.0000
-  Batch 150/154, Loss: 0.0002
-  📊 Training:   Loss=0.0275 | Acc=99.19%
-  📊 Validation: Loss=0.0048 | Acc=99.67%
+  Batch 30/154, Loss: 0.3346
+  Batch 40/154, Loss: 0.0062
+  Batch 50/154, Loss: 0.3673
+  Batch 60/154, Loss: 0.0004
+  Batch 70/154, Loss: 0.0099
+  Batch 80/154, Loss: 0.0027
+  Batch 90/154, Loss: 0.0092
+  Batch 100/154, Loss: 0.0048
+  Batch 110/154, Loss: 0.0028
+  Batch 120/154, Loss: 0.0012
+  Batch 130/154, Loss: 0.0013
+  Batch 140/154, Loss: 0.0335
+  Batch 150/154, Loss: 0.0023
+  📊 Training:   Loss=0.0234 | Acc=99.37%
+  📊 Validation: Loss=0.0049 | Acc=99.84%
   📉 Learning Rate: 0.000100
 
 🚀 Epoch 11/20
-  Batch 10/154, Loss: 0.0185
-  Batch 20/154, Loss: 0.0001
-  Batch 30/154, Loss: 0.0000
-  Batch 40/154, Loss: 0.0011
-  Batch 50/154, Loss: 0.0026
+  Batch 10/154, Loss: 0.0002
+  Batch 20/154, Loss: 0.0002
+  Batch 30/154, Loss: 0.0007
+  Batch 40/154, Loss: 0.0006
+  Batch 50/154, Loss: 0.0051
   Batch 60/154, Loss: 0.0000
-  Batch 70/154, Loss: 0.0013
-  Batch 80/154, Loss: 0.0056
-  Batch 90/154, Loss: 0.0009
-  Batch 100/154, Loss: 0.0004
+  Batch 70/154, Loss: 0.0003
+  Batch 80/154, Loss: 0.0034
+  Batch 90/154, Loss: 0.1437
+  Batch 100/154, Loss: 0.0011
   Batch 110/154, Loss: 0.0000
-  Batch 120/154, Loss: 0.0002
-  Batch 130/154, Loss: 0.0153
-  Batch 140/154, Loss: 0.0008
-  Batch 150/154, Loss: 0.0001
-  📊 Training:   Loss=0.0085 | Acc=99.84%
-  📊 Validation: Loss=0.0010 | Acc=100.00%
+  Batch 120/154, Loss: 0.0021
+  Batch 130/154, Loss: 0.0144
+  Batch 140/154, Loss: 0.0005
+  Batch 150/154, Loss: 0.0003
+  📊 Training:   Loss=0.0112 | Acc=99.70%
+  📊 Validation: Loss=0.0022 | Acc=99.84%
   📉 Learning Rate: 0.000100
 
 🚀 Epoch 12/20
-  Batch 10/154, Loss: 0.0019
-  Batch 20/154, Loss: 0.0023
-  Batch 30/154, Loss: 0.0000
-  Batch 40/154, Loss: 0.0107
-  Batch 50/154, Loss: 0.0980
+  Batch 10/154, Loss: 0.0037
+  Batch 20/154, Loss: 0.0035
+  Batch 30/154, Loss: 0.0011
+  Batch 40/154, Loss: 0.0011
+  Batch 50/154, Loss: 0.1104
   Batch 60/154, Loss: 0.0000
-  Batch 70/154, Loss: 0.0313
-  Batch 80/154, Loss: 0.0008
-  Batch 90/154, Loss: 0.0595
-  Batch 100/154, Loss: 0.0000
-  Batch 110/154, Loss: 0.0035
-  Batch 120/154, Loss: 0.0000
-  Batch 130/154, Loss: 0.0000
+  Batch 70/154, Loss: 0.0017
+  Batch 80/154, Loss: 0.0005
+  Batch 90/154, Loss: 0.0115
+  Batch 100/154, Loss: 0.0002
+  Batch 110/154, Loss: 0.0015
+  Batch 120/154, Loss: 0.0001
+  Batch 130/154, Loss: 0.0001
   Batch 140/154, Loss: 0.0000
-  Batch 150/154, Loss: 0.0000
-  📊 Training:   Loss=0.0107 | Acc=99.65%
-  📊 Validation: Loss=0.0017 | Acc=99.84%
+  Batch 150/154, Loss: 0.0001
+  📊 Training:   Loss=0.0047 | Acc=99.84%
+  📊 Validation: Loss=0.0026 | Acc=99.84%
   📉 Learning Rate: 0.000100
 
 🚀 Epoch 13/20
-  Batch 10/154, Loss: 0.0015
-  Batch 20/154, Loss: 0.0001
-  Batch 30/154, Loss: 0.0001
+  Batch 10/154, Loss: 0.0291
+  Batch 20/154, Loss: 0.0000
+  Batch 30/154, Loss: 0.0000
   Batch 40/154, Loss: 0.0000
   Batch 50/154, Loss: 0.0000
-  Batch 60/154, Loss: 0.0000
-  Batch 70/154, Loss: 0.0006
-  Batch 80/154, Loss: 0.0029
+  Batch 60/154, Loss: 0.0001
+  Batch 70/154, Loss: 0.0000
+  Batch 80/154, Loss: 0.0000
   Batch 90/154, Loss: 0.0000
-  Batch 100/154, Loss: 0.0014
-  Batch 110/154, Loss: 0.0099
-  Batch 120/154, Loss: 0.0002
-  Batch 130/154, Loss: 0.0032
+  Batch 100/154, Loss: 0.0000
+  Batch 110/154, Loss: 0.0002
+  Batch 120/154, Loss: 0.0154
+  Batch 130/154, Loss: 0.0221
   Batch 140/154, Loss: 0.0000
-  Batch 150/154, Loss: 0.0027
-  📊 Training:   Loss=0.0044 | Acc=99.86%
-  📊 Validation: Loss=0.0020 | Acc=99.84%
+  Batch 150/154, Loss: 0.0064
+  📊 Training:   Loss=0.0037 | Acc=99.90%
+  📊 Validation: Loss=0.0029 | Acc=99.84%
   📉 Learning Rate: 0.000100
 
 🚀 Epoch 14/20
-  Batch 10/154, Loss: 0.0037
-  Batch 20/154, Loss: 0.0000
-  Batch 30/154, Loss: 0.0006
-  Batch 40/154, Loss: 0.0014
-  Batch 50/154, Loss: 0.0000
-  Batch 60/154, Loss: 0.0039
-  Batch 70/154, Loss: 0.0000
-  Batch 80/154, Loss: 0.0000
-  Batch 90/154, Loss: 0.0105
-  Batch 100/154, Loss: 0.0000
-  Batch 110/154, Loss: 0.0117
-  Batch 120/154, Loss: 0.0001
-  Batch 130/154, Loss: 0.0017
-  Batch 140/154, Loss: 0.0014
-  Batch 150/154, Loss: 0.0002
-  📊 Training:   Loss=0.0028 | Acc=99.90%
-  📊 Validation: Loss=0.0013 | Acc=100.00%
-  📉 Learning Rate: 0.000100
-
-🚀 Epoch 15/20
-  Batch 10/154, Loss: 0.0000
-  Batch 20/154, Loss: 0.0003
-  Batch 30/154, Loss: 0.0001
-  Batch 40/154, Loss: 0.0030
-  Batch 50/154, Loss: 0.0003
-  Batch 60/154, Loss: 0.0061
-  Batch 70/154, Loss: 0.0075
-  Batch 80/154, Loss: 0.0002
-  Batch 90/154, Loss: 0.0000
-  Batch 100/154, Loss: 0.0001
-  Batch 110/154, Loss: 0.0009
-  Batch 120/154, Loss: 0.0000
-  Batch 130/154, Loss: 0.0015
-  Batch 140/154, Loss: 0.0000
-  Batch 150/154, Loss: 0.0029
-  📊 Training:   Loss=0.0046 | Acc=99.80%
-  📊 Validation: Loss=0.0012 | Acc=100.00%
-  📉 Learning Rate: 0.000100
-
-🚀 Epoch 16/20
-  Batch 10/154, Loss: 0.0270
-  Batch 20/154, Loss: 0.0000
-  Batch 30/154, Loss: 0.0008
-  Batch 40/154, Loss: 0.0006
-  Batch 50/154, Loss: 0.0008
-  Batch 60/154, Loss: 0.0003
-  Batch 70/154, Loss: 0.0857
-  Batch 80/154, Loss: 0.0000
-  Batch 90/154, Loss: 0.0007
-  Batch 100/154, Loss: 0.0002
-  Batch 110/154, Loss: 0.0004
-  Batch 120/154, Loss: 0.0003
-  Batch 130/154, Loss: 0.0000
-  Batch 140/154, Loss: 0.0000
-  Batch 150/154, Loss: 0.0005
-  📊 Training:   Loss=0.0066 | Acc=99.82%
-  📊 Validation: Loss=0.0019 | Acc=99.84%
-  📉 Learning Rate: 0.000100
-
-🚀 Epoch 17/20
-  Batch 10/154, Loss: 0.0030
-  Batch 20/154, Loss: 0.0000
-  Batch 30/154, Loss: 0.0012
-  Batch 40/154, Loss: 0.0013
-  Batch 50/154, Loss: 0.0001
-  Batch 60/154, Loss: 0.0000
-  Batch 70/154, Loss: 0.0000
-  Batch 80/154, Loss: 0.0001
-  Batch 90/154, Loss: 0.0000
-  Batch 100/154, Loss: 0.0001
-  Batch 110/154, Loss: 0.0000
-  Batch 120/154, Loss: 0.0004
-  Batch 130/154, Loss: 0.0001
-  Batch 140/154, Loss: 0.0000
-  Batch 150/154, Loss: 0.0000
-  📊 Training:   Loss=0.0023 | Acc=99.90%
-  📊 Validation: Loss=0.0034 | Acc=99.84%
-  📉 Learning Rate: 0.000100
-
-🚀 Epoch 18/20
-  Batch 10/154, Loss: 0.0037
-  Batch 20/154, Loss: 0.0000
-  Batch 30/154, Loss: 0.0041
-  Batch 40/154, Loss: 0.0782
-  Batch 50/154, Loss: 0.0000
-  Batch 60/154, Loss: 0.0034
-  Batch 70/154, Loss: 0.0000
-  Batch 80/154, Loss: 0.0000
-  Batch 90/154, Loss: 0.0006
-  Batch 100/154, Loss: 0.0000
-  Batch 110/154, Loss: 0.0001
-  Batch 120/154, Loss: 0.0433
-  Batch 130/154, Loss: 0.0001
-  Batch 140/154, Loss: 0.0007
-  Batch 150/154, Loss: 0.0000
-  📊 Training:   Loss=0.0041 | Acc=99.86%
-  📊 Validation: Loss=0.0016 | Acc=99.84%
-  📉 Learning Rate: 0.000100
-
-🚀 Epoch 19/20
-  Batch 10/154, Loss: 0.0000
-  Batch 20/154, Loss: 0.0008
-  Batch 30/154, Loss: 0.0004
+  Batch 10/154, Loss: 0.0004
+  Batch 20/154, Loss: 0.0001
+  Batch 30/154, Loss: 0.0045
   Batch 40/154, Loss: 0.0000
   Batch 50/154, Loss: 0.0000
   Batch 60/154, Loss: 0.0019
   Batch 70/154, Loss: 0.0000
   Batch 80/154, Loss: 0.0000
+  Batch 90/154, Loss: 0.0089
+  Batch 100/154, Loss: 0.0000
+  Batch 110/154, Loss: 0.0043
+  Batch 120/154, Loss: 0.0002
+  Batch 130/154, Loss: 0.0002
+  Batch 140/154, Loss: 0.0007
+  Batch 150/154, Loss: 0.0003
+  📊 Training:   Loss=0.0032 | Acc=99.94%
+  📊 Validation: Loss=0.0030 | Acc=99.84%
+  📉 Learning Rate: 0.000100
+
+🚀 Epoch 15/20
+  Batch 10/154, Loss: 0.0003
+  Batch 20/154, Loss: 0.0017
+  Batch 30/154, Loss: 0.0000
+  Batch 40/154, Loss: 0.0018
+  Batch 50/154, Loss: 0.0009
+  Batch 60/154, Loss: 0.0035
+  Batch 70/154, Loss: 0.0017
+  Batch 80/154, Loss: 0.0000
   Batch 90/154, Loss: 0.0000
-  Batch 100/154, Loss: 0.0085
-  Batch 110/154, Loss: 0.0000
-  Batch 120/154, Loss: 0.0001
+  Batch 100/154, Loss: 0.0001
+  Batch 110/154, Loss: 0.0013
+  Batch 120/154, Loss: 0.0000
   Batch 130/154, Loss: 0.0001
   Batch 140/154, Loss: 0.0000
+  Batch 150/154, Loss: 0.0002
+  📊 Training:   Loss=0.0058 | Acc=99.84%
+  📊 Validation: Loss=0.0029 | Acc=99.84%
+  📉 Learning Rate: 0.000100
+
+🚀 Epoch 16/20
+  Batch 10/154, Loss: 0.0091
+  Batch 20/154, Loss: 0.0001
+  Batch 30/154, Loss: 0.0008
+  Batch 40/154, Loss: 0.0002
+  Batch 50/154, Loss: 0.0017
+  Batch 60/154, Loss: 0.0004
+  Batch 70/154, Loss: 0.0002
+  Batch 80/154, Loss: 0.0001
+  Batch 90/154, Loss: 0.0001
+  Batch 100/154, Loss: 0.0001
+  Batch 110/154, Loss: 0.0008
+  Batch 120/154, Loss: 0.0000
+  Batch 130/154, Loss: 0.0001
+  Batch 140/154, Loss: 0.0000
+  Batch 150/154, Loss: 0.0004
+  📊 Training:   Loss=0.0026 | Acc=99.92%
+  📊 Validation: Loss=0.0043 | Acc=99.84%
+  📉 Learning Rate: 0.000100
+
+🚀 Epoch 17/20
+  Batch 10/154, Loss: 0.0076
+  Batch 20/154, Loss: 0.0000
+  Batch 30/154, Loss: 0.0013
+  Batch 40/154, Loss: 0.0000
+  Batch 50/154, Loss: 0.0076
+  Batch 60/154, Loss: 0.0000
+  Batch 70/154, Loss: 0.0000
+  Batch 80/154, Loss: 0.0011
+  Batch 90/154, Loss: 0.0000
+  Batch 100/154, Loss: 0.0001
+  Batch 110/154, Loss: 0.0045
+  Batch 120/154, Loss: 0.0001
+  Batch 130/154, Loss: 0.0000
+  Batch 140/154, Loss: 0.0000
   Batch 150/154, Loss: 0.0000
-  📊 Training:   Loss=0.0017 | Acc=99.94%
-  📊 Validation: Loss=0.0015 | Acc=99.84%
+  📊 Training:   Loss=0.0021 | Acc=99.92%
+  📊 Validation: Loss=0.0055 | Acc=99.84%
+  📉 Learning Rate: 0.000100
+
+🚀 Epoch 18/20
+  Batch 10/154, Loss: 0.0022
+  Batch 20/154, Loss: 0.0000
+  Batch 30/154, Loss: 0.0015
+  Batch 40/154, Loss: 0.0045
+  Batch 50/154, Loss: 0.0002
+  Batch 60/154, Loss: 0.0005
+  Batch 70/154, Loss: 0.0014
+  Batch 80/154, Loss: 0.0000
+  Batch 90/154, Loss: 0.0003
+  Batch 100/154, Loss: 0.0000
+  Batch 110/154, Loss: 0.0003
+  Batch 120/154, Loss: 0.0008
+  Batch 130/154, Loss: 0.0000
+  Batch 140/154, Loss: 0.0013
+  Batch 150/154, Loss: 0.0000
+  📊 Training:   Loss=0.0017 | Acc=99.96%
+  📊 Validation: Loss=0.0059 | Acc=99.84%
+  📉 Learning Rate: 0.000100
+
+🚀 Epoch 19/20
+  Batch 10/154, Loss: 0.0001
+  Batch 20/154, Loss: 0.0050
+  Batch 30/154, Loss: 0.0001
+  Batch 40/154, Loss: 0.0001
+  Batch 50/154, Loss: 0.0000
+  Batch 60/154, Loss: 0.0307
+  Batch 70/154, Loss: 0.0000
+  Batch 80/154, Loss: 0.0008
+  Batch 90/154, Loss: 0.0000
+  Batch 100/154, Loss: 0.0002
+  Batch 110/154, Loss: 0.0000
+  Batch 120/154, Loss: 0.0001
+  Batch 130/154, Loss: 0.0000
+  Batch 140/154, Loss: 0.0000
+  Batch 150/154, Loss: 0.0046
+  📊 Training:   Loss=0.0034 | Acc=99.90%
+  📊 Validation: Loss=0.0054 | Acc=99.84%
   📉 Learning Rate: 0.000100
 
 🚀 Epoch 20/20
   Batch 10/154, Loss: 0.0000
-  Batch 20/154, Loss: 0.0000
+  Batch 20/154, Loss: 0.0003
   Batch 30/154, Loss: 0.0000
   Batch 40/154, Loss: 0.0000
-  Batch 50/154, Loss: 0.0000
+  Batch 50/154, Loss: 0.0001
   Batch 60/154, Loss: 0.0000
   Batch 70/154, Loss: 0.0000
   Batch 80/154, Loss: 0.0000
   Batch 90/154, Loss: 0.0000
-  Batch 100/154, Loss: 0.0000
+  Batch 100/154, Loss: 0.0001
   Batch 110/154, Loss: 0.0000
   Batch 120/154, Loss: 0.0000
   Batch 130/154, Loss: 0.0000
-  Batch 140/154, Loss: 0.0001
-  Batch 150/154, Loss: 0.0005
-  📊 Training:   Loss=0.0032 | Acc=99.88%
-  📊 Validation: Loss=0.0021 | Acc=99.84%
+  Batch 140/154, Loss: 0.0004
+  Batch 150/154, Loss: 0.0066
+  📊 Training:   Loss=0.0039 | Acc=99.90%
+  📊 Validation: Loss=0.0037 | Acc=99.84%
   📉 Learning Rate: 0.000010
 
 ✅ Training complete!
@@ -2095,7 +2095,7 @@ Final validation accuracy: 99.84%</code></pre>
 </section>
 <section id="visualize-training-progress" class="level3" data-number="6.5.4">
 <h3 data-number="6.5.4" class="anchored" data-anchor-id="visualize-training-progress"><span class="header-section-number">6.5.4</span> Visualize Training Progress</h3>
-<div id="e8ad0c17" class="cell" data-execution_count="18">
+<div id="9e026691" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Loss</span></span>
@@ -2159,7 +2159,7 @@ Final validation accuracy: 99.84%</code></pre>
 </section>
 <section id="test-set-performance" class="level3" data-number="6.6.3">
 <h3 data-number="6.6.3" class="anchored" data-anchor-id="test-set-performance"><span class="header-section-number">6.6.3</span> Test Set Performance</h3>
-<div id="9514676a" class="cell" data-execution_count="19">
+<div id="5faf1887" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate on completely unseen test data</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"📊 Final Model Evaluation on Test Set"</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">50</span>)</span>
@@ -2203,7 +2203,7 @@ Test dataset size: 615 images
    615 correct
 
 📈 Comparison:
-   Training Accuracy: 99.88%
+   Training Accuracy: 99.90%
    Validation Accuracy: 99.84%
    Test Accuracy: 100.00%
 
@@ -2223,7 +2223,7 @@ Test dataset size: 615 images
 </ul>
 <p><strong>Example</strong>: If the model confuses “Stop” signs with “No Entry” signs, you’ll see a high number in the Stop row, No Entry column.</p>
 <p><strong>Why it matters</strong>: Accuracy only tells you “95% correct.” Confusion matrix tells you WHICH 5% were wrong and what they were confused with.</p>
-<div id="5cb6f0dd" class="cell" data-execution_count="20">
+<div id="ff26ef27" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_predictions(model, loader, device):</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Get all predictions and true labels from a dataset.</span></span>
@@ -2340,7 +2340,7 @@ priority_road       1.00      1.00      1.00       210
 </section>
 <section id="visualize-predictions" class="level3" data-number="6.6.5">
 <h3 data-number="6.6.5" class="anchored" data-anchor-id="visualize-predictions"><span class="header-section-number">6.6.5</span> Visualize Predictions</h3>
-<div id="54939f0f" class="cell" data-execution_count="21">
+<div id="2797f1fe" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_predictions(model, dataset, class_names, n_samples<span class="op">=</span><span class="dv">12</span>):</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Visualize model predictions."""</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>()</span>
@@ -2407,7 +2407,7 @@ priority_road       1.00      1.00      1.00       210
 <li>Works even with small datasets</li>
 </ul>
 <p><strong>Quick example:</strong></p>
-<div id="2ce40cd0" class="cell" data-execution_count="22">
+<div id="b531f724" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> models</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load pre-trained ResNet18 (trained on ImageNet)</span></span>
@@ -2573,7 +2573,7 @@ priority_road       1.00      1.00      1.00       210
 <section id="exercise-1-modify-the-architecture" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="exercise-1-modify-the-architecture"><span class="header-section-number">9.1</span> Exercise 1: Modify the Architecture</h2>
 <p>Experiment with different CNN architectures:</p>
-<div id="8bf9b19a" class="cell" data-execution_count="23">
+<div id="8ece2b3a" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CustomTrafficSignCNN(nn.Module):</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes<span class="op">=</span><span class="dv">4</span>):</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(CustomTrafficSignCNN, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -2611,7 +2611,7 @@ priority_road       1.00      1.00      1.00       210
 </section>
 <section id="exercise-2-visualize-learned-features" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="exercise-2-visualize-learned-features"><span class="header-section-number">9.2</span> Exercise 2: Visualize Learned Features</h2>
-<div id="7e38684b" class="cell" data-execution_count="24">
+<div id="03548a4e" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get first convolutional layer weights</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>first_conv <span class="op">=</span> model.features[<span class="dv">0</span>]  <span class="co"># First Conv2d layer</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>filters <span class="op">=</span> first_conv.weight.data.cpu()</span>
@@ -2640,7 +2640,7 @@ priority_road       1.00      1.00      1.00       210
 <section id="exercise-3-test-model-confidence" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="exercise-3-test-model-confidence"><span class="header-section-number">9.3</span> Exercise 3: Test Model Confidence</h2>
 <p>One challenge in production: How confident is the model in its predictions?</p>
-<div id="601627b4" class="cell" data-execution_count="25">
+<div id="416c9dd6" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get prediction probabilities for test images</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
@@ -2674,7 +2674,7 @@ priority_road       1.00      1.00      1.00       210
 </section>
 <section id="exercise-4-compare-with-fully-connected" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="exercise-4-compare-with-fully-connected"><span class="header-section-number">9.4</span> Exercise 4: Compare with Fully Connected</h2>
-<div id="0e6d98dd" class="cell" data-execution_count="26">
+<div id="7a9ce7fa" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FullyConnectedTrafficSign(nn.Module):</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Fully connected network for comparison."""</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes<span class="op">=</span><span class="dv">4</span>):</span>

@@ -1,3 +1,6 @@
 docs
 cassava_dataset/
 .env
+
+/.quarto/
+**/*.quarto_ipynb
