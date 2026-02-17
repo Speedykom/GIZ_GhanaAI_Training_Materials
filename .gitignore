@@ -7,3 +7,7 @@ cassava_dataset/
 
 # Books - legal rights uncertain
 08-resources/books/*.pdf
+
+# Copyrighted notebooks
+08-resources/032-traffic-data-as-images-and-video.ipynb
+08-resources/033-object-detection-with-yolov8.ipynb
