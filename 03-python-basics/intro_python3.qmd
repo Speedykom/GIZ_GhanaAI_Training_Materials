@@ -1,0 +1,954 @@
+---
+title: "Module 3: Python for Full-Stack Developers"
+subtitle: "Part 3: Advanced Structure (Classes, Lambdas, & Modules)"
+format: html
+editor: visual
+jupyter: python3
+---
+
+# Welcome to Lesson 3: Advanced Python Patterns
+
+In the previous lessons, you learned Python's syntax and data structures. Now we'll cover the **architectural patterns** you'll use in every AI/ML project:
+
+- **Lambda Functions** – Compact one-line functions for data processing
+- **Classes & OOP** – Organizing code with objects and blueprints
+- **Error Handling** – Building robust data pipelines
+- **Modules & Imports** – Organizing multi-file projects
+
+These aren't "advanced topics" – they're **essential tools** you'll use from Day 1 of AI engineering. Let's get started.
+
+---
+
+# 1. Lambda Functions: Compact Anonymous Functions
+
+**Think of lambdas as Post-it Notes for functions.** You wouldn't write a full letter on nice stationery just to say "Buy milk." Sometimes you need a quick note. That's what lambdas are – quick, disposable functions for simple tasks.
+
+Lambda functions are Python's way of writing short, one-line functions without the full `def` syntax. You'll use them constantly in data processing, especially when working with datasets.
+
+## Basic Syntax
+
+A lambda function is a compact way to write a function in one line.
+
+```{python}
+#| code-fold: false
+
+# Traditional function
+def square(x):
+    return x ** 2
+
+# Lambda function - same logic, one line
+square_lambda = lambda x: x ** 2
+
+print(square_lambda(5))   # Output: 25
+print(square_lambda(10))  # Output: 100
+print(f'Type: {type(square_lambda)}')  # Shows <class 'function'>
+```
+
+**Syntax breakdown:**
+
+- `lambda` keyword
+- `x` - the parameter(s)
+- `:` - separates parameters from the expression
+- `x ** 2` - the expression that gets returned automatically (no `return` keyword needed)
+
+**JavaScript comparison:**
+```javascript
+// JavaScript arrow function
+const square = (x) => x ** 2;
+
+// Python lambda equivalent
+square = lambda x: x ** 2
+```
+
+## Where You'll Actually Use Lambdas
+
+You rarely store lambdas in variables like we did above. Instead, you pass them **directly into other functions** as arguments. This pattern appears everywhere in data science.
+
+**The common pattern:** "I need to tell this function HOW to do something, but the logic is so simple I don't want to write a whole function for it."
+
+### Example 1: Sorting Dictionaries
+
+```{python}
+#| code-fold: false
+
+users = [
+    {"name": "Kwame", "role": "admin", "score": 88},
+    {"name": "Ama", "role": "editor", "score": 95},
+    {"name": "Yaw", "role": "viewer", "score": 82}
+]
+
+# Sort by score (descending)
+# The 'key' parameter expects a function that extracts the sort value
+users.sort(key=lambda user: user["score"], reverse=True)
+
+print("Sorted by score:")
+for user in users:
+    print(f"  {user['name']}: {user['score']}")
+
+print(f"\nTop Scorer: {users[0]['name']}")
+```
+
+**What's happening:**
+
+- Python needs to know: "What value should I use to sort each user?"
+- `lambda user: user["score"]` tells Python: "For each dictionary, extract the 'score' value"
+- Python then sorts based on those extracted values
+
+**The metaphor:** Imagine sorting a stack of student papers. Someone asks you "How should I sort these?" You say "By the grade at the top of each paper." The lambda is your instruction: "look at this specific part of each item."
+
+### Example 2: Filtering Data
+
+```{python}
+#| code-fold: false
+
+# Get only admins
+admins = list(filter(lambda user: user["role"] == "admin", users))
+
+print("Admins only:")
+print(admins)
+```
+
+**What's happening:**
+
+- `filter()` asks: "Which items should I keep?"
+- `lambda user: user["role"] == "admin"` answers: "Keep only items where role equals 'admin'"
+- The lambda returns `True` or `False` for each item
+
+**Why `list()`?** In Python 3, `filter()` returns an iterator (for memory efficiency with large datasets). Wrapping it in `list()` converts it to an actual list you can print or work with.
+
+---
+
+## 🧪 Practice: Lambda Functions
+
+You're building a crop disease detection app. Filter and sort these image results:
+
+```{python}
+#| eval: false
+
+images = [
+   
+    {"filename": "cassava_01.jpg", "confidence": 0.92, "disease": "mosaic"},
+    {"filename": "cassava_02.jpg", "confidence": 0.78, "disease": "healthy"},
+    {"filename": "cassava_03.jpg", "confidence": 0.95, "disease": "blight"},
+    {"filename": "cassava_04.jpg", "confidence": 0.65, "disease": "healthy"},
+    {"filename": "cassava_05.jpg", "confidence": 0.88, "disease": "brown_streak"},
+    {"filename": "cassava_06.jpg", "confidence": 0.91, "disease": "mosaic"},
+    {"filename": "cassava_07.jpg", "confidence": 0.72, "disease": "green_mite"},
+    {"filename": "cassava_08.jpg", "confidence": 0.84, "disease": "blight"},
+    {"filename": "cassava_09.jpg", "confidence": 0.97, "disease": "healthy"},
+    {"filename": "cassava_10.jpg", "confidence": 0.81, "disease": "brown_streak"}
+
+]
+
+# TODO: Filter for images with confidence >= 0.80
+# Hint: The lambda should check if img["confidence"] is >= 0.80
+high_confidence = list(filter(lambda img: ..., images))
+
+# TODO: Sort remaining images by confidence (highest first)
+# Hint: Use img["confidence"] as the sort key
+high_confidence.sort(key=lambda img: ..., reverse=True)
+
+print("High-confidence results:")
+for img in high_confidence:
+    print(f"  {img['filename']}: {img['confidence']} - {img['disease']}")
+```
+
+::: {.callout-tip collapse="true"}
+## 💡 Solution
+
+```{python}
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show Solution"
+
+images = [
+    
+    {"filename": "cassava_01.jpg", "confidence": 0.92, "disease": "mosaic"},
+    {"filename": "cassava_02.jpg", "confidence": 0.78, "disease": "healthy"},
+    {"filename": "cassava_03.jpg", "confidence": 0.95, "disease": "blight"},
+    {"filename": "cassava_04.jpg", "confidence": 0.65, "disease": "healthy"},
+    {"filename": "cassava_05.jpg", "confidence": 0.88, "disease": "brown_streak"},
+    {"filename": "cassava_06.jpg", "confidence": 0.91, "disease": "mosaic"},
+    {"filename": "cassava_07.jpg", "confidence": 0.72, "disease": "green_mite"},
+    {"filename": "cassava_08.jpg", "confidence": 0.84, "disease": "blight"},
+    {"filename": "cassava_09.jpg", "confidence": 0.97, "disease": "healthy"},
+    {"filename": "cassava_10.jpg", "confidence": 0.81, "disease": "brown_streak"}
+
+]
+
+# Filter for confidence >= 0.80
+high_confidence = list(filter(lambda img: img["confidence"] >= 0.80, images))
+
+# Sort by confidence (highest first)
+high_confidence.sort(key=lambda img: img["confidence"], reverse=True)
+
+print("High-confidence results:")
+for img in high_confidence:
+    print(f"  {img['filename']}: {img['confidence']} - {img['disease']}")
+```
+:::
+
+---
+
+# 2. Object-Oriented Programming: Classes Explained
+
+**The Delivery Metaphor: The "Order Form"**
+
+Imagine you are building a food delivery app like UberEats or DoorDash.
+
+**The Class (Order)**: This is the blank digital form in the app's code. It dictates that every order must have a delivery_address, a list_of_items, and a total_price. It also defines actions like `calculate_tax()` or `assign_driver()`.
+
+**The Object (Your Lunch)**: When you hit "Checkout," you create an instance of that order.
+
+* **Object 1**: Address: 123 Maple St; Items: Burger; Status: Out for delivery.
+
+* **Object 2**: Address: 456 Oak Ave; Items: Sushi; Status: Preparing.
+
+**Key Takeaway**: The Class defines the structure (what it knows and what it can do), while the Object holds the actual data.
+
+::: {.callout-note}
+## Real-World AI Connection: Model Architectures
+In AI, almost every "Model" (like a Neural Network) is a **Class**. When you use libraries like PyTorch or TensorFlow, you create a class that inherits from a base "Module". This class defines the "Layers" (Attributes) and the "Forward Pass" or how data moves through the brain (Methods).
+:::
+
+## The Simplest Possible Class
+
+Let's start with something so simple you could explain it to a 10-year-old: a dog.
+
+```{python}
+#| code-fold: false
+
+class Dog:
+    # Constructor - runs when you create a new dog
+    def __init__(self, name, breed):
+        self.name = name      # Every dog has a name
+        self.breed = breed    # Every dog has a breed
+        self.energy = 100     # All dogs start with full energy
+    
+    # Method - an action this dog can do
+    def bark(self):
+        return f"{self.name} says: Woof!"
+    
+    # Method - another action
+    def play(self):
+        if self.energy > 10:
+            self.energy -= 20
+            return f"{self.name} is playing! Energy now: {self.energy}"
+        else:
+            return f"{self.name} is too tired to play."
+
+# Create two different dogs (instances)
+my_dog = Dog("Max", "Golden Retriever")
+your_dog = Dog("Bella", "Poodle")
+
+# Each dog is independent
+print(my_dog.bark())        # Max says: Woof!
+print(your_dog.bark())      # Bella says: Woof!
+
+print(my_dog.play())        # Max is playing! Energy now: 80
+print(my_dog.play())        # Max is playing! Energy now: 60
+print(your_dog.play())      # Bella is playing! Energy now: 80
+
+# See? Max's energy is 60, but Bella's is 80. They're separate!
+print(f"Max's energy: {my_dog.energy}")
+print(f"Bella's energy: {your_dog.energy}")
+```
+
+**What just happened?**
+
+1. We created a blueprint (Dog class) that defines what all dogs should have
+2. We created two actual dogs (instances) from that blueprint
+3. Each dog has its own name, breed, and energy level
+4. When Max plays, it doesn't affect Bella's energy
+
+## Understanding `self`
+
+The `self` parameter is how Python knows **which instance** a method is working with. This is **mandatory as the first argument** in every method, unlike JavaScript's `this` which is implicit.
+
+**Car rental metaphor:** Imagine a car rental company with 50 cars. When you call and say "start the engine," the company needs to know: **Which car?** The Toyota in Bay 3? The Honda in Bay 7?
+
+In Python, `self` is the way a method knows "which car" (which instance) it's operating on.
+
+When you write:
+```python
+my_dog.bark()
+```
+
+Python automatically translates this to:
+```python
+Dog.bark(my_dog)  # ← my_dog becomes 'self'
+```
+
+**The rule:** You must always include `self` as the first parameter in every method definition. Python passes it automatically when you call the method.
+
+## A Practical AI Example: Mobile Money Account
+
+Let's build something more relevant to African tech: a mobile money system.
+
+```{python}
+#| code-fold: false
+
+class MobileMoneyAccount:
+    def __init__(self, owner_name, phone_number):
+        self.owner_name = owner_name
+        self.phone_number = phone_number
+        self.balance = 0.0  # Start with zero balance
+        self.transactions = []  # Keep history of all transactions
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            return "Error: Deposit amount must be positive"
+        
+        self.balance += amount
+        self.transactions.append(f"Deposited: GHS {amount}")
+        return f"Deposited GHS {amount}. New balance: GHS {self.balance}"
+    
+    def withdraw(self, amount):
+        if amount <= 0:
+            return "Error: Withdrawal amount must be positive"
+        
+        if amount > self.balance:
+            return f"Error: Insufficient funds. Balance: GHS {self.balance}"
+        
+        self.balance -= amount
+        self.transactions.append(f"Withdrew: GHS {amount}")
+        return f"Withdrew GHS {amount}. New balance: GHS {self.balance}"
+    
+    def check_balance(self):
+        return f"{self.owner_name}'s balance: GHS {self.balance}"
+    
+    def show_history(self):
+        print(f"\n=== Transaction History for {self.owner_name} ===")
+        for transaction in self.transactions:
+            print(f"  {transaction}")
+
+# Create two accounts
+kwame_account = MobileMoneyAccount("Kwame Mensah", "0244123456")
+ama_account = MobileMoneyAccount("Ama Osei", "0551987654")
+
+# Kwame's transactions
+print(kwame_account.deposit(500))
+print(kwame_account.withdraw(200))
+print(kwame_account.deposit(1000))
+
+# Ama's transactions
+print(ama_account.deposit(300))
+print(ama_account.withdraw(100))
+
+# Check balances
+print("\n" + kwame_account.check_balance())
+print(ama_account.check_balance())
+
+# Show histories
+kwame_account.show_history()
+ama_account.show_history()
+```
+
+**Key observations:**
+
+- Kwame's transactions don't affect Ama's account
+- Each account maintains its own balance and history
+- The methods (deposit, withdraw) work the same way for both accounts
+- Each instance is completely independent
+
+---
+
+## 🧪 Practice: Building a Simple Bank Account
+
+Create a `BankAccount` class with basic functionality. Fill in the missing parts:
+
+```{python}
+#| eval: false
+
+class BankAccount:
+    def __init__(self, owner, initial_balance=0):
+        # TODO: Set the owner name
+        self.owner = ...
+        
+        # TODO: Set the initial balance
+        self.balance = ...
+        
+        # TODO: Initialize an empty list to track transactions
+        self.transactions = ...
+    
+    def deposit(self, amount):
+        # TODO: Add amount to balance
+        self.balance = self.balance + ...
+        
+        # TODO: Record the transaction (append to self.transactions)
+        # Format: "Deposited: $amount"
+        self.transactions.append(f"Deposited: ${...}")
+        
+        return f"Deposited ${amount}. New balance: ${self.balance}"
+    
+    def withdraw(self, amount):
+        # TODO: Check if there's enough money
+        if amount > ...:
+            return "Insufficient funds!"
+        
+        # TODO: Subtract amount from balance
+        self.balance = self.balance - ...
+        
+        # TODO: Record the transaction
+        self.transactions.append(f"Withdrew: ${...}")
+        
+        return f"Withdrew ${amount}. New balance: ${self.balance}"
+    
+    def get_balance(self):
+        # TODO: Return a formatted string with owner name and balance
+        return f"{...}'s balance: ${...}"
+
+# Test your class
+account = BankAccount("Kwame", 1000)
+print(account.deposit(500))
+print(account.withdraw(200))
+print(account.get_balance())
+```
+
+::: {.callout-tip collapse="true"}
+## 💡 Solution
+
+```{python}
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show Solution"
+
+class BankAccount:
+    def __init__(self, owner, initial_balance=0):
+        self.owner = owner
+        self.balance = initial_balance
+        self.transactions = []
+    
+    def deposit(self, amount):
+        self.balance = self.balance + amount
+        self.transactions.append(f"Deposited: ${amount}")
+        return f"Deposited ${amount}. New balance: ${self.balance}"
+    
+    def withdraw(self, amount):
+        if amount > self.balance:
+            return "Insufficient funds!"
+        
+        self.balance = self.balance - amount
+        self.transactions.append(f"Withdrew: ${amount}")
+        return f"Withdrew ${amount}. New balance: ${self.balance}"
+    
+    def get_balance(self):
+        return f"{self.owner}'s balance: ${self.balance}"
+
+# Test the class
+account = BankAccount("Kwame", 1000)
+print(account.deposit(500))
+print(account.withdraw(200))
+print(account.get_balance())
+```
+:::
+
+---
+
+## Inheritance: Building on Existing Classes
+
+Let’s look at the **Master Dough** as the ultimate inheritance metaphor.
+
+In a bakery, you don't start from scratch (flour/water/yeast) for every single item. You make a massive batch of **Base Dough**, and then you branch out.
+
+### 1. The Parent Class: "The Master Dough"
+
+Think of this as the foundation. It contains everything that is **universal** to bread.
+
+* **Attributes (What it has):** Flour type, Water ratio, Yeast amount.
+* **Methods (What it can do):** `knead()`, `rise()`, and `bake()`.
+
+### 2. The Child Class: "The Cinnamon Roll"
+
+Now, a Cinnamon Roll **is-a** piece of dough, but it’s specialized.
+
+* **Inheritance:** It "inherits" the `knead()` and `rise()` steps from the Master Dough. You don't have to rewrite the science of how yeast works.
+* **Specialization:** It adds its own unique attributes (Cinnamon, Sugar, Frosting) and its own methods (`roll_up()`).
+
+### 3. The Child Class: "The Pizza Base"
+
+A Pizza Base also **is-a** piece of dough.
+
+* **Inheritance:** It also uses the same `knead()` and `rise()` logic from the Parent.
+* **Specialization:** It adds a `stretch()` method and a `topping` attribute.
+
+
+### Why this matters (The "Aha!" Moment)
+
+Imagine you are the Head Baker (the Tech Lead). You realize the bakery is too cold, so the dough needs to rise for **2 hours** instead of 1.
+
+* **Without Inheritance:** you would have to go to the Cinnamon Roll station, the Pizza station, and the Bagel station to tell everyone individually to change their timer.
+* **With Inheritance:** You simply update the `rise()` method in the **Master Dough** class. Because the Cinnamon Roll and Pizza "inherit" from it, they both automatically start rising for 2 hours.
+
+**Summary in Code Logic**
+
+1. **Parent:** Defines the "General" rules (How to be dough).
+2. **Child:** Inherits the general rules but adds "Specific" flair (Sugar vs. Salt).
+3. **The Result:** You write the hard logic (the chemistry of baking) only **once**.
+
+
+Actually, you can have a class with zero methods (just data), but it’s the **methods** that make a class powerful. Without them, it’s just a "dumb" container. Methods allow the object to **act** on its own data.
+
+In Python, a class usually feels "justified" when it handles its own logic so you don't have to write manual `if/else` statements everywhere in your main code.
+
+Let’s add two "Fullstack" style methods:
+
+1. **A Logic-based Method**: `calculate_bonus()` (Business logic).
+2. **A Utility Method**: `promote()` (State management).
+
+### The Enhanced Employee System
+
+```{python}
+class Profile:
+    def __init__(self, first, last, age, qualification):
+        self.first = first
+        self.last = last
+        self.age = age
+        self.qualification = qualification
+        self.email = f"{first.lower()}.{last.lower()}@techafrica.io"
+
+class Employee(Profile):
+    def __init__(self, first, last, age, qualification, dept, title, salary):
+        super().__init__(first, last, age, qualification)
+        self.dept = dept
+        self.title = title
+        self.salary = salary
+
+    # METHOD 1: Business Logic (The Calculator)
+    # This keeps payroll logic inside the class, not scattered in your main code
+    def get_annual_bonus(self):
+        if self.dept == "Engineering":
+            return self.salary * 0.15  # 15% for devs
+        elif self.dept == "Accounts":
+            return self.salary * 0.10  # 10% for finance
+        return self.salary * 0.05      # 5% for everyone else
+
+    # METHOD 2: State Management (The Updater)
+    # This allows the object to "evolve" over time
+    def promote(self, new_title, raise_amount):
+        self.title = new_title
+        self.salary += raise_amount
+        print(f"Congrats! {self.first} is now {self.title} with a new salary of ${self.salary:,}")
+
+# --- Testing the Logic ---
+emp1 = Employee("Amina", "Okonjo", 30, "Software Eng", "Engineering", "Junior Dev", 50000)
+
+# 1. Use the logic method
+bonus = emp1.get_annual_bonus()
+print(f"{emp1.first}'s Bonus: ${bonus:,.2f}")
+
+# 2. Use the state-change method
+emp1.promote("Senior Dev", 25000)
+
+```
+
+---
+
+### Why this "justifies" the Class:
+
+* **Encapsulation**: If the board decides "Accounts" now gets a 12% bonus instead of 10%, you change it inside the `get_annual_bonus` method. You don't have to hunt through your entire codebase to find every place you calculated a bonus.
+* **Self-Contained State**: The `promote` method ensures that the `title` and `salary` are updated together. You don't risk updating the title in one variable and forgetting to update the salary in another.
+
+### A Tech Lead's Perspective
+
+In a real-world app, these methods might also trigger external events. For example, the `promote` method could internally call a function to **update the database** or **send a Slack notification** to the team.
+
+
+
+---
+
+# 3. Error Handling: Building Robust Pipelines
+
+**Think of error handling like airbags in a car.** You don't plan to crash, but if something goes wrong, airbags prevent catastrophic failure. In Python, `try...except` blocks are your airbags – they catch problems before your entire program crashes.
+
+In JavaScript, you use `try...catch`. Python uses `try...except`. The concept is identical, but the syntax differs.
+
+**Why this matters in AI/ML:**
+
+- One corrupted image shouldn't crash your entire training pipeline processing 10,000 images
+- Missing data in row 5,000 of a CSV shouldn't stop processing
+- API rate limits need graceful handling
+
+::: {.callout-note}
+## Real-World AI Connection: Robust Pipelines
+Industrial AI systems run on millions of data points. If your code is scraping 10,000 websites and site #452 is down, you don't want the whole program to stop. You use `try...except` to log the error for that one site and then immediately skip to #453. This is how "pipelines" stay running 24/7.
+:::
+
+## Basic Pattern
+
+```{python}
+#| code-fold: false
+
+def safe_divide(a, b):
+    try:
+        result = a / b
+        return result
+    except ZeroDivisionError:
+        return "Error: Cannot divide by zero"
+    except TypeError:
+        return "Error: Both inputs must be numbers"
+
+# Test different scenarios
+print(safe_divide(10, 2))      # Normal case: 5.0
+print(safe_divide(10, 0))      # Division by zero
+print(safe_divide(10, "two"))  # Wrong type
+```
+
+**The metaphor:** You're teaching a robot to make tea. Without error handling:
+
+- Robot: "Boil water" → Water runs out → Robot crashes, kitchen floods
+
+With error handling:
+
+- Robot: "Boil water" → Water runs out → Robot says "No water available, cannot make tea" → Continues functioning
+
+
+---
+
+# 4. Modules & Imports: Organizing Multi-File Projects
+
+To explain **Modules and Libraries** simply, let's go back to our bakery.
+
+### Modules: The "Spice Rack" Analogy
+
+Imagine you are building a world-class bakery. You *could* build a flour mill, a sugar refinery, and a dairy farm in your backyard just to get started. But that’s a waste of time. Instead, you go to the store and buy pre-packaged ingredients.
+
+* **A Module** is like a **Spice Jar**. It’s a single file of code someone else wrote (or you wrote earlier) that contains specific "flavors" (functions like `calculate_tax` or `resize_image`).
+* **A Library (or Package)** is like a **Kitchen Kit**. It’s a collection of many modules. If you buy a "Baking Kit," it comes with a whisk, a bowl, and a timer. In Python, if you install a library like `pandas`, it comes with everything you need to handle data.
+
+---
+
+### Why do we use them?
+
+You use modules because **you shouldn't reinvent the wheel.** If someone has already written a perfect piece of code to handle "M-Pesa payments" or "Image Recognition," you just "import" their hard work into your project.
+
+### How to get them: `uv`
+
+In the modern Python world, we use a tool called **`uv`**. Think of `uv` as your **Kitchen Supplier**. You tell it what you need, and it goes out, finds the best version, and puts it in your pantry.
+
+To add a library to your project, you just run:
+`uv add pandas` (This "buys" the data analysis kit and puts it in your kitchen).
+
+---
+
+### Importing & Aliases: "Nicknames"
+
+When you bring a module into your code, you use the `import` command. Sometimes, module names are long and annoying to type, so we give them **aliases** (nicknames).
+
+**Think of it like this:**
+Your friend's name might be *Christopher*, but in the kitchen, you just yell **"Chris!"** to get his attention. It’s faster.
+
+```python
+# Instead of typing this every time:
+import statistics
+print(statistics.mean([1, 2, 3]))
+
+# We use an alias (a nickname):
+import statistics as stats
+print(stats.mean([1, 2, 3])) # Much faster for a busy developer!
+
+```
+
+
+---
+
+# 5. Final Project: Student Registration System
+
+Let's build a practical **Student Registration System** that combines everything we've learned:
+
+- **Classes** (organizing student data)
+- **Lambda functions** (calculating ages and sorting)
+- **Error handling** (validating data)
+- **Methods** (actions like enrolling, updating grades)
+
+## Understanding Methods vs Attributes
+
+Before we start, let's clarify two important concepts:
+
+**Attributes (Nouns)** - These are the **properties** or **data** that describe an object:
+
+- `first_name` - stores the student's first name
+- `date_of_birth` - stores when the student was born
+- `current_class` - stores what grade level they're in
+- `grades` - stores their test scores
+
+**Methods (Verbs)** - These are the **actions** or **functions** that an object can perform:
+
+- `calculate_age()` - calculates how old the student is
+- `enroll()` - registers the student in a class
+- `add_grade()` - records a new test score
+- `get_average()` - calculates average grade
+
+**Metaphor:** Think of a smartphone again:
+
+- **Attributes** = battery level, model name, storage capacity (what it HAS)
+- **Methods** = make_call(), send_message(), take_photo() (what it DOES)
+
+---
+
+## Building the StudentRegistration Class
+
+Fill in the missing parts marked with `...`:
+
+```{python}
+#| eval: false
+
+from datetime import datetime
+
+class StudentRegistration:
+    # === ATTRIBUTES (Properties/Data) ===
+    def __init__(self, first_name, last_name, date_of_birth, current_class):
+        # TODO: Set the student's first name
+        self.first_name = ...
+        
+        # TODO: Set the student's last name
+        self.last_name = ...
+        
+        # TODO: Set the birth date (format: "YYYY-MM-DD")
+        self.date_of_birth = ...
+        
+        # TODO: Set the current grade level
+        self.current_class = ...
+        
+        # TODO: Initialize an empty list for grades
+        self.grades = ...
+        
+        # TODO: Set enrollment status to False
+        self.is_enrolled = ...
+    
+    # === METHODS (Actions/Functions) ===
+    
+    # Method: Calculate student's current age
+    def calculate_age(self):
+        # Lambda to calculate years difference
+        calculate_years = lambda birth_year: datetime.now().year - birth_year
+        
+        # TODO: Extract birth year from date_of_birth string
+        # Hint: date_of_birth looks like "2010-05-15"
+        # Split by "-" and get the first part
+        birth_year = int(self.date_of_birth.split("-")[...])
+        
+        # TODO: Use the lambda to calculate age
+        age = calculate_years(...)
+        
+        return age
+    
+    # Method: Enroll the student
+    def enroll(self):
+        # TODO: Set is_enrolled to True
+        self.is_enrolled = ...
+        
+        return f"{self.first_name} {self.last_name} enrolled in Class {self.current_class}"
+    
+    # Method: Add a grade (with validation)
+    def add_grade(self, grade):
+        try:
+            # TODO: Check if grade is between 0 and 100
+            # If not, raise a ValueError
+            if grade < ... or grade > ...:
+                raise ValueError(f"Grade must be between 0 and 100")
+            
+            # TODO: Add the grade to self.grades
+            self.grades.append(...)
+            
+            return f"Grade {grade} added for {self.first_name}"
+            
+        except ValueError as e:
+            # TODO: Return error message
+            return f"Error: {e}"
+    
+    # Method: Calculate average grade
+    def get_average(self):
+        # TODO: Check if there are no grades yet
+        if len(self.grades) == ...:
+            return "No grades recorded yet"
+        
+        # Lambda to calculate average
+        calculate_avg = lambda grades: sum(grades) / len(grades)
+        
+        # TODO: Use the lambda to calculate average
+        average = calculate_avg(...)
+        
+        return round(average, 2)
+    
+    # Method: Get student's full information
+    def get_info(self):
+        age = self.calculate_age()
+        avg = self.get_average()
+        status = "Enrolled" if self.is_enrolled else "Not Enrolled"
+        
+        return f"""
+{'='*50}
+Student: {self.first_name} {self.last_name}
+Age: {age} years old
+Class: {self.current_class}
+Status: {status}
+Average Grade: {avg}
+Total Grades: {len(self.grades)}
+{'='*50}
+"""
+
+# === TEST YOUR CLASS ===
+
+# TODO: Create a student instance
+# Use your own name and make up a birth date
+student1 = StudentRegistration(..., ..., "2010-05-15", "Grade 8")
+
+# TODO: Enroll the student
+print(student1.enroll())
+
+# TODO: Add some grades (try valid and invalid ones)
+print(student1.add_grade(85))
+print(student1.add_grade(92))
+print(student1.add_grade(150))  # Should show error
+
+# TODO: Display student info
+print(student1.get_info())
+```
+
+::: {.callout-tip collapse="true"}
+## 💡 Complete Solution
+
+```{python}
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show Solution"
+
+from datetime import datetime
+
+class StudentRegistration:
+    # === ATTRIBUTES (Properties/Data) ===
+    def __init__(self, first_name, last_name, date_of_birth, current_class):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.date_of_birth = date_of_birth  # Format: "YYYY-MM-DD"
+        self.current_class = current_class
+        self.grades = []
+        self.is_enrolled = False
+    
+    # === METHODS (Actions/Functions) ===
+    
+    # Method: Calculate student's current age
+    def calculate_age(self):
+        # Lambda to calculate years difference
+        calculate_years = lambda birth_year: datetime.now().year - birth_year
+        
+        # Extract birth year (e.g., "2010" from "2010-05-15")
+        birth_year = int(self.date_of_birth.split("-")[0])
+        
+        # Use the lambda to calculate age
+        age = calculate_years(birth_year)
+        
+        return age
+    
+    # Method: Enroll the student
+    def enroll(self):
+        self.is_enrolled = True
+        return f"{self.first_name} {self.last_name} enrolled in Class {self.current_class}"
+    
+    # Method: Add a grade (with validation)
+    def add_grade(self, grade):
+        try:
+            # Check if grade is between 0 and 100
+            if grade < 0 or grade > 100:
+                raise ValueError(f"Grade must be between 0 and 100")
+            
+            # Add the grade to self.grades
+            self.grades.append(grade)
+            
+            return f"Grade {grade} added for {self.first_name}"
+            
+        except ValueError as e:
+            # Return error message
+            return f"Error: {e}"
+    
+    # Method: Calculate average grade
+    def get_average(self):
+        # Check if there are no grades yet
+        if len(self.grades) == 0:
+            return "No grades recorded yet"
+        
+        # Lambda to calculate average
+        calculate_avg = lambda grades: sum(grades) / len(grades)
+        
+        # Use the lambda to calculate average
+        average = calculate_avg(self.grades)
+        
+        return round(average, 2)
+    
+    # Method: Get student's full information
+    def get_info(self):
+        age = self.calculate_age()
+        avg = self.get_average()
+        status = "Enrolled" if self.is_enrolled else "Not Enrolled"
+        
+        return f"""
+{'='*50}
+Student: {self.first_name} {self.last_name}
+Age: {age} years old
+Class: {self.current_class}
+Status: {status}
+Average Grade: {avg}
+Total Grades: {len(self.grades)}
+{'='*50}
+"""
+
+# === TEST THE CLASS ===
+
+# Create a student instance
+student1 = StudentRegistration("Ama", "Osei", "2010-05-15", "Grade 8")
+
+# Enroll the student
+print(student1.enroll())
+
+# Add some grades (try valid and invalid ones)
+print(student1.add_grade(85))
+print(student1.add_grade(92))
+print(student1.add_grade(78))
+print(student1.add_grade(150))  # Should show error - grade too high
+print(student1.add_grade(-10))  # Should show error - grade negative
+
+# Display student info
+print(student1.get_info())
+```
+:::
+
+---
+
+# Summary: What You've Learned
+
+In this lesson, you mastered the core architectural patterns for Python AI/ML development:
+
+## 1. Lambda Functions
+- Compact one-line functions for data processing
+- Used with `sort()`, `filter()`, `map()` and other higher-order functions
+- Perfect for simple transformations
+
+## 2. Classes & OOP
+- Classes are blueprints, objects are instances
+- `self` is mandatory in methods (unlike JavaScript's `this`)
+- Inheritance lets you build on existing classes
+- Critical for organizing AI models and data pipelines
+
+## 3. Error Handling
+- `try...except` blocks prevent crashes
+- Essential for production pipelines processing thousands of files
+- Continue processing after errors, don't crash completely
+
+## 4. Modules & Imports
+- Python uses named imports only (no `export default`)
+- `__init__.py` marks folders as packages
+- Three import styles: full module, specific items, or aliased
+
+## 5. Practical Integration
+- Combined all concepts in a real-world Student Registration System
+- Used lambdas for calculations
+- Applied error handling for validation
+- Organized code with classes and methods
+
+---
+
+Keep coding! 🚀

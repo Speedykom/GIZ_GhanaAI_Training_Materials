@@ -1,0 +1,273 @@
+---
+title: "Notebook 3: The Tidy Data Revolution"
+subtitle: "Ghana AI Talent Accelerator - Practical Data Wrangling"
+author: "Ghana AI Accelerator"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+jupyter: python3
+---
+
+# 1. Why "Tidy" Data Matters
+
+In AI Engineering, you will spend **80% of your time cleaning data**. If your data is "messy," you cannot plot it easily, and you certainly cannot feed it into a Machine Learning model.
+
+**Tidy Data** is a standard way of mapping the structure of a dataset to its meaning.
+
+---
+
+# 2. The 3 Rules of Tidy Data
+
+Proposed by Hadley Wickham, a dataset is tidy if and only if:
+
+1.  **Each variable forms a column.**
+2.  **Each observation forms a row.**
+3.  **Each type of observational unit forms a table.**
+
+Any other format is **"Messy Data."**
+
+---
+
+# 3. Identifying Messy Data: Case Study
+
+Let's look at the classic **Pew Research Center** dataset. It shows religion vs. income. 
+
+### ❌ The Messy Version (Wide Format)
+
+```{python}
+import pandas as pd
+import numpy as np
+
+# Loading from the 'Pandas for Everyone' source
+pew_url = "https://raw.githubusercontent.com/chendaniely/pandas_for_everyone/master/data/pew.csv"
+pew = pd.read_csv(pew_url)
+
+# Look at the first few rows
+pew.head()
+```
+
+**Why is this messy?**
+The column headers (`<$10k`, `$10-20k`, etc.) are actually **values** of a variable called "Income." Instead of being headers, they should be stored in a single column.
+
+---
+
+# 4. Tidying Data with `.melt()`
+
+We use `.melt()` to turn **Wide Data** into **Long Data**.
+
+```{python}
+pew_tidy = pd.melt(
+    pew,
+    id_vars='religion',      # The column we want to KEEP as is
+    var_name='income',       # The name for the new "Header" column
+    value_name='count'       # The name for the new "Value" column
+)
+
+pew_tidy.head(10)
+```
+
+**Result:** Now we have a row for every religion/income combination. This is ready for a Machine Learning model!
+
+---
+
+# 5. Handling Multiple Variables in One Column
+
+Sometimes, a single column contains two pieces of information (e.g., `Sex_Age`).
+
+```{python}
+# Sample Messy Data: Healthcare Visits in Ghana
+health_data = pd.DataFrame({
+    'patient_id': [1, 2, 3],
+    'm_0_14': [10, 5, 8],  # Male, age 0-14
+    'm_15_64': [45, 30, 12], # Male, age 15-64
+    'f_0_14': [12, 8, 15],  # Female, age 0-14
+    'f_15_64': [60, 42, 25]  # Female, age 15-64
+})
+
+health_data
+```
+
+### The Tidy Pipeline
+
+```{python}
+health_tidy = (
+    health_data
+    .melt(id_vars='patient_id', var_name='sex_age', value_name='visits')
+    .assign(
+        # Split the sex_age column into sex and age
+        sex=lambda x: x['sex_age'].str.get(0),
+        age_group=lambda x: x['sex_age'].str.split('_', n=1).str.get(1)
+    )
+    .drop(columns='sex_age')
+)
+
+health_tidy.head()
+```
+
+---
+
+# 6. Variables in Headers: The Tuberculosis (TB) Dataset
+
+Often, column headers contain multiple pieces of information (e.g., sex and age group). This is a very common "Messy" pattern.
+
+```{python}
+# Instead of an external URL, let's create a representative sample of the TB dataset
+tb = pd.DataFrame({
+    'iso2': ['AD', 'AD', 'AD', 'AD', 'AD'],
+    'year': [1989, 1990, 1991, 1992, 1993],
+    'm014': [np.nan, np.nan, np.nan, np.nan, np.nan],
+    'm1524': [np.nan, np.nan, np.nan, np.nan, np.nan],
+    'm2534': [np.nan, np.nan, np.nan, np.nan, np.nan],
+    'f014': [np.nan, np.nan, np.nan, np.nan, np.nan],
+    'f1524': [1, 3, 1, 0, 0] # Real-world data often has many NaNs!
+})
+
+# Look at the column headers: m014, m1524, f014...
+tb.head()
+```
+
+### The Tidying Strategy
+We need to:
+1.  **Melt** the columns (except `iso2` and `year`).
+2.  **Split** the new variable column into `sex` and `age`.
+
+```{python}
+tb_tidy = (
+    tb
+    .melt(id_vars=['iso2', 'year'], var_name='column', value_name='cases')
+    .dropna(subset=['cases'])
+    .assign(
+        # Extract sex (first character)
+        sex=lambda x: x['column'].str.get(0),
+        # Extract age group (rest of the string)
+        age=lambda x: x['column'].str[1:]
+    )
+    .drop(columns='column')
+)
+
+tb_tidy.head()
+```
+
+---
+
+# 7. Variables in Both Rows and Columns: The Weather Dataset
+
+This is the most complex type of messy data. In the weather dataset, the `element` column contains variables (`tmax`, `tmin`) that should be their own columns.
+
+```{python}
+weather_url = "https://raw.githubusercontent.com/chendaniely/pandas_for_everyone/master/data/weather.csv"
+weather = pd.read_csv(weather_url)
+
+weather.head()
+```
+
+### The Tidying Pipeline
+We must first **Melt** (Wide to Long) and then **Pivot** (Long to Wide for specific variables).
+
+```{python}
+weather_tidy = (
+    weather
+    .melt(
+        id_vars=['id', 'year', 'month', 'element'], 
+        var_name='day', 
+        value_name='temp'
+    )
+    .assign(
+        # Convert 'd1' to 1, 'd2' to 2, etc.
+        day=lambda x: x['day'].str[1:].astype(int)
+    )
+    .pivot_table(
+        index=['id', 'year', 'month', 'day'],
+        columns='element',
+        values='temp'
+    )
+    .reset_index()
+)
+
+weather_tidy.head()
+```
+
+---
+
+# 8. Rule 3: Multiple Observational Units in One Table
+
+A table should only describe **one thing**. In the Billboard dataset, each row contains information about the **Song** (Artist, Track) AND the **Performance** (Week, Rank).
+
+If a song stays on the chart for 20 weeks, its Artist and Track info are repeated 20 times. This is redundant and error-prone.
+
+```{python}
+billboard_url = "https://raw.githubusercontent.com/chendaniely/pandas_for_everyone/master/data/billboard.csv"
+billboard = pd.read_csv(billboard_url)
+```
+
+### The Solution: Normalization
+We split the "Messy" table into two:
+1.  **Songs Table**: Unique songs and their metadata.
+2.  **Ranks Table**: Weekly performance data linked by a Song ID.
+
+```{python}
+# 1. Create a Unique Songs Table
+songs = (
+    billboard[['artist', 'track', 'time']]
+    .drop_duplicates()
+    .assign(song_id=range(1, len(billboard[['artist', 'track', 'time']].drop_duplicates()) + 1))
+)
+
+# 2. Link the Ranks back to the Songs Table
+# (This is advanced but critical for production AI databases)
+print(f"Songs Table Shape: {songs.shape}")
+songs.head()
+```
+
+::: {.callout-important}
+## Why Normalize?
+In AI production, you want your data storage to be efficient. Storing "Artist Name" a million times is a waste of memory. Modern data warehouses (Snowflake, BigQuery) thrive on these normalized Tidy structures.
+:::
+
+---
+
+# 9. Practice Challenge: Tidy the Billboard Dataset
+
+The Billboard dataset contains the weekly rank of songs. 
+
+```{python}
+# The billboard dataframe is already loaded in the previous section!
+# Look at the columns (wk1, wk2, wk3...)
+print(billboard.columns[:10])
+```
+
+**Task:**
+1. Use `.melt()` to create a column called `week` and `rank`.
+2. Convert the `week` column into a number (e.g., "wk1" → 1).
+3. Drop rows where the rank is missing (`NaN`).
+
+```{python}
+#| eval: false
+
+# Your Tidy Pipeline Here:
+# billboard_tidy = (
+#     billboard
+#     .melt(...)
+#     ...
+# )
+```
+
+---
+
+# 10. Course Summary
+
+Congratulations! You've completed the **Ghana AI Talent Accelerator Pandas Series**.
+
+1.  **Notebook 1**: Mastered the DataFrame/Series objects and the **Method Chaining** philosophy.
+2.  **Notebook 2**: Learned the **Explicit OOP Plotting** interface and **Seaborn** integration.
+3.  **Notebook 3**: Deep-dived into **Tidy Data** principles and advanced reshaping techniques.
+
+### Final Words for the Road
+Data is the fuel of AI. Your ability to clean, shape, and visualize this fuel determines the power of your models. Keep practicing with real datasets from [Kaggle](https://www.kaggle.com) or [Zindi Africa](https://zindi.africa/).
+
+**Happy Wrangling!**

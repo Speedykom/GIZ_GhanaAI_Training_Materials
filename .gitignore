@@ -4,3 +4,6 @@ cassava_dataset/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Books - legal rights uncertain
+08-resources/books/*.pdf

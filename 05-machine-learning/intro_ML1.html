@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ghana AI Accelerator">
+
+<title>Notebook 1: Introduction to Machine Learning &amp; Linear Regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="intro_ML1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="intro_ML1_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="intro_ML1_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="intro_ML1_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="intro_ML1_files/libs/quarto-html/popper.min.js"></script>
+<script src="intro_ML1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="intro_ML1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="intro_ML1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="intro_ML1_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="intro_ML1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="intro_ML1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="intro_ML1_files/libs/bootstrap/bootstrap-ad96d2b6a7098799db9dad30e985ce24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-machine-learning" id="toc-what-is-machine-learning" class="nav-link active" data-scroll-target="#what-is-machine-learning">1. What is Machine Learning?</a>
+  <ul class="collapse">
+  <li><a href="#the-fundamental-shift" id="toc-the-fundamental-shift" class="nav-link" data-scroll-target="#the-fundamental-shift">The Fundamental Shift</a></li>
+  <li><a href="#definition-machine-learning-in-one-sentence" id="toc-definition-machine-learning-in-one-sentence" class="nav-link" data-scroll-target="#definition-machine-learning-in-one-sentence">Definition: Machine Learning in One Sentence</a></li>
+  <li><a href="#the-three-pillars-of-learning" id="toc-the-three-pillars-of-learning" class="nav-link" data-scroll-target="#the-three-pillars-of-learning">The Three Pillars of Learning</a></li>
+  <li><a href="#two-key-supervised-learning-tasks" id="toc-two-key-supervised-learning-tasks" class="nav-link" data-scroll-target="#two-key-supervised-learning-tasks">Two Key Supervised Learning Tasks</a></li>
+  </ul></li>
+  <li><a href="#the-math-foundation-building-intuition" id="toc-the-math-foundation-building-intuition" class="nav-link" data-scroll-target="#the-math-foundation-building-intuition">2. The Math Foundation: Building Intuition</a>
+  <ul class="collapse">
+  <li><a href="#the-problem-celsius-to-fahrenheit" id="toc-the-problem-celsius-to-fahrenheit" class="nav-link" data-scroll-target="#the-problem-celsius-to-fahrenheit">The Problem: Celsius to Fahrenheit</a></li>
+  <li><a href="#visualizing-the-data" id="toc-visualizing-the-data" class="nav-link" data-scroll-target="#visualizing-the-data">Visualizing the Data</a></li>
+  <li><a href="#deriving-the-formula" id="toc-deriving-the-formula" class="nav-link" data-scroll-target="#deriving-the-formula">Deriving the Formula</a></li>
+  <li><a href="#testing-our-formula" id="toc-testing-our-formula" class="nav-link" data-scroll-target="#testing-our-formula">Testing Our Formula</a></li>
+  </ul></li>
+  <li><a href="#connecting-to-machine-learning-notation" id="toc-connecting-to-machine-learning-notation" class="nav-link" data-scroll-target="#connecting-to-machine-learning-notation">3. Connecting to Machine Learning Notation</a>
+  <ul class="collapse">
+  <li><a href="#the-ml-formula" id="toc-the-ml-formula" class="nav-link" data-scroll-target="#the-ml-formula">The ML Formula</a></li>
+  <li><a href="#why-this-notation-matters" id="toc-why-this-notation-matters" class="nav-link" data-scroll-target="#why-this-notation-matters">Why This Notation Matters</a></li>
+  </ul></li>
+  <li><a href="#house-price-prediction-our-first-ml-model" id="toc-house-price-prediction-our-first-ml-model" class="nav-link" data-scroll-target="#house-price-prediction-our-first-ml-model">4. House Price Prediction: Our First ML Model</a>
+  <ul class="collapse">
+  <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The Dataset</a></li>
+  <li><a href="#visualizing-the-relationship" id="toc-visualizing-the-relationship" class="nav-link" data-scroll-target="#visualizing-the-relationship">Visualizing the Relationship</a></li>
+  <li><a href="#training-our-first-model" id="toc-training-our-first-model" class="nav-link" data-scroll-target="#training-our-first-model">Training Our First Model</a></li>
+  <li><a href="#understanding-the-model-parameters" id="toc-understanding-the-model-parameters" class="nav-link" data-scroll-target="#understanding-the-model-parameters">Understanding the Model Parameters</a></li>
+  <li><a href="#making-predictions" id="toc-making-predictions" class="nav-link" data-scroll-target="#making-predictions">Making Predictions</a></li>
+  <li><a href="#visualizing-the-model" id="toc-visualizing-the-model" class="nav-link" data-scroll-target="#visualizing-the-model">Visualizing the Model</a></li>
+  <li><a href="#interpreting-r²-score" id="toc-interpreting-r²-score" class="nav-link" data-scroll-target="#interpreting-r²-score">Interpreting R² Score</a></li>
+  </ul></li>
+  <li><a href="#expanding-to-multiple-features" id="toc-expanding-to-multiple-features" class="nav-link" data-scroll-target="#expanding-to-multiple-features">5. Expanding to Multiple Features</a>
+  <ul class="collapse">
+  <li><a href="#the-enhanced-formula" id="toc-the-enhanced-formula" class="nav-link" data-scroll-target="#the-enhanced-formula">The Enhanced Formula</a></li>
+  <li><a href="#generating-synthetic-data-2-features" id="toc-generating-synthetic-data-2-features" class="nav-link" data-scroll-target="#generating-synthetic-data-2-features">Generating Synthetic Data (2 Features)</a></li>
+  <li><a href="#feature-engineering-one-hot-encoding" id="toc-feature-engineering-one-hot-encoding" class="nav-link" data-scroll-target="#feature-engineering-one-hot-encoding">Feature Engineering: One-Hot Encoding</a></li>
+  <li><a href="#feature-scaling-why-it-matters" id="toc-feature-scaling-why-it-matters" class="nav-link" data-scroll-target="#feature-scaling-why-it-matters">Feature Scaling: Why It Matters</a></li>
+  <li><a href="#interpreting-multiple-features" id="toc-interpreting-multiple-features" class="nav-link" data-scroll-target="#interpreting-multiple-features">Interpreting Multiple Features</a></li>
+  </ul></li>
+  <li><a href="#real-world-ghana-housing-data-multiple-features" id="toc-real-world-ghana-housing-data-multiple-features" class="nav-link" data-scroll-target="#real-world-ghana-housing-data-multiple-features">6. Real-World Ghana Housing Data: Multiple Features</a>
+  <ul class="collapse">
+  <li><a href="#loading-the-ghana-housing-dataset" id="toc-loading-the-ghana-housing-dataset" class="nav-link" data-scroll-target="#loading-the-ghana-housing-dataset">Loading the Ghana Housing Dataset</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+  <li><a href="#visualizing-price-distribution" id="toc-visualizing-price-distribution" class="nav-link" data-scroll-target="#visualizing-price-distribution">Visualizing Price Distribution</a></li>
+  <li><a href="#data-preprocessing" id="toc-data-preprocessing" class="nav-link" data-scroll-target="#data-preprocessing">Data Preprocessing</a></li>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
+  <li><a href="#training-linear-regression-model" id="toc-training-linear-regression-model" class="nav-link" data-scroll-target="#training-linear-regression-model">Training Linear Regression Model</a></li>
+  <li><a href="#evaluating-the-model" id="toc-evaluating-the-model" class="nav-link" data-scroll-target="#evaluating-the-model">Evaluating the Model</a></li>
+  <li><a href="#visualizing-predictions-vs.-actual" id="toc-visualizing-predictions-vs.-actual" class="nav-link" data-scroll-target="#visualizing-predictions-vs.-actual">Visualizing Predictions vs.&nbsp;Actual</a></li>
+  <li><a href="#interpreting-feature-importance" id="toc-interpreting-feature-importance" class="nav-link" data-scroll-target="#interpreting-feature-importance">Interpreting Feature Importance</a></li>
+  <li><a href="#visualizing-feature-importance" id="toc-visualizing-feature-importance" class="nav-link" data-scroll-target="#visualizing-feature-importance">Visualizing Feature Importance</a></li>
+  <li><a href="#comparing-loss-functions-on-ghana-housing-data" id="toc-comparing-loss-functions-on-ghana-housing-data" class="nav-link" data-scroll-target="#comparing-loss-functions-on-ghana-housing-data">Comparing Loss Functions on Ghana Housing Data</a></li>
+  <li><a href="#visualizing-errors-actual-vs.-predicted" id="toc-visualizing-errors-actual-vs.-predicted" class="nav-link" data-scroll-target="#visualizing-errors-actual-vs.-predicted">Visualizing Errors: Actual vs.&nbsp;Predicted</a></li>
+  <li><a href="#understanding-the-error-plot" id="toc-understanding-the-error-plot" class="nav-link" data-scroll-target="#understanding-the-error-plot">Understanding the Error Plot</a></li>
+  <li><a href="#when-to-use-which-loss-function" id="toc-when-to-use-which-loss-function" class="nav-link" data-scroll-target="#when-to-use-which-loss-function">When to Use Which Loss Function?</a></li>
+  </ul></li>
+  <li><a href="#summary-key-takeaways" id="toc-summary-key-takeaways" class="nav-link" data-scroll-target="#summary-key-takeaways">7. Summary &amp; Key Takeaways</a>
+  <ul class="collapse">
+  <li><a href="#the-linear-regression-formula" id="toc-the-linear-regression-formula" class="nav-link" data-scroll-target="#the-linear-regression-formula">The Linear Regression Formula</a></li>
+  <li><a href="#key-concepts" id="toc-key-concepts" class="nav-link" data-scroll-target="#key-concepts">Key Concepts</a></li>
+  <li><a href="#one-feature-vs.-multiple-features" id="toc-one-feature-vs.-multiple-features" class="nav-link" data-scroll-target="#one-feature-vs.-multiple-features">One Feature vs.&nbsp;Multiple Features</a></li>
+  <li><a href="#professional-checklist" id="toc-professional-checklist" class="nav-link" data-scroll-target="#professional-checklist">Professional Checklist</a></li>
+  </ul></li>
+  <li><a href="#when-to-use-regression-vs.-classification" id="toc-when-to-use-regression-vs.-classification" class="nav-link" data-scroll-target="#when-to-use-regression-vs.-classification">8. When to Use: Regression vs.&nbsp;Classification</a>
+  <ul class="collapse">
+  <li><a href="#how-to-identify-the-problem-type" id="toc-how-to-identify-the-problem-type" class="nav-link" data-scroll-target="#how-to-identify-the-problem-type">How to Identify the Problem Type</a></li>
+  <li><a href="#key-decision-framework" id="toc-key-decision-framework" class="nav-link" data-scroll-target="#key-decision-framework">Key Decision Framework</a></li>
+  <li><a href="#when-each-problem-type-is-appropriate" id="toc-when-each-problem-type-is-appropriate" class="nav-link" data-scroll-target="#when-each-problem-type-is-appropriate">When Each Problem Type is Appropriate</a></li>
+  <li><a href="#common-mistakes" id="toc-common-mistakes" class="nav-link" data-scroll-target="#common-mistakes">Common Mistakes</a></li>
+  </ul></li>
+  <li><a href="#practice-exercise" id="toc-practice-exercise" class="nav-link" data-scroll-target="#practice-exercise">9. Practice Exercise</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">10. What’s Next?</a>
+  <ul class="collapse">
+  <li><a href="#youve-learned" id="toc-youve-learned" class="nav-link" data-scroll-target="#youve-learned">You’ve Learned</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Notebook 1: Introduction to Machine Learning &amp; Linear Regression</h1>
+<p class="subtitle lead">Ghana AI Talent Accelerator - Machine Learning Foundations</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ghana AI Accelerator </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="what-is-machine-learning" class="level1">
+<h1>1. What is Machine Learning?</h1>
+<section id="the-fundamental-shift" class="level3">
+<h3 class="anchored" data-anchor-id="the-fundamental-shift">The Fundamental Shift</h3>
+<p>In traditional programming, you write rules that tell a computer exactly what to do:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Traditional programming: YOU write the rules</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> temperature <span class="op">&gt;</span> <span class="dv">30</span>:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Hot day!"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> temperature <span class="op">&lt;</span> <span class="dv">20</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Cool day!"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Pleasant day!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In <strong>Machine Learning</strong>, you show the computer examples of data and let it discover the patterns and rules itself:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Machine learning: The COMPUTER discovers the rules</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># You provide: (temperature, "hot"), (temperature, "cool"), (temperature, "pleasant")</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model learns: temperature &gt; 30 → "hot", temperature &lt; 20 → "cool", etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="definition-machine-learning-in-one-sentence" class="level3">
+<h3 class="anchored" data-anchor-id="definition-machine-learning-in-one-sentence">Definition: Machine Learning in One Sentence</h3>
+<p><strong>Machine Learning is the science of getting computers to act without being explicitly programmed</strong>—they learn patterns from data instead.</p>
+</section>
+<section id="the-three-pillars-of-learning" class="level3">
+<h3 class="anchored" data-anchor-id="the-three-pillars-of-learning">The Three Pillars of Learning</h3>
+<p>Machine learning has three main branches:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">What It Does</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Supervised Learning</strong></td>
+<td style="text-align: left;">Learn from labeled examples</td>
+<td style="text-align: left;">Predict house prices</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Unsupervised Learning</strong></td>
+<td style="text-align: left;">Find hidden patterns in unlabeled data</td>
+<td style="text-align: left;">Customer segmentation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Reinforcement Learning</strong></td>
+<td style="text-align: left;">Learn through trial and error</td>
+<td style="text-align: left;">Self-driving cars</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="two-key-supervised-learning-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="two-key-supervised-learning-tasks">Two Key Supervised Learning Tasks</h3>
+<p>Within supervised learning, there are two main problem types:</p>
+<p><strong>1. Regression</strong>: Predict continuous values (numbers)</p>
+<ul>
+<li>House price: ₵250,000, ₵420,000, ₵185,000</li>
+<li>Temperature: 25.3°C, 31.7°C, 18.2°C</li>
+<li>Sales: 1,250 units, 3,400 units, 890 units</li>
+</ul>
+<p><strong>2. Classification</strong>: Predict categories (labels)</p>
+<ul>
+<li>Email: spam vs.&nbsp;not spam</li>
+<li>Image: cat vs.&nbsp;dog vs.&nbsp;bird</li>
+<li>Medical test: positive vs.&nbsp;negative</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="the-math-foundation-building-intuition" class="level1">
+<h1>2. The Math Foundation: Building Intuition</h1>
+<p>Before we dive into complex ML algorithms, let’s build intuition with something familiar: <strong>temperature conversion</strong>.</p>
+<section id="the-problem-celsius-to-fahrenheit" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-celsius-to-fahrenheit">The Problem: Celsius to Fahrenheit</h3>
+<p>We know these two facts:</p>
+<ul>
+<li><strong>0°C</strong> (freezing point of water) = <strong>32°F</strong></li>
+<li><strong>100°C</strong> (boiling point of water) = <strong>212°F</strong></li>
+</ul>
+</section>
+<section id="visualizing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-data">Visualizing the Data</h3>
+<p>Let’s plot these two points and see what pattern emerges:</p>
+<div id="256d59b4" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Known data points</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>celsius <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">100</span>])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fahrenheit <span class="op">=</span> np.array([<span class="dv">32</span>, <span class="dv">212</span>])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the two points</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ax.scatter(celsius, fahrenheit, color<span class="op">=</span><span class="st">'teal'</span>, s<span class="op">=</span><span class="dv">200</span>, zorder<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="st">'Known Points'</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw the line connecting them</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>ax.plot(celsius, fahrenheit, color<span class="op">=</span><span class="st">'coral'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">'Trend Line'</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Celsius (°C)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Fahrenheit (°F)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Temperature Conversion: Linear Relationship'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Add value annotations</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>ax.annotate(<span class="ss">f'(</span><span class="sc">{</span>celsius[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">°C, </span><span class="sc">{</span>fahrenheit[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">°F)'</span>, xy<span class="op">=</span>(celsius[<span class="dv">0</span>], fahrenheit[<span class="dv">0</span>]), </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            xytext<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>ax.annotate(<span class="ss">f'(</span><span class="sc">{</span>celsius[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">°C, </span><span class="sc">{</span>fahrenheit[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">°F)'</span>, xy<span class="op">=</span>(celsius[<span class="dv">1</span>], fahrenheit[<span class="dv">1</span>]), </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            xytext<span class="op">=</span>(<span class="op">-</span><span class="dv">80</span>, <span class="op">-</span><span class="dv">25</span>), textcoords<span class="op">=</span><span class="st">'offset points'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-2-output-1.png" width="951" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The key insight: <strong>the data points form a straight line</strong>. This is the foundation of linear regression.</p>
+</section>
+<section id="deriving-the-formula" class="level3">
+<h3 class="anchored" data-anchor-id="deriving-the-formula">Deriving the Formula</h3>
+<p>A straight line has the formula:</p>
+<p><span class="math display">\[y = mx + c\]</span></p>
+<p>Where: - <span class="math inline">\(y\)</span> = what we predict (Fahrenheit) - <span class="math inline">\(x\)</span> = what we know (Celsius) - <span class="math inline">\(m\)</span> = slope (how fast the line rises) - <span class="math inline">\(c\)</span> = y-intercept (where the line starts)</p>
+<p><strong>Step 1: Calculate the slope (<span class="math inline">\(m\)</span>)</strong></p>
+<p><span class="math display">\[m = \frac{\text{change in } y}{\text{change in } x} = \frac{212 - 32}{100 - 0} = \frac{180}{100} = 1.8\]</span></p>
+<p><strong>Step 2: Find the y-intercept (<span class="math inline">\(c\)</span>)</strong></p>
+<p>We know that when <span class="math inline">\(x = 0\)</span>, <span class="math inline">\(y = 32\)</span>. So:</p>
+<p><span class="math display">\[32 = 1.8 \times 0 + c\]</span> <span class="math display">\[32 = c\]</span></p>
+<p><strong>Step 3: Write the complete formula</strong></p>
+<p><span class="math display">\[F = 1.8 \times C + 32\]</span></p>
+<p>Or using math notation:</p>
+<p><span class="math display">\[\hat{y} = b + wx\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\hat{y}\)</span> = predicted value (Fahrenheit)</li>
+<li><span class="math inline">\(b\)</span> = bias (intercept - baseline value)</li>
+<li><span class="math inline">\(w\)</span> = weight (coefficient - slope)</li>
+<li><span class="math inline">\(x\)</span> = input feature (Celsius)</li>
+</ul>
+</section>
+<section id="testing-our-formula" class="level3">
+<h3 class="anchored" data-anchor-id="testing-our-formula">Testing Our Formula</h3>
+<p>Let’s verify with a temperature not in our training data:</p>
+<div id="4dccd9af" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with 50°C (not in our original data)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>celsius_test <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fahrenheit_test <span class="op">=</span> <span class="fl">1.8</span> <span class="op">*</span> celsius_test <span class="op">+</span> <span class="dv">32</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Input: </span><span class="sc">{</span>celsius_test<span class="sc">}</span><span class="ss">°C"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Prediction: </span><span class="sc">{</span>fahrenheit_test<span class="sc">:.1f}</span><span class="ss">°F"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify with Python's built-in (as a sanity check)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The formula is correct: 50°C = 122°F</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">✅ Verification: 50°C should be 122°F"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Input: 50°C
+Prediction: 122.0°F
+
+✅ Verification: 50°C should be 122°F</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The Key Insight
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We just did <strong>machine learning manually</strong>! We:</p>
+<ol type="1">
+<li>Collected data (two temperature points)</li>
+<li>Observed the pattern (linear relationship)</li>
+<li>Derived a formula (F = 1.8 × C + 32)</li>
+<li>Used the formula to predict new values</li>
+</ol>
+<p>Machine learning algorithms do the same thing automatically—with much more data!</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="connecting-to-machine-learning-notation" class="level1">
+<h1>3. Connecting to Machine Learning Notation</h1>
+<p>Now that we understand the concept, let’s translate to ML terminology:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Math Notation</th>
+<th style="text-align: left;">ML Notation</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(y\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat{y}\)</span> (y_hat)</td>
+<td style="text-align: left;">Predicted value</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(c\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(b\)</span> (bias)</td>
+<td style="text-align: left;">Baseline/intercept</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(m\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(w\)</span> (weight/coefficient)</td>
+<td style="text-align: left;">Coefficient/slope</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(x\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(x\)</span></td>
+<td style="text-align: left;">Input feature</td>
+</tr>
+</tbody>
+</table>
+<section id="the-ml-formula" class="level3">
+<h3 class="anchored" data-anchor-id="the-ml-formula">The ML Formula</h3>
+<p>In machine learning, we write:</p>
+<p><span class="math display">\[\hat{y} = b + wx\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\hat{y}\)</span> = predicted value (with “hat” to indicate it’s a prediction)</li>
+<li><span class="math inline">\(b\)</span> = bias (intercept - baseline value when all features are zero)</li>
+<li><span class="math inline">\(w\)</span> = weight (coefficient - how much the feature affects the prediction)</li>
+<li><span class="math inline">\(x\)</span> = input feature</li>
+</ul>
+</section>
+<section id="why-this-notation-matters" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-notation-matters">Why This Notation Matters</h3>
+<p>When you see <span class="math inline">\(\hat{y}\)</span>, you immediately know: <strong>this is a prediction, not the actual value</strong>.</p>
+<p>When you see <span class="math inline">\(w\)</span> and <span class="math inline">\(b\)</span>, you know: <strong>these are parameters the model learns from data</strong>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Common Confusion: <span class="math inline">\(\hat{y}\)</span> vs.&nbsp;<span class="math inline">\(y\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="math inline">\(y\)</span> (without hat) = actual/true value from the data</li>
+<li><span class="math inline">\(\hat{y}\)</span> (with hat) = predicted value from the model</li>
+</ul>
+<p>The difference between them is the <strong>error</strong>: <span class="math inline">\(\text{error} = \hat{y} - y\)</span></p>
+<p>Machine learning tries to minimize this error across all data points.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="house-price-prediction-our-first-ml-model" class="level1">
+<h1>4. House Price Prediction: Our First ML Model</h1>
+<p>Let’s apply what we’ve learned to a real problem: <strong>predicting house prices in Ghana</strong>.</p>
+<section id="the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="the-dataset">The Dataset</h3>
+<p>We’ll use a synthetic dataset representing Ghanaian houses with one feature: <strong>size (square meters)</strong>.</p>
+<div id="1be5636d" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set random seed for reproducibility</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We use random seeds to ensure reproducible results.</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># This way, every time you run this code, you'll get the same random numbers.</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The number 42 is commonly used as a playful reference to "The Hitchhiker's Guide to the Galaxy"</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># (it's the "Answer to the Ultimate Question of Life, the Universe, and Everything").</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># You can use any number - try changing 42 to 67 or any other number!</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate synthetic Ghana housing data</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>size_sqm <span class="op">=</span> np.random.randint(<span class="dv">80</span>, <span class="dv">400</span>, <span class="dv">100</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Price formula: 200 GHS per sqm + 50,000 GHS base + random noise</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>price_ghs <span class="op">=</span> size_sqm <span class="op">*</span> <span class="dv">200</span> <span class="op">+</span> <span class="dv">50000</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">15000</span>, <span class="dv">100</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DataFrame</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>df_houses <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'size_sqm'</span>: size_sqm,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'price_ghs'</span>: price_ghs</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Synthetic Ghana housing dataset:"</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_houses.head(<span class="dv">10</span>))</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Dataset shape: </span><span class="sc">{</span>df_houses<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Price range: </span><span class="sc">{</span>df_houses[<span class="st">'price_ghs'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:,.0f}</span><span class="ss"> - </span><span class="sc">{</span>df_houses[<span class="st">'price_ghs'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:,.0f}</span><span class="ss"> GHS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Synthetic Ghana housing dataset:
+   size_sqm      price_ghs
+0       182  108434.119281
+1       350  103141.524982
+2       186  101450.080933
+3       151  106097.747029
+4       268  110468.276155
+5       100   44735.689325
+6       182   91302.678360
+7       201   88983.215688
+8       294  115816.921299
+9       167   94441.835260
+
+Dataset shape: (100, 2)
+Price range: 44,736 - 164,103 GHS</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-relationship" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-relationship">Visualizing the Relationship</h3>
+<div id="89efeaa4" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ax.scatter(df_houses[<span class="st">'size_sqm'</span>], df_houses[<span class="st">'price_ghs'</span>], </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           color<span class="op">=</span><span class="st">'teal'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">60</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Size (Square Meters)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Ghana House Prices: Size vs. Price'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Format y-axis to show GHS</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-5-output-1.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The relationship is clear: <strong>larger houses cost more</strong>. The data roughly follows a straight line—perfect for linear regression!</p>
+</section>
+<section id="training-our-first-model" class="level3">
+<h3 class="anchored" data-anchor-id="training-our-first-model">Training Our First Model</h3>
+<div id="6df35521" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_houses[[<span class="st">'size_sqm'</span>]]  <span class="co"># Features (must be 2D array)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_houses[<span class="st">'price_ghs'</span>]    <span class="co"># Target (1D array)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Split into training and testing sets</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and train the model</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ Model trained successfully!"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Model parameters:"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Weight (w): ₵</span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:,.2f}</span><span class="ss"> per square meter"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Bias (b): ₵</span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:,.2f}</span><span class="ss"> (base price)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Model trained successfully!
+
+Model parameters:
+Weight (w): ₵169.82 per square meter
+Bias (b): ₵58,697.72 (base price)</code></pre>
+</div>
+</div>
+</section>
+<section id="understanding-the-model-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-model-parameters">Understanding the Model Parameters</h3>
+<p>Let’s interpret what the model learned:</p>
+<ul>
+<li><strong>Weight (<span class="math inline">\(w\)</span>)</strong>: How much price increases for each additional square meter
+<ul>
+<li>If <span class="math inline">\(w = 200\)</span>, then each extra sqm adds ~₵200 to the price</li>
+</ul></li>
+<li><strong>Bias (<span class="math inline">\(b\)</span>)</strong>: The base price when size is 0 sqm
+<ul>
+<li>If <span class="math inline">\(b = 50,000\)</span>, this represents the land value or minimum price for any house</li>
+</ul></li>
+</ul>
+</section>
+<section id="making-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="making-predictions">Making Predictions</h3>
+<div id="22e0642d" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on test set</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show some predictions</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Actual Size (sqm)'</span>: X_test[<span class="st">'size_sqm'</span>].values,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Actual Price (GHS)'</span>: y_test.values,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Predicted Price (GHS)'</span>: y_pred,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Error (GHS)'</span>: y_pred <span class="op">-</span> y_test.values</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample predictions (first 5):"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results.head(<span class="dv">5</span>).<span class="bu">round</span>(<span class="dv">0</span>))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate metrics</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_test, y_pred)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_test, y_pred)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Model Performance:"</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Squared Error: </span><span class="sc">{</span>mse<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R² Score: </span><span class="sc">{</span>r2<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample predictions (first 5):
+   Actual Size (sqm)  Actual Price (GHS)  Predicted Price (GHS)  Error (GHS)
+0                 88             76855.0                73642.0      -3213.0
+1                 81             81275.0                72453.0      -8821.0
+2                292            116086.0               108286.0      -7800.0
+3                344            111093.0               117117.0       6024.0
+4                321            104209.0               113211.0       9002.0
+
+Model Performance:
+Mean Squared Error: 165,385,678
+R² Score: 0.609</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-model">Visualizing the Model</h3>
+<div id="2c9be92e" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot actual data</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ax.scatter(X_test[<span class="st">'size_sqm'</span>], y_test, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>           color<span class="op">=</span><span class="st">'teal'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">60</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Actual Prices'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot predicted line (regression line)</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>x_line <span class="op">=</span> np.linspace(X_test[<span class="st">'size_sqm'</span>].<span class="bu">min</span>(), X_test[<span class="st">'size_sqm'</span>].<span class="bu">max</span>(), <span class="dv">100</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>y_line <span class="op">=</span> model.predict(x_line.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>ax.plot(x_line, y_line, color<span class="op">=</span><span class="st">'coral'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">'Prediction Line'</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Size (Square Meters)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Linear Regression: House Price Prediction'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">11</span>, loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Format y-axis to show GHS</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/.venv/lib/python3.13/site-packages/sklearn/utils/validation.py:2691: UserWarning:
+
+X does not have valid feature names, but LinearRegression was fitted with feature names
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-8-output-2.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <strong>orange line</strong> is our model’s prediction. The <strong>teal dots</strong> are actual house prices. The model tries to draw the line that best fits all the points.</p>
+</section>
+<section id="interpreting-r²-score" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-r²-score">Interpreting R² Score</h3>
+<p>The <strong>R² score</strong> (R-squared) tells us how well our model fits the data:</p>
+<ul>
+<li><strong>R² = 1.0</strong>: Perfect prediction</li>
+<li><strong>R² = 0.0</strong>: Model is as good as guessing the average</li>
+<li><strong>R² = 0.85</strong>: 85% of the variation in house prices is explained by house size</li>
+</ul>
+<p>An R² of 0.85 means <strong>85% of the variation in house prices is explained by house size</strong>. This is good for a simple one-feature model!</p>
+<hr>
+</section>
+</section>
+<section id="expanding-to-multiple-features" class="level1">
+<h1>5. Expanding to Multiple Features</h1>
+<p>Real houses have more than just size. Let’s expand our model to include:</p>
+<ol type="1">
+<li><strong>Size</strong> (numeric): square meters</li>
+<li><strong>Number of rooms</strong> (numeric): 1, 2, 3, 4…</li>
+<li><strong>Location</strong> (categorical): Accra, Kumasi, Tamale</li>
+</ol>
+<section id="the-enhanced-formula" class="level3">
+<h3 class="anchored" data-anchor-id="the-enhanced-formula">The Enhanced Formula</h3>
+<p>With multiple features, our formula becomes:</p>
+<p><span class="math display">\[\hat{y} = b + w_1x_1 + w_2x_2 + w_3x_3\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(x_1\)</span> = size in sqm</li>
+<li><span class="math inline">\(x_2\)</span> = number of rooms</li>
+<li><span class="math inline">\(x_3\)</span> = location (encoded)</li>
+</ul>
+</section>
+<section id="generating-synthetic-data-2-features" class="level3">
+<h3 class="anchored" data-anchor-id="generating-synthetic-data-2-features">Generating Synthetic Data (2 Features)</h3>
+<div id="d0445af0" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate enhanced housing data</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>size_sqm <span class="op">=</span> np.random.randint(<span class="dv">80</span>, <span class="dv">400</span>, <span class="dv">100</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>num_rooms <span class="op">=</span> np.random.randint(<span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">100</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create base price from size and rooms</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>base_price <span class="op">=</span> size_sqm <span class="op">*</span> <span class="dv">200</span> <span class="op">+</span> num_rooms <span class="op">*</span> <span class="dv">15000</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add location premium</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>locations <span class="op">=</span> [<span class="st">'Accra'</span>, <span class="st">'Kumasi'</span>, <span class="st">'Tamale'</span>]</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>location <span class="op">=</span> np.random.choice(locations, <span class="dv">100</span>, p<span class="op">=</span>[<span class="fl">0.5</span>, <span class="fl">0.35</span>, <span class="fl">0.15</span>])  <span class="co"># Weighted choice</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>location_premium <span class="op">=</span> {<span class="st">'Accra'</span>: <span class="dv">50000</span>, <span class="st">'Kumasi'</span>: <span class="dv">25000</span>, <span class="st">'Tamale'</span>: <span class="dv">10000</span>}</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>price_ghs <span class="op">=</span> base_price <span class="op">+</span> np.array([location_premium[loc] <span class="cf">for</span> loc <span class="kw">in</span> location])</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Add random noise</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>price_ghs <span class="op">=</span> price_ghs <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">20000</span>, <span class="dv">100</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DataFrame</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>df_houses_enhanced <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'size_sqm'</span>: size_sqm,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">'num_rooms'</span>: num_rooms,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'location'</span>: location,</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">'price_ghs'</span>: price_ghs</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Enhanced housing dataset:"</span>)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_houses_enhanced.head(<span class="dv">10</span>))</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Location distribution:"</span>)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_houses_enhanced[<span class="st">'location'</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Enhanced housing dataset:
+   size_sqm  num_rooms location      price_ghs
+0       182          5   Kumasi  144772.789383
+1       350          3   Kumasi  125436.415013
+2       186          4   Tamale   71162.240620
+3       151          3    Accra  134554.341550
+4       268          3    Accra  117571.321118
+5       100          1   Kumasi   49790.135608
+6       182          3   Kumasi   91740.977299
+7       201          5    Accra  169106.929451
+8       294          3    Accra  142681.102045
+9       167          1   Tamale   55845.303431
+
+Location distribution:
+location
+Accra     46
+Kumasi    33
+Tamale    21
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="feature-engineering-one-hot-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="feature-engineering-one-hot-encoding">Feature Engineering: One-Hot Encoding</h3>
+<p>Machine learning models can’t work with text directly. We need to convert the ‘location’ column into numbers using <strong>one-hot encoding</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Original Location</th>
+<th style="text-align: left;">location_Accra</th>
+<th style="text-align: left;">location_Kumasi</th>
+<th style="text-align: left;">location_Tamale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Accra</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kumasi</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tamale</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+<div id="0a5c3646" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the location column</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> pd.get_dummies(df_houses_enhanced, columns<span class="op">=</span>[<span class="st">'location'</span>], prefix<span class="op">=</span><span class="st">'loc'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"One-hot encoded dataset:"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_encoded.head(<span class="dv">10</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">New columns: </span><span class="sc">{</span>df_encoded<span class="sc">.</span>columns<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>One-hot encoded dataset:
+   size_sqm  num_rooms      price_ghs  loc_Accra  loc_Kumasi  loc_Tamale
+0       182          5  144772.789383      False        True       False
+1       350          3  125436.415013      False        True       False
+2       186          4   71162.240620      False       False        True
+3       151          3  134554.341550       True       False       False
+4       268          3  117571.321118       True       False       False
+5       100          1   49790.135608      False        True       False
+6       182          3   91740.977299      False        True       False
+7       201          5  169106.929451       True       False       False
+8       294          3  142681.102045       True       False       False
+9       167          1   55845.303431      False       False        True
+
+New columns: ['size_sqm', 'num_rooms', 'price_ghs', 'loc_Accra', 'loc_Kumasi', 'loc_Tamale']</code></pre>
+</div>
+</div>
+</section>
+<section id="feature-scaling-why-it-matters" class="level3">
+<h3 class="anchored" data-anchor-id="feature-scaling-why-it-matters">Feature Scaling: Why It Matters</h3>
+<p>Different features have different scales:</p>
+<ul>
+<li>Size: 80-400 sqm</li>
+<li>Rooms: 1-6 rooms</li>
+<li>Location: 0 or 1 (one-hot encoded)</li>
+</ul>
+<p>This can cause problems for some ML algorithms. We’ll use <strong>StandardScaler</strong> to normalize:</p>
+<div id="c09e048b" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare features and target</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [<span class="st">'size_sqm'</span>, <span class="st">'num_rooms'</span>, <span class="st">'loc_Accra'</span>, <span class="st">'loc_Kumasi'</span>, <span class="st">'loc_Tamale'</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_encoded[feature_cols]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_encoded[<span class="st">'price_ghs'</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale features (important for interpretability and some algorithms)</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model with scaled features</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>model_multi <span class="op">=</span> LinearRegression()</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>model_multi.fit(X_train_scaled, y_train)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ Multiple linear regression model trained!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Multiple linear regression model trained!</code></pre>
+</div>
+</div>
+</section>
+<section id="interpreting-multiple-features" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-multiple-features">Interpreting Multiple Features</h3>
+<div id="8fce5710" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame to show feature importance</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>feature_importance <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Feature'</span>: feature_cols,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Coefficient'</span>: model_multi.coef_</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>}).sort_values(<span class="st">'Coefficient'</span>, key<span class="op">=</span><span class="bu">abs</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Feature importance (absolute coefficient values):"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(feature_importance.<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Bias (intercept): ₵</span><span class="sc">{</span>model_multi<span class="sc">.</span>intercept_<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>y_pred_multi <span class="op">=</span> model_multi.predict(X_test_scaled)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>r2_multi <span class="op">=</span> r2_score(y_test, y_pred_multi)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">R² Score: </span><span class="sc">{</span>r2_multi<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Improvement over single-feature model: </span><span class="sc">{</span>((r2_multi <span class="op">-</span> <span class="fl">0.85</span>) <span class="op">/</span> <span class="fl">0.85</span> <span class="op">*</span> <span class="dv">100</span>)<span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Feature importance (absolute coefficient values):
+      Feature  Coefficient
+1   num_rooms     21734.48
+0    size_sqm     19192.69
+4  loc_Tamale    -11649.96
+2   loc_Accra      8800.30
+3  loc_Kumasi       800.58
+
+Bias (intercept): ₵127,229
+
+R² Score: 0.703
+Improvement over single-feature model: -17.3%</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Interpreting Coefficients in Multi-Feature Models
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The coefficient tells you how much the prediction changes when that feature increases by <strong>one standard deviation</strong> (because we scaled):</p>
+<ul>
+<li>If size has coefficient = 50,000: A 1-SD increase in size adds ~₵50,000 to the price</li>
+<li>If rooms has coefficient = 10,000: A 1-SD increase in rooms adds ~₵10,000 to the price</li>
+<li>If Accra has coefficient = 30,000: Being in Accra adds ~₵30,000 to the price</li>
+</ul>
+<p>This makes features comparable even when they have different original scales!</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="real-world-ghana-housing-data-multiple-features" class="level1">
+<h1>6. Real-World Ghana Housing Data: Multiple Features</h1>
+<p>Now let’s work with a <strong>real Ghana housing dataset from Kaggle</strong>. This dataset contains actual house rental listings with many features.</p>
+<section id="loading-the-ghana-housing-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="loading-the-ghana-housing-dataset">Loading the Ghana Housing Dataset</h3>
+<div id="567a4505" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Ghana housing data</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df_ghana <span class="op">=</span> pd.read_csv(<span class="st">'data/house_rentals.csv'</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Ghana Housing Dataset shape: </span><span class="sc">{</span>df_ghana<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Columns: </span><span class="sc">{</span>df_ghana<span class="sc">.</span>columns<span class="sc">.</span>tolist()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ghana Housing Dataset shape: (17890, 17)
+
+Columns: ['url', 'listing_type', 'name', 'price', 'category', 'bedrooms', 'bathrooms', 'floor_area', 'location', 'condition', 'amenities', 'region', 'locality', 'parking_space', 'is_furnished', 'lat', 'lng']</code></pre>
+</div>
+</div>
+</section>
+<section id="exploratory-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
+<div id="4c206d4b" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic statistics</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Price statistics (GHS):"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_ghana[<span class="st">'price'</span>].describe().<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Bedrooms statistics:"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_ghana[<span class="st">'bedrooms'</span>].describe())</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Floor area statistics (sq meters):"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_ghana[<span class="st">'floor_area'</span>].describe())</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Unique property types:"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_ghana[<span class="st">'category'</span>].value_counts())</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Unique regions:"</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_ghana[<span class="st">'region'</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Price statistics (GHS):
+count    ₵17,890
+mean      ₵7,999
+std      ₵10,405
+min         ₵416
+25%       ₵1,700
+50%       ₵3,500
+75%       ₵9,872
+max      ₵59,524
+Name: price, dtype: object
+
+Bedrooms statistics:
+count    17890.000000
+mean         2.458580
+std          1.262908
+min          1.000000
+25%          2.000000
+50%          2.000000
+75%          3.000000
+max         20.000000
+Name: bedrooms, dtype: float64
+
+Floor area statistics (sq meters):
+count    17890.000000
+mean       556.094913
+std       1044.912578
+min         10.000000
+25%        100.000000
+50%        145.000000
+75%        600.000000
+max       5000.000000
+Name: floor_area, dtype: float64
+
+Unique property types:
+category
+Flats            11520
+Detached          4916
+Duplex             768
+Townhouse          408
+Semi-Detached      157
+Mansion            121
+Name: count, dtype: int64
+
+Unique regions:
+region
+Greater Accra      16549
+Ashanti              702
+Central Region       284
+Northern Region      203
+Eastern Region        64
+Western Region        58
+Brong Ahafo           28
+Volta Region           2
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-price-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-price-distribution">Visualizing Price Distribution</h3>
+<div id="6ea26c5a" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">8</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Price distribution</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>ax1.hist(df_ghana[<span class="st">'price'</span>], bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'teal'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Count'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Price Distribution'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>ax1.xaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Price vs. Floor Area</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">0</span>, <span class="dv">1</span>]</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax2.scatter(df_ghana[<span class="st">'floor_area'</span>], df_ghana[<span class="st">'price'</span>], </span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>                   alpha<span class="op">=</span><span class="fl">0.5</span>, s<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">'coral'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Floor Area (sq meters)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Price vs. Floor Area'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>ax2.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>ax2.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Price by Number of Bedrooms</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>ax3 <span class="op">=</span> axes[<span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>df_ghana.boxplot(column<span class="op">=</span><span class="st">'price'</span>, by<span class="op">=</span><span class="st">'bedrooms'</span>, ax<span class="op">=</span>ax3)</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'Number of Bedrooms'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>ax3.set_ylabel(<span class="st">'Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>ax3.set_title(<span class="st">'Price by Number of Bedrooms'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>ax3.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>ax3.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>ax3.get_figure().suptitle(<span class="st">''</span>)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>ax3.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Price by Region</span></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>ax4 <span class="op">=</span> axes[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>top_regions <span class="op">=</span> df_ghana[<span class="st">'region'</span>].value_counts().head(<span class="dv">10</span>)</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>df_ghana_top <span class="op">=</span> df_ghana[df_ghana[<span class="st">'region'</span>].isin(top_regions.index)]</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>region_avg_price <span class="op">=</span> df_ghana_top.groupby(<span class="st">'region'</span>)[<span class="st">'price'</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>ax4.bar(<span class="bu">range</span>(<span class="bu">len</span>(region_avg_price)), region_avg_price.values, color<span class="op">=</span><span class="st">'steelblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>ax4.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(region_avg_price)))</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>ax4.set_xticklabels(region_avg_price.index, rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>ax4.set_ylabel(<span class="st">'Average Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>ax4.set_title(<span class="st">'Average Price by Top 10 Regions'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>ax4.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>ax4.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-15-output-1.png" width="853" height="743" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="data-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="data-preprocessing">Data Preprocessing</h3>
+<div id="e204e8b0" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant features for price prediction</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>features_for_model <span class="op">=</span> [</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bedrooms'</span>, <span class="st">'bathrooms'</span>, <span class="st">'floor_area'</span>, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'category'</span>, <span class="st">'region'</span>, <span class="st">'condition'</span>, <span class="st">'parking_space'</span>, <span class="st">'is_furnished'</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create working dataset</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>df_model <span class="op">=</span> df_ghana[features_for_model <span class="op">+</span> [<span class="st">'price'</span>]].copy()</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Handle missing values</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Missing values before cleaning:"</span>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_model.isnull().<span class="bu">sum</span>())</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows with missing critical values</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>df_model <span class="op">=</span> df_model.dropna(subset<span class="op">=</span>[<span class="st">'bedrooms'</span>, <span class="st">'bathrooms'</span>, <span class="st">'floor_area'</span>, <span class="st">'price'</span>])</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill condition with mode if missing</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>df_model[<span class="st">'condition'</span>] <span class="op">=</span> df_model[<span class="st">'condition'</span>].fillna(df_model[<span class="st">'condition'</span>].mode()[<span class="dv">0</span>])</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Dataset after cleaning: </span><span class="sc">{</span>df_model<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Handle extreme outliers (remove properties with unrealistic prices)</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep prices between 0.5th and 99.5th percentile</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>q_low <span class="op">=</span> df_model[<span class="st">'price'</span>].quantile(<span class="fl">0.005</span>)</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>q_high <span class="op">=</span> df_model[<span class="st">'price'</span>].quantile(<span class="fl">0.995</span>)</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>df_model <span class="op">=</span> df_model[(df_model[<span class="st">'price'</span>] <span class="op">&gt;=</span> q_low) <span class="op">&amp;</span> (df_model[<span class="st">'price'</span>] <span class="op">&lt;=</span> q_high)]</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset after removing outliers: </span><span class="sc">{</span>df_model<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Price range: ₵</span><span class="sc">{</span>df_model[<span class="st">'price'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:,.0f}</span><span class="ss"> - ₵</span><span class="sc">{</span>df_model[<span class="st">'price'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Missing values before cleaning:
+bedrooms         0
+bathrooms        0
+floor_area       0
+category         0
+region           0
+condition        0
+parking_space    0
+is_furnished     0
+price            0
+dtype: int64
+
+Dataset after cleaning: (17890, 9)
+Dataset after removing outliers: (17733, 9)
+Price range: ₵500 - ₵54,256</code></pre>
+</div>
+</div>
+</section>
+<section id="feature-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="feature-engineering">Feature Engineering</h3>
+<div id="de90d945" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode categorical variables</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_encoded <span class="op">=</span> pd.get_dummies(df_model, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                          columns<span class="op">=</span>[<span class="st">'category'</span>, <span class="st">'region'</span>, <span class="st">'condition'</span>, <span class="st">'is_furnished'</span>],</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                          drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Final dataset shape: </span><span class="sc">{</span>df_encoded<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of features: </span><span class="sc">{</span>df_encoded<span class="sc">.</span>shape[<span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)  <span class="co"># -1 for target variable</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Sample of encoded columns:"</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_encoded.head(<span class="dv">5</span>).<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Final dataset shape: (17733, 21)
+Number of features: 20
+
+Sample of encoded columns:
+   bedrooms  bathrooms  floor_area  parking_space  price  category_Duplex  \
+0       2.0        2.0       145.0          False   9196            False   
+1       2.0        2.0       100.0          False   7500            False   
+2       4.0        5.0       100.0          False  11200            False   
+3       3.0        3.0        17.0          False   2500            False   
+4       3.0        3.0       160.0          False   9146            False   
+
+   category_Flats  category_Mansion  category_Semi-Detached  \
+0            True             False                   False   
+1            True             False                   False   
+2           False             False                   False   
+3           False             False                   False   
+4           False             False                   False   
+
+   category_Townhouse  ...  region_Central Region  region_Eastern Region  \
+0               False  ...                  False                  False   
+1               False  ...                  False                  False   
+2               False  ...                  False                  False   
+3               False  ...                  False                  False   
+4               False  ...                  False                  False   
+
+   region_Greater Accra  region_Northern Region  region_Volta Region  \
+0                  True                   False                False   
+1                  True                   False                False   
+2                  True                   False                False   
+3                  True                   False                False   
+4                  True                   False                False   
+
+   region_Western Region  condition_Renovated  condition_Used  \
+0                  False                False            True   
+1                  False                False            True   
+2                  False                False           False   
+3                  False                False            True   
+4                  False                False            True   
+
+   is_furnished_Semi-Furnished  is_furnished_Unfurnished  
+0                         True                     False  
+1                        False                      True  
+2                         True                     False  
+3                         True                     False  
+4                         True                     False  
+
+[5 rows x 21 columns]</code></pre>
+</div>
+</div>
+</section>
+<section id="training-linear-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="training-linear-regression-model">Training Linear Regression Model</h3>
+<div id="717fab44" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare features and target</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_encoded.drop(<span class="st">'price'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_encoded[<span class="st">'price'</span>]</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split data</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale features</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Train model</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>model_ghana <span class="op">=</span> LinearRegression()</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>model_ghana.fit(X_train_scaled, y_train)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ Linear Regression model trained on Ghana housing data!"</span>)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of features: </span><span class="sc">{</span>X_train_scaled<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training samples: </span><span class="sc">{</span>X_train_scaled<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test samples: </span><span class="sc">{</span>X_test_scaled<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Linear Regression model trained on Ghana housing data!
+Number of features: 20
+Training samples: 14186
+Test samples: 3547</code></pre>
+</div>
+</div>
+</section>
+<section id="evaluating-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-the-model">Evaluating the Model</h3>
+<div id="9f2e034e" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>y_pred_ghana <span class="op">=</span> model_ghana.predict(X_test_scaled)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate metrics</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>mse_ghana <span class="op">=</span> mean_squared_error(y_test, y_pred_ghana)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>rmse_ghana <span class="op">=</span> np.sqrt(mse_ghana)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>r2_ghana <span class="op">=</span> r2_score(y_test, y_pred_ghana)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Model Performance:"</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Mean Squared Error: </span><span class="sc">{</span>mse_ghana<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Root Mean Squared Error (RMSE): </span><span class="sc">{</span>rmse_ghana<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  R² Score: </span><span class="sc">{</span>r2_ghana<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with baseline (predicting mean price)</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>baseline_pred <span class="op">=</span> [y_train.mean()] <span class="op">*</span> <span class="bu">len</span>(y_test)</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>baseline_r2 <span class="op">=</span> r2_score(y_test, baseline_pred)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Baseline (predicting mean price) R²: </span><span class="sc">{</span>baseline_r2<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Model improvement over baseline: </span><span class="sc">{</span>(r2_ghana <span class="op">-</span> baseline_r2)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model Performance:
+  Mean Squared Error: 48,994,676.00
+  Root Mean Squared Error (RMSE): 6,999.62
+  R² Score: 0.478
+
+Baseline (predicting mean price) R²: -0.001
+Model improvement over baseline: 0.479</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-predictions-vs.-actual" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-predictions-vs.-actual">Visualizing Predictions vs.&nbsp;Actual</h3>
+<div id="030b0e62" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 1: Predicted vs. Actual</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>ax1.scatter(y_test, y_pred_ghana, alpha<span class="op">=</span><span class="fl">0.5</span>, s<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">'teal'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add diagonal line (perfect predictions)</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>max_price <span class="op">=</span> <span class="bu">max</span>(y_test.<span class="bu">max</span>(), y_pred_ghana.<span class="bu">max</span>())</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>ax1.plot([<span class="dv">0</span>, max_price], [<span class="dv">0</span>, max_price], color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Perfect Prediction'</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Actual Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Predicted Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Predicted vs. Actual Prices'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Format axes</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>ax1.xaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>ax1.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 2: Residual Plot</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">=</span> y_test <span class="op">-</span> y_pred_ghana</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>ax2.scatter(y_pred_ghana, residuals, alpha<span class="op">=</span><span class="fl">0.5</span>, s<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">'coral'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>ax2.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Zero Error'</span>)</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Predicted Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Residual (Actual - Predicted)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Residual Plot'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>ax2.legend()</span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>ax2.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Format axes</span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>ax2.xaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>ax2.yaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-20-output-1.png" width="853" height="565" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpreting-feature-importance" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-feature-importance">Interpreting Feature Importance</h3>
+<div id="4c0e9651" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get feature importance (absolute coefficients)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>feature_importance_ghana <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Feature'</span>: X.columns,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Coefficient'</span>: model_ghana.coef_,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Abs_Coefficient'</span>: np.<span class="bu">abs</span>(model_ghana.coef_)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>}).sort_values(<span class="st">'Abs_Coefficient'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Top 15 Most Important Features:"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(feature_importance_ghana.head(<span class="dv">15</span>).<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Top 15 Most Important Features:
+                        Feature  Coefficient  Abs_Coefficient
+19     is_furnished_Unfurnished     -5930.08          5930.08
+18  is_furnished_Semi-Furnished     -5290.58          5290.58
+1                     bathrooms      2660.93          2660.93
+0                      bedrooms      1791.65          1791.65
+12         region_Greater Accra      1552.61          1552.61
+8            category_Townhouse      1165.78          1165.78
+5                category_Flats      -929.22           929.22
+2                    floor_area      -416.46           416.46
+17               condition_Used      -335.51           335.51
+6              category_Mansion       309.49           309.49
+10        region_Central Region       245.34           245.34
+3                 parking_space      -234.45           234.45
+14          region_Volta Region       209.65           209.65
+7        category_Semi-Detached      -193.16           193.16
+16          condition_Renovated      -166.94           166.94</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-feature-importance" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-feature-importance">Visualizing Feature Importance</h3>
+<div id="58964f28" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get top 15 features</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>top_15 <span class="op">=</span> feature_importance_ghana.head(<span class="dv">15</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create horizontal bar plot</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'teal'</span> <span class="cf">if</span> c <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'coral'</span> <span class="cf">for</span> c <span class="kw">in</span> top_15[<span class="st">'Coefficient'</span>]]</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(<span class="bu">range</span>(<span class="bu">len</span>(top_15)), top_15[<span class="st">'Abs_Coefficient'</span>], color<span class="op">=</span>colors, </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(top_15)))</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(top_15[<span class="st">'Feature'</span>], fontsize<span class="op">=</span><span class="dv">10</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Absolute Coefficient Value'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Top 15 Features Affecting Ghana Housing Prices'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>ax.invert_yaxis()  <span class="co"># Put most important feature at top</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legend</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [Patch(facecolor<span class="op">=</span><span class="st">'teal'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'Positive Impact'</span>),</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>                  Patch(facecolor<span class="op">=</span><span class="st">'coral'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'Negative Impact'</span>)]</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>legend_elements, loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-22-output-1.png" width="853" height="564" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Understanding the Results
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>RMSE of ₵2,500</strong> means: On average, our predictions are off by ₵2,500 from the actual price.</p>
+<p><strong>R² of 0.75</strong> means: Our model explains 75% of the variation in housing prices.</p>
+<p><strong>Top features</strong> show which characteristics matter most:</p>
+<ul>
+<li><strong>Floor area</strong>: Bigger houses cost more (positive coefficient)</li>
+<li><strong>Region</strong>: Certain areas (Accra) command higher prices</li>
+<li><strong>Property category</strong>: Detached houses vs.&nbsp;apartments affects price</li>
+<li><strong>Bedrooms/Bathrooms</strong>: More rooms generally increase price</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="comparing-loss-functions-on-ghana-housing-data" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-loss-functions-on-ghana-housing-data">Comparing Loss Functions on Ghana Housing Data</h3>
+<div id="19533495" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate different loss functions</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_test, y_pred_ghana)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> np.sqrt(mse)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>mae <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(y_test <span class="op">-</span> y_pred_ghana))</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Loss Functions Comparison:"</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  MSE (Mean Squared Error): </span><span class="sc">{</span>mse<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  RMSE (Root Mean Squared Error): </span><span class="sc">{</span>rmse<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  MAE (Mean Absolute Error): </span><span class="sc">{</span>mae<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Example using 3 predictions:"</span>)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> y_pred_ghana[:<span class="dv">3</span>]</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>actuals <span class="op">=</span> y_test.iloc[:<span class="dv">3</span>].values</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> predictions <span class="op">-</span> actuals</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Actual: </span><span class="sc">{</span>actuals[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">, Predicted: </span><span class="sc">{</span>predictions[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">, Error: </span><span class="sc">{</span>errors[<span class="dv">0</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Actual: </span><span class="sc">{</span>actuals[<span class="dv">1</span>]<span class="sc">:,.0f}</span><span class="ss">, Predicted: </span><span class="sc">{</span>predictions[<span class="dv">1</span>]<span class="sc">:,.0f}</span><span class="ss">, Error: </span><span class="sc">{</span>errors[<span class="dv">1</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Actual: </span><span class="sc">{</span>actuals[<span class="dv">2</span>]<span class="sc">:,.0f}</span><span class="ss">, Predicted: </span><span class="sc">{</span>predictions[<span class="dv">2</span>]<span class="sc">:,.0f}</span><span class="ss">, Error: </span><span class="sc">{</span>errors[<span class="dv">2</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Interpretation</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Why we prefer RMSE over MSE:"</span>)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"- RMSE is in the same unit as the target (GHS), making it interpretable"</span>)</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"- MSE is in squared units (GHS²), making it harder to interpret"</span>)</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">When to use MAE:"</span>)</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"- Dataset has outliers (extreme values)"</span>)</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"- You want a model less sensitive to large errors"</span>)</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"- Consider: Winsorize data first, or use MAE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loss Functions Comparison:
+  MSE (Mean Squared Error): 48,994,676
+  RMSE (Root Mean Squared Error): 7,000
+  MAE (Mean Absolute Error): 4,449
+
+Example using 3 predictions:
+  Actual: 9,574, Predicted: 4,079, Error: -5,495
+  Actual: 3,500, Predicted: 6,150, Error: 2,650
+  Actual: 2,500, Predicted: 4,205, Error: 1,705
+
+Why we prefer RMSE over MSE:
+- RMSE is in the same unit as the target (GHS), making it interpretable
+- MSE is in squared units (GHS²), making it harder to interpret
+
+When to use MAE:
+- Dataset has outliers (extreme values)
+- You want a model less sensitive to large errors
+- Consider: Winsorize data first, or use MAE</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-errors-actual-vs.-predicted" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-errors-actual-vs.-predicted">Visualizing Errors: Actual vs.&nbsp;Predicted</h3>
+<div id="ad5a7326" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 1: Actual vs. Predicted Scatter</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>ax1.scatter(y_test, y_pred_ghana, alpha<span class="op">=</span><span class="fl">0.5</span>, s<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'teal'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add perfect prediction line</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>max_price <span class="op">=</span> <span class="bu">max</span>(y_test.<span class="bu">max</span>(), y_pred_ghana.<span class="bu">max</span>())</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>ax1.plot([<span class="dv">0</span>, max_price], [<span class="dv">0</span>, max_price], color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Perfect Prediction'</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight large errors (more than 2 * RMSE)</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>large_errors <span class="op">=</span> np.<span class="bu">abs</span>(y_test <span class="op">-</span> y_pred_ghana) <span class="op">&gt;</span> rmse <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>ax1.scatter(y_test[large_errors], y_pred_ghana[large_errors], </span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>           alpha<span class="op">=</span><span class="fl">0.8</span>, s<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'red'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">'Large Errors'</span>)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Actual Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Predicted Price (GHS)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Actual vs. Predicted: Error Visualization'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 2: Error Distribution</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> y_test <span class="op">-</span> y_pred_ghana</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>ax2.hist(errors, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'coral'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Add RMSE lines</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>ax2.axvline(x<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'green'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="st">'Zero Error'</span>)</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>ax2.axvline(x<span class="op">=</span>rmse, color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'RMSE (₵</span><span class="sc">{</span>rmse<span class="sc">:,.0f}</span><span class="ss">)'</span>)</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>ax2.axvline(x<span class="op">=-</span>rmse, color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>ax2.axvline(x<span class="op">=</span>mae, color<span class="op">=</span><span class="st">'blue'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, label<span class="op">=</span><span class="ss">f'MAE (₵</span><span class="sc">{</span>mae<span class="sc">:,.0f}</span><span class="ss">)'</span>)</span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>ax2.axvline(x<span class="op">=-</span>mae, color<span class="op">=</span><span class="st">'blue'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Error (Actual - Predicted, GHS)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'Frequency'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Error Distribution'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>ax2.legend(fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>ax2.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Format x-axis</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>ax2.xaxis.set_major_formatter(plt.FuncFormatter(<span class="kw">lambda</span> x, p: <span class="ss">f'₵</span><span class="sc">{</span>x<span class="sc">:,.0f}</span><span class="ss">'</span>))</span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_ML1_files/figure-html/cell-24-output-1.png" width="852" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="understanding-the-error-plot" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-error-plot">Understanding the Error Plot</h3>
+<ul>
+<li><strong>Green line</strong>: Perfect prediction (zero error)</li>
+<li><strong>Red lines</strong>: RMSE threshold—most predictions should be within these bounds</li>
+<li><strong>Blue lines</strong>: MAE threshold—average error magnitude</li>
+<li><strong>Histogram shape</strong>:
+<ul>
+<li>Centered around zero: Model is unbiased</li>
+<li>Wide spread: Model has high variance</li>
+<li>Skewed: Systematic over/under prediction</li>
+</ul></li>
+</ul>
+</section>
+<section id="when-to-use-which-loss-function" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-which-loss-function">When to Use Which Loss Function?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: left;">Recommended Loss</th>
+<th style="text-align: left;">Why</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>General regression</strong></td>
+<td style="text-align: left;">MSE (or RMSE)</td>
+<td style="text-align: left;">Standard choice, differentiable</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>House price prediction</strong></td>
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: left;">Same unit as price (GHS)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dataset with outliers</strong></td>
+<td style="text-align: left;">MAE</td>
+<td style="text-align: left;">Less sensitive to extreme values</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Model comparison</strong></td>
+<td style="text-align: left;">R² Score</td>
+<td style="text-align: left;">Normalized scale (0-1), easy to compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Customer satisfaction (1-5 scale)</strong></td>
+<td style="text-align: left;">MAE</td>
+<td style="text-align: left;">Ordinal data, unit matches scale</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Revenue prediction (log scale)</strong></td>
+<td style="text-align: left;">MSE on log values</td>
+<td style="text-align: left;">Handle large ranges better</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Common Mistakes with Loss Functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>1. Using MSE on data with outliers</strong> - Outliers can dominate MSE (squared term) - Consider: Winsorize data first, or use MAE</p>
+<p><strong>2. Interpreting MSE directly</strong> - MSE is in squared units (e.g., GHS²) - Use RMSE for interpretation</p>
+<p><strong>3. R² &lt; 0 means “no correlation”</strong> - Actually means “worse than predicting the mean” - Check your data preprocessing and model</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="summary-key-takeaways" class="level1">
+<h1>7. Summary &amp; Key Takeaways</h1>
+<section id="the-linear-regression-formula" class="level3">
+<h3 class="anchored" data-anchor-id="the-linear-regression-formula">The Linear Regression Formula</h3>
+<p><span class="math display">\[\hat{y} = b + wx\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{y}\)</span> = predicted value (e.g., house price)</li>
+<li><span class="math inline">\(b\)</span> = bias (intercept - baseline value)</li>
+<li><span class="math inline">\(w\)</span> = weight (coefficient - feature importance)</li>
+<li><span class="math inline">\(x\)</span> = input feature</li>
+</ul>
+</section>
+<section id="key-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="key-concepts">Key Concepts</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Supervised Learning</strong></td>
+<td style="text-align: left;">Learn from labeled examples</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Regression</strong></td>
+<td style="text-align: left;">Predict continuous values</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Feature</strong></td>
+<td style="text-align: left;">Input variable used for prediction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Target</strong></td>
+<td style="text-align: left;">What we want to predict</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Coefficient (w)</strong></td>
+<td style="text-align: left;">How much each feature affects prediction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Bias (b)</strong></td>
+<td style="text-align: left;">Baseline prediction (when all features are zero)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="one-feature-vs.-multiple-features" class="level3">
+<h3 class="anchored" data-anchor-id="one-feature-vs.-multiple-features">One Feature vs.&nbsp;Multiple Features</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Aspect</th>
+<th style="text-align: left;">Single Feature</th>
+<th style="text-align: left;">Multiple Features</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Formula</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\hat{y} = b + wx\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\hat{y} = b + w_1x_1 + w_2x_2 + w_3x_3\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Complexity</strong></td>
+<td style="text-align: left;">Simple, easy to interpret</td>
+<td style="text-align: left;">More complex, captures more patterns</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Accuracy</strong></td>
+<td style="text-align: left;">Lower (R² ~ 0.85)</td>
+<td style="text-align: left;">Higher (R² ~ 0.90+)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Use Case</strong></td>
+<td style="text-align: left;">Quick baseline, simple problems</td>
+<td style="text-align: left;">Real-world, complex problems</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="professional-checklist" class="level3">
+<h3 class="anchored" data-anchor-id="professional-checklist">Professional Checklist</h3>
+<ul>
+<li>✅ Understand the difference between regression and classification</li>
+<li>✅ Can explain <span class="math inline">\(\hat{y}\)</span> vs.&nbsp;<span class="math inline">\(y\)</span> (prediction vs.&nbsp;actual)</li>
+<li>✅ Can interpret weights and bias in a model</li>
+<li>✅ Know when to use one-hot encoding for categorical data</li>
+<li>✅ Understand why feature scaling matters</li>
+<li>✅ Can calculate and interpret R² score</li>
+<li>✅ Understand different loss functions (MSE, RMSE, MAE)</li>
+<li>✅ Know when to use each loss function</li>
+<li>✅ Understand evaluation metrics for regression</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="when-to-use-regression-vs.-classification" class="level1">
+<h1>8. When to Use: Regression vs.&nbsp;Classification</h1>
+<section id="how-to-identify-the-problem-type" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-identify-the-problem-type">How to Identify the Problem Type</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Question</th>
+<th style="text-align: left;">Answer → Problem Type</th>
+<th style="text-align: left;">Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>What do you want to predict?</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">→ A number (price, temperature, sales)</td>
+<td style="text-align: left;"><strong>Regression</strong></td>
+<td style="text-align: left;">Use Linear Regression, Random Forest, XGBoost Regressor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">→ A category/class (spam vs.&nbsp;not spam, survived vs.&nbsp;died)</td>
+<td style="text-align: left;"><strong>Classification</strong></td>
+<td style="text-align: left;">Use Logistic Regression, Random Forest, XGBoost Classifier</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">→ An image (what’s in the picture?)</td>
+<td style="text-align: left;"><strong>Classification</strong></td>
+<td style="text-align: left;">Computer Vision</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">→ Text sentiment (positive/negative/neutral?)</td>
+<td style="text-align: left;"><strong>Classification</strong></td>
+<td style="text-align: left;">NLP</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-decision-framework" class="level3">
+<h3 class="anchored" data-anchor-id="key-decision-framework">Key Decision Framework</h3>
+<pre class="text"><code>Is your target a number or category?
+
+├── Yes → REGRESSION
+│   ├── Continuous value? (price, temperature)
+│   ├── Count/quantity? (number of items)
+│   └── Prediction range? Any value in numeric range
+│   └── Use: R², RMSE, MAE
+│
+└── No → CLASSIFICATION
+    ├── Binary class? (2 options: spam/not spam)
+    ├── Multi-class? (&gt;2 options: cat/dog/bird)
+    └── Discrete label? (categories: A/B/C)
+    └── Use: Accuracy, Precision, Recall, F1, ROC-AUC</code></pre>
+</section>
+<section id="when-each-problem-type-is-appropriate" class="level3">
+<h3 class="anchored" data-anchor-id="when-each-problem-type-is-appropriate">When Each Problem Type is Appropriate</h3>
+<p><strong>Regression is best for:</strong> - House price prediction - Sales forecasting - Temperature prediction - Revenue estimation - Customer lifetime value - Stock price prediction</p>
+<p><strong>Classification is best for:</strong> - Spam detection - Fraud detection - Disease diagnosis - Customer churn prediction - Sentiment analysis - Image recognition</p>
+</section>
+<section id="common-mistakes" class="level3">
+<h3 class="anchored" data-anchor-id="common-mistakes">Common Mistakes</h3>
+<p>❌ <strong>Using classification for regression problems</strong> - Example: Binning house prices into “expensive/mid/cheap” categories loses precision - Result: Less accurate than regression</p>
+<p>❌ <strong>Using regression for classification problems</strong> - Example: Predicting probability of spam (0.3) loses interpretability - Result: Less interpretable than classification</p>
+<p>✅ <strong>Match the algorithm to the problem</strong> - If target is continuous → Use regression models - If target is categorical → Use classification models</p>
+<hr>
+</section>
+</section>
+<section id="practice-exercise" class="level1">
+<h1>9. Practice Exercise</h1>
+<p>Your turn! Build a model to predict <strong>car prices</strong> using this synthetic dataset:</p>
+<div id="7351c157" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate car price data</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>car_data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'car_age_years'</span>: np.random.randint(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">100</span>),</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'mileage_km'</span>: np.random.randint(<span class="dv">10000</span>, <span class="dv">200000</span>, <span class="dv">100</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'engine_size_cc'</span>: np.random.choice([<span class="dv">1200</span>, <span class="dv">1500</span>, <span class="dv">1800</span>, <span class="dv">2000</span>], <span class="dv">100</span>),</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'price_ghs'</span>: np.random.randint(<span class="dv">20000</span>, <span class="dv">150000</span>, <span class="dv">100</span>)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Your task:</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Explore data (describe(), correlations)</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Visualize relationships (age vs. price, mileage vs. price)</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Train a linear regression model</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Interpret coefficients</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Calculate R² score</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: Use model.coef_ and model.intercept_ to interpret results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="whats-next" class="level1">
+<h1>10. What’s Next?</h1>
+<p>Congratulations! You’ve built your first machine learning models. In the next notebook, we’ll tackle <strong>classification</strong>—predicting categories instead of numbers.</p>
+<p><strong>Next Module: <a href="file:///home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/intro_ML2.qmd">Notebook 2: Classification - From Regression to Decision Boundaries</a></strong></p>
+<ul>
+<li>The Iris Dataset: Multi-class classification introduction</li>
+<li>The Titanic Dataset: Real-world binary classification</li>
+<li>Logistic Regression: Predicting probabilities</li>
+<li>Decision Trees: Visual, interpretable classifiers</li>
+<li>Evaluating classification models (accuracy, precision, recall, F1-score)</li>
+<li>Understanding when to use each model type</li>
+</ul>
+<section id="youve-learned" class="level2 callout-success">
+<h2 class="anchored" data-anchor-id="youve-learned">You’ve Learned</h2>
+<p>✅ What machine learning is and how it differs from traditional programming</p>
+<p>✅ The linear regression formula and its components</p>
+<p>✅ How to train, evaluate, and interpret regression models</p>
+<p>✅ Working with multiple features and categorical data</p>
+<p>✅ Using real-world Ghana housing data from Kaggle</p>
+<p>✅ Understanding loss functions (MSE, RMSE, MAE)</p>
+<p>✅ Knowing when to use regression vs.&nbsp;classification</p>
+<p>✅ Professional ML workflow: data → train → evaluate → interpret</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

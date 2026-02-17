@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Speedykom GmbH">
+<meta name="dcterms.date" content="2026-02-16">
+
+<title>Installing and Configuring OpenCode</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="opencode-student-guide_files/libs/clipboard/clipboard.min.js"></script>
+<script src="opencode-student-guide_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="opencode-student-guide_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="opencode-student-guide_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="opencode-student-guide_files/libs/quarto-html/popper.min.js"></script>
+<script src="opencode-student-guide_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="opencode-student-guide_files/libs/quarto-html/anchor.min.js"></script>
+<link href="opencode-student-guide_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="opencode-student-guide_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="opencode-student-guide_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="opencode-student-guide_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="opencode-student-guide_files/libs/bootstrap/bootstrap-ad96d2b6a7098799db9dad30e985ce24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#why-use-opencode" id="toc-why-use-opencode" class="nav-link" data-scroll-target="#why-use-opencode"><span class="header-section-number">1.1</span> Why Use OpenCode?</a></li>
+  </ul></li>
+  <li><a href="#installing-opencode" id="toc-installing-opencode" class="nav-link" data-scroll-target="#installing-opencode"><span class="header-section-number">2</span> Installing OpenCode</a>
+  <ul class="collapse">
+  <li><a href="#system-requirements" id="toc-system-requirements" class="nav-link" data-scroll-target="#system-requirements"><span class="header-section-number">2.1</span> System Requirements</a></li>
+  <li><a href="#installation-methods" id="toc-installation-methods" class="nav-link" data-scroll-target="#installation-methods"><span class="header-section-number">2.2</span> Installation Methods</a>
+  <ul class="collapse">
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos"><span class="header-section-number">2.2.1</span> macOS</a></li>
+  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux"><span class="header-section-number">2.2.2</span> Linux</a></li>
+  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows"><span class="header-section-number">2.2.3</span> Windows</a></li>
+  </ul></li>
+  <li><a href="#first-time-setup" id="toc-first-time-setup" class="nav-link" data-scroll-target="#first-time-setup"><span class="header-section-number">2.3</span> First-Time Setup</a></li>
+  </ul></li>
+  <li><a href="#connecting-to-openrouter-recommended-for-students" id="toc-connecting-to-openrouter-recommended-for-students" class="nav-link" data-scroll-target="#connecting-to-openrouter-recommended-for-students"><span class="header-section-number">3</span> Connecting to OpenRouter (Recommended for Students)</a>
+  <ul class="collapse">
+  <li><a href="#what-is-openrouter" id="toc-what-is-openrouter" class="nav-link" data-scroll-target="#what-is-openrouter"><span class="header-section-number">3.1</span> What is OpenRouter?</a></li>
+  <li><a href="#why-choose-openrouter" id="toc-why-choose-openrouter" class="nav-link" data-scroll-target="#why-choose-openrouter"><span class="header-section-number">3.2</span> Why Choose OpenRouter?</a></li>
+  <li><a href="#getting-your-openrouter-api-key" id="toc-getting-your-openrouter-api-key" class="nav-link" data-scroll-target="#getting-your-openrouter-api-key"><span class="header-section-number">3.3</span> Getting Your OpenRouter API Key</a>
+  <ul class="collapse">
+  <li><a href="#step-1-create-an-openrouter-account" id="toc-step-1-create-an-openrouter-account" class="nav-link" data-scroll-target="#step-1-create-an-openrouter-account"><span class="header-section-number">3.3.1</span> Step 1: Create an OpenRouter Account</a></li>
+  <li><a href="#step-2-get-your-api-key" id="toc-step-2-get-your-api-key" class="nav-link" data-scroll-target="#step-2-get-your-api-key"><span class="header-section-number">3.3.2</span> Step 2: Get Your API Key</a></li>
+  <li><a href="#step-3-connect-opencode-to-openrouter" id="toc-step-3-connect-opencode-to-openrouter" class="nav-link" data-scroll-target="#step-3-connect-opencode-to-openrouter"><span class="header-section-number">3.3.3</span> Step 3: Connect OpenCode to OpenRouter</a></li>
+  <li><a href="#free-vs-paid-models" id="toc-free-vs-paid-models" class="nav-link" data-scroll-target="#free-vs-paid-models"><span class="header-section-number">3.3.4</span> Free vs Paid Models</a></li>
+  </ul></li>
+  <li><a href="#managing-your-openrouter-account" id="toc-managing-your-openrouter-account" class="nav-link" data-scroll-target="#managing-your-openrouter-account"><span class="header-section-number">3.4</span> Managing Your OpenRouter Account</a></li>
+  </ul></li>
+  <li><a href="#opencode-zen-free-access-to-premium-chinese-models" id="toc-opencode-zen-free-access-to-premium-chinese-models" class="nav-link" data-scroll-target="#opencode-zen-free-access-to-premium-chinese-models"><span class="header-section-number">4</span> OpenCode Zen: Free Access to Premium Chinese Models</a>
+  <ul class="collapse">
+  <li><a href="#what-is-opencode-zen" id="toc-what-is-opencode-zen" class="nav-link" data-scroll-target="#what-is-opencode-zen"><span class="header-section-number">4.1</span> What is OpenCode Zen?</a>
+  <ul class="collapse">
+  <li><a href="#why-use-opencode-zen" id="toc-why-use-opencode-zen" class="nav-link" data-scroll-target="#why-use-opencode-zen"><span class="header-section-number">4.1.1</span> Why Use OpenCode Zen?</a></li>
+  </ul></li>
+  <li><a href="#available-models-in-opencode-zen" id="toc-available-models-in-opencode-zen" class="nav-link" data-scroll-target="#available-models-in-opencode-zen"><span class="header-section-number">4.2</span> Available Models in OpenCode Zen</a>
+  <ul class="collapse">
+  <li><a href="#freecheap-tier-models" id="toc-freecheap-tier-models" class="nav-link" data-scroll-target="#freecheap-tier-models"><span class="header-section-number">4.2.1</span> Free/Cheap Tier Models:</a></li>
+  </ul></li>
+  <li><a href="#how-to-access-opencode-zen" id="toc-how-to-access-opencode-zen" class="nav-link" data-scroll-target="#how-to-access-opencode-zen"><span class="header-section-number">4.3</span> How to Access OpenCode Zen</a>
+  <ul class="collapse">
+  <li><a href="#step-1-check-if-zen-is-available" id="toc-step-1-check-if-zen-is-available" class="nav-link" data-scroll-target="#step-1-check-if-zen-is-available"><span class="header-section-number">4.3.1</span> Step 1: Check if Zen is Available</a></li>
+  <li><a href="#step-2-connect-to-zen" id="toc-step-2-connect-to-zen" class="nav-link" data-scroll-target="#step-2-connect-to-zen"><span class="header-section-number">4.3.2</span> Step 2: Connect to Zen</a></li>
+  <li><a href="#step-3-configure-opencode-with-zen" id="toc-step-3-configure-opencode-with-zen" class="nav-link" data-scroll-target="#step-3-configure-opencode-with-zen"><span class="header-section-number">4.3.3</span> Step 3: Configure OpenCode with Zen</a></li>
+  <li><a href="#step-4-test-your-connection" id="toc-step-4-test-your-connection" class="nav-link" data-scroll-target="#step-4-test-your-connection"><span class="header-section-number">4.3.4</span> Step 4: Test Your Connection</a></li>
+  </ul></li>
+  <li><a href="#using-zen-models" id="toc-using-zen-models" class="nav-link" data-scroll-target="#using-zen-models"><span class="header-section-number">4.4</span> Using Zen Models</a>
+  <ul class="collapse">
+  <li><a href="#starting-opencode" id="toc-starting-opencode" class="nav-link" data-scroll-target="#starting-opencode"><span class="header-section-number">4.4.1</span> Starting OpenCode</a></li>
+  <li><a href="#example-conversations" id="toc-example-conversations" class="nav-link" data-scroll-target="#example-conversations"><span class="header-section-number">4.4.2</span> Example Conversations</a></li>
+  </ul></li>
+  <li><a href="#free-vs-paid-usage" id="toc-free-vs-paid-usage" class="nav-link" data-scroll-target="#free-vs-paid-usage"><span class="header-section-number">4.5</span> Free vs Paid Usage</a>
+  <ul class="collapse">
+  <li><a href="#free-tier-subject-to-change" id="toc-free-tier-subject-to-change" class="nav-link" data-scroll-target="#free-tier-subject-to-change"><span class="header-section-number">4.5.1</span> Free Tier (Subject to Change):</a></li>
+  <li><a href="#paid-tier" id="toc-paid-tier" class="nav-link" data-scroll-target="#paid-tier"><span class="header-section-number">4.5.2</span> Paid Tier:</a></li>
+  </ul></li>
+  <li><a href="#tips-for-students" id="toc-tips-for-students" class="nav-link" data-scroll-target="#tips-for-students"><span class="header-section-number">4.6</span> Tips for Students</a></li>
+  <li><a href="#managing-your-zen-account" id="toc-managing-your-zen-account" class="nav-link" data-scroll-target="#managing-your-zen-account"><span class="header-section-number">4.7</span> Managing Your Zen Account</a>
+  <ul class="collapse">
+  <li><a href="#model-provider-options" id="toc-model-provider-options" class="nav-link" data-scroll-target="#model-provider-options"><span class="header-section-number">4.7.1</span> Model Provider Options</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#understanding-skills" id="toc-understanding-skills" class="nav-link" data-scroll-target="#understanding-skills"><span class="header-section-number">5</span> Understanding Skills</a>
+  <ul class="collapse">
+  <li><a href="#what-are-skills" id="toc-what-are-skills" class="nav-link" data-scroll-target="#what-are-skills"><span class="header-section-number">5.1</span> What Are Skills?</a></li>
+  <li><a href="#the-anthropic-connection-why-skill.md-exists" id="toc-the-anthropic-connection-why-skill.md-exists" class="nav-link" data-scroll-target="#the-anthropic-connection-why-skill.md-exists"><span class="header-section-number">5.2</span> The Anthropic Connection: Why SKILL.md Exists</a>
+  <ul class="collapse">
+  <li><a href="#why-anthropic-created-skill.md" id="toc-why-anthropic-created-skill.md" class="nav-link" data-scroll-target="#why-anthropic-created-skill.md"><span class="header-section-number">5.2.1</span> Why Anthropic Created SKILL.md:</a></li>
+  <li><a href="#how-opencode-uses-skill.md" id="toc-how-opencode-uses-skill.md" class="nav-link" data-scroll-target="#how-opencode-uses-skill.md"><span class="header-section-number">5.2.2</span> How OpenCode Uses SKILL.md:</a></li>
+  </ul></li>
+  <li><a href="#how-skills-work" id="toc-how-skills-work" class="nav-link" data-scroll-target="#how-skills-work"><span class="header-section-number">5.3</span> How Skills Work</a></li>
+  <li><a href="#installing-existing-skills" id="toc-installing-existing-skills" class="nav-link" data-scroll-target="#installing-existing-skills"><span class="header-section-number">5.4</span> Installing Existing Skills</a>
+  <ul class="collapse">
+  <li><a href="#example-installing-a-writing-skill" id="toc-example-installing-a-writing-skill" class="nav-link" data-scroll-target="#example-installing-a-writing-skill"><span class="header-section-number">5.4.1</span> Example: Installing a Writing Skill</a></li>
+  </ul></li>
+  <li><a href="#creating-your-first-skill" id="toc-creating-your-first-skill" class="nav-link" data-scroll-target="#creating-your-first-skill"><span class="header-section-number">5.5</span> Creating Your First Skill</a>
+  <ul class="collapse">
+  <li><a href="#step-1-create-the-directory" id="toc-step-1-create-the-directory" class="nav-link" data-scroll-target="#step-1-create-the-directory"><span class="header-section-number">5.5.1</span> Step 1: Create the Directory</a></li>
+  <li><a href="#step-2-write-the-skill.md-file" id="toc-step-2-write-the-skill.md-file" class="nav-link" data-scroll-target="#step-2-write-the-skill.md-file"><span class="header-section-number">5.5.2</span> Step 2: Write the SKILL.md File</a></li>
+  <li><a href="#step-3-test-your-skill" id="toc-step-3-test-your-skill" class="nav-link" data-scroll-target="#step-3-test-your-skill"><span class="header-section-number">5.5.3</span> Step 3: Test Your Skill</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#building-effective-skills-lessons-from-ai-detection" id="toc-building-effective-skills-lessons-from-ai-detection" class="nav-link" data-scroll-target="#building-effective-skills-lessons-from-ai-detection"><span class="header-section-number">6</span> Building Effective Skills: Lessons from AI Detection</a>
+  <ul class="collapse">
+  <li><a href="#key-principles-from-ai-detection-research" id="toc-key-principles-from-ai-detection-research" class="nav-link" data-scroll-target="#key-principles-from-ai-detection-research"><span class="header-section-number">6.1</span> Key Principles from AI Detection Research</a>
+  <ul class="collapse">
+  <li><a href="#avoid-vague-abstractions" id="toc-avoid-vague-abstractions" class="nav-link" data-scroll-target="#avoid-vague-abstractions"><span class="header-section-number">6.1.1</span> 1. Avoid Vague Abstractions</a></li>
+  <li><a href="#skip-the-rule-of-three" id="toc-skip-the-rule-of-three" class="nav-link" data-scroll-target="#skip-the-rule-of-three"><span class="header-section-number">6.1.2</span> 2. Skip the “Rule of Three”</a></li>
+  <li><a href="#dont-overstate-significance" id="toc-dont-overstate-significance" class="nav-link" data-scroll-target="#dont-overstate-significance"><span class="header-section-number">6.1.3</span> 3. Don’t Overstate Significance</a></li>
+  <li><a href="#use-simple-verbs" id="toc-use-simple-verbs" class="nav-link" data-scroll-target="#use-simple-verbs"><span class="header-section-number">6.1.4</span> 4. Use Simple Verbs</a></li>
+  <li><a href="#avoid-hedge-phrases" id="toc-avoid-hedge-phrases" class="nav-link" data-scroll-target="#avoid-hedge-phrases"><span class="header-section-number">6.1.5</span> 5. Avoid Hedge Phrases</a></li>
+  </ul></li>
+  <li><a href="#structure-of-an-effective-skill.md" id="toc-structure-of-an-effective-skill.md" class="nav-link" data-scroll-target="#structure-of-an-effective-skill.md"><span class="header-section-number">6.2</span> Structure of an Effective SKILL.md</a>
+  <ul class="collapse">
+  <li><a href="#required-frontmatter-fields" id="toc-required-frontmatter-fields" class="nav-link" data-scroll-target="#required-frontmatter-fields"><span class="header-section-number">6.2.1</span> Required Frontmatter Fields</a></li>
+  <li><a href="#complete-template" id="toc-complete-template" class="nav-link" data-scroll-target="#complete-template"><span class="header-section-number">6.2.2</span> Complete Template</a></li>
+  </ul></li>
+  <li><a href="#what-to-avoid" id="toc-what-to-avoid" class="nav-link" data-scroll-target="#what-to-avoid"><span class="header-section-number">6.3</span> What to Avoid</a></li>
+  </ul></li>
+  <li><a href="#best-practices-for-skill-development" id="toc-best-practices-for-skill-development" class="nav-link" data-scroll-target="#best-practices-for-skill-development"><span class="header-section-number">7</span> Best Practices for Skill Development</a>
+  <ul class="collapse">
+  <li><a href="#start-small" id="toc-start-small" class="nav-link" data-scroll-target="#start-small"><span class="header-section-number">7.1</span> 1. Start Small</a></li>
+  <li><a href="#include-concrete-examples" id="toc-include-concrete-examples" class="nav-link" data-scroll-target="#include-concrete-examples"><span class="header-section-number">7.2</span> 2. Include Concrete Examples</a></li>
+  <li><a href="#focus-on-what-not-just-how" id="toc-focus-on-what-not-just-how" class="nav-link" data-scroll-target="#focus-on-what-not-just-how"><span class="header-section-number">7.3</span> 3. Focus on What, Not Just How</a></li>
+  <li><a href="#version-your-skills" id="toc-version-your-skills" class="nav-link" data-scroll-target="#version-your-skills"><span class="header-section-number">7.4</span> 4. Version Your Skills</a></li>
+  <li><a href="#test-thoroughly" id="toc-test-thoroughly" class="nav-link" data-scroll-target="#test-thoroughly"><span class="header-section-number">7.5</span> 5. Test Thoroughly</a></li>
+  <li><a href="#iterate-based-on-results" id="toc-iterate-based-on-results" class="nav-link" data-scroll-target="#iterate-based-on-results"><span class="header-section-number">7.6</span> 6. Iterate Based on Results</a></li>
+  </ul></li>
+  <li><a href="#advanced-skill-features" id="toc-advanced-skill-features" class="nav-link" data-scroll-target="#advanced-skill-features"><span class="header-section-number">8</span> Advanced Skill Features</a>
+  <ul class="collapse">
+  <li><a href="#using-multiple-skills" id="toc-using-multiple-skills" class="nav-link" data-scroll-target="#using-multiple-skills"><span class="header-section-number">8.1</span> Using Multiple Skills</a></li>
+  <li><a href="#skill-dependencies" id="toc-skill-dependencies" class="nav-link" data-scroll-target="#skill-dependencies"><span class="header-section-number">8.2</span> Skill Dependencies</a></li>
+  <li><a href="#conditional-logic" id="toc-conditional-logic" class="nav-link" data-scroll-target="#conditional-logic"><span class="header-section-number">8.3</span> Conditional Logic</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><span class="header-section-number">9</span> Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#installation-issues" id="toc-installation-issues" class="nav-link" data-scroll-target="#installation-issues"><span class="header-section-number">9.1</span> Installation Issues</a></li>
+  <li><a href="#skill-loading-issues" id="toc-skill-loading-issues" class="nav-link" data-scroll-target="#skill-loading-issues"><span class="header-section-number">9.2</span> Skill Loading Issues</a></li>
+  <li><a href="#model-connection-issues" id="toc-model-connection-issues" class="nav-link" data-scroll-target="#model-connection-issues"><span class="header-section-number">9.3</span> Model Connection Issues</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">10</span> Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps"><span class="header-section-number">10.1</span> Next Steps</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources"><span class="header-section-number">10.2</span> Additional Resources</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="opencode-student-guide.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Installing and Configuring OpenCode</h1>
+<p class="subtitle lead">A Student Guide to CLI-First AI Development</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Speedykom GmbH </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 16, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>OpenCode is an open-source AI coding agent that runs in your terminal. This guide walks you through installing it on your laptop and teaches you how to extend its capabilities using custom skills. Unlike many AI tools that require expensive subscriptions, OpenCode connects to various model providers—including free options—giving you flexibility and control.</p>
+<section id="why-use-opencode" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="why-use-opencode"><span class="header-section-number">1.1</span> Why Use OpenCode?</h2>
+<ul>
+<li><strong>Privacy-first</strong>: Your code and context data stay on your machine</li>
+<li><strong>Multi-session support</strong>: Run multiple agents in parallel on the same project</li>
+<li><strong>Flexible model options</strong>: Use free models, GitHub Copilot, or connect to 75+ providers</li>
+<li><strong>Terminal-native</strong>: Works entirely in your command line interface</li>
+<li><strong>Extensible</strong>: Create custom skills to teach the AI domain-specific knowledge</li>
+</ul>
+</section>
+</section>
+<section id="installing-opencode" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Installing OpenCode</h1>
+<section id="system-requirements" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="system-requirements"><span class="header-section-number">2.1</span> System Requirements</h2>
+<p>Before installing, ensure you have:</p>
+<ul>
+<li>A terminal/command prompt</li>
+<li>Internet connection</li>
+<li>Administrator/sudo access (for installation only)</li>
+<li>Git installed (for version control features)</li>
+</ul>
+</section>
+<section id="installation-methods" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="installation-methods"><span class="header-section-number">2.2</span> Installation Methods</h2>
+<section id="macos" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="macos"><span class="header-section-number">2.2.1</span> macOS</h3>
+<p>macOS users have two options: using Homebrew (recommended) or the install script.</p>
+<p><strong>Option 1: Homebrew (Recommended)</strong></p>
+<p>Open your Terminal (you can find it in Applications &gt; Utilities &gt; Terminal, or press Cmd+Space and type “Terminal”):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap anomaly/opencode</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install opencode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Option 2: Install Script</strong></p>
+<p>In your Terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://opencode.ai/install <span class="kw">|</span> <span class="fu">bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The install script detects your system architecture (Intel or Apple Silicon) and downloads the appropriate binary. After installation, add OpenCode to your PATH:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">$HOME</span><span class="st">/.local/bin:</span><span class="va">$PATH</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Add this line to your <code>~/.zshrc</code> or <code>~/.bash_profile</code> to make it permanent. To do this, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH="$HOME/.local/bin:$PATH"'</span> <span class="op">&gt;&gt;</span> ~/.zshrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then restart your Terminal or run <code>source ~/.zshrc</code>.</p>
+</section>
+<section id="linux" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="linux"><span class="header-section-number">2.2.2</span> Linux</h3>
+<p>Linux installation uses the same install script approach. The script supports major distributions including Ubuntu, Debian, Fedora, and Arch.</p>
+<p><strong>Universal Install Script:</strong></p>
+<p>Open your Terminal (press Ctrl+Alt+T on Ubuntu/Debian, or find “Terminal” in your applications menu):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://opencode.ai/install <span class="kw">|</span> <span class="fu">bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The installer will:</p>
+<ol type="1">
+<li>Detect your architecture (x86_64, ARM64)</li>
+<li>Download the appropriate binary</li>
+<li>Install to <code>~/.local/bin/opencode</code></li>
+</ol>
+<p><strong>Verify installation:</strong></p>
+<p>In your Terminal, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Add to PATH permanently:</strong></p>
+<p>For Bash users (most common on Ubuntu/Debian):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH="$HOME/.local/bin:$PATH"'</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For Zsh users (common on newer systems):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH="$HOME/.local/bin:$PATH"'</span> <span class="op">&gt;&gt;</span> ~/.zshrc</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.zshrc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="windows" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="windows"><span class="header-section-number">2.2.3</span> Windows</h3>
+<p>Windows users can install via WinGet, the official Windows package manager.</p>
+<p><strong>Using WinGet (Recommended):</strong></p>
+<p>Open PowerShell as Administrator (right-click on Start menu → “Windows PowerShell (Admin)” or “Terminal (Admin)”):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>winget install Anomaly<span class="op">.</span><span class="fu">OpenCode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After installation, restart your PowerShell window. Verify the installation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>opencode <span class="op">--</span>version</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Alternative: Install Script</strong></p>
+<p>If WinGet is unavailable, use the curl-based installer in PowerShell (as Administrator):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curl</span> <span class="op">-</span>fsSL https<span class="op">://</span>opencode<span class="op">.</span><span class="fu">ai</span><span class="op">/</span>install <span class="op">|</span> bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Note for Windows users</strong>: The WinGet method is preferred because it handles updates automatically through <code>winget upgrade</code>. The curl script works but requires manual updates.</p>
+</section>
+</section>
+<section id="first-time-setup" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="first-time-setup"><span class="header-section-number">2.3</span> First-Time Setup</h2>
+<p>After installation, configure OpenCode. Open your Terminal (macOS/Linux) or PowerShell (Windows) and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> configure</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This command guides you through:</p>
+<ol type="1">
+<li><strong>Selecting a model provider</strong>: Choose from free models (like those available through OpenRouter), or connect your own API keys for OpenAI, Anthropic, or others</li>
+<li><strong>Setting default behaviors</strong>: Configure whether to auto-execute commands or ask for confirmation</li>
+<li><strong>Git integration</strong>: Optionally link your GitHub account for enhanced features</li>
+</ol>
+</section>
+</section>
+<section id="connecting-to-openrouter-recommended-for-students" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Connecting to OpenRouter (Recommended for Students)</h1>
+<section id="what-is-openrouter" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-openrouter"><span class="header-section-number">3.1</span> What is OpenRouter?</h2>
+<p><strong>OpenRouter</strong> is a unified API gateway that gives you access to hundreds of AI models through a single interface. Instead of signing up for multiple services (OpenAI, Anthropic, Google, etc.), you create one OpenRouter account and get access to:</p>
+<ul>
+<li><strong>300+ models</strong> from 60+ providers (GPT-4, Claude, Gemini, Llama, and more)</li>
+<li><strong>Free tier</strong> with generous limits for learning and experimentation</li>
+<li><strong>Pay-as-you-go</strong> pricing with better rates than going direct to providers</li>
+<li><strong>Higher availability</strong> with automatic failover between providers</li>
+<li><strong>No subscriptions</strong> required to get started</li>
+</ul>
+</section>
+<section id="why-choose-openrouter" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="why-choose-openrouter"><span class="header-section-number">3.2</span> Why Choose OpenRouter?</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 23%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>OpenRouter</th>
+<th>Direct API (OpenAI/Anthropic)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cost</strong></td>
+<td>Free tier available + pay-per-use</td>
+<td>Requires paid API key</td>
+</tr>
+<tr class="even">
+<td><strong>Models</strong></td>
+<td>Access to 300+ models from all major providers</td>
+<td>Limited to that provider only</td>
+</tr>
+<tr class="odd">
+<td><strong>Setup</strong></td>
+<td>One API key for everything</td>
+<td>Separate accounts for each provider</td>
+</tr>
+<tr class="even">
+<td><strong>Flexibility</strong></td>
+<td>Switch models instantly</td>
+<td>Locked into one provider</td>
+</tr>
+<tr class="odd">
+<td><strong>Best for</strong></td>
+<td>Students, experimenting, learning</td>
+<td>Production with specific models</td>
+</tr>
+</tbody>
+</table>
+<p><strong>For students</strong>: OpenRouter is ideal because you can start free, experiment with different models, and only pay if you exceed the free tier limits.</p>
+</section>
+<section id="getting-your-openrouter-api-key" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="getting-your-openrouter-api-key"><span class="header-section-number">3.3</span> Getting Your OpenRouter API Key</h2>
+<section id="step-1-create-an-openrouter-account" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="step-1-create-an-openrouter-account"><span class="header-section-number">3.3.1</span> Step 1: Create an OpenRouter Account</h3>
+<ol type="1">
+<li>Go to <a href="https://openrouter.ai/">https://openrouter.ai/</a></li>
+<li>Click “Sign Up” (top right corner)</li>
+<li>Choose your preferred sign-in method:
+<ul>
+<li><strong>Google</strong> (recommended - quickest)</li>
+<li><strong>GitHub</strong></li>
+<li><strong>MetaMask</strong> (if you have a crypto wallet)</li>
+</ul></li>
+</ol>
+</section>
+<section id="step-2-get-your-api-key" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="step-2-get-your-api-key"><span class="header-section-number">3.3.2</span> Step 2: Get Your API Key</h3>
+<ol type="1">
+<li>Go to <a href="https://openrouter.ai/settings/keys">https://openrouter.ai/settings/keys</a> (or click “Settings” → “Keys” in the menu)</li>
+<li>Click the “Create Key” button</li>
+<li>Give your key a name (e.g., “OpenCode-Laptop”)</li>
+<li>Copy the API key (it looks like <code>sk-or-v1-...</code>)</li>
+</ol>
+<p><strong>Important</strong>: Treat this key like a password. Never share it or commit it to public repositories.</p>
+</section>
+<section id="step-3-connect-opencode-to-openrouter" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="step-3-connect-opencode-to-openrouter"><span class="header-section-number">3.3.3</span> Step 3: Connect OpenCode to OpenRouter</h3>
+<p>Open your Terminal (macOS/Linux) or PowerShell (Windows) and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> configure</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When prompted to select a model provider: 1. Choose “OpenRouter” from the list 2. Paste your API key when asked 3. Select your preferred model (we recommend starting with a free model like <code>openai/gpt-4o-mini</code> or <code>anthropic/claude-3-haiku</code>) 4. Save the configuration</p>
+<p><strong>Test your connection</strong>:</p>
+<p>Open your Terminal/PowerShell and type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Once the OpenCode CLI opens, simply type:</p>
+<pre><code>Hello, are you connected to OpenRouter?</code></pre>
+<p>If you get a response, you’re all set!</p>
+</section>
+<section id="free-vs-paid-models" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="free-vs-paid-models"><span class="header-section-number">3.3.4</span> Free vs Paid Models</h3>
+<p>OpenRouter offers both free and paid models:</p>
+<p><strong>Free Models</strong> (great for learning): - <code>openai/gpt-4o-mini</code> - Fast and capable - <code>google/gemini-flash-1.5</code> - Good for longer conversations - <code>meta-llama/llama-3.1-8b-instruct</code> - Open source option</p>
+<p><strong>Paid Models</strong> (when you need more power): - <code>anthropic/claude-opus-4</code> - Best for complex coding tasks - <code>openai/gpt-4o</code> - Great all-rounder - <code>google/gemini-2.5-pro</code> - Excellent for reasoning</p>
+<p><strong>Pro Tip</strong>: Start with free models. They’re surprisingly capable and perfect for learning. Only upgrade to paid models when you hit limitations or need specific capabilities.</p>
+</section>
+</section>
+<section id="managing-your-openrouter-account" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="managing-your-openrouter-account"><span class="header-section-number">3.4</span> Managing Your OpenRouter Account</h2>
+<ul>
+<li><strong>Dashboard</strong>: <a href="https://openrouter.ai/">https://openrouter.ai/</a> - View usage, manage keys, browse models</li>
+<li><strong>Credits</strong>: Add credits under “Billing” if you want to use paid models</li>
+<li><strong>Model Browser</strong>: <a href="https://openrouter.ai/models">https://openrouter.ai/models</a> - Explore all available models with pricing</li>
+</ul>
+</section>
+</section>
+<section id="opencode-zen-free-access-to-premium-chinese-models" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> OpenCode Zen: Free Access to Premium Chinese Models</h1>
+<section id="what-is-opencode-zen" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-opencode-zen"><span class="header-section-number">4.1</span> What is OpenCode Zen?</h2>
+<p><strong>OpenCode Zen</strong> is OpenCode’s curated model service that provides access to high-quality AI models, including powerful Chinese models like <strong>MinMax</strong> and <strong>Kimi K2.5</strong>, often with <strong>free tiers</strong> or significantly reduced costs compared to direct API access.</p>
+<section id="why-use-opencode-zen" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="why-use-opencode-zen"><span class="header-section-number">4.1.1</span> Why Use OpenCode Zen?</h3>
+<ul>
+<li><strong>Free tiers available</strong> for models that normally require payment</li>
+<li><strong>No separate API keys</strong> needed for many models</li>
+<li><strong>Curated selection</strong> of high-performing models tested by OpenCode</li>
+<li><strong>Simplified pricing</strong> with straightforward pay-as-you-go options</li>
+<li><strong>Access to Chinese models</strong> like MinMax M2.5 and Kimi K2.5 that rival GPT-4 and Claude</li>
+</ul>
+</section>
+</section>
+<section id="available-models-in-opencode-zen" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="available-models-in-opencode-zen"><span class="header-section-number">4.2</span> Available Models in OpenCode Zen</h2>
+<section id="freecheap-tier-models" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="freecheap-tier-models"><span class="header-section-number">4.2.1</span> Free/Cheap Tier Models:</h3>
+<p><strong>MinMax M2.5</strong> (Highly Recommended) - 80.2% on SWE-Bench benchmarks - Excellent for complex coding tasks - Costs around $1/hour of usage - Great Claude Opus alternative</p>
+<p><strong>Kimi K2.5</strong> by Moonshot AI - 1 trillion parameter Mixture-of-Experts model - Activates 32 billion parameters per step - Excellent at reasoning, coding, and visual understanding - Supports up to 100 parallel sub-agents - Open-weight model (you can download and run locally)</p>
+<p><strong>Other Chinese Models</strong>: - Various models from Alibaba, Baidu, and other Chinese AI labs - Often cheaper than Western equivalents with similar performance</p>
+</section>
+</section>
+<section id="how-to-access-opencode-zen" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="how-to-access-opencode-zen"><span class="header-section-number">4.3</span> How to Access OpenCode Zen</h2>
+<section id="step-1-check-if-zen-is-available" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="step-1-check-if-zen-is-available"><span class="header-section-number">4.3.1</span> Step 1: Check if Zen is Available</h3>
+<p>Open your Terminal (macOS/Linux) or PowerShell (Windows) and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> models list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Look for models labeled with “zen” or “Zen” in the provider column.</p>
+</section>
+<section id="step-2-connect-to-zen" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="step-2-connect-to-zen"><span class="header-section-number">4.3.2</span> Step 2: Connect to Zen</h3>
+<p>If you see Zen models in the list, you can use them immediately. If prompted to add an API key:</p>
+<ol type="1">
+<li>Go to <a href="https://opencode.ai/zen">https://opencode.ai/zen</a> (or visit <a href="https://opencode.ai">https://opencode.ai</a> and click “Zen”)</li>
+<li>Sign in with your OpenCode account</li>
+<li>Navigate to “API Keys” or “Settings”</li>
+<li>Generate a new API key</li>
+<li>Copy the key (starts with <code>zen-...</code> or similar)</li>
+</ol>
+</section>
+<section id="step-3-configure-opencode-with-zen" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="step-3-configure-opencode-with-zen"><span class="header-section-number">4.3.3</span> Step 3: Configure OpenCode with Zen</h3>
+<p>In your Terminal/PowerShell, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> configure</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When prompted: 1. Select “OpenCode Zen” as your provider 2. Paste your Zen API key 3. Choose your preferred model (e.g., <code>minimax/m2.5</code> or <code>moonshotai/kimi-k2.5</code>) 4. Save the configuration</p>
+</section>
+<section id="step-4-test-your-connection" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="step-4-test-your-connection"><span class="header-section-number">4.3.4</span> Step 4: Test Your Connection</h3>
+<p>Open your Terminal/PowerShell and type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This opens the OpenCode interactive CLI. Once inside, just type:</p>
+<pre><code>Hello, are you connected to Zen?</code></pre>
+<p>If you get a response, you’re all set!</p>
+</section>
+</section>
+<section id="using-zen-models" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="using-zen-models"><span class="header-section-number">4.4</span> Using Zen Models</h2>
+<p>Once you’ve configured OpenCode Zen, using the models is simple. Just start OpenCode and begin chatting:</p>
+<section id="starting-opencode" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="starting-opencode"><span class="header-section-number">4.4.1</span> Starting OpenCode</h3>
+<p>In your Terminal/PowerShell:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You’ll see the OpenCode prompt appear. Now you can:</p>
+<ol type="1">
+<li><strong>Just start typing</strong> - Your default Zen model will respond</li>
+<li><strong>Ask anything</strong> - Code questions, debugging help, explanations</li>
+<li><strong>Work on files</strong> - OpenCode can read and edit files in your current directory</li>
+</ol>
+</section>
+<section id="example-conversations" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="example-conversations"><span class="header-section-number">4.4.2</span> Example Conversations</h3>
+<p><strong>Getting help with code:</strong></p>
+<pre><code>&gt; opencode
+
+You: Help me debug this Python error: "IndexError: list index out of range"
+
+OpenCode: Let me help you with that IndexError. This usually happens when...</code></pre>
+<p><strong>Working on a project:</strong></p>
+<pre><code>&gt; opencode
+
+You: Read the file main.py and explain what it does
+
+OpenCode: I'll read main.py for you. [Reads file] This file contains...</code></pre>
+<p><strong>Switching models (if needed):</strong></p>
+<pre><code>You: /model minimax/m2.5
+
+OpenCode: Switched to MinMax M2.5 model.</code></pre>
+</section>
+</section>
+<section id="free-vs-paid-usage" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="free-vs-paid-usage"><span class="header-section-number">4.5</span> Free vs Paid Usage</h2>
+<section id="free-tier-subject-to-change" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="free-tier-subject-to-change"><span class="header-section-number">4.5.1</span> Free Tier (Subject to Change):</h3>
+<ul>
+<li>Limited requests per day</li>
+<li>Rate limiting may apply</li>
+<li>Perfect for learning and small projects</li>
+</ul>
+</section>
+<section id="paid-tier" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="paid-tier"><span class="header-section-number">4.5.2</span> Paid Tier:</h3>
+<ul>
+<li>Higher rate limits</li>
+<li>Priority access</li>
+<li>Still significantly cheaper than direct API access</li>
+<li>MinMax M2.5: ~$1/hour of active usage</li>
+<li>Kimi K2.5: Competitive pricing with GPT-4</li>
+</ul>
+</section>
+</section>
+<section id="tips-for-students" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="tips-for-students"><span class="header-section-number">4.6</span> Tips for Students</h2>
+<ol type="1">
+<li><strong>Start with free tiers</strong> - Both OpenRouter and Zen offer free access to get you started</li>
+<li><strong>Use MinMax M2.5 for coding</strong> - It’s specifically optimized for development tasks</li>
+<li><strong>Try Kimi K2.5 for multimodal tasks</strong> - Excellent at understanding images and complex reasoning</li>
+<li><strong>Monitor usage</strong> - Check your Zen dashboard at <a href="https://opencode.ai/zen">https://opencode.ai/zen</a> to see usage stats</li>
+<li><strong>Combine with local models</strong> - For total privacy, run smaller models locally for free</li>
+</ol>
+</section>
+<section id="managing-your-zen-account" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="managing-your-zen-account"><span class="header-section-number">4.7</span> Managing Your Zen Account</h2>
+<ul>
+<li><strong>Dashboard</strong>: <a href="https://opencode.ai/zen">https://opencode.ai/zen</a> - View usage, manage keys</li>
+<li><strong>Add Credits</strong>: Click “Billing” in your Zen dashboard</li>
+<li><strong>Model Browser</strong>: See available models and their current pricing</li>
+<li><strong>Community</strong>: Join the OpenCode Discord for Zen-specific tips and updates</li>
+</ul>
+<section id="model-provider-options" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="model-provider-options"><span class="header-section-number">4.7.1</span> Model Provider Options</h3>
+<p>OpenCode supports multiple model providers:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Provider</th>
+<th>Cost</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OpenRouter Free Tier</td>
+<td>Free</td>
+<td>Getting started, low usage</td>
+</tr>
+<tr class="even">
+<td>GitHub Copilot</td>
+<td>Subscription</td>
+<td>If you already have Copilot</td>
+</tr>
+<tr class="odd">
+<td>OpenAI (ChatGPT)</td>
+<td>Pay-per-use</td>
+<td>GPT-4, GPT-3.5</td>
+</tr>
+<tr class="even">
+<td>Anthropic (Claude)</td>
+<td>Pay-per-use</td>
+<td>Claude 3 Opus/Sonnet</td>
+</tr>
+<tr class="odd">
+<td>Local Models</td>
+<td>Hardware-dependent</td>
+<td>Complete privacy, no internet</td>
+</tr>
+</tbody>
+</table>
+<p>Start with the free tier to explore before committing to paid options.</p>
+</section>
+</section>
+</section>
+<section id="understanding-skills" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Understanding Skills</h1>
+<section id="what-are-skills" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="what-are-skills"><span class="header-section-number">5.1</span> What Are Skills?</h2>
+<p>Skills are specialized instructions that teach OpenCode domain-specific knowledge. Think of them as custom modules that extend the AI’s capabilities for particular tasks, programming languages, or workflows.</p>
+<p>Skills are stored as <code>SKILL.md</code> files in the <code>~/.config/opencode/skills/</code> directory. When you invoke a skill in your prompt, OpenCode loads that skill’s instructions to guide its response.</p>
+</section>
+<section id="the-anthropic-connection-why-skill.md-exists" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="the-anthropic-connection-why-skill.md-exists"><span class="header-section-number">5.2</span> The Anthropic Connection: Why SKILL.md Exists</h2>
+<p><strong>Anthropic developed the SKILL.md format for Claude Code</strong>, their AI coding assistant. They recognized that AI agents need structured, reusable instructions to handle complex, domain-specific tasks consistently.</p>
+<section id="why-anthropic-created-skill.md" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="why-anthropic-created-skill.md"><span class="header-section-number">5.2.1</span> Why Anthropic Created SKILL.md:</h3>
+<ol type="1">
+<li><strong>Consistency</strong>: Ensures AI agents follow the same patterns across sessions</li>
+<li><strong>Reusability</strong>: Define once, use everywhere—across projects and teams</li>
+<li><strong>Composability</strong>: Multiple skills can work together on complex tasks</li>
+<li><strong>Discoverability</strong>: Agents can see available skills and load them on demand</li>
+<li><strong>Safety</strong>: Scoped permissions control which skills agents can access</li>
+</ol>
+</section>
+<section id="how-opencode-uses-skill.md" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="how-opencode-uses-skill.md"><span class="header-section-number">5.2.2</span> How OpenCode Uses SKILL.md:</h3>
+<p>OpenCode adopted SKILL.md as a <strong>compatible standard</strong>, meaning:</p>
+<ul>
+<li>Skills written for Claude Code work in OpenCode (and vice versa)</li>
+<li>OpenCode searches multiple locations for maximum compatibility:
+<ul>
+<li><code>.opencode/skills/&lt;name&gt;/SKILL.md</code> (OpenCode native)</li>
+<li><code>.claude/skills/&lt;name&gt;/SKILL.md</code> (Claude Code compatible)</li>
+<li><code>.agents/skills/&lt;name&gt;/SKILL.md</code> (Generic agent compatible)</li>
+</ul></li>
+<li>The same frontmatter format works across platforms</li>
+</ul>
+<p>This compatibility means skills you write today will work with future AI tools that adopt the standard.</p>
+</section>
+</section>
+<section id="how-skills-work" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="how-skills-work"><span class="header-section-number">5.3</span> How Skills Work</h2>
+<p>When you write a prompt like:</p>
+<pre><code>/skill writing-skill Check this paragraph for clarity</code></pre>
+<p>OpenCode:</p>
+<ol type="1">
+<li>Discovers available skills from all configured directories</li>
+<li>Loads the skill file from <code>~/.config/opencode/skills/writing-skill/SKILL.md</code></li>
+<li>Injects the skill’s system instructions into the conversation</li>
+<li>Processes your request using that specialized knowledge</li>
+</ol>
+<p>Skills can include:</p>
+<ul>
+<li><strong>Frontmatter</strong>: YAML metadata defining name, description, and permissions</li>
+<li><strong>System instructions</strong>: How the agent should behave when using this skill</li>
+<li><strong>Code examples</strong>: Reference implementations</li>
+<li><strong>Best practices</strong>: Domain-specific guidelines</li>
+<li><strong>Validation rules</strong>: Quality checks to apply</li>
+</ul>
+</section>
+<section id="installing-existing-skills" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="installing-existing-skills"><span class="header-section-number">5.4</span> Installing Existing Skills</h2>
+<p>OpenCode comes with some built-in skills, and you can install community skills from GitHub. Open your Terminal (or PowerShell on Windows) to run these commands:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List available built-in skills</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> skills list</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install a skill from a GitHub repository</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> skills add owner/repo</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Install a local skill</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> skills add /path/to/skill-directory</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="example-installing-a-writing-skill" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="example-installing-a-writing-skill"><span class="header-section-number">5.4.1</span> Example: Installing a Writing Skill</h3>
+<p>Let’s install a writing skill. In your Terminal/PowerShell, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clone a skill repository (hypothetical example)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/example/writing-skill.git ~/.config/opencode/skills/writing-skill</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After installation, use it within OpenCode (start OpenCode first, then type):</p>
+<pre><code>/skill writing-skill Review this essay for AI-like phrasing</code></pre>
+</section>
+</section>
+<section id="creating-your-first-skill" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="creating-your-first-skill"><span class="header-section-number">5.5</span> Creating Your First Skill</h2>
+<p>Skills are simple Markdown files with a specific structure. Let’s create a basic skill.</p>
+<section id="step-1-create-the-directory" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="step-1-create-the-directory"><span class="header-section-number">5.5.1</span> Step 1: Create the Directory</h3>
+<p>Open your Terminal (or PowerShell on Windows) and run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.config/opencode/skills/my-first-skill</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-2-write-the-skill.md-file" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="step-2-write-the-skill.md-file"><span class="header-section-number">5.5.2</span> Step 2: Write the SKILL.md File</h3>
+<p>Using your text editor (VS Code, nano, vim, or any text editor), create a file at: <code>~/.config/opencode/skills/my-first-skill/SKILL.md</code></p>
+<p>Copy and paste this content (this is the proper YAML frontmatter format):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> my-first-skill</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Help organize project files with structured guidance</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="an">license:</span><span class="co"> MIT</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="an">compatibility:</span><span class="co"> opencode</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="an">metadata:</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">  category: productivity</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">  level: beginner</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## What I do</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Help organize files by type and purpose</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Suggest folder structures for different projects  </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provide clear naming conventions</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to use me</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>Use this when you need to organize messy project directories or set up a new project structure. Ask clarifying questions if the project type or requirements are unclear.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="understanding-the-frontmatter-fields" class="level4" data-number="5.5.2.1">
+<h4 data-number="5.5.2.1" class="anchored" data-anchor-id="understanding-the-frontmatter-fields"><span class="header-section-number">5.5.2.1</span> Understanding the Frontmatter Fields</h4>
+<p>The YAML frontmatter at the top of every SKILL.md file contains metadata that OpenCode uses to discover and manage skills:</p>
+<p><strong>Required Fields:</strong></p>
+<ul>
+<li><strong><code>name</code></strong> (required): The skill identifier
+<ul>
+<li>Must be 1–64 characters</li>
+<li>Lowercase alphanumeric with single hyphens only</li>
+<li>Must match the directory name (<code>my-first-skill</code> → <code>my-first-skill/</code>)</li>
+<li>Valid: <code>git-release</code>, <code>code-review</code>, <code>my-skill</code></li>
+<li>Invalid: <code>MySkill</code>, <code>my--skill</code>, <code>-my-skill</code>, <code>my_skill</code></li>
+</ul></li>
+<li><strong><code>description</code></strong> (required): A brief explanation of what the skill does
+<ul>
+<li>Must be 1–1024 characters</li>
+<li>Should be specific enough for the agent to choose correctly</li>
+<li>This appears in the skill list when agents query available skills</li>
+<li>Good: “Review Python code for security vulnerabilities and performance issues”</li>
+<li>Bad: “A skill for code” (too vague)</li>
+</ul></li>
+</ul>
+<p><strong>Optional Fields:</strong></p>
+<ul>
+<li><strong><code>license</code></strong> (optional): The license under which the skill is distributed
+<ul>
+<li>Examples: <code>MIT</code>, <code>Apache-2.0</code>, <code>GPL-3.0</code></li>
+<li>Helps others understand usage rights</li>
+</ul></li>
+<li><strong><code>compatibility</code></strong> (optional): Specifies which tools support this skill
+<ul>
+<li>Examples: <code>opencode</code>, <code>claude</code>, <code>agents</code></li>
+<li>Allows cross-tool compatibility</li>
+<li>Use <code>opencode</code> for OpenCode-specific skills</li>
+</ul></li>
+<li><strong><code>metadata</code></strong> (optional): A string-to-string map for custom key-value pairs
+<ul>
+<li><p>Useful for categorization, tagging, or tool-specific features</p></li>
+<li><p>Examples:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">category</span><span class="kw">:</span><span class="at"> productivity</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">level</span><span class="kw">:</span><span class="at"> beginner</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">author</span><span class="kw">:</span><span class="at"> your-name</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Unknown fields are ignored, so you can add custom tags</p></li>
+</ul></li>
+</ul>
+<p><strong>Important Rules:</strong></p>
+<ol type="1">
+<li><strong>Unknown fields are ignored</strong>: If you add fields not listed above, OpenCode will ignore them without error</li>
+<li><strong>YAML syntax matters</strong>: Use proper YAML formatting (2-space indentation, no tabs)</li>
+<li><strong>Frontmatter delimiters</strong>: Must start with <code>---</code> and end with <code>---</code></li>
+<li><strong>Order doesn’t matter</strong>: You can list fields in any order within the frontmatter</li>
+</ol>
+</section>
+</section>
+<section id="step-3-test-your-skill" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="step-3-test-your-skill"><span class="header-section-number">5.5.3</span> Step 3: Test Your Skill</h3>
+<p>Start OpenCode in your Terminal/PowerShell, then type:</p>
+<pre><code>/skill my-first-skill Help me organize my project files</code></pre>
+<p>OpenCode will now use your skill’s guidelines when processing requests.</p>
+</section>
+</section>
+</section>
+<section id="building-effective-skills-lessons-from-ai-detection" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Building Effective Skills: Lessons from AI Detection</h1>
+<p>Creating a good skill requires writing clear, human-like instructions. The Wikipedia article on “Signs of AI Writing” offers valuable lessons for skill authors. Here’s how to apply those insights.</p>
+<section id="key-principles-from-ai-detection-research" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="key-principles-from-ai-detection-research"><span class="header-section-number">6.1</span> Key Principles from AI Detection Research</h2>
+<p>The Wikipedia article identifies patterns that make text sound artificial. Skill authors should avoid these:</p>
+<section id="avoid-vague-abstractions" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="avoid-vague-abstractions"><span class="header-section-number">6.1.1</span> 1. Avoid Vague Abstractions</h3>
+<p><strong>Problem</strong>: AI text often uses phrases like “serves as a testament to” or “underscores the importance of” without specifics.</p>
+<p><strong>Solution</strong>: Be concrete. Instead of:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>This skill helps users optimize their code.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Write:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>This skill reduces file processing time by up to 90% through batch optimization.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="skip-the-rule-of-three" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="skip-the-rule-of-three"><span class="header-section-number">6.1.2</span> 2. Skip the “Rule of Three”</h3>
+<p><strong>Problem</strong>: AI loves lists of three: “comprehensive, robust, and scalable.”</p>
+<p><strong>Solution</strong>: Use the number of items that makes sense. Sometimes two, sometimes five.</p>
+</section>
+<section id="dont-overstate-significance" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="dont-overstate-significance"><span class="header-section-number">6.1.3</span> 3. Don’t Overstate Significance</h3>
+<p><strong>Problem</strong>: AI constantly emphasizes importance: “This represents a pivotal moment…”</p>
+<p><strong>Solution</strong>: State facts plainly. Let the utility speak for itself.</p>
+<p><strong>Bad</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>This skill revolutionizes how you organize files, marking a paradigm shift in project workflows.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Better</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>This skill helps you organize files faster by using batch operations.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="use-simple-verbs" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="use-simple-verbs"><span class="header-section-number">6.1.4</span> 4. Use Simple Verbs</h3>
+<p><strong>Problem</strong>: AI avoids simple words like “is” or “has,” using instead “serves as” or “represents.”</p>
+<p><strong>Solution</strong>: Use direct language.</p>
+<p><strong>Bad</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>This skill serves as a comprehensive guide for file organization best practices.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Better</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>This skill is a file organization best practices guide.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="avoid-hedge-phrases" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="avoid-hedge-phrases"><span class="header-section-number">6.1.5</span> 5. Avoid Hedge Phrases</h3>
+<p><strong>Problem</strong>: AI uses vague qualifiers: “It is important to note that…” or “Crucially…”</p>
+<p><strong>Solution</strong>: Just state the fact.</p>
+</section>
+</section>
+<section id="structure-of-an-effective-skill.md" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="structure-of-an-effective-skill.md"><span class="header-section-number">6.2</span> Structure of an Effective SKILL.md</h2>
+<p>Based on these principles, here’s a complete template with the required frontmatter:</p>
+<section id="required-frontmatter-fields" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="required-frontmatter-fields"><span class="header-section-number">6.2.1</span> Required Frontmatter Fields</h3>
+<p>Each <code>SKILL.md</code> must start with YAML frontmatter. Only these fields are recognized:</p>
+<ul>
+<li><code>name</code> (required)</li>
+<li><code>description</code> (required)</li>
+<li><code>license</code> (optional)</li>
+<li><code>compatibility</code> (optional)</li>
+<li><code>metadata</code> (optional, string-to-string map)</li>
+</ul>
+<p>Unknown frontmatter fields are ignored.</p>
+</section>
+<section id="complete-template" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="complete-template"><span class="header-section-number">6.2.2</span> Complete Template</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> [skill-name]</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> [Clear explanation of what the skill does]</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="an">license:</span><span class="co"> [MIT, Apache-2.0, etc. - optional]</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="an">compatibility:</span><span class="co"> [opencode, claude, agents - optional]</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="an">metadata:</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">  [key]: [value]</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co">  [key2]: [value2]</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## What I do</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>One clear sentence describing the skill's purpose. No fluff.</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to use me</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>Practical instructions. Bullet points if needed (not always 3).</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### Core Guidelines</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Be specific about what you check or improve</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Include concrete examples</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Show before/after comparisons where helpful</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Examples</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>**Input pattern:**</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad code example here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Improved code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="what-to-avoid" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="what-to-avoid"><span class="header-section-number">6.3</span> What to Avoid</h2>
+<p>List specific mistakes this skill helps prevent.</p>
+<pre><code>
+## Example: A Condensed Writing Skill
+
+Applying these principles, here's a skill for detecting AI writing patterns (condensed from the Wikipedia article):
+
+```markdown
+# Skill: writing-skill
+
+## What I do
+
+I check writing for AI-style patterns and suggest human alternatives.
+
+## How to use me
+
+Give me text to review. I'll flag AI tells and suggest edits.
+
+## AI Patterns to Flag
+
+**Vague abstractions:**
+- "Serves as a testament to" → "Shows"
+- "Underscores the importance of" → "Highlights"
+- "Marks a pivotal moment" → "Changed"
+
+**Overused words:**
+- Delve, tapestry, landscape, realm, foster, cultivate, leverage
+- Intricate, pivotal, vibrant, crucial, seamless, innovative
+
+**Sentence structure tells:**
+- "Not only X, but also Y" padding
+- Rule of three: "A, B, and C" (always three items)
+- False ranges: "From Tokyo to the Alps" when irrelevant
+
+**Formulaic conclusions:**
+- "Despite these challenges, [subject] remains..."
+- "In summary" at the end of short texts
+- "Key takeaways" lists in prose
+
+## Human Alternatives
+
+**Instead of:** "The project serves as a vital tool for developers."
+**Use:** "Developers use this project daily."
+
+**Instead of:** "This represents a significant shift in the landscape."
+**Use:** "This changed how we work."
+
+**Instead of:** "Not only is it fast, but also reliable."
+**Use:** "It is fast and reliable."
+
+## Specificity Check
+
+I flag vague descriptions and ask for specifics:
+
+- "A variety of options" → How many? Which ones?
+- "Many experts agree" → Which experts? How many?
+- "Significant impact" → What changed? By how much?</code></pre>
+<p>This skill is concise, specific, and gives concrete examples—exactly what makes skills effective.</p>
+</section>
+</section>
+<section id="best-practices-for-skill-development" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Best Practices for Skill Development</h1>
+<section id="start-small" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="start-small"><span class="header-section-number">7.1</span> 1. Start Small</h2>
+<p>Don’t try to teach OpenCode everything about a domain. Start with one specific task:</p>
+<ul>
+<li>Good: “Optimize file organization”</li>
+<li>Too broad: “Master project management”</li>
+</ul>
+</section>
+<section id="include-concrete-examples" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="include-concrete-examples"><span class="header-section-number">7.2</span> 2. Include Concrete Examples</h2>
+<p>Always show code examples or before/after comparisons. Abstract rules are hard to apply; examples are clear.</p>
+</section>
+<section id="focus-on-what-not-just-how" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="focus-on-what-not-just-how"><span class="header-section-number">7.3</span> 3. Focus on What, Not Just How</h2>
+<p>Explain why a pattern matters:</p>
+<p><strong>Bad</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>Use vectorized operations.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Better</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>Use vectorized operations—they run 100x faster than Python loops because they execute in C.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="version-your-skills" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="version-your-skills"><span class="header-section-number">7.4</span> 4. Version Your Skills</h2>
+<p>Add a version section to track changes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Version</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>1.0: Initial release with basic patterns</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>1.1: Added error handling section</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="test-thoroughly" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="test-thoroughly"><span class="header-section-number">7.5</span> 5. Test Thoroughly</h2>
+<p>In your Terminal or PowerShell, run your skill through various scenarios:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test basic functionality</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--skill</span> my-first-skill <span class="st">"Basic task"</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test edge cases</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--skill</span> my-first-skill <span class="st">"Complex scenario"</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test error conditions</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> run <span class="at">--skill</span> my-first-skill <span class="st">"Handle exceptions"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="iterate-based-on-results" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="iterate-based-on-results"><span class="header-section-number">7.6</span> 6. Iterate Based on Results</h2>
+<p>Skills improve with use. When OpenCode produces output that misses the mark, update your skill to cover that case.</p>
+</section>
+</section>
+<section id="advanced-skill-features" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Advanced Skill Features</h1>
+<section id="using-multiple-skills" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="using-multiple-skills"><span class="header-section-number">8.1</span> Using Multiple Skills</h2>
+<p>You can combine skills for complex tasks within OpenCode:</p>
+<pre><code>/skill my-first-skill /skill writing-skill Complete this task and document it clearly</code></pre>
+<p>(Type this command after starting OpenCode in your Terminal/PowerShell)</p>
+</section>
+<section id="skill-dependencies" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="skill-dependencies"><span class="header-section-number">8.2</span> Skill Dependencies</h2>
+<p>Skills can reference other skills. Add to your SKILL.md:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dependencies</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>python-expert (for syntax questions)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>testing-skill (for validation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="conditional-logic" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="conditional-logic"><span class="header-section-number">8.3</span> Conditional Logic</h2>
+<p>Advanced skills can include conditional guidance:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to Apply</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>**If simple task:** Use basic approach</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>**If complex task:** Break into subtasks</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>**If time-sensitive:** Prioritize speed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="troubleshooting" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Troubleshooting</h1>
+<section id="installation-issues" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="installation-issues"><span class="header-section-number">9.1</span> Installation Issues</h2>
+<p><strong>“Command not found” after installation</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if binary exists</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> ~/.local/bin/opencode</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to PATH manually</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">$HOME</span><span class="st">/.local/bin:</span><span class="va">$PATH</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Winget installation fails on Windows</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update WinGet</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>winget upgrade <span class="op">--</span>all</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or use the install script</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curl</span> <span class="op">-</span>fsSL https<span class="op">://</span>opencode<span class="op">.</span><span class="fu">ai</span><span class="op">/</span>install <span class="op">|</span> bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="skill-loading-issues" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="skill-loading-issues"><span class="header-section-number">9.2</span> Skill Loading Issues</h2>
+<p><strong>“Skill not found” error</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check skill location</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/.config/opencode/skills/</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify SKILL.md exists</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.config/opencode/skills/my-skill/SKILL.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Skill doesn’t seem to work</strong></p>
+<ul>
+<li>Ensure you’re using <code>/skill skill-name</code> syntax</li>
+<li>Check that SKILL.md is valid Markdown</li>
+<li>Restart OpenCode to reload skills</li>
+</ul>
+</section>
+<section id="model-connection-issues" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="model-connection-issues"><span class="header-section-number">9.3</span> Model Connection Issues</h2>
+<p><strong>“Failed to connect to model”</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test your API key</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> configure <span class="at">--test</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check model availability</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> models list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Conclusion</h1>
+<p>You now have OpenCode installed and understand how to create custom skills. Start with the built-in capabilities, then gradually build your own skills for your specific workflows.</p>
+<p>Remember:</p>
+<ul>
+<li><strong>Skills are teaching tools</strong>: Write clear, specific instructions</li>
+<li><strong>Avoid AI patterns</strong>: Be concrete, use simple language, skip the fluff</li>
+<li><strong>Test and iterate</strong>: Skills improve with use</li>
+<li><strong>Share your skills</strong>: The community benefits from domain-specific expertise</li>
+</ul>
+<section id="next-steps" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">10.1</span> Next Steps</h2>
+<ol type="1">
+<li>Install OpenCode using the method for your OS</li>
+<li>Configure your model provider</li>
+<li>Try the built-in skills</li>
+<li>Create your first SKILL.md using the template in this guide</li>
+<li>Practice: Convert a repetitive task into a skill</li>
+</ol>
+</section>
+<section id="additional-resources" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="additional-resources"><span class="header-section-number">10.2</span> Additional Resources</h2>
+<ul>
+<li><strong>OpenCode Documentation</strong>: https://opencode.ai/docs</li>
+<li><strong>GitHub Repository</strong>: https://github.com/anomalyco/opencode</li>
+<li><strong>Discord Community</strong>: https://opencode.ai/discord</li>
+<li><strong>Model Options</strong>: https://models.dev</li>
+</ul>
+<hr>
+<p><strong>Quick Reference Card</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Install (macOS/Linux)</td>
+<td><code>curl -fsSL https://opencode.ai/install \| bash</code></td>
+</tr>
+<tr class="even">
+<td>Install (Windows)</td>
+<td><code>winget install Anomaly.OpenCode</code></td>
+</tr>
+<tr class="odd">
+<td>Configure</td>
+<td><code>opencode configure</code></td>
+</tr>
+<tr class="even">
+<td>Use a skill</td>
+<td><code>/skill skill-name your prompt</code></td>
+</tr>
+<tr class="odd">
+<td>List skills</td>
+<td><code>opencode skills list</code></td>
+</tr>
+<tr class="even">
+<td>Install skill</td>
+<td><code>opencode skills add owner/repo</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skill Directory</strong>: <code>~/.config/opencode/skills/</code></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
