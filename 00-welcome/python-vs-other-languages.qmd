@@ -2,12 +2,14 @@
 title: "Why Python for AI & Data Science?"
 subtitle: "A Language Comparison for MERN Stack Developers"
 author: "Speedykom GmbH"
-format: html
+format:
+  html:
+    number-sections: false
 jupyter: python3
 css: ../styles.css
 ---
 
-# Introduction: The Language Landscape in 2026
+## Introduction: The Language Landscape in 2026
 
 As MERN stack developers, you're already proficient in JavaScript. You might be wondering: **Why are we learning Python for AI and Data Science?** Isn't JavaScript enough?
 
@@ -15,11 +17,11 @@ In this module, we'll compare Python against other popular languages like **Rust
 
 ---
 
-# 1. Why Python, Not JavaScript?
+## Why Python, Not JavaScript?
 
 While JavaScript (especially with Node.js) is excellent for building APIs and web applications, **Python dominates the AI and Data Science space** for several strategic reasons:
 
-## 1.1 The Ecosystem Factor
+### The Ecosystem Factor
 
 Python's dominance isn't about language speed—it's about libraries:
 
@@ -27,17 +29,17 @@ Python's dominance isn't about language speed—it's about libraries:
 * **Data Processing:** Pandas, NumPy, and Polars are battle-tested tools that don't have JavaScript equivalents.
 * **Research:** Academic papers and pre-trained models are almost always released with Python APIs.
 
-## 1.2 The "Two-Language" Solution
+### The "Two-Language" Solution
 
 Python is often used as a "wrapper" for high-performance code written in C++ or Rust. While you *can* call these from JavaScript, the tooling and community support in Python are far more mature.
 
-## 1.3 Prototyping Speed
+### Prototyping Speed
 
 Python's "pseudo-code" syntax is faster for research and quick experimentation than JavaScript's more rigid structure.
 
 ---
 
-# 2. The "Triangle of Power" in 2026
+## The "Triangle of Power" in 2026
 
 The industry has settled into a "Triangle of Power" where each language owns a specific domain:
 
@@ -51,13 +53,13 @@ If you try to replace one with another, you usually end up losing the very thing
 
 ---
 
-# 3. Language Comparison: Rust vs. Zig vs. Go
+## Language Comparison: Rust vs. Zig vs. Go
 
-## 3.1 Why Rust (Not Zig) for Tools Like `uv`?
+### Why Rust (Not Zig) for Tools Like `uv`?
 
 The short answer is that while **Zig** is an incredible language for low-level systems programming, **Rust** currently offers a more mature ecosystem of "batteries-included" libraries that a tool like `uv` (created by Astral) needs to move fast.
 
-### Ecosystem Maturity (The "Crates" Factor)
+#### Ecosystem Maturity (The "Crates" Factor)
 
 To build a lightning-fast Python package manager like `uv`, you need high-performance libraries for:
 
@@ -67,31 +69,31 @@ To build a lightning-fast Python package manager like `uv`, you need high-perfor
 
 Zig is younger and doesn't yet have the same breadth of third-party libraries.
 
-### Memory Safety without a Garbage Collector
+#### Memory Safety without a Garbage Collector
 
 Rust's **Ownership and Borrowing** system provides memory-safe code at compile time without needing a garbage collector.
 
 * **Zig** takes a different approach: it makes memory management explicit and "manual" but provides better tools than C.
 * For a tool like `uv` that handles massive amounts of concurrent data, Rust's compiler acts as a "safety net" to prevent crashes and data races.
 
-### Why *might* someone have chosen Zig instead?
+#### Why *might* someone have chosen Zig instead?
 
 If the goal was strictly **binary size** or **cross-compilation simplicity**, Zig might have won. Zig is famous for its ability to cross-compile to almost any target out of the box with zero friction.
 
 ---
 
-## 3.2 Why Go Won't Replace Python or Rust
+### Why Go Won't Replace Python or Rust
 
-### Go won't replace Python (The AI & Data Barrier)
+#### Go won't replace Python (The AI & Data Barrier)
 
 Python remains the king of **AI, Machine Learning, and Data Science** because of its ecosystem. Go doesn't have a comparable ecosystem for data scientists.
 
-### Go won't replace Rust (The "Bare Metal" Barrier)
+#### Go won't replace Rust (The "Bare Metal" Barrier)
 
 * **The Garbage Collector (GC):** Go has a GC that occasionally pauses to clean up memory. This makes Go unsuitable for "hard real-time" systems.
 * **Memory Safety:** Rust guarantees memory safety at *compile-time* without a GC, making it the successor to C/C++.
 
-### Where Go IS Winning
+#### Where Go IS Winning
 
 Go has effectively "replaced" Python for **infrastructure** and "replaced" Rust for **web backends** in many companies:
 
@@ -100,11 +102,11 @@ Go has effectively "replaced" Python for **infrastructure** and "replaced" Rust 
 
 ---
 
-# 4. Learning Curve Comparison
+## Learning Curve Comparison
 
 Here is the benchmarked reality of learning **Python**, **Go**, **Rust**, and **Lua** in 2026:
 
-## 4.1 Python: The "Gentle Slope"
+### Python: The "Gentle Slope"
 
 Python is designed to be readable. If you can read English, you can understand 60% of Python code.
 
@@ -113,7 +115,7 @@ Python is designed to be readable. If you can read English, you can understand 6
 * **The Struggle:** You don't "hit a wall" with the syntax; you hit a wall with **environment management** and **concurrency**.
 * **Best For:** Beginners, Data Scientists, and AI Researchers.
 
-## 4.2 Go (Golang): The "Step Function"
+### Go (Golang): The "Step Function"
 
 Go has a tiny language specification with only about 25 keywords.
 
@@ -122,7 +124,7 @@ Go has a tiny language specification with only about 25 keywords.
 * **The Struggle:** Go is **opinionated**. You have to handle errors explicitly and un-learn Object-Oriented patterns.
 * **Best For:** Backend Engineers and DevOps.
 
-## 4.3 Rust: The "Vertical Wall"
+### Rust: The "Vertical Wall"
 
 Rust is widely considered one of the most difficult mainstream languages to learn.
 
@@ -131,7 +133,7 @@ Rust is widely considered one of the most difficult mainstream languages to lear
 * **The Struggle:** You must master **Ownership, Borrowing, Lifetimes, and Traits**.
 * **Best For:** Systems Architects and Performance-Obsessed Developers.
 
-## 4.4 Lua: The "Embedded Speedster"
+### Lua: The "Embedded Speedster"
 
 Lua is even simpler than Python. It was designed to be "embedded" inside other programs (like Roblox or World of Warcraft).
 
@@ -139,7 +141,7 @@ Lua is even simpler than Python. It was designed to be "embedded" inside other p
 * **The "Click" Moment:** **3–5 Days**
 * **The Struggle:** The quirk of arrays starting at `1` instead of `0`.
 
-## 4.5 MERN Stack: The "Architect's Challenge"
+### MERN Stack: The "Architect's Challenge"
 
 MERN isn't a language—it's a **Stack** (MongoDB, Express, React, Node).
 
@@ -149,7 +151,7 @@ MERN isn't a language—it's a **Stack** (MongoDB, Express, React, Node).
 
 ---
 
-### Learning Curve Benchmark
+#### Learning Curve Benchmark
 
 | Language / Stack | Learning Curve | The "Click" Moment | The Main Struggle |
 |------------------|---------------|---------------------|-------------------|
@@ -161,9 +163,9 @@ MERN isn't a language—it's a **Stack** (MongoDB, Express, React, Node).
 
 ---
 
-# 5. Why Python Makes Sense for MERN Developers
+## Why Python Makes Sense for MERN Developers
 
-## 5.1 Logical Next Step
+### Logical Next Step
 
 As MERN developers, you already understand:
 
@@ -177,7 +179,7 @@ As MERN developers, you already understand:
 2. **Data Handling:** Python's Pandas library does for data what React does for UI—makes it incredibly intuitive.
 3. **AI Integration:** Python is the only language where you can "talk" to AI models natively.
 
-## 5.2 A Wit-Check
+### A Wit-Check
 
 * **Python** is like a **bicycle with training wheels**: It's hard to fall off, but you won't break any speed records.
 * **Go** is like a **Honda Civic**: Simple, reliable, and you can learn to drive it in an hour.
@@ -186,7 +188,7 @@ As MERN developers, you already understand:
 
 ---
 
-# 6. Summary: Which Language to Learn?
+## Summary: Which Language to Learn?
 
 | Goal | Language to Learn |
 |------|-------------------|
@@ -198,7 +200,7 @@ As MERN developers, you already understand:
 
 ---
 
-# 7. For This Training: Why Python?
+## For This Training: Why Python?
 
 In this AI-focused training, we use Python because:
 
