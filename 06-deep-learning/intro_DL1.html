@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,10 +67,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="intro_DL1_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="intro_DL1_files/libs/quarto-html/anchor.min.js"></script>
 <link href="intro_DL1_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="intro_DL1_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="intro_DL1_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="intro_DL1_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="intro_DL1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="intro_DL1_files/libs/bootstrap/bootstrap-ad96d2b6a7098799db9dad30e985ce24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="intro_DL1_files/libs/bootstrap/bootstrap-9bbba747c1edd30b30f376e3a485b82f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -102,6 +102,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="quarto-light">
@@ -230,7 +231,7 @@ window.Quarto = {
 </header>
 
 
-<p><a href="https://colab.research.google.com/github/sisengai/TrainingMaterials/blob/main/intro_DL1.ipynb" target="_parent"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"> </a></p>
+<p><a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/06-deep-learning/intro_DL1.ipynb" target="_parent"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"> </a></p>
 <section id="philosophy-first-the-fire-then-the-physics" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Philosophy: First the Fire, Then the Physics</h1>
 <p>Most courses teach you how to build a carburetor before letting you drive a car. <strong>We do the opposite.</strong></p>
@@ -264,7 +265,7 @@ window.Quarto = {
 <li><strong>RainTomorrow</strong>: Will it rain tomorrow? (Yes/No) ← Our target</li>
 </ul>
 <p>Let’s load and explore the data:</p>
-<div id="273f4dd8" class="cell" data-execution_count="1">
+<div id="ffbc13d0" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
@@ -291,13 +292,13 @@ window.Quarto = {
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda:0"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span>)</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Using device: </span><span class="sc">{</span>device<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Using device: cuda:0</code></pre>
+<pre><code>Using device: cpu</code></pre>
 </div>
 </div>
 <section id="load-the-data" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="load-the-data"><span class="header-section-number">2.2.1</span> Load the Data</h3>
 <p>We’ll use the Australian Weather dataset from the provided URL:</p>
-<div id="0e80e099" class="cell" data-execution_count="2">
+<div id="ccfe0be7" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and load the weather dataset</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/gchoi/Dataset/refs/heads/master/weatherAUS.csv"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(url)</span>
@@ -356,7 +357,7 @@ Column names:
 <li>Split into features (X) and target (y)</li>
 <li>Convert to PyTorch tensors</li>
 </ol>
-<div id="762ec356" class="cell" data-execution_count="3">
+<div id="807bac84" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the features we want to use</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll focus on these 4 features that are good predictors of rain:</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'Rainfall'</span>, <span class="st">'Humidity3pm'</span>, <span class="st">'Pressure9am'</span>, <span class="st">'RainToday'</span>, <span class="st">'RainTomorrow'</span>]</span>
@@ -384,7 +385,7 @@ First 5 rows:
 4       0.0         67.0       1020.3        No           No</code></pre>
 </div>
 </div>
-<div id="46a54490" class="cell" data-execution_count="4">
+<div id="22e77761" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert categorical variables to numeric</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'RainToday'</span>] <span class="op">=</span> df[<span class="st">'RainToday'</span>].<span class="bu">map</span>({<span class="st">'No'</span>: <span class="dv">0</span>, <span class="st">'Yes'</span>: <span class="dv">1</span>})</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'RainTomorrow'</span>] <span class="op">=</span> df[<span class="st">'RainTomorrow'</span>].<span class="bu">map</span>({<span class="st">'No'</span>: <span class="dv">0</span>, <span class="st">'Yes'</span>: <span class="dv">1</span>})</span>
@@ -425,7 +426,7 @@ dtype: object</code></pre>
 </section>
 <section id="understanding-class-imbalance" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="understanding-class-imbalance"><span class="header-section-number">2.2.3</span> Understanding Class Imbalance</h3>
-<div id="b485142d" class="cell" data-execution_count="5">
+<div id="d7385cf0" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class distribution</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>class_counts <span class="op">=</span> df[<span class="st">'RainTomorrow'</span>].value_counts()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Class distribution:"</span>)</span>
@@ -457,7 +458,7 @@ Name: count, dtype: float64</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro_DL1_files/figure-html/cell-6-output-2.png" width="781" height="538" class="figure-img"></p>
+<p><img src="intro_DL1_files/figure-html/cell-6-output-2.png" width="773" height="536" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -491,7 +492,7 @@ Name: count, dtype: float64</code></pre>
 </li>
 <li><strong>Output</strong>: 1 neuron with Sigmoid activation (probability of rain)</li>
 </ul>
-<div id="03fb9f9a" class="cell" data-execution_count="6">
+<div id="f735a974" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data for PyTorch</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Features: Rainfall, Humidity3pm, Pressure9am, RainToday</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Target: RainTomorrow</span></span>
@@ -531,7 +532,7 @@ Input features: 4</code></pre>
 </div>
 <section id="define-the-model" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="define-the-model"><span class="header-section-number">3.2.1</span> Define the Model</h3>
-<div id="8bf5265d" class="cell" data-execution_count="7">
+<div id="008d72d9" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RainPredictor(nn.Module):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">    A neural network to predict if it will rain tomorrow.</span></span>
@@ -599,7 +600,7 @@ Total parameters: 47</code></pre>
 <p>If the input is negative, output 0. If positive, pass it through. This introduces non-linearity.</p>
 <p><strong>Sigmoid</strong>: <span class="math display">\[\text{Sigmoid}(x) = \frac{1}{1 + e^{-x}}\]</span></p>
 <p>Squishes any value to be between 0 and 1, giving us a probability.</p>
-<div id="f52880be" class="cell" data-execution_count="8">
+<div id="eb294c5b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize activation functions</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -664,7 +665,7 @@ Total parameters: 47</code></pre>
 </section>
 <section id="complete-training-loop" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="complete-training-loop"><span class="header-section-number">4.6</span> Complete Training Loop</h2>
-<div id="2fa8bb71" class="cell" data-execution_count="9">
+<div id="1d7db471" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_model(model, X_train, y_train, X_val, y_val, n_epochs<span class="op">=</span><span class="dv">100</span>, lr<span class="op">=</span><span class="fl">0.001</span>):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Train the neural network.</span></span>
@@ -754,7 +755,7 @@ Test: 6509 samples</code></pre>
 </div>
 <section id="train-the-model" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="train-the-model"><span class="header-section-number">4.6.1</span> Train the Model</h3>
-<div id="768d98a2" class="cell" data-execution_count="10">
+<div id="d7e478e8" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Training RainPredictor..."</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">50</span>)</span>
@@ -806,7 +807,7 @@ Training complete!</code></pre>
 </section>
 <section id="visualize-training-progress" class="level2" data-number="4.7">
 <h2 data-number="4.7" class="anchored" data-anchor-id="visualize-training-progress"><span class="header-section-number">4.7</span> Visualize Training Progress</h2>
-<div id="05232666" class="cell" data-execution_count="11">
+<div id="0ba9ae23" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot training history</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -833,7 +834,7 @@ Training complete!</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro_DL1_files/figure-html/cell-12-output-1.png" width="840" height="551" class="figure-img"></p>
+<p><img src="intro_DL1_files/figure-html/cell-12-output-1.png" width="839" height="551" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -845,7 +846,7 @@ Training complete!</code></pre>
 <h1 data-number="5"><span class="header-section-number">5</span> Evaluation and Understanding Predictions</h1>
 <section id="test-set-evaluation" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="test-set-evaluation"><span class="header-section-number">5.1</span> Test Set Evaluation</h2>
-<div id="8021944c" class="cell" data-execution_count="12">
+<div id="13892140" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate on test set</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>X_test_device <span class="op">=</span> X_test.to(device)</span>
@@ -896,7 +897,7 @@ weighted avg       0.81      0.83      0.81      6509
 </section>
 <section id="confusion-matrix" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">5.2</span> Confusion Matrix</h2>
-<div id="30323bc5" class="cell" data-execution_count="13">
+<div id="9c7d1996" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_true, y_pred_labels)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -911,7 +912,7 @@ weighted avg       0.81      0.83      0.81      6509
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro_DL1_files/figure-html/cell-14-output-1.png" width="658" height="538" class="figure-img"></p>
+<p><img src="intro_DL1_files/figure-html/cell-14-output-1.png" width="651" height="536" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -919,7 +920,7 @@ weighted avg       0.81      0.83      0.81      6509
 </section>
 <section id="analyzing-predictions" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="analyzing-predictions"><span class="header-section-number">5.3</span> Analyzing Predictions</h2>
-<div id="ed3d6413" class="cell" data-execution_count="14">
+<div id="3ce37d96" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show some example predictions</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
@@ -949,7 +950,7 @@ weighted avg       0.81      0.83      0.81      6509
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro_DL1_files/figure-html/cell-15-output-1.png" width="1428" height="562" class="figure-img"></p>
+<p><img src="intro_DL1_files/figure-html/cell-15-output-1.png" width="1426" height="561" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -974,7 +975,7 @@ weighted avg       0.81      0.83      0.81      6509
 <section id="an-image-is-just-a-grid-of-numbers" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="an-image-is-just-a-grid-of-numbers"><span class="header-section-number">6.2</span> An Image is Just a Grid of Numbers</h2>
 <p>Let’s load MNIST and see what images really are:</p>
-<div id="6f48ddf1" class="cell" data-execution_count="15">
+<div id="326e9662" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> datasets, transforms</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download MNIST</span></span>
@@ -1016,7 +1017,7 @@ First 10x10 pixels:
 </div>
 <section id="visualizing-the-grid" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="visualizing-the-grid"><span class="header-section-number">6.2.1</span> Visualizing the Grid</h3>
-<div id="95a76cbf" class="cell" data-execution_count="16">
+<div id="a3ae5bb1" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1032,7 +1033,7 @@ First 10x10 pixels:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro_DL1_files/figure-html/cell-17-output-1.png" width="842" height="503" class="figure-img"></p>
+<p><img src="intro_DL1_files/figure-html/cell-17-output-1.png" width="842" height="502" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1046,7 +1047,7 @@ First 10x10 pixels:
 <p><span class="math display">\[
 28 \times 28 = 784 \text{ pixels}
 \]</span></p>
-<div id="34cb7a5d" class="cell" data-execution_count="17">
+<div id="9a45fc78" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show flattening process</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sample_idx <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>image, label <span class="op">=</span> mnist_train[sample_idx]</span>
@@ -1093,7 +1094,7 @@ First 50 pixel values:
 <section id="simple-mnist-model" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="simple-mnist-model"><span class="header-section-number">6.4</span> Simple MNIST Model</h2>
 <p>Just like our weather predictor, we can build a simple model for MNIST:</p>
-<div id="8f44ff9e" class="cell" data-execution_count="18">
+<div id="ae4fbf6f" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimpleMNISTNet(nn.Module):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Simple neural network for MNIST digit classification.</span></span>
@@ -1137,7 +1138,7 @@ Total parameters: 101,770</code></pre>
 </section>
 <section id="the-power-of-pixels" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="the-power-of-pixels"><span class="header-section-number">6.5</span> The Power of Pixels</h2>
-<div id="1c864aaf" class="cell" data-execution_count="19">
+<div id="d6f647e4" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize what each pixel contributes</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">5</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
@@ -1161,7 +1162,7 @@ Total parameters: 101,770</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro_DL1_files/figure-html/cell-20-output-1.png" width="842" height="505" class="figure-img"></p>
+<p><img src="intro_DL1_files/figure-html/cell-20-output-1.png" width="842" height="504" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1197,7 +1198,7 @@ Total parameters: 101,770</code></pre>
 \]</span></p>
 <section id="visual-example" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="visual-example"><span class="header-section-number">7.2.1</span> Visual Example</h3>
-<div id="d4abb67e" class="cell" data-execution_count="20">
+<div id="9488e0f1" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a visualization of the chain rule</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>ax.axis(<span class="st">'off'</span>)</span>
@@ -1252,7 +1253,7 @@ Total parameters: 101,770</code></pre>
 <p><strong>The Magic</strong>: PyTorch tracks every operation and builds a <strong>computation graph</strong>. When you call <code>.backward()</code>, it automatically applies the chain rule!</p>
 <section id="simple-example" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="simple-example"><span class="header-section-number">7.3.1</span> Simple Example</h3>
-<div id="a2f989c2" class="cell" data-execution_count="21">
+<div id="8abd5733" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple computation</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.tensor(<span class="fl">2.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> torch.tensor(<span class="fl">3.0</span>, requires_grad<span class="op">=</span><span class="va">True</span>)</span>
@@ -1287,7 +1288,7 @@ Gradients:
 </section>
 <section id="in-our-neural-network" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="in-our-neural-network"><span class="header-section-number">7.3.2</span> In Our Neural Network</h3>
-<div id="71703ffd" class="cell" data-execution_count="22">
+<div id="92dd2382" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple example with our weather model</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>sample_model <span class="op">=</span> RainPredictor(<span class="dv">4</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>sample_input <span class="op">=</span> torch.randn(<span class="dv">1</span>, <span class="dv">4</span>)  <span class="co"># Random input</span></span>
@@ -1339,7 +1340,7 @@ Gradient sample values: tensor([0., 0., 0.])</code></pre>
 <p><strong>The Problem</strong>: PyTorch <strong>accumulates</strong> gradients by default. Without clearing them, gradients add up across batches.</p>
 <p><strong>The Solution</strong>: Call <code>optimizer.zero_grad()</code> before each backward pass.</p>
 <p><strong>Analogy</strong>: You’re hiking and want to know which way is downhill. You don’t average yesterday’s slope with today’s—you want a fresh measurement.</p>
-<div id="126cdb7b" class="cell" data-execution_count="23">
+<div id="5027f886" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate gradient accumulation</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>demo_model <span class="op">=</span> RainPredictor(<span class="dv">4</span>)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>demo_optimizer <span class="op">=</span> optim.Adam(demo_model.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>)</span>
@@ -1494,7 +1495,7 @@ Always call optimizer.zero_grad() before backward().</code></pre>
 <section id="exercise-1-modify-the-network-architecture" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="exercise-1-modify-the-network-architecture"><span class="header-section-number">11.1</span> Exercise 1: Modify the Network Architecture</h2>
 <p>Try different architectures and compare results:</p>
-<div id="29ae3c35" class="cell" data-execution_count="24">
+<div id="24beef61" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CustomRainPredictor(nn.Module):</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, n_features, hidden_size<span class="op">=</span><span class="dv">10</span>):</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(CustomRainPredictor, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -1519,7 +1520,7 @@ Always call optimizer.zero_grad() before backward().</code></pre>
 </section>
 <section id="exercise-2-learning-rate-experiments" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="exercise-2-learning-rate-experiments"><span class="header-section-number">11.2</span> Exercise 2: Learning Rate Experiments</h2>
-<div id="8a911d1a" class="cell" data-execution_count="25">
+<div id="f8488a71" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try different learning rates and compare convergence:</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>learning_rates <span class="op">=</span> [<span class="fl">0.0001</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.1</span>]</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1541,7 +1542,7 @@ Always call optimizer.zero_grad() before backward().</code></pre>
 </section>
 <section id="exercise-3-handle-class-imbalance" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="exercise-3-handle-class-imbalance"><span class="header-section-number">11.3</span> Exercise 3: Handle Class Imbalance</h2>
-<div id="f107e78c" class="cell" data-execution_count="26">
+<div id="aa97ede9" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try using class weights to handle imbalance</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils.class_weight <span class="im">import</span> compute_class_weight</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1560,7 +1561,7 @@ Always call optimizer.zero_grad() before backward().</code></pre>
 </section>
 <section id="exercise-4-feature-importance" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="exercise-4-feature-importance"><span class="header-section-number">11.4</span> Exercise 4: Feature Importance</h2>
-<div id="71969ba4" class="cell" data-execution_count="27">
+<div id="402328d7" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize what the first layer learned</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> deep_model.layers[<span class="dv">0</span>].weight.data.cpu()</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1579,7 +1580,7 @@ Always call optimizer.zero_grad() before backward().</code></pre>
 </section>
 <section id="exercise-5-mnist-exploration" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="exercise-5-mnist-exploration"><span class="header-section-number">11.5</span> Exercise 5: MNIST Exploration</h2>
-<div id="137c4e6f" class="cell" data-execution_count="28">
+<div id="38bf4b2b" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load MNIST and explore</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> datasets</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1605,7 +1606,7 @@ Always call optimizer.zero_grad() before backward().</code></pre>
 </section>
 <section id="exercise-6-chain-rule-practice" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="exercise-6-chain-rule-practice"><span class="header-section-number">11.6</span> Exercise 6: Chain Rule Practice</h2>
-<div id="71711e4a" class="cell" data-execution_count="29">
+<div id="f4d95462" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual chain rule calculation</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>

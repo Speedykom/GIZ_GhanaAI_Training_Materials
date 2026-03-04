@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,10 +67,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="intro_pandas2_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="intro_pandas2_files/libs/quarto-html/anchor.min.js"></script>
 <link href="intro_pandas2_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="intro_pandas2_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="intro_pandas2_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="intro_pandas2_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="intro_pandas2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="intro_pandas2_files/libs/bootstrap/bootstrap-ad96d2b6a7098799db9dad30e985ce24.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="intro_pandas2_files/libs/bootstrap/bootstrap-9bbba747c1edd30b30f376e3a485b82f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -130,6 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/04-data-analysis/intro_pandas2.ipynb" target="_parent"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"> </a></p>
 <section id="the-visualization-landscape" class="level1">
 <h1>1. The Visualization Landscape</h1>
 <p>In the MERN world, you might use D3.js or Chart.js for data visualization. In Python, the landscape is built on layers:</p>
@@ -147,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-implicit-interface-pyplot---discouraged" class="level3">
 <h3 class="anchored" data-anchor-id="the-implicit-interface-pyplot---discouraged">❌ The Implicit Interface (<code>pyplot</code>) - Discouraged</h3>
 <p>This is the “Quick &amp; Dirty” way. It uses global states and is often seen in old stackoverflow posts.</p>
-<div id="bcc0df55" class="cell" data-execution_count="1">
+<div id="0b5bbf6f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -160,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"❌ Discouraged: No explicit control"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/.venv/lib/python3.13/site-packages/IPython/core/pylabtools.py:170: UserWarning:
+<pre><code>C:\Users\User1\Documents\GIZ_GhanaAI_Training_Materials\.venv\Lib\site-packages\IPython\core\pylabtools.py:170: UserWarning:
 
 Glyph 10060 (\N{CROSS MARK}) missing from font(s) DejaVu Sans.
 </code></pre>
@@ -178,7 +179,7 @@ Glyph 10060 (\N{CROSS MARK}) missing from font(s) DejaVu Sans.
 <section id="the-explicit-interface-the-oop-way---recommended" class="level3">
 <h3 class="anchored" data-anchor-id="the-explicit-interface-the-oop-way---recommended">✅ The Explicit Interface (The OOP Way) - Recommended</h3>
 <p>This is the <strong>Professional Standard.</strong> You explicitly create “Figure” and “Axes” objects.</p>
-<div id="17edefef" class="cell" data-execution_count="2">
+<div id="057b8677" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the figure (the canvas) and the axes (the drawing area)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -193,7 +194,7 @@ Glyph 10060 (\N{CROSS MARK}) missing from font(s) DejaVu Sans.
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/home/siseng_ai/Documents/Ubuntu_2404/Speedykom/Ghana_AI/TrainingMaterials/.venv/lib/python3.13/site-packages/IPython/core/pylabtools.py:170: UserWarning:
+<pre><code>C:\Users\User1\Documents\GIZ_GhanaAI_Training_Materials\.venv\Lib\site-packages\IPython\core\pylabtools.py:170: UserWarning:
 
 Glyph 9989 (\N{WHITE HEAVY CHECK MARK}) missing from font(s) DejaVu Sans.
 </code></pre>
@@ -253,7 +254,7 @@ Glyph 9989 (\N{WHITE HEAVY CHECK MARK}) missing from font(s) DejaVu Sans.
 <section id="our-recommended-workflow-pandas-.plot-explicit-injection" class="level1">
 <h1>4. Our Recommended Workflow: Pandas <code>.plot()</code> + Explicit Injection</h1>
 <p>This is the most efficient way to work. You use the convenience of Pandas but the power of OOP by <strong>injecting</strong> theAxes object.</p>
-<div id="83d280cf" class="cell" data-execution_count="3">
+<div id="4b58212a" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-using our startup data</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>startup_data <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"company"</span>: [<span class="st">"Hubtel"</span>, <span class="st">"Zeepay"</span>, <span class="st">"Jetstream"</span>, <span class="st">"Farmerline"</span>],</span>
@@ -303,7 +304,7 @@ Glyph 9989 (\N{WHITE HEAVY CHECK MARK}) missing from font(s) DejaVu Sans.
 <section id="the-seaborn-integration-pattern" class="level3">
 <h3 class="anchored" data-anchor-id="the-seaborn-integration-pattern">5.1 The Seaborn Integration Pattern</h3>
 <p>To use Seaborn in a professional (OOP) workflow, you create your <code>ax</code> object first, then pass it to the Seaborn function.</p>
-<div id="dd0296b7" class="cell" data-execution_count="4">
+<div id="41072d19" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load a classic dataset</span></span>
@@ -347,7 +348,7 @@ Glyph 9989 (\N{WHITE HEAVY CHECK MARK}) missing from font(s) DejaVu Sans.
 <section id="heatmaps-for-feature-correlation" class="level3">
 <h3 class="anchored" data-anchor-id="heatmaps-for-feature-correlation">5.2 Heatmaps for Feature Correlation</h3>
 <p>In AI Engineering, you will constantly use <strong>Heatmaps</strong> to check for “Multicollinearity” (when features are too similar).</p>
-<div id="660beece" class="cell" data-execution_count="5">
+<div id="5acbb595" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a correlation matrix of numeric columns</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> tips.select_dtypes(include<span class="op">=</span>[np.number]).corr()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -402,7 +403,7 @@ Glyph 9989 (\N{WHITE HEAVY CHECK MARK}) missing from font(s) DejaVu Sans.
 <h1>7. Practice Challenge: Ghana Tourism Analysis</h1>
 <p>Given the following tourism data, create a professional figure with <strong>two subplots</strong> (side-by-side): 1. A line plot showing tourists over time. 2. A bar chart showing revenue by region.</p>
 <p><em>Requirement: Use the Explicit (OOP) <code>fig, ax</code> interface.</em></p>
-<div id="17eb8899" class="cell" data-execution_count="6">
+<div id="70b5d445" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tourism_years <span class="op">=</span> [<span class="dv">2018</span>, <span class="dv">2019</span>, <span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tourists_k <span class="op">=</span> [<span class="dv">950</span>, <span class="dv">1130</span>, <span class="dv">350</span>, <span class="dv">620</span>, <span class="dv">980</span>] <span class="co"># Drop due to 2020</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
