@@ -10,6 +10,7 @@ format:
     number-sections: false
     code-fold: false
     theme: cosmo
+    css: ../styles.css
   pdf:
     documentclass: scrartcl
     papersize: letter

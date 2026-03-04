@@ -2,32 +2,12 @@
 title: "Installing and Configuring OpenCode"
 subtitle: "A Student Guide to CLI-First AI Development"
 author: "Speedykom GmbH"
-date: today
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    code-fold: false
-    theme: cosmo
-    css: ../styles.css
-  pdf:
-    documentclass: scrartcl
-    papersize: letter
-    geometry: margin=1in
-    code-block-font-size: 9pt
-    code-block-bg: true
-    code-overflow: wrap
-    include-in-header:
-      text: |
-        \usepackage{fvextra}
-        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
-execute:
-  eval: false
-  echo: true
+format: html
+jupyter: python3
+css: ../styles.css
 ---
 
-# Introduction
+# 1. Introduction
 
 OpenCode is an open-source AI coding agent that runs in your terminal. This guide walks you through installing it on your laptop and teaches you how to extend its capabilities using custom skills. Unlike many AI tools that require expensive subscriptions, OpenCode connects to various model providers—including free options—giving you flexibility and control.
 
@@ -39,7 +19,7 @@ OpenCode is an open-source AI coding agent that runs in your terminal. This guid
 - **Terminal-native**: Works entirely in your command line interface
 - **Extensible**: Create custom skills to teach the AI domain-specific knowledge
 
-# Installing OpenCode
+# 2. Installing OpenCode
 
 ## System Requirements
 
@@ -135,7 +115,7 @@ Windows users can install via WinGet, the official Windows package manager.
 
 **Using WinGet (Recommended):**
 
-Open PowerShell as Administrator (right-click on Start menu → "Windows PowerShell (Admin)" or "Terminal (Admin)"):
+Open PowerShell as Administrator (right-click on Start menu -> "Windows PowerShell (Admin)" or "Terminal (Admin)"):
 
 ```powershell
 winget install Anomaly.OpenCode
@@ -171,7 +151,7 @@ This command guides you through:
 2. **Setting default behaviors**: Configure whether to auto-execute commands or ask for confirmation
 3. **Git integration**: Optionally link your GitHub account for enhanced features
 
-# Connecting to OpenRouter (Recommended for Students)
+# 3. Connecting to OpenRouter (Recommended for Students)
 
 ## What is OpenRouter?
 
@@ -208,7 +188,7 @@ This command guides you through:
 
 ### Step 2: Get Your API Key
 
-1. Go to [https://openrouter.ai/settings/keys](https://openrouter.ai/settings/keys) (or click "Settings" → "Keys" in the menu)
+1. Go to [https://openrouter.ai/settings/keys](https://openrouter.ai/settings/keys) (or click "Settings" -> "Keys" in the menu)
 2. Click the "Create Key" button
 3. Give your key a name (e.g., "OpenCode-Laptop")
 4. Copy the API key (it looks like `sk-or-v1-...`)
@@ -223,10 +203,10 @@ Open your Terminal (macOS/Linux) or PowerShell (Windows) and run:
 opencode configure
 ```
 
-When prompted to select a model provider:
-1. Choose "OpenRouter" from the list
-2. Paste your API key when asked
-3. Select your preferred model (we recommend starting with a free model like `openai/gpt-4o-mini` or `anthropic/claude-3-haiku`)
+When prompted to select a model provider: 
+1. Choose "OpenRouter" from the list 
+2. Paste your API key when asked 
+3. Select your preferred model (we recommend starting with a free model like `openai/gpt-4o-mini` or `anthropic/claude-3-haiku`) 
 4. Save the configuration
 
 **Test your connection**:
@@ -249,12 +229,12 @@ If you get a response, you're all set!
 
 OpenRouter offers both free and paid models:
 
-**Free Models** (great for learning):
+**Free Models** (great for learning): 
 - `openai/gpt-4o-mini` - Fast and capable
 - `google/gemini-flash-1.5` - Good for longer conversations
 - `meta-llama/llama-3.1-8b-instruct` - Open source option
 
-**Paid Models** (when you need more power):
+**Paid Models** (when you need more power): 
 - `anthropic/claude-opus-4` - Best for complex coding tasks
 - `openai/gpt-4o` - Great all-rounder
 - `google/gemini-2.5-pro` - Excellent for reasoning
@@ -267,7 +247,7 @@ OpenRouter offers both free and paid models:
 - **Credits**: Add credits under "Billing" if you want to use paid models
 - **Model Browser**: [https://openrouter.ai/models](https://openrouter.ai/models) - Explore all available models with pricing
 
-# OpenCode Zen: Free Access to Premium Chinese Models
+# 4. OpenCode Zen: Free Access to Premium Chinese Models
 
 ## What is OpenCode Zen?
 
@@ -285,21 +265,21 @@ OpenRouter offers both free and paid models:
 
 ### Free/Cheap Tier Models:
 
-**MinMax M2.5** (Highly Recommended)
-- 80.2% on SWE-Bench benchmarks
-- Excellent for complex coding tasks
-- Costs around $1/hour of usage
+**MinMax M2.5** (Highly Recommended) 
+- 80.2% on SWE-Bench benchmarks 
+- Excellent for complex coding tasks 
+- Costs around $1/hour of usage 
 - Great Claude Opus alternative
 
-**Kimi K2.5** by Moonshot AI
-- 1 trillion parameter Mixture-of-Experts model
-- Activates 32 billion parameters per step
-- Excellent at reasoning, coding, and visual understanding
-- Supports up to 100 parallel sub-agents
+**Kimi K2.5** by Moonshot AI 
+- 1 trillion parameter Mixture-of-Experts model 
+- Activates 32 billion parameters per step 
+- Excellent at reasoning, coding, and visual understanding 
+- Supports up to 100 parallel sub-agents 
 - Open-weight model (you can download and run locally)
 
-**Other Chinese Models**:
-- Various models from Alibaba, Baidu, and other Chinese AI labs
+**Other Chinese Models**: 
+- Various models from Alibaba, Baidu, and other Chinese AI labs 
 - Often cheaper than Western equivalents with similar performance
 
 ## How to Access OpenCode Zen
@@ -332,10 +312,10 @@ In your Terminal/PowerShell, run:
 opencode configure
 ```
 
-When prompted:
-1. Select "OpenCode Zen" as your provider
-2. Paste your Zen API key
-3. Choose your preferred model (e.g., `minimax/m2.5` or `moonshotai/kimi-k2.5`)
+When prompted: 
+1. Select "OpenCode Zen" as your provider 
+2. Paste your Zen API key 
+3. Choose your preferred model (e.g., `minimax/m2.5` or `moonshotai/kimi-k2.5`) 
 4. Save the configuration
 
 ### Step 4: Test Your Connection
@@ -375,6 +355,7 @@ You'll see the OpenCode prompt appear. Now you can:
 ### Example Conversations
 
 **Getting help with code:**
+
 ```
 > opencode
 
@@ -384,6 +365,7 @@ OpenCode: Let me help you with that IndexError. This usually happens when...
 ```
 
 **Working on a project:**
+
 ```
 > opencode
 
@@ -393,6 +375,7 @@ OpenCode: I'll read main.py for you. [Reads file] This file contains...
 ```
 
 **Switching models (if needed):**
+
 ```
 You: /model minimax/m2.5
 
@@ -402,11 +385,13 @@ OpenCode: Switched to MinMax M2.5 model.
 ## Free vs Paid Usage
 
 ### Free Tier (Subject to Change):
+
 - Limited requests per day
 - Rate limiting may apply
 - Perfect for learning and small projects
 
 ### Paid Tier:
+
 - Higher rate limits
 - Priority access
 - Still significantly cheaper than direct API access
@@ -442,7 +427,7 @@ OpenCode supports multiple model providers:
 
 Start with the free tier to explore before committing to paid options.
 
-# Understanding Skills
+# 5. Understanding Skills
 
 ## What Are Skills?
 
@@ -452,7 +437,7 @@ Skills are stored as `SKILL.md` files in the `~/.config/opencode/skills/` direct
 
 ## The Anthropic Connection: Why SKILL.md Exists
 
-**Anthropic developed the SKILL.md format for Claude Code**, their AI coding assistant. They recognized that AI agents need structured, reusable instructions to handle complex, domain-specific tasks consistently. 
+**Anthropic developed the SKILL.md format for Claude Code**, their AI coding assistant. They recognized that AI agents need structured, reusable instructions to handle complex, domain-specific tasks consistently.
 
 ### Why Anthropic Created SKILL.md:
 
@@ -542,8 +527,7 @@ mkdir -p ~/.config/opencode/skills/my-first-skill
 
 ### Step 2: Write the SKILL.md File
 
-Using your text editor (VS Code, nano, vim, or any text editor), create a file at:
-`~/.config/opencode/skills/my-first-skill/SKILL.md`
+Using your text editor (VS Code, nano, vim, or any text editor), create a file at: `~/.config/opencode/skills/my-first-skill/SKILL.md`
 
 Copy and paste this content (this is the proper YAML frontmatter format):
 
@@ -569,7 +553,7 @@ metadata:
 Use this when you need to organize messy project directories or set up a new project structure. Ask clarifying questions if the project type or requirements are unclear.
 ```
 
-#### Understanding the Frontmatter Fields
+### Understanding the Frontmatter Fields
 
 The YAML frontmatter at the top of every SKILL.md file contains metadata that OpenCode uses to discover and manage skills:
 
@@ -582,7 +566,7 @@ The YAML frontmatter at the top of every SKILL.md file contains metadata that Op
   - Valid: `git-release`, `code-review`, `my-skill`
   - Invalid: `MySkill`, `my--skill`, `-my-skill`, `my_skill`
 
-- **`description`** (required): A brief explanation of what the skill does
+- **`description`** (required): A Brief explanation of what the skill does
   - Must be 1–1024 characters
   - Should be specific enough for the agent to choose correctly
   - This appears in the skill list when agents query available skills
@@ -628,7 +612,7 @@ Start OpenCode in your Terminal/PowerShell, then type:
 
 OpenCode will now use your skill's guidelines when processing requests.
 
-# Building Effective Skills: Lessons from AI Detection
+# 6. Building Effective Skills: Lessons from AI Detection
 
 Creating a good skill requires writing clear, human-like instructions. The Wikipedia article on "Signs of AI Writing" offers valuable lessons for skill authors. Here's how to apply those insights.
 
@@ -665,11 +649,13 @@ This skill reduces file processing time by up to 90% through batch optimization.
 **Solution**: State facts plainly. Let the utility speak for itself.
 
 **Bad**:
+
 ```markdown
 This skill revolutionizes how you organize files, marking a paradigm shift in project workflows.
 ```
 
 **Better**:
+
 ```markdown
 This skill helps you organize files faster by using batch operations.
 ```
@@ -681,11 +667,13 @@ This skill helps you organize files faster by using batch operations.
 **Solution**: Use direct language.
 
 **Bad**:
+
 ```markdown
 This skill serves as a comprehensive guide for file organization best practices.
 ```
 
 **Better**:
+
 ```markdown
 This skill is a file organization best practices guide.
 ```
@@ -750,71 +738,13 @@ Practical instructions. Bullet points if needed (not always 3).
 ```python
 # Improved code here
 ```
+```
 
 ## What to Avoid
 
 List specific mistakes this skill helps prevent.
-```
 
-## Example: A Condensed Writing Skill
-
-Applying these principles, here's a skill for detecting AI writing patterns (condensed from the Wikipedia article):
-
-```markdown
-# Skill: writing-skill
-
-## What I do
-
-I check writing for AI-style patterns and suggest human alternatives.
-
-## How to use me
-
-Give me text to review. I'll flag AI tells and suggest edits.
-
-## AI Patterns to Flag
-
-**Vague abstractions:**
-- "Serves as a testament to" → "Shows"
-- "Underscores the importance of" → "Highlights"
-- "Marks a pivotal moment" → "Changed"
-
-**Overused words:**
-- Delve, tapestry, landscape, realm, foster, cultivate, leverage
-- Intricate, pivotal, vibrant, crucial, seamless, innovative
-
-**Sentence structure tells:**
-- "Not only X, but also Y" padding
-- Rule of three: "A, B, and C" (always three items)
-- False ranges: "From Tokyo to the Alps" when irrelevant
-
-**Formulaic conclusions:**
-- "Despite these challenges, [subject] remains..."
-- "In summary" at the end of short texts
-- "Key takeaways" lists in prose
-
-## Human Alternatives
-
-**Instead of:** "The project serves as a vital tool for developers."
-**Use:** "Developers use this project daily."
-
-**Instead of:** "This represents a significant shift in the landscape."
-**Use:** "This changed how we work."
-
-**Instead of:** "Not only is it fast, but also reliable."
-**Use:** "It is fast and reliable."
-
-## Specificity Check
-
-I flag vague descriptions and ask for specifics:
-
-- "A variety of options" → How many? Which ones?
-- "Many experts agree" → Which experts? How many?
-- "Significant impact" → What changed? By how much?
-```
-
-This skill is concise, specific, and gives concrete examples—exactly what makes skills effective.
-
-# Best Practices for Skill Development
+# 7. Best Practices for Skill Development
 
 ## 1. Start Small
 
@@ -832,11 +762,13 @@ Always show code examples or before/after comparisons. Abstract rules are hard t
 Explain why a pattern matters:
 
 **Bad**:
+
 ```markdown
 Use vectorized operations.
 ```
 
 **Better**:
+
 ```markdown
 Use vectorized operations—they run 100x faster than Python loops because they execute in C.
 ```
@@ -871,7 +803,7 @@ opencode run --skill my-first-skill "Handle exceptions"
 
 Skills improve with use. When OpenCode produces output that misses the mark, update your skill to cover that case.
 
-# Advanced Skill Features
+# 8. Advanced Skill Features
 
 ## Using Multiple Skills
 
@@ -906,7 +838,7 @@ Advanced skills can include conditional guidance:
 **If time-sensitive:** Prioritize speed
 ```
 
-# Troubleshooting
+# 9. Troubleshooting
 
 ## Installation Issues
 
@@ -960,7 +892,7 @@ opencode configure --test
 opencode models list
 ```
 
-# Conclusion
+# 10. Conclusion
 
 You now have OpenCode installed and understand how to create custom skills. Start with the built-in capabilities, then gradually build your own skills for your specific workflows.
 
@@ -988,7 +920,7 @@ Remember:
 
 ---
 
-**Quick Reference Card**
+## Quick Reference Card
 
 | Task | Command |
 |------|---------|

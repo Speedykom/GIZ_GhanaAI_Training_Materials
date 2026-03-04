@@ -10,14 +10,20 @@ format:
     theme: cosmo
     code-block-bg: true
     code-block-border-left: "#31BAE9"
+    css: ../styles.css
 jupyter: python3
 ---
+
+<a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/05-machine-learning/intro_ML3.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 # 1. The Wisdom of Crowds
 
 ### Why Combine Models?
 
 In previous notebooks, we learned about individual models:
+
 - **Linear Regression**: Simple, interpretable baseline
 - **Logistic Regression**: Good for classification with linear boundaries
 - **Decision Tree**: Interpretable, captures non-linear patterns
@@ -110,9 +116,20 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
+import os
+import urllib.request
+
+# Auto-download dataset if not present (works on Colab and local)
+data_path = 'data/house_rentals.csv'
+if not os.path.exists(data_path):
+    print("Dataset not found locally. Downloading from GitHub...")
+    os.makedirs('data', exist_ok=True)
+    url = "https://raw.githubusercontent.com/Speedykom/GIZ_GhanaAI_Training_Materials/main/05-machine-learning/data/house_rentals.csv"
+    urllib.request.urlretrieve(url, data_path)
+    print("Download complete!")
 
 # Load Ghana housing data
-df_ghana = pd.read_csv('data/house_rentals.csv')
+df_ghana = pd.read_csv(data_path)
 
 # Prepare features and target
 features_for_model = [
@@ -399,8 +416,9 @@ Let's build a complete pipeline comparing all ensemble regression methods on the
 ### Step 1: Data Preparation
 
 ```{python}
-# Load Ghana housing data
-df_ghana = pd.read_csv('data/house_rentals.csv')
+# Data is already loaded at the top of the notebook!
+# If you need to reload for any reason:
+# df_ghana = pd.read_csv('data/house_rentals.csv')
 
 # Prepare features
 features_for_model = [
@@ -613,6 +631,7 @@ plt.show()
 
 ```{python}
 # When to use:
+
 # - Need quick baseline
 # - Need to explain decisions
 # - Small dataset
@@ -632,6 +651,7 @@ print(f"Decision Tree Baseline RMSE: ₵{rmse_baseline:,.2f}")
 
 ```{python}
 # When to use:
+
 # - Most regression problems
 # - Need robust model that generalizes well
 # - Moderate computational budget
@@ -843,8 +863,9 @@ Your turn! Build a complete ensemble pipeline for **house price prediction** usi
 ```{python}
 #| eval: false
 
-# Load Ghana housing data
-df_ghana = pd.read_csv('data/house_rentals.csv')
+# Data is already loaded at the top of this notebook!
+# If you need to reload:
+# df_ghana = pd.read_csv('data/house_rentals.csv')
 
 # Your task:
 # 1. Explore the data (describe(), correlations, distributions)

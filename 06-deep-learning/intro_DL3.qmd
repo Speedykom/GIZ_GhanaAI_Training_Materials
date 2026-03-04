@@ -11,10 +11,11 @@ format:
     code-fold: false
     code-block-bg: true
     code-block-border-left: "#31BAE9"
+    css: ../styles.css
 jupyter: python3
 ---
 
-<a href="https://colab.research.google.com/github/sisengai/TrainingMaterials/blob/main/intro_DL3.ipynb" target="_parent">
+<a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/06-deep-learning/intro_DL3.ipynb" target="_parent">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -37,6 +38,7 @@ Most organizations don't have these resources. But here is the good news: **we d
 **The analogy:** Imagine learning to drive a truck after learning to drive a car. You don't relearn what a steering wheel is or how brakes work. You just adapt your existing knowledge.
 
 **In deep learning:**
+
 - Models trained on ImageNet learn general visual features
 - Early layers detect edges, textures, shapes
 - These features are useful for almost any vision task
@@ -89,11 +91,13 @@ print(f"Output classes: {resnet18.fc.out_features}")
 ## The Two-Phase Approach
 
 **Phase 1: Feature Extraction**
+
 - Freeze all pre-trained layers
 - Only train a new final layer
 - Fast training, prevents overfitting
 
 **Phase 2: Fine-Tuning (optional)**
+
 - Unfreeze later layers
 - Train with very low learning rate
 - Adapts features to your specific task
@@ -156,6 +160,63 @@ The cassava dataset is located in `cassava_dataset/data/` and contains 5 classes
 ## Student Workflow Guide
 
 Follow these steps to build your cassava disease classifier:
+
+::: {.callout-warning}
+## ⚠️ Dataset Setup - IMPORTANT!
+
+This notebook uses the **Cassava Leaf Disease Classification** dataset from Kaggle (~1.3 GB).
+
+**If you are running on Google Colab:**
+Run the cell below - it will prompt you to upload your `kaggle.json` file directly in the browser.
+
+**If you are running locally (with GPU):**
+Make sure you have your `kaggle.json` file in `~/.kaggle/kaggle.json` (or run `kaggle datasets download` manually).
+:::
+
+```{python}
+#| eval: false
+# This cell handles dataset download for both Colab and Local environments
+
+import os
+from pathlib import Path
+
+# Check if dataset already exists
+data_dir = Path('cassava_dataset/data')
+if data_dir.exists() and len(list(data_dir.glob('*'))) > 0:
+    print("✅ Cassava dataset found locally. Ready to proceed!")
+else:
+    print("⚠️ Dataset not found. Setting up Kaggle download...")
+    
+    # Detect environment
+    try:
+        from google.colab import files
+        IN_COLAB = True
+        print("\n💻 Detected Google Colab environment.")
+        print("📤 Please upload your 'kaggle.json' file when prompted:")
+        
+        # Upload kaggle.json in Colab
+        uploaded = files.upload()
+        
+        # Move to correct location
+        os.makedirs('/root/.kaggle', exist_ok=True)
+        os.system('cp kaggle.json /root/.kaggle/')
+        os.system('chmod 600 /root/.kaggle/kaggle.json')
+        
+    except ImportError:
+        IN_COLAB = False
+        print("\n🖥️ Detected local environment.")
+        print("📁 Please ensure 'kaggle.json' is in ~/.kaggle/ or current directory")
+    
+    # Download dataset
+    print("\n📥 Downloading Cassava dataset from Kaggle (~1.3 GB)...")
+    print("   This may take several minutes depending on your internet speed...")
+    
+    os.system('pip install -q kaggle')
+    os.system('kaggle datasets download nirmalsankalana/cassava-leaf-disease-classification --unzip -p cassava_dataset')
+    
+    print("\n✅ Download and extraction complete!")
+    print("   You can now proceed with the rest of the notebook.")
+```
 
 ### Setup and Explore
 
@@ -546,6 +607,7 @@ scheduler = optim.lr_scheduler.OneCycleLR(
 ```
 
 **Benefits:**
+
 - Escapes local minima during high LR phase
 - Fine convergence during low LR phase
 
@@ -563,6 +625,7 @@ Already included in our pipeline above:
 ## Why Interpretability Matters
 
 In production (especially healthcare, agriculture, finance):
+
 - **Regulations** may require explainable decisions
 - **Trust:** Users need to understand why
 - **Debugging:** Find failure modes
@@ -719,6 +782,7 @@ class CassavaPredictor:
 ### Compare Architectures
 
 Test different pre-trained models (ResNet34, MobileNet, EfficientNet) and compare:
+
 - Number of parameters
 - Training time
 - Final accuracy
@@ -726,6 +790,7 @@ Test different pre-trained models (ResNet34, MobileNet, EfficientNet) and compar
 ### Data Augmentation Experiments
 
 Try different augmentation strategies:
+
 - Remove rotation
 - Add more color jitter
 - Try random crop with different scales
@@ -733,6 +798,7 @@ Try different augmentation strategies:
 ### Build a Web API
 
 Create a simple Flask or FastAPI application that:
+
 - Accepts image uploads
 - Returns disease prediction and confidence
 - Shows top-3 predictions
@@ -746,12 +812,14 @@ Convert your model to TensorFlow Lite or Core ML for mobile deployment.
 **Congratulations!** You now know how to apply transfer learning to real agricultural problems and deploy models to production.
 
 **Next Steps:**
+
 - Experiment with different architectures
 - Collect more training data for better accuracy
 - Deploy your model as a mobile app for farmers
 - Monitor performance in production
 
 **Additional Resources:**
+
 - Check the `docs/` folder for reference materials
 - PyTorch documentation: https://pytorch.org/docs/
 - Transfer learning tutorial: https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html

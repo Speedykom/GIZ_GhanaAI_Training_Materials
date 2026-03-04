@@ -10,8 +10,13 @@ format:
     theme: cosmo
     code-block-bg: true
     code-block-border-left: "#31BAE9"
+    css: ../styles.css
 jupyter: python3
 ---
+
+<a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/05-machine-learning/intro_ML2.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 # 1. Regression vs. Classification
 
@@ -31,16 +36,19 @@ In the previous notebook, we learned about **regression**—predicting continuou
 ### Real-World Classification Examples
 
 **Business:**
+
 - Customer churn prediction (will they leave? Yes/No)
 - Credit card fraud detection (fraudulent? Yes/No)
 - Lead qualification (hot/warm/cold)
 
 **Healthcare:**
+
 - Disease diagnosis (positive/negative)
 - Patient readmission risk (high/medium/low)
 - Treatment success prediction (success/failure)
 
 **Technology:**
+
 - Spam detection (spam/ham)
 - Sentiment analysis (positive/negative/neutral)
 - Image recognition (what object is in this image?)
@@ -463,6 +471,7 @@ plt.show()
 ```
 
 **Key properties:**
+
 - Input = -10 → Output ≈ 0
 - Input = 0 → Output = 0.5
 - Input = 10 → Output ≈ 1

@@ -10,8 +10,13 @@ format:
     theme: cosmo
     code-block-bg: true
     code-block-border-left: "#31BAE9"
+    css: ../styles.css
 jupyter: python3
 ---
+
+<a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/04-data-analysis/intro_pandas3.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 # 1. Why "Tidy" Data Matters
 

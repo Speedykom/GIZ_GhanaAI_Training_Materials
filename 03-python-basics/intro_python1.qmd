@@ -4,6 +4,7 @@ subtitle: "Lesson 1: Variables & Data Structures"
 format: html
 editor: visual
 jupyter: python3
+css: ../styles.css
 ---
 
 # 1. The Mindset Shift: JS vs. Python
@@ -70,6 +71,53 @@ print(stack[0:2]) # ['React', 'Express']
 # Adding
 stack.append("Python") # JS: .push()
 print(stack)
+```
+
+### Advanced Lists & Mixed Data Types
+
+Lists in Python can hold mixed data types, including numbers, strings, and even formatted f-strings. Let's look at a more complex list and use `len()` to check how many items it holds.
+
+```{python}
+#| code-fold: false
+# A list containing different types of string formats
+tech_stack = [
+    "Python",           # Single word
+    "Data Science",     # String with a space
+    "Agentic AI",       
+    "Tamale",           # A city in Ghana
+    "Machine Learning", 
+    "Pandas",           
+    "Jupyter Lab",      
+    "uv package manager", 
+    "2026",             # Number as a string
+    f"User_{42}"        # An f-string evaluated dynamically
+]
+
+# Verify how many items are in our stack
+print(f"Total items in tech_stack: {len(tech_stack)}")
+```
+
+You can also use a third parameter in slicing called the **step**. A negative step lets you traverse the list backwards or skip elements.
+
+```{python}
+#| code-fold: false
+# [start:stop:step] - A step of -2 reads backwards, skipping every other item
+print(tech_stack[::-2])
+```
+
+### Removing Items: The `.pop()` Method
+
+While `.append()` adds to the end of a list, `.pop()` removes the last item and *returns* it to you so you can use it in a variable.
+
+```{python}
+#| code-fold: false
+languages = ["Python", "JavaScript", "Java", "C++", "Rust", "Zig"]
+
+# Remove and capture the last element
+last_born = languages.pop()
+
+print(f"Removed item: {last_born}")
+print(f"Remaining list: {languages}")
 ```
 
 ::: callout-note
@@ -272,6 +320,41 @@ print(user["name"])
 # Safe Access (prevents crashing if key missing)
 print(user.get("salary", 0)) # JS: user.salary || 0
 ```
+
+### Building Dictionaries Dynamically
+
+You don't always have to create a dictionary with data already inside it. Often, you will start with an empty dictionary `{}` and add keys dynamically as your program runs.
+
+```{python}
+#| code-fold: false
+# Initialize an empty dictionary
+student_records = {}
+
+# Dynamically add a new key and assign it a list
+student_records["names"] = ["Joshua", "Derrode"]
+print(student_records)
+```
+
+::: callout-important
+## 🧪 Mini-Task: Dynamic Dictionary Building
+
+Try it yourself! Create an empty dictionary called `app_config`. Then, dynamically add a key called `"theme"` with the value `"dark"`, and a key called `"version"` with the value `1.0`.
+
+```{python}
+#| eval: false
+
+# 1. Initialize an empty dictionary
+app_config = ...
+
+# 2. Add the "theme" key with value "dark"
+app_config[...] = "dark"
+
+# 3. Add the "version" key with value 1.0 (as a float, not string)
+app_config[...] = ...
+
+print("Config:", app_config)
+```
+:::
 
 ::: callout-note
 ## Real-World AI Connection: Model Metadata

@@ -4,6 +4,7 @@ subtitle: "Lesson 2: Control Flow, Loops & Functions"
 format: html
 editor: visual
 jupyter: python3
+css: ../styles.css
 ---
 
 # Learning Objectives
@@ -70,7 +71,13 @@ This is equivalent to JavaScript's `for...of` loop.
 
 ```{python}
 #| code-fold: false
-stack = ["React", "Express", "Node", "Python"]
+stack = [
+    "React", "Express", "Node", "Python", 
+    "JavaScript", "Java", "C++", "Rust", 
+    "Zig", "Typescript", "OCaml", "R", 
+    "Angular", "php", "Vue JS", "Lua", 
+    "Odin", "Go", "Dart"
+]
 
 # The Python Way
 for tech in stack:
@@ -117,6 +124,38 @@ scores = [85, 92, 78]
 for name, score in zip(names, scores):
     print(f"{name} scored {score}")
 ```
+
+You are not limited to just two lists! You can zip three, four, or as many iterables as you need.
+
+```{python}
+#| code-fold: false
+names = ["Alice", "Bob", "Charlie"]
+scores = [85, 92, 78]
+roles = ["Admin", "User", "Moderator"]
+
+# Looping through three lists simultaneously
+for name, score, role in zip(names, scores, roles):
+    print(f"{name} ({role}) scored {score}")
+```
+
+::: {.callout-important}
+## 🧪 Mini-Task: Multi-Zip
+
+Fill in the missing pieces to combine these three lists into a single formatted sentence per city.
+
+```{python}
+#| eval: false
+
+cities = ["Accra", "Kumasi", "Tamale"]
+temps = [32, 28, 35]
+conditions = ["Sunny", "Cloudy", "Dry"]
+
+# 1. Provide the three loop variables and the three lists to zip
+for ..., ..., ... in zip(..., ..., ...):
+    # 2. Complete the f-string to print: "It is [condition] and [temp] degrees in [city]."
+    print(f"It is {...} and {...} degrees in {...}.")
+```
+:::
 
 ::: {.callout-note}
 ## Real-World AI Connection: Pairing Data
@@ -197,6 +236,7 @@ for letter, num in zip(letters, numbers):
 
 ::: {.callout-tip}
 ## Best Practice
+
 - Use `zip()` when you're **certain** both iterables are the same length
 - Use `zip_longest()` when lengths might differ and you need all data
 - **Never** use `zip()` with sets in production code (unpredictable order)
@@ -250,6 +290,39 @@ if len(features) != len(labels):
 This is the **most important tool** for data cleaning. It replaces `.map()` and `.filter()`.
 
 **Syntax:** `[expression for item in list if condition]`
+
+## The Bridge: Traditional Loop vs. Comprehension
+
+Before looking at the syntax, let's look at *why* we use comprehensions. Suppose we want to multiply every number in a list by 5. 
+
+Here is the traditional way using a standard `for` loop and `.append()`:
+
+```{python}
+#| code-fold: false
+nu_list = [2, 3, 7, 11, 3, 0.312, 45, 78, 32, 12, 71]
+
+# 1. Create an empty list
+prod = []
+
+# 2. Loop through the original list
+for item in nu_list:
+    # 3. Do the math
+    ans = item * 5
+    # 4. Append to the new list
+    prod.append(ans)
+
+print("Traditional Loop:", prod)
+```
+
+Now, here is the exact same logic written as a **List Comprehension**. It collapses those 4 lines of code into a single, elegant line:
+
+```{python}
+#| code-fold: false
+# [expression FOR item IN iterable]
+prod2 = [item * 5 for item in nu_list]
+
+print("List Comprehension:", prod2)
+```
 
 ## Example 1: The `.map()` Equivalent
 
@@ -311,6 +384,7 @@ result = [WHAT_TO_KEEP for ITEM in SOURCE if CONDITION]
 ```
 
 **Step-by-step translation:**
+
 1. Find what's being **appended** → This becomes `WHAT_TO_KEEP`
 2. Find the **loop variable** → This becomes `ITEM in SOURCE`
 3. Find any **if statement** → This becomes the `if CONDITION`
@@ -873,6 +947,7 @@ You've now mastered the core control flow patterns in Python:
 Before moving to Pandas and Data Science, we need to cover one more foundation:
 
 **Lesson 3: Classes & OOP**
+
 - Understanding `self` and `__init__`
 - Building data models
 - Working with class methods
@@ -902,6 +977,7 @@ This will prepare you for understanding how libraries like Pandas and PyTorch ar
 ::: {.callout-tip}
 ## Testing Your Code
 Remember to test each function with different inputs. Think about edge cases:
+
 - What if the list is empty?
 - What if all items are filtered out?
 - What if someone passes unexpected data types?

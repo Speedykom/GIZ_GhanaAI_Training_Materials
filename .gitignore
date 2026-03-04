@@ -11,3 +11,22 @@ cassava_dataset/
 # Copyrighted notebooks
 08-resources/032-traffic-data-as-images-and-video.ipynb
 08-resources/033-object-detection-with-yolov8.ipynb
+
+# Local datasets - students download when needed
+06-deep-learning/setup_gtsrb.py
+06-deep-learning/cassava_data.py
+06-deep-learning/data/
+05-machine-learning/data/
+
+# Rendered outputs (generated locally, not needed in repo)
+**/*.html
+**/*.pdf
+
+# Generated assets from Quarto rendering
+**/*_files/
+
+# Model weights (large binary files)
+*.pth
+*.h5
+*.ckpt
+*.bin

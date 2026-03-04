@@ -3,6 +3,7 @@ title: "Module 1: Environment Setup"
 subtitle: "Python, package management"
 author: [Speedykom GmbH, WINS Global Consult]
 format: html
+css: ../styles.css
 ---
 
 # Introduction: Why Setup Matters

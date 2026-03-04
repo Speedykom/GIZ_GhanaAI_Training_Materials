@@ -10,8 +10,13 @@ format:
     theme: cosmo
     code-block-bg: true
     code-block-border-left: "#31BAE9"
+    css: ../styles.css
 jupyter: python3
 ---
+
+<a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/05-machine-learning/intro_ML1.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 # 1. What is Machine Learning?
 
@@ -126,6 +131,7 @@ A straight line has the formula:
 $$y = mx + c$$
 
 Where:
+
 - $y$ = what we predict (Fahrenheit)
 - $x$ = what we know (Celsius)
 - $m$ = slope (how fast the line rises)
@@ -547,9 +553,25 @@ Now let's work with a **real Ghana housing dataset from Kaggle**. This dataset c
 
 ### Loading the Ghana Housing Dataset
 
+This code works seamlessly whether you're running locally (with GPU) or on Google Colab. It automatically checks if the dataset exists locally first, and downloads it from GitHub only if needed.
+
 ```{python}
+#| code-fold: false
 # Load Ghana housing data
-df_ghana = pd.read_csv('data/house_rentals.csv')
+import os
+import urllib.request
+
+data_path = 'data/house_rentals.csv'
+
+# Check if the file exists locally (for offline students with cloned repo)
+if not os.path.exists(data_path):
+    print("Dataset not found locally. Downloading from GitHub...")
+    os.makedirs('data', exist_ok=True)
+    url = "https://raw.githubusercontent.com/Speedykom/GIZ_GhanaAI_Training_Materials/main/05-machine-learning/data/house_rentals.csv"
+    urllib.request.urlretrieve(url, data_path)
+    print("Download complete!")
+
+df_ghana = pd.read_csv(data_path)
 
 print(f"Ghana Housing Dataset shape: {df_ghana.shape}")
 print(f"\nColumns: {df_ghana.columns.tolist()}")
@@ -1028,6 +1050,7 @@ Is your target a number or category?
 ### When Each Problem Type is Appropriate
 
 **Regression is best for:**
+
 - House price prediction
 - Sales forecasting
 - Temperature prediction
@@ -1036,6 +1059,7 @@ Is your target a number or category?
 - Stock price prediction
 
 **Classification is best for:**
+
 - Spam detection
 - Fraud detection
 - Disease diagnosis
@@ -1046,14 +1070,17 @@ Is your target a number or category?
 ### Common Mistakes
 
 ❌ **Using classification for regression problems**
+
 - Example: Binning house prices into "expensive/mid/cheap" categories loses precision
 - Result: Less accurate than regression
 
 ❌ **Using regression for classification problems**
+
 - Example: Predicting probability of spam (0.3) loses interpretability
 - Result: Less interpretable than classification
 
 ✅ **Match the algorithm to the problem**
+
 - If target is continuous → Use regression models
 - If target is categorical → Use classification models
 

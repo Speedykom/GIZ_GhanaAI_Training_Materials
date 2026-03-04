@@ -11,10 +11,11 @@ format:
     code-fold: false
     code-block-bg: true
     code-block-border-left: "#31BAE9"
+    css: ../styles.css
 jupyter: python3
 ---
 
-<a href="https://colab.research.google.com/github/sisengai/TrainingMaterials/blob/main/intro_DL2.ipynb" target="_parent">
+<a href="https://colab.research.google.com/github/Speedykom/GIZ_GhanaAI_Training_Materials/blob/main/06-deep-learning/intro_DL2.ipynb" target="_parent">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -34,6 +35,7 @@ python setup_gtsrb.py
 ```
 
 This will:
+
 - Download ~300MB of real traffic sign images
 - Organize them into train/val/test folders
 - Takes about 2-3 minutes
@@ -826,6 +828,7 @@ print("   Notice the variations in lighting, angle, and quality.")
 ### Why We Need Preprocessing
 
 Real-world images have challenges:
+
 - **Different sizes**: Traffic sign photos vary in resolution
 - **Lighting changes**: Day, night, shadows, glare
 - **Angles**: Signs viewed from different perspectives
@@ -884,6 +887,7 @@ Think of a DataLoader as a **smart delivery system** for your training data:
 - **Automatic collation**: ImageFolder handles combining samples automatically
 
 **Why batch_size = 32?**
+
 - Too small (e.g., 1): Slow training, noisy gradients
 - Too large (e.g., 256): Might run out of GPU memory
 - 32 is a good balance for most GPUs
@@ -1519,6 +1523,7 @@ resnet.fc = nn.Linear(resnet.fc.in_features, 4)
 **Weight Sharing**: Same kernel used across entire image → fewer parameters
 
 **Feature Hierarchy**: 
+
 - Layer 1: Detects edges and colors
 - Layer 2: Detects textures and patterns  
 - Layer 3: Detects object parts

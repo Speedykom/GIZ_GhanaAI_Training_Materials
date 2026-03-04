@@ -4,6 +4,7 @@ subtitle: "Part 3: Advanced Structure (Classes, Lambdas, & Modules)"
 format: html
 editor: visual
 jupyter: python3
+css: ../styles.css
 ---
 
 # Welcome to Lesson 3: Advanced Python Patterns
@@ -556,6 +557,46 @@ emp1.promote("Senior Dev", 25000)
 In a real-world app, these methods might also trigger external events. For example, the `promote` method could internally call a function to **update the database** or **send a Slack notification** to the team.
 
 
+::: {.callout-important}
+## 🧪 Mini-Task: Create your own Child Class
+
+Let's practice inheritance! Complete the code below to make a `Smartphone` class that inherits from a `Device` class.
+
+```{python}
+#| eval: false
+
+# 1. The Parent Class
+class Device:
+    def __init__(self, brand, battery_level=100):
+        self.brand = ... # Assign the brand parameter
+        self.battery_level = ... # Assign the battery_level parameter
+        
+    def charge(self):
+        self.battery_level = 100
+        print(f"{self.brand} is fully charged!")
+
+# 2. The Child Class (Inherits from Device)
+class Smartphone(...):
+    # We don't need to write __init__ here, it automatically uses the Parent's!
+    
+    # Let's add a specific method just for Smartphones
+    def install_app(self, app_name):
+        # Installing an app drains the battery by 5
+        self.battery_level = self.battery_level - ...
+        print(f"Installed {app_name} on {self.brand}. Battery now: {self.battery_level}%")
+
+# 3. Testing it out
+# Instantiate a new Smartphone
+my_phone = Smartphone("Samsung")
+
+# Use the child's unique method
+my_phone.install_app("WhatsApp")
+
+# Use the parent's inherited method
+my_phone.charge()
+```
+:::
+
 
 ---
 
@@ -928,22 +969,26 @@ In this lesson, you mastered the core architectural patterns for Python AI/ML de
 - Perfect for simple transformations
 
 ## 2. Classes & OOP
+
 - Classes are blueprints, objects are instances
 - `self` is mandatory in methods (unlike JavaScript's `this`)
 - Inheritance lets you build on existing classes
 - Critical for organizing AI models and data pipelines
 
 ## 3. Error Handling
+
 - `try...except` blocks prevent crashes
 - Essential for production pipelines processing thousands of files
 - Continue processing after errors, don't crash completely
 
 ## 4. Modules & Imports
+
 - Python uses named imports only (no `export default`)
 - `__init__.py` marks folders as packages
 - Three import styles: full module, specific items, or aliased
 
 ## 5. Practical Integration
+
 - Combined all concepts in a real-world Student Registration System
 - Used lambdas for calculations
 - Applied error handling for validation
