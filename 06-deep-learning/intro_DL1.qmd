@@ -578,6 +578,76 @@ with torch.no_grad():
 
 ---
 
+# Deep Learning vs. Machine Learning: When to Use What?
+
+## Why Are We Using Weather Prediction to Learn Deep Learning?
+
+You might be wondering: *"The weather prediction problem we just solved used **Linear Regression** and **Logistic Regression** - those are traditional Machine Learning techniques, not Deep Learning! Why are we in a Deep Learning course?"*
+
+Great question! The answer is that **the weather problem is a "bridge"** - it helped you understand the fundamentals of:
+- Training and testing data
+- Features and targets
+- Model evaluation (RMSE, Accuracy)
+- Overfitting and underfitting
+
+Now, we're crossing the bridge to Deep Learning. But when should you use which?
+
+## Machine Learning vs. Deep Learning: The Key Differences
+
+| Aspect | Traditional Machine Learning | Deep Learning |
+|:-------|:---------------------------:|:-------------:|
+| **Data Requirements** | Works well with small datasets (100s-10,000s) | Needs large datasets (10,000s - millions) |
+| **Feature Engineering** | **You** must manually engineer features | Neural networks **learn** features automatically |
+| **Computational Power** | Runs on CPU in seconds/minutes | Requires GPU (or lots of time on CPU) |
+| **Interpretability** | Easy to understand (coefficients, trees) | "Black box" - hard to explain decisions |
+| **Best For** | Tabular data, structured problems | Images, text, audio, complex patterns |
+
+## When to Use Traditional Machine Learning?
+
+Use **Linear Regression, Logistic Regression, Random Forest, XGBoost** when:
+
+1. **You have small data** - Less than 10,000 samples
+2. **Features are already well-understood** - You know which variables matter
+3. **You need interpretability** - You must explain the model to stakeholders
+4. **Computational resources are limited** - No GPU available
+5. **Quick baseline needed** - ML models train in seconds
+
+**Examples:**
+- Predicting house prices (our Ghana housing data!)
+- Customer churn prediction
+- Credit scoring
+- Medical diagnosis with clear biomarkers
+
+## When to Use Deep Learning?
+
+Use **Neural Networks** when:
+
+1. **You have massive data** - Hundreds of thousands or millions of samples
+2. **Data is unstructured** - Images, text, audio, video
+3. **Features are hard to engineer** - You don't know what features to extract
+4. **Complex patterns** - Image recognition, NLP, game playing
+5. **You have GPU** - Training is much faster with graphics cards
+
+**Examples:**
+- Image classification (self-driving cars, medical scans)
+- Language translation (Google Translate)
+- Voice assistants (Alexa, Siri)
+- Generating art (DALL-E, Midjourney)
+
+## The Golden Rule
+
+> **"If you can solve it with traditional ML, don't use Deep Learning."**
+> 
+> - Deep Learning requires more data, more compute, and is harder to debug
+> - Start simple! Use Random Forest or XGBoost as your baseline
+> - Only move to Deep Learning if ML doesn't achieve good results
+
+## Our Journey
+
+In this course, we'll use the **weather problem** to build intuition about ML fundamentals, then apply those concepts to **neural networks** that can tackle image data (handwritten digits, traffic signs, and plant diseases).
+
+---
+
 # Understanding MNIST: Images as Numbers
 
 Now that we've mastered tabular data with the weather problem, let's extend our knowledge to **image data**. This bridges us toward Notebook 2 where we'll work with color images.
