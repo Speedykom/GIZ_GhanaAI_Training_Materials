@@ -1,7 +1,7 @@
 ---
 title: "Building an AI-Powered Chatbot: From Simple Scraper to CodeTrain Agent"
 subtitle: "A Complete Development Report"
-author: "Speedykom Group"
+author: "Speedykom Group GmbH"
 date: "February 25, 2026"
 date-format: long
 format:
@@ -10,7 +10,7 @@ format:
     toc-depth: 3
     code-fold: true
     theme: cosmo
-    css: ../styles.css
+    css: styles.css
   pdf:
     documentclass: article
     geometry: margin=1in

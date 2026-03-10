@@ -1,7 +1,7 @@
 ---
 title: "Notebook 1: Foundations & The Chaining Philosophy"
 subtitle: "Ghana AI Talent Accelerator - Practical Data Wrangling"
-author: "Ghana AI Accelerator"
+author: "Speedykom Group GmbH"
 format:
   html:
     toc: true
@@ -10,7 +10,7 @@ format:
     theme: cosmo
     code-block-bg: true
     code-block-border-left: "#31BAE9"
-    css: ../styles.css
+    css: styles.css
 jupyter: python3
 ---
 

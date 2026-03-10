@@ -1,7 +1,7 @@
 ---
 title: "Notebook 1: Your First Neural Network - Predicting Rain with PyTorch"
 subtitle: "Ghana AI Talent Accelerator - Deep Learning Foundations"
-author: "Ghana AI Accelerator"
+author: "Speedykom Group GmbH"
 format:
   html:
     toc: true
@@ -11,7 +11,7 @@ format:
     code-fold: false
     code-block-bg: true
     code-block-border-left: "#31BAE9"
-    css: ../styles.css
+    css: styles.css
 jupyter: python3
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: "Module 2: Professional Version Control"
 subtitle: "Git, GitHub, and AI Engineering Standards"
-author: [Speedykom GmbH, WINS Global Consult]
+author: "Speedykom Group GmbH"
 format: html
-css: ../styles.css
+css: styles.css
 ---
 
 # 1. The "Time Machine" for Code

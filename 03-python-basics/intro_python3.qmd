@@ -4,7 +4,7 @@ subtitle: "Part 3: Advanced Structure (Classes, Lambdas, & Modules)"
 format: html
 editor: visual
 jupyter: python3
-css: ../styles.css
+css: styles.css
 ---
 
 # Welcome to Lesson 3: Advanced Python Patterns

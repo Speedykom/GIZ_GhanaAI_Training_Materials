@@ -1,0 +1,75 @@
+/* -------------------- */
+/* Brand Colors & Palette */
+/* -------------------- */
+:root {
+  --primary-blue: #004367;   /* main headings, accents */
+  --primary-teal: #56A09A;   /* links, buttons, highlights */
+
+  --bg-light: #F8FAFC;       /* page background */
+  --text-dark: #0F172A;      /* main text */
+  --text-light: #FFFFFF;      /* for dark backgrounds/buttons */
+}
+
+/* -------------------- */
+/* Body & Typography */
+/* -------------------- */
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--primary-blue);
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+/* Links */
+a {
+  color: var(--primary-teal);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}
+
+/* Buttons */
+button, .button {
+  background-color: var(--primary-teal);
+  color: var(--text-light);
+  padding: 0.5em 1.2em;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover, .button:hover {
+  background-color: var(--primary-blue);
+}
+
+/* Accent blocks / highlights */
+.accent-block {
+  background-color: var(--primary-blue);
+  color: var(--text-light);
+  padding: 1em;
+  border-radius: 6px;
+  margin-bottom: 1em;
+}
+
+/* Code blocks */
+pre, code {
+  background-color: #E5E7EB;
+  padding: 0.3em 0.5em;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+}

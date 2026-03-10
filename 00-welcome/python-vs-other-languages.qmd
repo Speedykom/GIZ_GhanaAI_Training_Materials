@@ -1,12 +1,12 @@
 ---
 title: "Why Python for AI & Data Science?"
 subtitle: "A Language Comparison for MERN Stack Developers"
-author: "Speedykom GmbH"
+author: "Speedykom Group GmbH"
 format:
   html:
     number-sections: false
 jupyter: python3
-css: ../styles.css
+css: styles.css
 ---
 
 ## Introduction: The Language Landscape in 2026

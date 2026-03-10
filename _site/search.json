@@ -1,0 +1,9 @@
+[
+  {
+    "objectID": "05-machine-learning/intro_ML2.html#youve-learned",
+    "href": "05-machine-learning/intro_ML2.html#youve-learned",
+    "title": "Notebook 2: Classification - From Regression to Decision Boundaries",
+    "section": "You’ve Learned",
+    "text": "You’ve Learned\n✅ The difference between regression and classification\n✅ How logistic regression works and why we need the sigmoid function\n✅ How to build and interpret decision trees\n✅ How to evaluate classification models (accuracy, precision, recall, F1)\n✅ When to use logistic regression vs. decision trees\n✅ The overfitting problem and how to prevent it"
+  }
+]

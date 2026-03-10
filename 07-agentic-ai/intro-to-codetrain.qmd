@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Agentic AI and CodeTrain"
 subtitle: "Understanding AI Agents and Workflow Orchestration"
-author: "Speedykom GmbH"
+author: "Speedykom Group GmbH"
 date: today
 format:
   html:
@@ -10,7 +10,7 @@ format:
     number-sections: false
     code-fold: false
     theme: cosmo
-    css: ../styles.css
+    css: styles.css
   pdf:
     documentclass: scrartcl
     papersize: letter

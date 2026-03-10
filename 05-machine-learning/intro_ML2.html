@@ -102,6 +102,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="quarto-light">
@@ -150,6 +151,8 @@ window.Quarto = {
   <li><a href="#evaluating-classification-models" id="toc-evaluating-classification-models" class="nav-link" data-scroll-target="#evaluating-classification-models">Evaluating Classification Models</a></li>
   <li><a href="#visualizing-the-confusion-matrix" id="toc-visualizing-the-confusion-matrix" class="nav-link" data-scroll-target="#visualizing-the-confusion-matrix">Visualizing the Confusion Matrix</a></li>
   <li><a href="#interpreting-the-confusion-matrix" id="toc-interpreting-the-confusion-matrix" class="nav-link" data-scroll-target="#interpreting-the-confusion-matrix">Interpreting the Confusion Matrix</a></li>
+  <li><a href="#making-sense-of-metrics-a-local-analogy" id="toc-making-sense-of-metrics-a-local-analogy" class="nav-link" data-scroll-target="#making-sense-of-metrics-a-local-analogy">Making Sense of Metrics: A Local Analogy</a></li>
+  <li><a href="#how-to-choose-precision-vs.-recall-vs.-f1" id="toc-how-to-choose-precision-vs.-recall-vs.-f1" class="nav-link" data-scroll-target="#how-to-choose-precision-vs.-recall-vs.-f1">How to Choose: Precision vs.&nbsp;Recall vs.&nbsp;F1?</a></li>
   </ul></li>
   <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees">5. Decision Trees</a>
   <ul class="collapse">
@@ -249,9 +252,24 @@ window.Quarto = {
 </section>
 <section id="real-world-classification-examples" class="level3">
 <h3 class="anchored" data-anchor-id="real-world-classification-examples">Real-World Classification Examples</h3>
-<p><strong>Business:</strong> - Customer churn prediction (will they leave? Yes/No) - Credit card fraud detection (fraudulent? Yes/No) - Lead qualification (hot/warm/cold)</p>
-<p><strong>Healthcare:</strong> - Disease diagnosis (positive/negative) - Patient readmission risk (high/medium/low) - Treatment success prediction (success/failure)</p>
-<p><strong>Technology:</strong> - Spam detection (spam/ham) - Sentiment analysis (positive/negative/neutral) - Image recognition (what object is in this image?)</p>
+<p><strong>Business:</strong></p>
+<ul>
+<li>Customer churn prediction (will they leave? Yes/No)</li>
+<li>Credit card fraud detection (fraudulent? Yes/No)</li>
+<li>Lead qualification (hot/warm/cold)</li>
+</ul>
+<p><strong>Healthcare:</strong></p>
+<ul>
+<li>Disease diagnosis (positive/negative)</li>
+<li>Patient readmission risk (high/medium/low)</li>
+<li>Treatment success prediction (success/failure)</li>
+</ul>
+<p><strong>Technology:</strong></p>
+<ul>
+<li>Spam detection (spam/ham)</li>
+<li>Sentiment analysis (positive/negative/neutral)</li>
+<li>Image recognition (what object is in this image?)</li>
+</ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -289,7 +307,7 @@ window.Quarto = {
 </section>
 <section id="loading-the-iris-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="loading-the-iris-dataset">Loading the Iris Dataset</h3>
-<div id="18061880" class="cell">
+<div id="f68f9907" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -307,7 +325,7 @@ window.Quarto = {
 </section>
 <section id="exploring-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="exploring-the-data">Exploring the Data</h3>
-<div id="ba829900" class="cell">
+<div id="22779478" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DataFrame for easier exploration</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_iris <span class="op">=</span> pd.DataFrame(iris.data, columns<span class="op">=</span>iris.feature_names)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_iris[<span class="st">'species'</span>] <span class="op">=</span> pd.Categorical.from_codes(iris.target, iris.target_names)</span>
@@ -325,7 +343,7 @@ window.Quarto = {
 <section id="visualizing-the-iris-data" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-the-iris-data">Visualizing the Iris Data</h3>
 <p>Let’s visualize the data to see how the different species are separated:</p>
-<div id="e6c14b91" class="cell">
+<div id="36e13165" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
@@ -415,7 +433,7 @@ window.Quarto = {
 <section id="training-a-simple-classifier-on-iris" class="level3">
 <h3 class="anchored" data-anchor-id="training-a-simple-classifier-on-iris">Training a Simple Classifier on Iris</h3>
 <p>Let’s train our first classification model using Logistic Regression:</p>
-<div id="1108ede6" class="cell">
+<div id="85296e28" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -451,7 +469,7 @@ window.Quarto = {
 </section>
 <section id="visualizing-predictions" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-predictions">Visualizing Predictions</h3>
-<div id="00e0509b" class="cell">
+<div id="ea26b316" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predictions with probabilities</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y_pred_iris <span class="op">=</span> logreg_iris.predict(X_test_iris_scaled)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>y_proba_iris <span class="op">=</span> logreg_iris.predict_proba(X_test_iris_scaled)</span>
@@ -477,7 +495,7 @@ window.Quarto = {
 <p>Now that we’ve learned classification with the Iris dataset, let’s tackle a more complex, real-world problem: <strong>predicting passenger survival on the Titanic</strong>.</p>
 <section id="loading-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="loading-the-dataset">Loading the Dataset</h3>
-<div id="2d4da892" class="cell">
+<div id="6d68c621" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -495,7 +513,7 @@ window.Quarto = {
 </section>
 <section id="understanding-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-the-data">Understanding the Data</h3>
-<div id="51adda54" class="cell">
+<div id="1c0da4ef" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Key columns</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>key_columns <span class="op">=</span> {</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'survived'</span>: <span class="st">'Did the passenger survive? (0 = No, 1 = Yes)'</span>,</span>
@@ -515,7 +533,7 @@ window.Quarto = {
 </section>
 <section id="exploratory-data-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
-<div id="f5f2f4af" class="cell">
+<div id="106e9eb3" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Survival rate</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>survival_rate <span class="op">=</span> titanic[<span class="st">'survived'</span>].mean()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Overall survival rate: </span><span class="sc">{</span>survival_rate<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
@@ -533,7 +551,7 @@ window.Quarto = {
 </section>
 <section id="visualizing-survival-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-survival-patterns">Visualizing Survival Patterns</h3>
-<div id="c03e7f3a" class="cell">
+<div id="0b2f6488" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Survival by Class</span></span>
@@ -579,7 +597,7 @@ window.Quarto = {
 </section>
 <section id="data-preprocessing" class="level3">
 <h3 class="anchored" data-anchor-id="data-preprocessing">Data Preprocessing</h3>
-<div id="338ef6bf" class="cell">
+<div id="e486549a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant features</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'pclass'</span>, <span class="st">'sex'</span>, <span class="st">'age'</span>, <span class="st">'sibsp'</span>, <span class="st">'parch'</span>, <span class="st">'fare'</span>, <span class="st">'embarked'</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> <span class="st">'survived'</span></span>
@@ -609,7 +627,7 @@ window.Quarto = {
 </section>
 <section id="prepare-for-machine-learning" class="level3">
 <h3 class="anchored" data-anchor-id="prepare-for-machine-learning">Prepare for Machine Learning</h3>
-<div id="83c22530" class="cell">
+<div id="c5b8f34f" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -637,7 +655,7 @@ window.Quarto = {
 <section id="why-linear-regression-fails-for-classification" class="level3">
 <h3 class="anchored" data-anchor-id="why-linear-regression-fails-for-classification">Why Linear Regression Fails for Classification</h3>
 <p>If we try to use linear regression for classification, we get a problem:</p>
-<div id="e08bc5b4" class="cell">
+<div id="67608cba" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -661,7 +679,7 @@ window.Quarto = {
 <p>The sigmoid function “squashes” any value into the range [0, 1]:</p>
 <p><span class="math display">\[\sigma(z) = \frac{1}{1 + e^{-z}}\]</span></p>
 <p>Let’s visualize it:</p>
-<div id="8a37fa4d" class="cell">
+<div id="83669ac7" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sigmoid <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>z))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -681,7 +699,12 @@ window.Quarto = {
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Key properties:</strong> - Input = -10 → Output ≈ 0 - Input = 0 → Output = 0.5 - Input = 10 → Output ≈ 1</p>
+<p><strong>Key properties:</strong></p>
+<ul>
+<li>Input = -10 → Output ≈ 0</li>
+<li>Input = 0 → Output = 0.5</li>
+<li>Input = 10 → Output ≈ 1</li>
+</ul>
 </section>
 <section id="logistic-regression-formula" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression-formula">Logistic Regression Formula</h3>
@@ -723,7 +746,7 @@ window.Quarto = {
 <section id="logistic-regression-on-iris-multi-class" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression-on-iris-multi-class">Logistic Regression on Iris (Multi-Class)</h3>
 <p>We already trained Logistic Regression on the Iris dataset earlier. Let’s explore it in more detail:</p>
-<div id="6741c677" class="cell">
+<div id="26f4f401" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Revisit Iris Logistic Regression</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Logistic Regression on Iris Dataset:"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Number of classes: </span><span class="sc">{</span><span class="bu">len</span>(logreg_iris.classes_)<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -744,7 +767,7 @@ window.Quarto = {
 <section id="logistic-regression-on-titanic-binary" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-regression-on-titanic-binary">Logistic Regression on Titanic (Binary)</h3>
 <p>Now let’s train Logistic Regression on the Titanic dataset:</p>
-<div id="e9c7e9cd" class="cell">
+<div id="330ac5aa" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train logistic regression on Titanic</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>logreg_titanic <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">42</span>, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>logreg_titanic.fit(X_train_scaled, y_train)</span>
@@ -758,7 +781,7 @@ window.Quarto = {
 </section>
 <section id="understanding-predictions-iris-vs.-titanic" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-predictions-iris-vs.-titanic">Understanding Predictions: Iris vs.&nbsp;Titanic</h3>
-<div id="321e0ed4" class="cell">
+<div id="bc8b143b" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== IRIS DATASET (Multi-Class) ===</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample predictions for Iris:"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
@@ -817,7 +840,7 @@ window.Quarto = {
 </section>
 <section id="training-a-logistic-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="training-a-logistic-regression-model">Training a Logistic Regression Model</h3>
-<div id="d8d0100e" class="cell">
+<div id="0ea3bfa2" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, classification_report</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -834,7 +857,7 @@ window.Quarto = {
 </section>
 <section id="understanding-predictions" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-predictions">Understanding Predictions</h3>
-<div id="23794663" class="cell">
+<div id="8f02af0c" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show some predictions</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Actual'</span>: y_test.values,</span>
@@ -855,7 +878,7 @@ window.Quarto = {
 </section>
 <section id="evaluating-classification-models" class="level3">
 <h3 class="anchored" data-anchor-id="evaluating-classification-models">Evaluating Classification Models</h3>
-<div id="4f1609a6" class="cell">
+<div id="3b9d9741" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
@@ -872,7 +895,7 @@ window.Quarto = {
 </section>
 <section id="visualizing-the-confusion-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-the-confusion-matrix">Visualizing the Confusion Matrix</h3>
-<div id="8caeb99f" class="cell">
+<div id="10c40978" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, ax<span class="op">=</span>ax,</span>
@@ -927,6 +950,71 @@ window.Quarto = {
 <p>If 90% of passengers did NOT survive, a model that always predicts “did not survive” would have 90% accuracy—but it’s useless! Always look at precision and recall too.</p>
 </div>
 </div>
+</section>
+<section id="making-sense-of-metrics-a-local-analogy" class="level3">
+<h3 class="anchored" data-anchor-id="making-sense-of-metrics-a-local-analogy">Making Sense of Metrics: A Local Analogy</h3>
+<p>To truly understand these metrics, let’s use an example everyone knows: <strong>A Malaria Rapid Diagnostic Test (RDT) at a local clinic.</strong></p>
+<p>Imagine 100 people visit the clinic today.</p>
+<ul>
+<li><strong>10 people</strong> <em>actually</em> have malaria.</li>
+<li><strong>90 people</strong> just have a common cold or flu.</li>
+</ul>
+<p>The clinic uses a new AI-powered Malaria Test. Here are the results:</p>
+<ul>
+<li><strong>True Positive (TP = 8):</strong> 8 people have malaria, and the test correctly says “Positive”. (A correct catch!)</li>
+<li><strong>True Negative (TN = 80):</strong> 80 people just have a cold, and the test correctly says “Negative”. (A correct clearance!)</li>
+<li><strong>False Positive (FP = 10):</strong> 10 people just have a cold, but the test falsely alarms and says “Positive”. (False Alarm!)</li>
+<li><strong>False Negative (FN = 2):</strong> 2 people actually have malaria, but the test misses it and says “Negative”. (Missed Diagnosis!)</li>
+</ul>
+<p>Now, let’s calculate the metrics using this clinic data:</p>
+<p><strong>1. Accuracy: “Is this test generally right?”</strong></p>
+<ul>
+<li><strong>Formula:</strong> <span class="math inline">\(\frac{TP + TN}{Total}\)</span></li>
+<li><strong>Calculation:</strong> <span class="math inline">\(\frac{8 + 80}{100} = \frac{88}{100} = 88\%\)</span></li>
+<li><em>Analogy:</em> The test is correct 88% of the time. Sounds great, right? But wait…</li>
+</ul>
+<p><strong>2. Precision: “When the test screams ‘Malaria!’, how often is it actually right?”</strong></p>
+<ul>
+<li><strong>Formula:</strong> <span class="math inline">\(\frac{TP}{TP + FP}\)</span></li>
+<li><strong>Calculation:</strong> <span class="math inline">\(\frac{8}{8 + 10} = \frac{8}{18} = 44.4\%\)</span></li>
+<li><em>Analogy:</em> If the test says you have malaria, there is less than a 50% chance you actually have it! The clinic is making a lot of healthy people buy expensive malaria drugs they don’t need.</li>
+</ul>
+<p><strong>3. Recall (Sensitivity): “Out of everyone who is ACTUALLY sick, how many did we catch?”</strong></p>
+<ul>
+<li><strong>Formula:</strong> <span class="math inline">\(\frac{TP}{TP + FN}\)</span></li>
+<li><strong>Calculation:</strong> <span class="math inline">\(\frac{8}{8 + 2} = \frac{8}{10} = 80\%\)</span></li>
+<li><em>Analogy:</em> The test successfully found 80% of the sick patients. But it sent 2 sick people home with just paracetamol, putting their lives in danger.</li>
+</ul>
+<p><strong>4. F1-Score: “Finding the Perfect Balance”</strong></p>
+<ul>
+<li><strong>Formula:</strong> <span class="math inline">\(2 \times \frac{Precision \times Recall}{Precision + Recall}\)</span></li>
+<li><strong>Calculation:</strong> <span class="math inline">\(2 \times \frac{0.444 \times 0.80}{0.444 + 0.80} = 2 \times \frac{0.355}{1.244} = 57\%\)</span></li>
+<li><em>Analogy:</em> F1 is the “harmonic mean” of Precision and Recall. It penalizes models that are extreme on one side.</li>
+</ul>
+</section>
+<section id="how-to-choose-precision-vs.-recall-vs.-f1" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-choose-precision-vs.-recall-vs.-f1">How to Choose: Precision vs.&nbsp;Recall vs.&nbsp;F1?</h3>
+<p>In the real world, you usually have to trade one for the other. How do you choose? <strong>It depends on the cost of being wrong.</strong></p>
+<p><strong>Scenario A: Optimize for RECALL (Catch everything!)</strong></p>
+<ul>
+<li><em>Example:</em> <strong>Malaria or Disease Testing</strong></li>
+<li><em>Why?</em> A False Negative (sending a sick patient home) could be fatal. A False Positive (giving someone harmless anti-malarial medication for a cold) is merely an inconvenience. Therefore, you want a test with <strong>High Recall</strong>, even if it means sacrificing some precision. You want to catch <em>every single</em> possible case.</li>
+</ul>
+<p><strong>Scenario B: Optimize for PRECISION (Be absolutely sure!)</strong></p>
+<ul>
+<li><em>Example:</em> <strong>Mobile Money (MoMo) Fraud Detection</strong></li>
+<li><em>Why?</em> Imagine an AI that blocks MoMo accounts suspected of fraud. If you have a False Positive (blocking an innocent market woman from receiving money for her goods), she will be furious and lose trust in the network. Here, you only want to block an account if you are <em>absolutely certain</em> it’s fraudulent. You want <strong>High Precision</strong>, even if it means missing a few clever scammers (False Negatives).</li>
+</ul>
+<p><strong>Scenario C: Optimize for F1-Score (Find the Perfect Balance)</strong></p>
+<ul>
+<li><em>Example:</em> <strong>Sorting Premium Cocoa Beans for Export</strong></li>
+<li><em>Why?</em> Imagine a machine sorting good cocoa beans from bad ones.
+<ul>
+<li>If you throw away good beans thinking they are bad (False Positive), the farmer loses hard-earned money.</li>
+<li>If you let bad, rotten beans slip through to the export batch (False Negative), the entire shipping container might get rejected at the port!</li>
+</ul></li>
+<li>Because <em>both</em> mistakes are highly costly, you cannot afford to just optimize Precision or just Recall. You need a metric that perfectly balances both.</li>
+</ul>
 <hr>
 </section>
 </section>
@@ -951,7 +1039,7 @@ window.Quarto = {
 <section id="training-decision-trees-on-both-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="training-decision-trees-on-both-datasets">Training Decision Trees on Both Datasets</h3>
 <p>Let’s train Decision Trees on both Iris and Titanic datasets to see how they work:</p>
-<div id="132fd515" class="cell">
+<div id="b67f0f9f" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier, plot_tree</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -982,7 +1070,7 @@ window.Quarto = {
 </section>
 <section id="visualizing-decision-tree-titanic-survival" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-decision-tree-titanic-survival">Visualizing Decision Tree: Titanic Survival</h3>
-<div id="a70bc6c3" class="cell">
+<div id="462b05d2" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Titanic tree - only first split</span></span>
@@ -1012,7 +1100,7 @@ window.Quarto = {
 </section>
 <section id="the-overfitting-problem" class="level3">
 <h3 class="anchored" data-anchor-id="the-overfitting-problem">The Overfitting Problem</h3>
-<div id="975ff372" class="cell">
+<div id="47eab6c3" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare trees with different depths</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>depths <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="va">None</span>]</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>accuracies <span class="op">=</span> []</span>
@@ -1034,7 +1122,7 @@ window.Quarto = {
 </section>
 <section id="overfitting-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="overfitting-visualization">Overfitting Visualization</h3>
-<div id="889b103d" class="cell">
+<div id="3cca2f8d" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train two extreme trees</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>dt_shallow <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">42</span>, max_depth<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>dt_deep <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">42</span>, max_depth<span class="op">=</span><span class="dv">15</span>)</span>
@@ -1055,7 +1143,7 @@ window.Quarto = {
 </section>
 <section id="controlling-overfitting" class="level3">
 <h3 class="anchored" data-anchor-id="controlling-overfitting">Controlling Overfitting</h3>
-<div id="bfaa8152" class="cell">
+<div id="c7ddfdbe" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Key parameters to prevent overfitting</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dt_pruned <span class="op">=</span> DecisionTreeClassifier(</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
@@ -1101,7 +1189,7 @@ window.Quarto = {
 </section>
 <section id="model-comparison-logistic-regression-vs.-decision-tree" class="level1">
 <h1>6. Model Comparison: Logistic Regression vs.&nbsp;Decision Tree</h1>
-<div id="c1c402d8" class="cell">
+<div id="23ad7898" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Train both models</span></span>
@@ -1310,7 +1398,7 @@ window.Quarto = {
 <p>Your turn! Build classifiers on both Iris and Titanic datasets to solidify your understanding.</p>
 <section id="exercise-a-iris-multi-class-classification" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-a-iris-multi-class-classification">Exercise A: Iris Multi-Class Classification</h3>
-<div id="2c1eac16" class="cell">
+<div id="1f8b8d4b" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
@@ -1339,7 +1427,7 @@ window.Quarto = {
 </section>
 <section id="exercise-b-titanic-binary-classification" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-b-titanic-binary-classification">Exercise B: Titanic Binary Classification</h3>
-<div id="c5cbec1f" class="cell">
+<div id="47913b8a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Titanic dataset</span></span>
@@ -1359,7 +1447,7 @@ window.Quarto = {
 </section>
 <section id="exercise-c-comparison-challenge" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-c-comparison-challenge">Exercise C: Comparison Challenge</h3>
-<div id="b2d4a7a7" class="cell">
+<div id="93d8df47" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare Iris vs. Titanic:</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Which dataset is easier to classify?</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Which model type (Logistic Regression vs. Decision Tree) works better on each dataset?</span></span>
