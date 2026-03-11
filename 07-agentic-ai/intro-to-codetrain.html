@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Speedykom GmbH">
-<meta name="dcterms.date" content="2026-02-17">
+<meta name="author" content="Speedykom Group GmbH">
+<meta name="dcterms.date" content="2026-03-11">
 
 <title>Introduction to Agentic AI and CodeTrain</title>
 <style>
@@ -68,12 +68,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="intro-to-codetrain_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="intro-to-codetrain_files/libs/quarto-html/anchor.min.js"></script>
 <link href="intro-to-codetrain_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="intro-to-codetrain_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="intro-to-codetrain_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="intro-to-codetrain_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="intro-to-codetrain_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="intro-to-codetrain_files/libs/bootstrap/bootstrap-93270a237031cf4093afa7443fbffdc2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="intro-to-codetrain_files/libs/bootstrap/bootstrap-4d7f0bce1131f3e5f9547cd857cfbfc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="quarto-light">
@@ -94,6 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">2. Tools</a></li>
   <li><a href="#planning-system" id="toc-planning-system" class="nav-link" data-scroll-target="#planning-system">3. Planning System</a></li>
   <li><a href="#memory" id="toc-memory" class="nav-link" data-scroll-target="#memory">4. Memory</a></li>
+  <li><a href="#the-ai-agent-ecosystem-building-the-mech-suit-for-the-llm" id="toc-the-ai-agent-ecosystem-building-the-mech-suit-for-the-llm" class="nav-link" data-scroll-target="#the-ai-agent-ecosystem-building-the-mech-suit-for-the-llm">The AI Agent Ecosystem: Building the “Mech Suit” for the LLM</a></li>
   </ul></li>
   <li><a href="#what-is-orchestration" id="toc-what-is-orchestration" class="nav-link" data-scroll-target="#what-is-orchestration">2. What Is Orchestration?</a>
   <ul class="collapse">
@@ -109,11 +111,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#map-reduce-workflow" id="toc-map-reduce-workflow" class="nav-link" data-scroll-target="#map-reduce-workflow">Map-Reduce Workflow</a></li>
   <li><a href="#loop-workflow" id="toc-loop-workflow" class="nav-link" data-scroll-target="#loop-workflow">Loop Workflow</a></li>
   </ul></li>
-  <li><a href="#why-we-need-agentic-frameworks" id="toc-why-we-need-agentic-frameworks" class="nav-link" data-scroll-target="#why-we-need-agentic-frameworks">3. Why We Need Agentic Frameworks</a>
+  <li><a href="#the-landscape-finished-cars-vs.-engine-blocks" id="toc-the-landscape-finished-cars-vs.-engine-blocks" class="nav-link" data-scroll-target="#the-landscape-finished-cars-vs.-engine-blocks">3. The Landscape: Finished Cars vs.&nbsp;Engine Blocks</a>
   <ul class="collapse">
-  <li><a href="#the-problem-with-raw-llm-integration" id="toc-the-problem-with-raw-llm-integration" class="nav-link" data-scroll-target="#the-problem-with-raw-llm-integration">The Problem with Raw LLM Integration</a></li>
-  <li><a href="#what-frameworks-provide" id="toc-what-frameworks-provide" class="nav-link" data-scroll-target="#what-frameworks-provide">What Frameworks Provide</a></li>
-  <li><a href="#introducing-codetrain" id="toc-introducing-codetrain" class="nav-link" data-scroll-target="#introducing-codetrain">Introducing CodeTrain</a></li>
+  <li><a href="#the-finished-cars-pre-built-agents" id="toc-the-finished-cars-pre-built-agents" class="nav-link" data-scroll-target="#the-finished-cars-pre-built-agents">The “Finished Cars” (Pre-Built Agents)</a></li>
+  <li><a href="#the-engine-block-codetrain" id="toc-the-engine-block-codetrain" class="nav-link" data-scroll-target="#the-engine-block-codetrain">The “Engine Block” (CodeTrain)</a></li>
   <li><a href="#core-philosophy" id="toc-core-philosophy" class="nav-link" data-scroll-target="#core-philosophy">Core Philosophy</a></li>
   </ul></li>
   <li><a href="#installing-and-setting-up-codetrain" id="toc-installing-and-setting-up-codetrain" class="nav-link" data-scroll-target="#installing-and-setting-up-codetrain">4. Installing and Setting Up CodeTrain</a>
@@ -163,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../intro-to-codetrain.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\intro-to-codetrain.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -180,14 +181,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Speedykom GmbH </p>
+             <p>Speedykom Group GmbH </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 17, 2026</p>
+      <p class="date">March 11, 2026</p>
     </div>
   </div>
   
@@ -211,7 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>The program never asks questions mid-execution, never looks up additional information, and never adapts its approach based on what it discovers.</p>
 <p><strong>AI Agents change this paradigm entirely.</strong></p>
-<p>An AI Agent is an autonomous system that can: - <strong>Perceive</strong> its environment (read files, query APIs, browse the web) - <strong>Reason</strong> about what it observes (use LLMs to make decisions) - <strong>Act</strong> on its reasoning (execute code, call tools, make changes) - <strong>Learn</strong> from outcomes (adapt its strategy based on results)</p>
+<p>An AI Agent is an autonomous system that can:</p>
+<ul>
+<li><strong>Perceive</strong> its environment (read files, query APIs, browse the web)</li>
+<li><strong>Reason</strong> about what it observes (use LLMs to make decisions)</li>
+<li><strong>Act</strong> on its reasoning (execute code, call tools, make changes)</li>
+<li><strong>Learn</strong> from outcomes (adapt its strategy based on results)</li>
+</ul>
 </section>
 <section id="the-key-difference" class="level3">
 <h3 class="anchored" data-anchor-id="the-key-difference">The Key Difference</h3>
@@ -284,19 +291,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-brain-llm" class="level3">
 <h3 class="anchored" data-anchor-id="the-brain-llm">1. The Brain (LLM)</h3>
-<p>The Large Language Model provides reasoning capabilities. It can: - Understand natural language instructions - Generate code and text - Make decisions based on context - Break complex tasks into subtasks</p>
+<p>The Large Language Model provides reasoning capabilities. It can:</p>
+<ul>
+<li>Understand natural language instructions</li>
+<li>Generate code and text</li>
+<li>Make decisions based on context</li>
+<li>Break complex tasks into subtasks</li>
+</ul>
 </section>
 <section id="tools" class="level3">
 <h3 class="anchored" data-anchor-id="tools">2. Tools</h3>
-<p>Agents use tools to interact with the world: - <strong>File operations</strong> (read, write, edit) - <strong>Web access</strong> (search, browse, API calls) - <strong>Code execution</strong> (run Python, shell commands) - <strong>Memory</strong> (store and retrieve information)</p>
+<p>Agents use tools to interact with the world:</p>
+<ul>
+<li><strong>File operations</strong> (read, write, edit)</li>
+<li><strong>Web access</strong> (search, browse, API calls)</li>
+<li><strong>Code execution</strong> (run Python, shell commands)</li>
+<li><strong>Memory</strong> (store and retrieve information)</li>
+</ul>
 </section>
 <section id="planning-system" class="level3">
 <h3 class="anchored" data-anchor-id="planning-system">3. Planning System</h3>
-<p>The agent decides what to do next: - <strong>Sequential</strong>: Do A, then B, then C - <strong>Conditional</strong>: If X, do Y; otherwise do Z - <strong>Iterative</strong>: Keep trying until success - <strong>Hierarchical</strong>: Break big tasks into smaller ones</p>
+<p>The agent decides what to do next:</p>
+<ul>
+<li><strong>Sequential</strong>: Do A, then B, then C</li>
+<li><strong>Conditional</strong>: If X, do Y; otherwise do Z</li>
+<li><strong>Iterative</strong>: Keep trying until success</li>
+<li><strong>Hierarchical</strong>: Break big tasks into smaller ones</li>
+</ul>
 </section>
 <section id="memory" class="level3">
 <h3 class="anchored" data-anchor-id="memory">4. Memory</h3>
-<p>Agents remember context across interactions: - <strong>Short-term</strong>: What just happened in this conversation - <strong>Long-term</strong>: Facts learned from previous sessions - <strong>Working memory</strong>: Current task context and intermediate results</p>
+<p>Agents remember context across interactions:</p>
+<ul>
+<li><strong>Short-term</strong>: What just happened in this conversation</li>
+<li><strong>Long-term</strong>: Facts learned from previous sessions</li>
+<li><strong>Working memory</strong>: Current task context and intermediate results</li>
+</ul>
+</section>
+<section id="the-ai-agent-ecosystem-building-the-mech-suit-for-the-llm" class="level3">
+<h3 class="anchored" data-anchor-id="the-ai-agent-ecosystem-building-the-mech-suit-for-the-llm">The AI Agent Ecosystem: Building the “Mech Suit” for the LLM</h3>
+<p>To understand AI tools, you first have to understand the fundamental relationship between a Large Language Model (LLM) and an Agent Framework.</p>
+<ul>
+<li><strong>The LLM (The Brain in a Jar):</strong> Models like GPT-4, Claude, or Gemini are brilliant but isolated. They understand complex concepts and can write code, but they have no memory, no “hands” to type, and no “eyes” to read your screen. They only process text in and text out.</li>
+<li><strong>The Agent Framework (The Mech Suit):</strong> This is the software built <em>around</em> the LLM. It provides the “senses” (reading your files or messages), the “hands” (running terminal commands or sending emails), and the “hippocampus” (storing conversation memory).</li>
+</ul>
+<p>The framework manages a continuous loop: It gathers context → prompts the LLM → parses the LLM’s requested action → executes the tool on your machine → feeds the result back to the LLM → repeats.</p>
 </section>
 </section>
 <section id="what-is-orchestration" class="level2">
@@ -304,7 +343,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="beyond-single-agents" class="level3">
 <h3 class="anchored" data-anchor-id="beyond-single-agents">Beyond Single Agents</h3>
 <p>A single agent is powerful, but real-world problems often require multiple specialized agents working together. <strong>Orchestration</strong> is the coordination of multiple agents (or tasks) into a cohesive workflow.</p>
-<p>Think of it like a delivery operation: - One person receives orders - Another prepares packages - Another handles shipping - Another manages customer service</p>
+<p>Think of it like a delivery operation:</p>
+<ul>
+<li>One person receives orders</li>
+<li>Another prepares packages</li>
+<li>Another handles shipping</li>
+<li>Another manages customer service</li>
+</ul>
 <p>Each person is an “agent” with a specific job. The <strong>orchestrator</strong> ensures they work together smoothly.</p>
 </section>
 <section id="why-orchestration-matters" class="level3">
@@ -312,19 +357,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="separation-of-concerns" class="level3">
 <h3 class="anchored" data-anchor-id="separation-of-concerns">1. <strong>Separation of Concerns</strong></h3>
-<p>Breaking complex workflows into discrete steps makes them: - <strong>Easier to debug</strong>: Know exactly which step failed - <strong>Easier to maintain</strong>: Update one step without breaking others - <strong>Easier to scale</strong>: Add more capacity to bottleneck steps - <strong>Easier to understand</strong>: Each step has a clear purpose</p>
+<p>Breaking complex workflows into discrete steps makes them:</p>
+<ul>
+<li><strong>Easier to debug</strong>: Know exactly which step failed</li>
+<li><strong>Easier to maintain</strong>: Update one step without breaking others</li>
+<li><strong>Easier to scale</strong>: Add more capacity to bottleneck steps</li>
+<li><strong>Easier to understand</strong>: Each step has a clear purpose</li>
+</ul>
 </section>
 <section id="reliability" class="level3">
 <h3 class="anchored" data-anchor-id="reliability">2. <strong>Reliability</strong></h3>
-<p>When tasks are modular, you can: - Retry failed steps independently - Add error handling at specific points - Monitor each step’s performance - Replace failing components without system-wide changes</p>
+<p>When tasks are modular, you can:</p>
+<ul>
+<li>Retry failed steps independently</li>
+<li>Add error handling at specific points</li>
+<li>Monitor each step’s performance</li>
+<li>Replace failing components without system-wide changes</li>
+</ul>
 </section>
 <section id="flexibility" class="level3">
 <h3 class="anchored" data-anchor-id="flexibility">3. <strong>Flexibility</strong></h3>
-<p>Orchestrated workflows can: - Branch based on conditions (if paid, ship express; else ship standard) - Loop until success (retry failed API calls) - Run in parallel (process multiple items simultaneously) - Adapt to different scenarios (different paths for different data types)</p>
+<p>Orchestrated workflows can:</p>
+<ul>
+<li>Branch based on conditions (if paid, ship express; else ship standard)</li>
+<li>Loop until success (retry failed API calls)</li>
+<li>Run in parallel (process multiple items simultaneously)</li>
+<li>Adapt to different scenarios (different paths for different data types)</li>
+</ul>
 </section>
 <section id="reusability" class="level3">
 <h3 class="anchored" data-anchor-id="reusability">4. <strong>Reusability</strong></h3>
-<p>Once you build a “Send Email” task, you can reuse it in: - Order confirmations - Password resets - Newsletter delivery - Alert notifications</p>
+<p>Once you build a “Send Email” task, you can reuse it in:</p>
+<ul>
+<li>Order confirmations</li>
+<li>Password resets</li>
+<li>Newsletter delivery</li>
+<li>Alert notifications</li>
+</ul>
 </section>
 <section id="orchestration-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="orchestration-patterns">Orchestration Patterns</h3>
@@ -358,76 +427,87 @@ Receive Order → Check Type ─┤
          └──────────────────┘</code></pre>
 </section>
 </section>
-<section id="why-we-need-agentic-frameworks" class="level2">
-<h2 class="anchored" data-anchor-id="why-we-need-agentic-frameworks">3. Why We Need Agentic Frameworks</h2>
-<section id="the-problem-with-raw-llm-integration" class="level3">
-<h3 class="anchored" data-anchor-id="the-problem-with-raw-llm-integration">The Problem with Raw LLM Integration</h3>
-<p>Building agentic systems from scratch requires handling:</p>
-<ol type="1">
-<li><strong>Prompt Engineering</strong>: Crafting the right instructions for the LLM</li>
-<li><strong>Context Management</strong>: Keeping track of conversation history</li>
-<li><strong>Tool Integration</strong>: Connecting APIs, databases, and services</li>
-<li><strong>Error Handling</strong>: Managing failures gracefully</li>
-<li><strong>State Management</strong>: Persisting data between interactions</li>
-<li><strong>Testing</strong>: Verifying complex, non-deterministic behavior</li>
-</ol>
-<p>This is like building a web application without Django or Flask—you <em>can</em> do it, but you’re reinventing the wheel.</p>
+<section id="the-landscape-finished-cars-vs.-engine-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="the-landscape-finished-cars-vs.-engine-blocks">3. The Landscape: Finished Cars vs.&nbsp;Engine Blocks</h2>
+<section id="the-finished-cars-pre-built-agents" class="level3">
+<h3 class="anchored" data-anchor-id="the-finished-cars-pre-built-agents">The “Finished Cars” (Pre-Built Agents)</h3>
+<p>The current heavyweight open-source tools generally fall into two distinct categories:</p>
+<section id="personal-ai-assistants-the-247-digital-chiefs-of-staff" class="level4">
+<h4 class="anchored" data-anchor-id="personal-ai-assistants-the-247-digital-chiefs-of-staff">1. Personal AI Assistants (The 24/7 Digital Chiefs of Staff)</h4>
+<p>These live in messaging apps (Telegram, Slack) or run as background cron jobs to automate your life.</p>
+<ul>
+<li><strong>OpenClaw (The Juggernaut):</strong> A massive (~430k lines) Node.js agent with a huge plugin ecosystem. It can do almost anything but is a massive security risk if not strictly sandboxed (e.g., in Docker), as it wants full system access.</li>
+<li><strong>Nanobot (The Minimalist):</strong> A lightweight (~4k lines) Python alternative. It replicates OpenClaw’s core features (messaging integrations, web search) but uses minimal RAM. It’s perfect for deploying on cheap cloud servers or a Raspberry Pi, though it lacks a fancy GUI or massive plugin store.</li>
+</ul>
 </section>
-<section id="what-frameworks-provide" class="level3">
-<h3 class="anchored" data-anchor-id="what-frameworks-provide">What Frameworks Provide</h3>
-<p>Good agentic frameworks handle the boilerplate so you can focus on your business logic:</p>
+<section id="dedicated-coding-agents-the-software-engineers" class="level4">
+<h4 class="anchored" data-anchor-id="dedicated-coding-agents-the-software-engineers">2. Dedicated Coding Agents (The Software Engineers)</h4>
+<p>These live in your terminal or IDE and are strictly focused on building and refactoring software.</p>
+<ul>
+<li><strong>OpenCode (The Powerhouse):</strong> A Go-based agent with a modern Terminal UI (TUI), Desktop app, and deep IDE integration. It uses Language Server Protocol (LSP) to understand complex project architectures and supports 75+ local and cloud LLMs.</li>
+<li><strong>Aider (The Terminal Gold Standard):</strong> A Python-based, terminal-only tool famous for its safe, Git-native workflow. Every change it makes is a clean, reviewable Git commit. It is the industry benchmark for pair-programming safely but requires you to be comfortable in the CLI.</li>
+</ul>
+</section>
+</section>
+<section id="the-engine-block-codetrain" class="level3">
+<h3 class="anchored" data-anchor-id="the-engine-block-codetrain">The “Engine Block” (CodeTrain)</h3>
+<p>If you don’t want to buy a “finished car,” you can build your own custom agent using <strong>CodeTrain</strong>.</p>
+<p>Inspired by the 100-line PocketFlow framework, CodeTrain is a minimalist orchestration engine that uses a logistics-based architecture to handle complex AI logic without the bloat of traditional libraries.</p>
+<section id="why-build-with-codetrain" class="level4">
+<h4 class="anchored" data-anchor-id="why-build-with-codetrain">Why Build with CodeTrain?</h4>
+<ul>
+<li><strong>Total Ownership:</strong> You understand every line of your agent’s routing logic.</li>
+<li><strong>Agentic Self-Looping:</strong> Easily build chatbots where a Job loops back to itself (<code>chat_job - "continue" &gt;&gt; chat_job</code>) while the Manifest maintains persistent conversation history.</li>
+<li><strong>SKILL.md Integration:</strong> You can feed the CodeTrain <code>SKILL.md</code> to a “Finished Car” like <strong>OpenCode</strong> and tell it: <em>“Use this architecture to build me a specialized <code>TranslationJob</code>.”</em> The AI will build the code perfectly every time.</li>
+</ul>
+</section>
+<section id="the-codetrain-architecture-logistics-pattern" class="level4">
+<h4 class="anchored" data-anchor-id="the-codetrain-architecture-logistics-pattern">The CodeTrain Architecture (Logistics Pattern)</h4>
+<ol type="1">
+<li><strong>The Manifest (The Cargo):</strong> A shared dictionary that flows through the entire system, carrying all context, data, and memory.</li>
+<li><strong>The Jobs (The Workstations):</strong> Specialized units of work with a strict three-stage lifecycle:
+<ul>
+<li><code>receive_order()</code>: Load and validate input from the manifest.</li>
+<li><code>prepare_order()</code>: Execute the actual work (e.g., call the LLM).</li>
+<li><code>ship_order()</code>: Finalize and store the results back in the manifest.</li>
+</ul></li>
+<li><strong>The Hustle (The Route):</strong> The overarching recipe that connects Jobs using the <code>&gt;&gt;</code> operator for sequences and <code>- "action" &gt;&gt;</code> for conditional branching.</li>
+</ol>
+</section>
+<section id="summary-checklist-for-your-build" class="level4">
+<h4 class="anchored" data-anchor-id="summary-checklist-for-your-build">Summary Checklist for Your Build</h4>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Concern</th>
-<th style="text-align: left;">Framework Handles</th>
-<th style="text-align: left;">You Focus On</th>
+<th style="text-align: left;">If you want to build…</th>
+<th style="text-align: left;">CodeTrain handles…</th>
+<th style="text-align: left;">You will need to build…</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">LLM Communication</td>
-<td style="text-align: left;">API calls, retries, rate limiting</td>
-<td style="text-align: left;">What to ask</td>
+<td style="text-align: left;"><strong>A Terminal Agent (like Aider)</strong></td>
+<td style="text-align: left;">Three-stage job logic, LLM routing, manifest state</td>
+<td style="text-align: left;">Terminal UI, Git auto-commits, file Read/Write</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Tool Integration</td>
-<td style="text-align: left;">API wrappers, authentication</td>
-<td style="text-align: left;">Which tools to use</td>
+<td style="text-align: left;"><strong>An IDE Agent (like Cursor)</strong></td>
+<td style="text-align: left;">Workflow orchestration, conditional branching</td>
+<td style="text-align: left;">VS Code extension, Diffing UI (Red/Green code)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Workflow Logic</td>
-<td style="text-align: left;">Sequencing, branching, looping</td>
-<td style="text-align: left;">Your process flow</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">State Management</td>
-<td style="text-align: left;">Context, memory, persistence</td>
-<td style="text-align: left;">What to remember</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Error Handling</td>
-<td style="text-align: left;">Retries, fallbacks, logging</td>
-<td style="text-align: left;">Recovery strategies</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Testing</td>
-<td style="text-align: left;">Test utilities, mock LLMs</td>
-<td style="text-align: left;">Test scenarios</td>
+<td style="text-align: left;"><strong>A Personal Bot (like Nanobot)</strong></td>
+<td style="text-align: left;">Self-looping loops, context memory, API calls</td>
+<td style="text-align: left;">Messaging API hooks (Telegram), cron jobs</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="introducing-codetrain" class="level3">
-<h3 class="anchored" data-anchor-id="introducing-codetrain">Introducing CodeTrain</h3>
-<p><strong>CodeTrain</strong> is a minimalist workflow framework inspired by <a href="https://github.com/The-Pocket/PocketFlow">PocketFlow</a>—a 100-line LLM framework that strips away complexity to reveal essential patterns.</p>
-<p>CodeTrain adapts these patterns for African startups and developers using intuitive, logistics-based terminology:</p>
-<ul>
-<li><strong>Job</strong> = A unit of work (like a delivery stop)</li>
-<li><strong>Hustle</strong> = Orchestrates multiple Jobs into a workflow<br>
-</li>
-<li><strong>Manifest</strong> = Carries data between stages</li>
-</ul>
 </section>
 <section id="core-philosophy" class="level3">
 <h3 class="anchored" data-anchor-id="core-philosophy">Core Philosophy</h3>
@@ -490,11 +570,16 @@ Receive Order → Check Type ─┤
 <li><strong><code>prepare_order(data)</code></strong> → Execute the actual work</li>
 <li><strong><code>ship_order(manifest, data, result)</code></strong> → Finalize and store output</li>
 </ol>
-<p>This mirrors a delivery logistics workflow: - <strong>Receive</strong>: Accept the package order - <strong>Prepare</strong>: Package and label the item - <strong>Ship</strong>: Hand off to delivery and update tracking</p>
+<p>This mirrors a delivery logistics workflow:</p>
+<ul>
+<li><strong>Receive</strong>: Accept the package order</li>
+<li><strong>Prepare</strong>: Package and label the item</li>
+<li><strong>Ship</strong>: Hand off to delivery and update tracking</li>
+</ul>
 </section>
 <section id="your-first-job" class="level3">
 <h3 class="anchored" data-anchor-id="your-first-job">Your First Job</h3>
-<div id="7e4c95eb" class="cell" data-execution_count="1">
+<div id="05cdd4a3" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GreetingJob(ct.Job):</span>
@@ -543,7 +628,7 @@ Receive Order → Check Type ─┤
 <section id="connecting-jobs-into-workflows" class="level3">
 <h3 class="anchored" data-anchor-id="connecting-jobs-into-workflows">Connecting Jobs into Workflows</h3>
 <p>Single jobs are useful, but the real power comes from <strong>chaining jobs together</strong>. CodeTrain uses the <code>&gt;&gt;</code> operator to connect jobs:</p>
-<div id="fd067a65" class="cell" data-execution_count="2">
+<div id="a340853a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ExtractNameJob(ct.Job):</span>
@@ -616,14 +701,19 @@ Receive Order → Check Type ─┤
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Think of <code>&gt;&gt;</code> as “then” or “passes to”: - <code>job_a &gt;&gt; job_b</code> means “do job_a, then pass the manifest to job_b” - You can chain as many jobs as needed: <code>a &gt;&gt; b &gt;&gt; c &gt;&gt; d</code> - Each job receives the same manifest, but updated by previous jobs</p>
+<p>Think of <code>&gt;&gt;</code> as “then” or “passes to”:</p>
+<ul>
+<li><code>job_a &gt;&gt; job_b</code> means “do job_a, then pass the manifest to job_b”</li>
+<li>You can chain as many jobs as needed: <code>a &gt;&gt; b &gt;&gt; c &gt;&gt; d</code></li>
+<li>Each job receives the same manifest, but updated by previous jobs</li>
+</ul>
 </div>
 </div>
 </section>
 <section id="conditional-routing" class="level3">
 <h3 class="anchored" data-anchor-id="conditional-routing">Conditional Routing</h3>
 <p>Sometimes you need different paths based on conditions. CodeTrain supports this with the <code>- "action" &gt;&gt;</code> syntax:</p>
-<div id="2bd18a71" class="cell" data-execution_count="3">
+<div id="3fb9e110" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CheckAgeJob(ct.Job):</span>
@@ -701,7 +791,12 @@ Receive Order → Check Type ─┤
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>- "action" &gt;&gt;</code> syntax connects a specific return value to a specific job: - Job returns <code>"action_name"</code> → Goes to connected job - This enables branching workflows (if/else logic) - Multiple actions can be defined for different branches</p>
+<p>The <code>- "action" &gt;&gt;</code> syntax connects a specific return value to a specific job:</p>
+<ul>
+<li>Job returns <code>"action_name"</code> → Goes to connected job</li>
+<li>This enables branching workflows (if/else logic)</li>
+<li>Multiple actions can be defined for different branches</li>
+</ul>
 </div>
 </div>
 </section>
@@ -718,7 +813,7 @@ Receive Order → Check Type ─┤
 <section id="simple-keyword-based-chatbot" class="level3">
 <h3 class="anchored" data-anchor-id="simple-keyword-based-chatbot">Simple Keyword-Based Chatbot</h3>
 <p>Let’s build a simple chatbot that responds based on keywords:</p>
-<div id="0b208ed2" class="cell" data-execution_count="4">
+<div id="237eb191" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimpleChatJob(ct.Job):</span>
@@ -918,7 +1013,14 @@ Receive Order → Check Type ─┤
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> {}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>What it does:</strong> Creates an empty dictionary that will be our manifest. This shared dictionary gets passed to every method and holds all our data (conversation history, settings, etc.).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>chat_hustle.run(manifest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>What it does:</strong> <strong>Starts the workflow!</strong> The Hustle begins executing: 1. Calls <code>chat_job.receive_order(manifest)</code> 2. Takes the return value and passes it to <code>chat_job.prepare_order(return_value)</code> 3. Takes that result and calls <code>chat_job.ship_order(manifest, original_input, result)</code> 4. ship_order returns <code>"continue"</code>, so the Hustle loops back to step 1 5. This repeats until ship_order returns <code>None</code> (when user types “exit”)</p>
+<p><strong>What it does:</strong> <strong>Starts the workflow!</strong> The Hustle begins executing:</p>
+<ol type="1">
+<li>Calls <code>chat_job.receive_order(manifest)</code></li>
+<li>Takes the return value and passes it to <code>chat_job.prepare_order(return_value)</code></li>
+<li>Takes that result and calls <code>chat_job.ship_order(manifest, original_input, result)</code></li>
+<li>ship_order returns <code>"continue"</code>, so the Hustle loops back to step 1</li>
+<li>This repeats until ship_order returns <code>None</code> (when user types “exit”)</li>
+</ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">📊 Conversation Stats:"</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total messages: </span><span class="sc">{</span><span class="bu">len</span>(manifest.get(<span class="st">'messages'</span>, []))<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>What it does:</strong> After the chat ends, we can still access the manifest! It contains the full conversation history. <code>manifest.get('messages', [])</code> safely gets the messages list (returns empty list if key doesn’t exist), and <code>len()</code> counts how many messages were exchanged.</p>
@@ -949,7 +1051,7 @@ Receive Order → Check Type ─┤
 <section id="step-1-get-your-openrouter-api-key" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-get-your-openrouter-api-key">Step 1: Get Your OpenRouter API Key</h4>
 <ol type="1">
-<li>Go to <a href="https://openrouter.ai/">https://openrouter.ai/</a></li>
+<li>Go to <a href="https://openrouter.ai/">openrouter.ai</a></li>
 <li>Sign up for a free account</li>
 <li>Go to Settings → API Keys</li>
 <li>Create a new key and copy it (starts with <code>sk-or-v1-...</code>)</li>
@@ -1164,9 +1266,30 @@ Receive Order → Check Type ─┤
 <section id="using-codetrain-with-opencode" class="level2">
 <h2 class="anchored" data-anchor-id="using-codetrain-with-opencode">7. Using CodeTrain with OpenCode</h2>
 <p>The CodeTrain framework includes a comprehensive <strong>SKILL.md</strong> file that teaches OpenCode how to build CodeTrain workflows for any purpose—from chatbots to data pipelines to weather apps.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>The Agentic Coding Cheat Code
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember the “Finished Cars vs Engine Blocks” analogy? The CodeTrain SKILL.md is your <strong>cheat code</strong> for building custom “Engine Blocks.” Because CodeTrain’s architecture is minimalist and well-defined, you can feed the SKILL.md to a “Finished Car” like OpenCode and have it generate perfect CodeTrain Jobs for any workflow you need.</p>
+</div>
+</div>
 <section id="what-is-the-codetrain-skill.md" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-the-codetrain-skill.md">What is the CodeTrain SKILL.md?</h3>
-<p>The SKILL.md is a special file that contains: - <strong>Agentic Coding Workflow</strong>: 8-step process for building LLM systems - <strong>Core Abstractions</strong>: Job, Hustle, Manifest patterns - <strong>Design Patterns</strong>: Workflow, Agent, Map Reduce, RAG - <strong>OpenRouter Integration</strong>: How to use LLMs with CodeTrain - <strong>Best Practices</strong>: Common patterns and mistakes to avoid - <strong>Complete Examples</strong>: Working code for various use cases</p>
+<p>The SKILL.md is a special file that contains:</p>
+<ul>
+<li><strong>Agentic Coding Workflow</strong>: 8-step process for building LLM systems</li>
+<li><strong>Core Abstractions</strong>: Job, Hustle, Manifest patterns</li>
+<li><strong>Design Patterns</strong>: Workflow, Agent, Map Reduce, RAG</li>
+<li><strong>OpenRouter Integration</strong>: How to use LLMs with CodeTrain</li>
+<li><strong>Best Practices</strong>: Common patterns and mistakes to avoid</li>
+<li><strong>Complete Examples</strong>: Working code for various use cases</li>
+</ul>
 <p>When you install this SKILL.md, OpenCode can help you build any CodeTrain application with just a prompt like:</p>
 <pre><code>/skill codetrain Build a workflow that fetches weather data and sends email alerts</code></pre>
 </section>
@@ -1194,7 +1317,16 @@ Receive Order → Check Type ─┤
 <section id="what-the-skill.md-covers" class="level3">
 <h3 class="anchored" data-anchor-id="what-the-skill.md-covers">What the SKILL.md Covers</h3>
 <p>The CodeTrain SKILL.md teaches OpenCode:</p>
-<p><strong>1. Agentic Coding Steps</strong> - Requirements gathering - Hustle design with mermaid diagrams - Manifest design (data contracts) - Job design patterns - Implementation best practices - Optimization strategies - Reliability patterns</p>
+<p><strong>1. Agentic Coding Steps</strong></p>
+<ul>
+<li>Requirements gathering</li>
+<li>Hustle design with mermaid diagrams</li>
+<li>Manifest design (data contracts)</li>
+<li>Job design patterns</li>
+<li>Implementation best practices</li>
+<li>Optimization strategies</li>
+<li>Reliability patterns</li>
+</ul>
 <p><strong>2. Core Abstractions</strong></p>
 <pre><code>Job (Base)
 ├── receive_order(manifest) → Load data
@@ -1206,7 +1338,13 @@ BatchJob (Job)
 
 Hustle
 └── Orchestrates connected jobs</code></pre>
-<p><strong>3. Design Patterns</strong> - <strong>Workflow</strong>: Chain jobs in sequence (<code>job_a &gt;&gt; job_b</code>) - <strong>Agent</strong>: Dynamic decision-making with loops - <strong>Map Reduce</strong>: Parallel processing then combine - <strong>RAG</strong>: Retrieval-Augmented Generation</p>
+<p><strong>3. Design Patterns</strong></p>
+<ul>
+<li><strong>Workflow</strong>: Chain jobs in sequence (<code>job_a &gt;&gt; job_b</code>)</li>
+<li><strong>Agent</strong>: Dynamic decision-making with loops</li>
+<li><strong>Map Reduce</strong>: Parallel processing then combine</li>
+<li><strong>RAG</strong>: Retrieval-Augmented Generation</li>
+</ul>
 <p><strong>4. OpenRouter Integration</strong> All LLM calls use CodeTrain’s built-in config:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> codetrain <span class="im">import</span> call_llm_simple</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1223,6 +1361,7 @@ Hustle
 <p>Once the skill is installed, you can build complex workflows conversationally:</p>
 <p><strong>Example 1: Weather Alert System</strong></p>
 <pre><code>You: /skill codetrain Build a workflow that:
+
       1. Fetches weather data from an API
       2. Checks if temperature &gt; 30°C
       3. Sends email alert if hot
@@ -1263,8 +1402,23 @@ OpenCode: [Generates complete workflow with:
 </section>
 <section id="best-practices-from-skill.md" class="level3">
 <h3 class="anchored" data-anchor-id="best-practices-from-skill.md">Best Practices from SKILL.md</h3>
-<p><strong>DO:</strong> - Start with simple workflows, add complexity incrementally - Design manifest schema before coding - Use <code>call_llm_simple()</code> for most tasks - Keep Jobs focused on single responsibilities - Add logging for debugging - Test utilities individually</p>
-<p><strong>DON’T:</strong> - Hardcode API keys (use <code>.env</code> + <code>codetrain.config</code>) - Put business logic in utilities - Skip error handling - Over-engineer solutions - Repeat data in manifest (use references)</p>
+<p><strong>DO:</strong></p>
+<ul>
+<li>Start with simple workflows, add complexity incrementally</li>
+<li>Design manifest schema before coding</li>
+<li>Use <code>call_llm_simple()</code> for most tasks</li>
+<li>Keep Jobs focused on single responsibilities</li>
+<li>Add logging for debugging</li>
+<li>Test utilities individually</li>
+</ul>
+<p><strong>DON’T:</strong></p>
+<ul>
+<li>Hardcode API keys (use <code>.env</code> + <code>codetrain.config</code>)</li>
+<li>Put business logic in utilities</li>
+<li>Skip error handling</li>
+<li>Over-engineer solutions</li>
+<li>Repeat data in manifest (use references)</li>
+</ul>
 </section>
 <section id="exercise-use-codetrain-skill.md" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-use-codetrain-skill.md">Exercise: Use CodeTrain SKILL.md</h3>
@@ -1279,12 +1433,13 @@ OpenCode: [Generates complete workflow with:
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Build with a prompt</strong>:</p>
 <pre><code>/skill codetrain Build a chatbot that:
+
 - Greets users by name
 - Answers questions about CodeTrain
 - Remembers conversation history
 - Exits when user types 'bye'</code></pre></li>
-<li><p><strong>Review the generated code</strong>:</p>
-<ul>
+<li><p><strong>Review the generated code</strong>:</p></li>
+<li><ul>
 <li>Check the manifest design</li>
 <li>Verify Job structure (receive → prepare → ship)</li>
 <li>Look for proper error handling</li>
@@ -1311,7 +1466,7 @@ Make the chatbot use LLM for responses</code></pre></li>
 </section>
 <section id="starter-code" class="level3">
 <h3 class="anchored" data-anchor-id="starter-code">Starter Code</h3>
-<div id="37501576" class="cell" data-execution_count="5">
+<div id="ac9197a7" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co"># FAQ knowledge base</span></span>
@@ -1343,7 +1498,7 @@ Make the chatbot use LLM for responses</code></pre></li>
 <span id="cb61-29"><a href="#cb61-29" aria-hidden="true" tabindex="-1"></a><span class="co"># hustle.run({})</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1352,9 +1507,9 @@ Make the chatbot use LLM for responses</code></pre></li>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="626e56f2" class="cell" data-execution_count="6">
+<div id="2e78435d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
@@ -1427,23 +1582,27 @@ Make the chatbot use LLM for responses</code></pre></li>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> count <span class="op">&lt;</span> <span class="dv">5</span>:</span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(count)</span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Loop control:</strong> - <code>break</code> - exit loop immediately - <code>continue</code> - skip to next iteration”““,</p>
-<pre><code>"class": """🎓 **Python Classes**</code></pre>
+<p><strong>Loop control:</strong></p>
+<ul>
+<li><p><code>break</code> - exit loop immediately</p></li>
+<li><p><code>continue</code> - skip to next iteration”““,</p>
+<p>“class”: “““🎓 <strong>Python Classes</strong></p></li>
+</ul>
 <p>Classes are blueprints for creating objects:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Person:</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, age):</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.age <span class="op">=</span> age</span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> greet(<span class="va">self</span>):</span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Hi, I'm </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating objects</span></span>
-<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>person1 <span class="op">=</span> Person(<span class="st">"Kwame"</span>, <span class="dv">25</span>)</span>
-<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>person2 <span class="op">=</span> Person(<span class="st">"Ama"</span>, <span class="dv">30</span>)</span>
-<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person1.greet())  <span class="co"># Hi, I'm Kwame</span></span>
-<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person2.age)      <span class="co"># 30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Person:</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, age):</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.age <span class="op">=</span> age</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> greet(<span class="va">self</span>):</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ss">f"Hi, I'm </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating objects</span></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>person1 <span class="op">=</span> Person(<span class="st">"Kwame"</span>, <span class="dv">25</span>)</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>person2 <span class="op">=</span> Person(<span class="st">"Ama"</span>, <span class="dv">30</span>)</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person1.greet())  <span class="co"># Hi, I'm Kwame</span></span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(person2.age)      <span class="co"># 30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Classes bundle data (attributes) and behavior (methods).”““, }</p>
 <p>class FAQChatJob(ct.Job): “““A FAQ chatbot that answers Python questions.”“”</p>
 <pre><code>def receive_order(self, manifest):
@@ -1518,7 +1677,7 @@ def prepare_order(self, user_input):
 
 ## Starter Code
 
-::: {#273e8a9a .cell execution_count=7}
+::: {#67c1837e .cell execution_count=7}
 ``` {.python .cell-code}
 import codetrain as ct
 
@@ -1547,7 +1706,7 @@ users_data = [
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1556,143 +1715,143 @@ users_data = [
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="509508de" class="cell" data-execution_count="8">
+<div id="01afdd68" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data</span></span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>users_data <span class="op">=</span> [</span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"email"</span>: <span class="st">"kwame@example.com"</span>, <span class="st">"age"</span>: <span class="dv">25</span>},</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"email"</span>: <span class="st">"ama@example.com"</span>, <span class="st">"age"</span>: <span class="dv">70</span>},</span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Invalid User"</span>},  <span class="co"># Missing fields</span></span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kofi"</span>, <span class="st">"email"</span>: <span class="st">"kofi@example.com"</span>, <span class="st">"age"</span>: <span class="dv">15</span>},</span>
-<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LoadDataJob(ct.Job):</span>
-<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Loads user data from manifest."""</span></span>
-<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
-<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> manifest.get(<span class="st">"users"</span>, [])</span>
-<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, users):</span>
-<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> users</span>
-<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, users, validated_users):</span>
-<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"raw_users"</span>] <span class="op">=</span> validated_users</span>
-<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"valid_users"</span>] <span class="op">=</span> []</span>
-<span id="cb75-23"><a href="#cb75-23" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"invalid_users"</span>] <span class="op">=</span> []</span>
-<span id="cb75-24"><a href="#cb75-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
-<span id="cb75-25"><a href="#cb75-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-26"><a href="#cb75-26" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ValidateUserJob(ct.Job):</span>
-<span id="cb75-27"><a href="#cb75-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Validates each user has required fields."""</span></span>
-<span id="cb75-28"><a href="#cb75-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-29"><a href="#cb75-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
-<span id="cb75-30"><a href="#cb75-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> manifest.get(<span class="st">"raw_users"</span>, [])</span>
-<span id="cb75-31"><a href="#cb75-31" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-32"><a href="#cb75-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, users):</span>
-<span id="cb75-33"><a href="#cb75-33" aria-hidden="true" tabindex="-1"></a>        valid <span class="op">=</span> []</span>
-<span id="cb75-34"><a href="#cb75-34" aria-hidden="true" tabindex="-1"></a>        invalid <span class="op">=</span> []</span>
-<span id="cb75-35"><a href="#cb75-35" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb75-36"><a href="#cb75-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> user <span class="kw">in</span> users:</span>
-<span id="cb75-37"><a href="#cb75-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">all</span>(k <span class="kw">in</span> user <span class="cf">for</span> k <span class="kw">in</span> [<span class="st">"name"</span>, <span class="st">"email"</span>, <span class="st">"age"</span>]):</span>
-<span id="cb75-38"><a href="#cb75-38" aria-hidden="true" tabindex="-1"></a>                valid.append(user)</span>
-<span id="cb75-39"><a href="#cb75-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb75-40"><a href="#cb75-40" aria-hidden="true" tabindex="-1"></a>                invalid.append(user)</span>
-<span id="cb75-41"><a href="#cb75-41" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb75-42"><a href="#cb75-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {<span class="st">"valid"</span>: valid, <span class="st">"invalid"</span>: invalid}</span>
-<span id="cb75-43"><a href="#cb75-43" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-44"><a href="#cb75-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, users, result):</span>
-<span id="cb75-45"><a href="#cb75-45" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"valid_users"</span>] <span class="op">=</span> result[<span class="st">"valid"</span>]</span>
-<span id="cb75-46"><a href="#cb75-46" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"invalid_users"</span>] <span class="op">=</span> result[<span class="st">"invalid"</span>]</span>
-<span id="cb75-47"><a href="#cb75-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"✅ Valid users: </span><span class="sc">{</span><span class="bu">len</span>(result[<span class="st">'valid'</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb75-48"><a href="#cb75-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"❌ Invalid users: </span><span class="sc">{</span><span class="bu">len</span>(result[<span class="st">'invalid'</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb75-49"><a href="#cb75-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
-<span id="cb75-50"><a href="#cb75-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-51"><a href="#cb75-51" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TransformUserJob(ct.Job):</span>
-<span id="cb75-52"><a href="#cb75-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calculates user tier based on age."""</span></span>
-<span id="cb75-53"><a href="#cb75-53" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-54"><a href="#cb75-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
-<span id="cb75-55"><a href="#cb75-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> manifest.get(<span class="st">"valid_users"</span>, [])</span>
-<span id="cb75-56"><a href="#cb75-56" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-57"><a href="#cb75-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, users):</span>
-<span id="cb75-58"><a href="#cb75-58" aria-hidden="true" tabindex="-1"></a>        processed <span class="op">=</span> []</span>
-<span id="cb75-59"><a href="#cb75-59" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb75-60"><a href="#cb75-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> user <span class="kw">in</span> users:</span>
-<span id="cb75-61"><a href="#cb75-61" aria-hidden="true" tabindex="-1"></a>            age <span class="op">=</span> user[<span class="st">"age"</span>]</span>
-<span id="cb75-62"><a href="#cb75-62" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> age <span class="op">&lt;</span> <span class="dv">18</span>:</span>
-<span id="cb75-63"><a href="#cb75-63" aria-hidden="true" tabindex="-1"></a>                tier <span class="op">=</span> <span class="st">"bronze"</span></span>
-<span id="cb75-64"><a href="#cb75-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> age <span class="op">&lt;=</span> <span class="dv">65</span>:</span>
-<span id="cb75-65"><a href="#cb75-65" aria-hidden="true" tabindex="-1"></a>                tier <span class="op">=</span> <span class="st">"silver"</span></span>
-<span id="cb75-66"><a href="#cb75-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb75-67"><a href="#cb75-67" aria-hidden="true" tabindex="-1"></a>                tier <span class="op">=</span> <span class="st">"gold"</span></span>
-<span id="cb75-68"><a href="#cb75-68" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb75-69"><a href="#cb75-69" aria-hidden="true" tabindex="-1"></a>            processed.append({</span>
-<span id="cb75-70"><a href="#cb75-70" aria-hidden="true" tabindex="-1"></a>                <span class="op">**</span>user,</span>
-<span id="cb75-71"><a href="#cb75-71" aria-hidden="true" tabindex="-1"></a>                <span class="st">"tier"</span>: tier,</span>
-<span id="cb75-72"><a href="#cb75-72" aria-hidden="true" tabindex="-1"></a>                <span class="st">"processed"</span>: <span class="va">True</span></span>
-<span id="cb75-73"><a href="#cb75-73" aria-hidden="true" tabindex="-1"></a>            })</span>
-<span id="cb75-74"><a href="#cb75-74" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb75-75"><a href="#cb75-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> processed</span>
-<span id="cb75-76"><a href="#cb75-76" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-77"><a href="#cb75-77" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, users, processed):</span>
-<span id="cb75-78"><a href="#cb75-78" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"processed_users"</span>] <span class="op">=</span> processed</span>
-<span id="cb75-79"><a href="#cb75-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
-<span id="cb75-80"><a href="#cb75-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-81"><a href="#cb75-81" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SaveResultsJob(ct.Job):</span>
-<span id="cb75-82"><a href="#cb75-82" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Finalizes and reports results."""</span></span>
-<span id="cb75-83"><a href="#cb75-83" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-84"><a href="#cb75-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
-<span id="cb75-85"><a href="#cb75-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
-<span id="cb75-86"><a href="#cb75-86" aria-hidden="true" tabindex="-1"></a>            <span class="st">"processed"</span>: manifest.get(<span class="st">"processed_users"</span>, []),</span>
-<span id="cb75-87"><a href="#cb75-87" aria-hidden="true" tabindex="-1"></a>            <span class="st">"invalid"</span>: manifest.get(<span class="st">"invalid_users"</span>, [])</span>
-<span id="cb75-88"><a href="#cb75-88" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb75-89"><a href="#cb75-89" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-90"><a href="#cb75-90" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, data):</span>
-<span id="cb75-91"><a href="#cb75-91" aria-hidden="true" tabindex="-1"></a>        summary <span class="op">=</span> {</span>
-<span id="cb75-92"><a href="#cb75-92" aria-hidden="true" tabindex="-1"></a>            <span class="st">"total_processed"</span>: <span class="bu">len</span>(data[<span class="st">"processed"</span>]),</span>
-<span id="cb75-93"><a href="#cb75-93" aria-hidden="true" tabindex="-1"></a>            <span class="st">"total_invalid"</span>: <span class="bu">len</span>(data[<span class="st">"invalid"</span>]),</span>
-<span id="cb75-94"><a href="#cb75-94" aria-hidden="true" tabindex="-1"></a>            <span class="st">"tiers"</span>: {}</span>
-<span id="cb75-95"><a href="#cb75-95" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb75-96"><a href="#cb75-96" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb75-97"><a href="#cb75-97" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> user <span class="kw">in</span> data[<span class="st">"processed"</span>]:</span>
-<span id="cb75-98"><a href="#cb75-98" aria-hidden="true" tabindex="-1"></a>            tier <span class="op">=</span> user[<span class="st">"tier"</span>]</span>
-<span id="cb75-99"><a href="#cb75-99" aria-hidden="true" tabindex="-1"></a>            summary[<span class="st">"tiers"</span>][tier] <span class="op">=</span> summary[<span class="st">"tiers"</span>].get(tier, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb75-100"><a href="#cb75-100" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb75-101"><a href="#cb75-101" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> summary</span>
-<span id="cb75-102"><a href="#cb75-102" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb75-103"><a href="#cb75-103" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, data, summary):</span>
-<span id="cb75-104"><a href="#cb75-104" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"summary"</span>] <span class="op">=</span> summary</span>
-<span id="cb75-105"><a href="#cb75-105" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">📊 Processing Complete!"</span>)</span>
-<span id="cb75-106"><a href="#cb75-106" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Processed: </span><span class="sc">{</span>summary[<span class="st">'total_processed'</span>]<span class="sc">}</span><span class="ss"> users"</span>)</span>
-<span id="cb75-107"><a href="#cb75-107" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Invalid: </span><span class="sc">{</span>summary[<span class="st">'total_invalid'</span>]<span class="sc">}</span><span class="ss"> users"</span>)</span>
-<span id="cb75-108"><a href="#cb75-108" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Tiers: </span><span class="sc">{</span>summary[<span class="st">'tiers'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb75-109"><a href="#cb75-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
-<span id="cb75-110"><a href="#cb75-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-111"><a href="#cb75-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the workflow</span></span>
-<span id="cb75-112"><a href="#cb75-112" aria-hidden="true" tabindex="-1"></a>load <span class="op">=</span> LoadDataJob()</span>
-<span id="cb75-113"><a href="#cb75-113" aria-hidden="true" tabindex="-1"></a>validate <span class="op">=</span> ValidateUserJob()</span>
-<span id="cb75-114"><a href="#cb75-114" aria-hidden="true" tabindex="-1"></a>transform <span class="op">=</span> TransformUserJob()</span>
-<span id="cb75-115"><a href="#cb75-115" aria-hidden="true" tabindex="-1"></a>save <span class="op">=</span> SaveResultsJob()</span>
-<span id="cb75-116"><a href="#cb75-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-117"><a href="#cb75-117" aria-hidden="true" tabindex="-1"></a>workflow <span class="op">=</span> load <span class="op">&gt;&gt;</span> validate <span class="op">&gt;&gt;</span> transform <span class="op">&gt;&gt;</span> save</span>
-<span id="cb75-118"><a href="#cb75-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-119"><a href="#cb75-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the hustle</span></span>
-<span id="cb75-120"><a href="#cb75-120" aria-hidden="true" tabindex="-1"></a>hustle <span class="op">=</span> ct.Hustle(start<span class="op">=</span>workflow)</span>
-<span id="cb75-121"><a href="#cb75-121" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> {<span class="st">"users"</span>: users_data}</span>
-<span id="cb75-122"><a href="#cb75-122" aria-hidden="true" tabindex="-1"></a>hustle.run(manifest)</span>
-<span id="cb75-123"><a href="#cb75-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-124"><a href="#cb75-124" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
-<span id="cb75-125"><a href="#cb75-125" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
-<span id="cb75-126"><a href="#cb75-126" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Processed Users:"</span>)</span>
-<span id="cb75-127"><a href="#cb75-127" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> user <span class="kw">in</span> manifest[<span class="st">"processed_users"</span>]:</span>
-<span id="cb75-128"><a href="#cb75-128" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - </span><span class="sc">{</span>user[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>user[<span class="st">'tier'</span>]<span class="sc">}</span><span class="ss"> tier (age </span><span class="sc">{</span>user[<span class="st">'age'</span>]<span class="sc">}</span><span class="ss">)"</span>)</span>
-<span id="cb75-129"><a href="#cb75-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-130"><a href="#cb75-130" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Invalid Records:"</span>)</span>
-<span id="cb75-131"><a href="#cb75-131" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> user <span class="kw">in</span> manifest[<span class="st">"invalid_users"</span>]:</span>
-<span id="cb75-132"><a href="#cb75-132" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - </span><span class="sc">{</span>user<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> codetrain <span class="im">as</span> ct</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>users_data <span class="op">=</span> [</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kwame"</span>, <span class="st">"email"</span>: <span class="st">"kwame@example.com"</span>, <span class="st">"age"</span>: <span class="dv">25</span>},</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Ama"</span>, <span class="st">"email"</span>: <span class="st">"ama@example.com"</span>, <span class="st">"age"</span>: <span class="dv">70</span>},</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Invalid User"</span>},  <span class="co"># Missing fields</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"name"</span>: <span class="st">"Kofi"</span>, <span class="st">"email"</span>: <span class="st">"kofi@example.com"</span>, <span class="st">"age"</span>: <span class="dv">15</span>},</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LoadDataJob(ct.Job):</span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Loads user data from manifest."""</span></span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
+<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> manifest.get(<span class="st">"users"</span>, [])</span>
+<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, users):</span>
+<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> users</span>
+<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, users, validated_users):</span>
+<span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"raw_users"</span>] <span class="op">=</span> validated_users</span>
+<span id="cb74-22"><a href="#cb74-22" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"valid_users"</span>] <span class="op">=</span> []</span>
+<span id="cb74-23"><a href="#cb74-23" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"invalid_users"</span>] <span class="op">=</span> []</span>
+<span id="cb74-24"><a href="#cb74-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
+<span id="cb74-25"><a href="#cb74-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-26"><a href="#cb74-26" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ValidateUserJob(ct.Job):</span>
+<span id="cb74-27"><a href="#cb74-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Validates each user has required fields."""</span></span>
+<span id="cb74-28"><a href="#cb74-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-29"><a href="#cb74-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
+<span id="cb74-30"><a href="#cb74-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> manifest.get(<span class="st">"raw_users"</span>, [])</span>
+<span id="cb74-31"><a href="#cb74-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-32"><a href="#cb74-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, users):</span>
+<span id="cb74-33"><a href="#cb74-33" aria-hidden="true" tabindex="-1"></a>        valid <span class="op">=</span> []</span>
+<span id="cb74-34"><a href="#cb74-34" aria-hidden="true" tabindex="-1"></a>        invalid <span class="op">=</span> []</span>
+<span id="cb74-35"><a href="#cb74-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb74-36"><a href="#cb74-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> user <span class="kw">in</span> users:</span>
+<span id="cb74-37"><a href="#cb74-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">all</span>(k <span class="kw">in</span> user <span class="cf">for</span> k <span class="kw">in</span> [<span class="st">"name"</span>, <span class="st">"email"</span>, <span class="st">"age"</span>]):</span>
+<span id="cb74-38"><a href="#cb74-38" aria-hidden="true" tabindex="-1"></a>                valid.append(user)</span>
+<span id="cb74-39"><a href="#cb74-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb74-40"><a href="#cb74-40" aria-hidden="true" tabindex="-1"></a>                invalid.append(user)</span>
+<span id="cb74-41"><a href="#cb74-41" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb74-42"><a href="#cb74-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {<span class="st">"valid"</span>: valid, <span class="st">"invalid"</span>: invalid}</span>
+<span id="cb74-43"><a href="#cb74-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-44"><a href="#cb74-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, users, result):</span>
+<span id="cb74-45"><a href="#cb74-45" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"valid_users"</span>] <span class="op">=</span> result[<span class="st">"valid"</span>]</span>
+<span id="cb74-46"><a href="#cb74-46" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"invalid_users"</span>] <span class="op">=</span> result[<span class="st">"invalid"</span>]</span>
+<span id="cb74-47"><a href="#cb74-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"✅ Valid users: </span><span class="sc">{</span><span class="bu">len</span>(result[<span class="st">'valid'</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb74-48"><a href="#cb74-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"❌ Invalid users: </span><span class="sc">{</span><span class="bu">len</span>(result[<span class="st">'invalid'</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb74-49"><a href="#cb74-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
+<span id="cb74-50"><a href="#cb74-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-51"><a href="#cb74-51" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TransformUserJob(ct.Job):</span>
+<span id="cb74-52"><a href="#cb74-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Calculates user tier based on age."""</span></span>
+<span id="cb74-53"><a href="#cb74-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-54"><a href="#cb74-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
+<span id="cb74-55"><a href="#cb74-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> manifest.get(<span class="st">"valid_users"</span>, [])</span>
+<span id="cb74-56"><a href="#cb74-56" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-57"><a href="#cb74-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, users):</span>
+<span id="cb74-58"><a href="#cb74-58" aria-hidden="true" tabindex="-1"></a>        processed <span class="op">=</span> []</span>
+<span id="cb74-59"><a href="#cb74-59" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb74-60"><a href="#cb74-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> user <span class="kw">in</span> users:</span>
+<span id="cb74-61"><a href="#cb74-61" aria-hidden="true" tabindex="-1"></a>            age <span class="op">=</span> user[<span class="st">"age"</span>]</span>
+<span id="cb74-62"><a href="#cb74-62" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> age <span class="op">&lt;</span> <span class="dv">18</span>:</span>
+<span id="cb74-63"><a href="#cb74-63" aria-hidden="true" tabindex="-1"></a>                tier <span class="op">=</span> <span class="st">"bronze"</span></span>
+<span id="cb74-64"><a href="#cb74-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> age <span class="op">&lt;=</span> <span class="dv">65</span>:</span>
+<span id="cb74-65"><a href="#cb74-65" aria-hidden="true" tabindex="-1"></a>                tier <span class="op">=</span> <span class="st">"silver"</span></span>
+<span id="cb74-66"><a href="#cb74-66" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb74-67"><a href="#cb74-67" aria-hidden="true" tabindex="-1"></a>                tier <span class="op">=</span> <span class="st">"gold"</span></span>
+<span id="cb74-68"><a href="#cb74-68" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb74-69"><a href="#cb74-69" aria-hidden="true" tabindex="-1"></a>            processed.append({</span>
+<span id="cb74-70"><a href="#cb74-70" aria-hidden="true" tabindex="-1"></a>                <span class="op">**</span>user,</span>
+<span id="cb74-71"><a href="#cb74-71" aria-hidden="true" tabindex="-1"></a>                <span class="st">"tier"</span>: tier,</span>
+<span id="cb74-72"><a href="#cb74-72" aria-hidden="true" tabindex="-1"></a>                <span class="st">"processed"</span>: <span class="va">True</span></span>
+<span id="cb74-73"><a href="#cb74-73" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb74-74"><a href="#cb74-74" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb74-75"><a href="#cb74-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> processed</span>
+<span id="cb74-76"><a href="#cb74-76" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-77"><a href="#cb74-77" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, users, processed):</span>
+<span id="cb74-78"><a href="#cb74-78" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"processed_users"</span>] <span class="op">=</span> processed</span>
+<span id="cb74-79"><a href="#cb74-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
+<span id="cb74-80"><a href="#cb74-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-81"><a href="#cb74-81" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SaveResultsJob(ct.Job):</span>
+<span id="cb74-82"><a href="#cb74-82" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Finalizes and reports results."""</span></span>
+<span id="cb74-83"><a href="#cb74-83" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-84"><a href="#cb74-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> receive_order(<span class="va">self</span>, manifest):</span>
+<span id="cb74-85"><a href="#cb74-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb74-86"><a href="#cb74-86" aria-hidden="true" tabindex="-1"></a>            <span class="st">"processed"</span>: manifest.get(<span class="st">"processed_users"</span>, []),</span>
+<span id="cb74-87"><a href="#cb74-87" aria-hidden="true" tabindex="-1"></a>            <span class="st">"invalid"</span>: manifest.get(<span class="st">"invalid_users"</span>, [])</span>
+<span id="cb74-88"><a href="#cb74-88" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb74-89"><a href="#cb74-89" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-90"><a href="#cb74-90" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prepare_order(<span class="va">self</span>, data):</span>
+<span id="cb74-91"><a href="#cb74-91" aria-hidden="true" tabindex="-1"></a>        summary <span class="op">=</span> {</span>
+<span id="cb74-92"><a href="#cb74-92" aria-hidden="true" tabindex="-1"></a>            <span class="st">"total_processed"</span>: <span class="bu">len</span>(data[<span class="st">"processed"</span>]),</span>
+<span id="cb74-93"><a href="#cb74-93" aria-hidden="true" tabindex="-1"></a>            <span class="st">"total_invalid"</span>: <span class="bu">len</span>(data[<span class="st">"invalid"</span>]),</span>
+<span id="cb74-94"><a href="#cb74-94" aria-hidden="true" tabindex="-1"></a>            <span class="st">"tiers"</span>: {}</span>
+<span id="cb74-95"><a href="#cb74-95" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb74-96"><a href="#cb74-96" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb74-97"><a href="#cb74-97" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> user <span class="kw">in</span> data[<span class="st">"processed"</span>]:</span>
+<span id="cb74-98"><a href="#cb74-98" aria-hidden="true" tabindex="-1"></a>            tier <span class="op">=</span> user[<span class="st">"tier"</span>]</span>
+<span id="cb74-99"><a href="#cb74-99" aria-hidden="true" tabindex="-1"></a>            summary[<span class="st">"tiers"</span>][tier] <span class="op">=</span> summary[<span class="st">"tiers"</span>].get(tier, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb74-100"><a href="#cb74-100" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb74-101"><a href="#cb74-101" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> summary</span>
+<span id="cb74-102"><a href="#cb74-102" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb74-103"><a href="#cb74-103" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ship_order(<span class="va">self</span>, manifest, data, summary):</span>
+<span id="cb74-104"><a href="#cb74-104" aria-hidden="true" tabindex="-1"></a>        manifest[<span class="st">"summary"</span>] <span class="op">=</span> summary</span>
+<span id="cb74-105"><a href="#cb74-105" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">📊 Processing Complete!"</span>)</span>
+<span id="cb74-106"><a href="#cb74-106" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Processed: </span><span class="sc">{</span>summary[<span class="st">'total_processed'</span>]<span class="sc">}</span><span class="ss"> users"</span>)</span>
+<span id="cb74-107"><a href="#cb74-107" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Invalid: </span><span class="sc">{</span>summary[<span class="st">'total_invalid'</span>]<span class="sc">}</span><span class="ss"> users"</span>)</span>
+<span id="cb74-108"><a href="#cb74-108" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Tiers: </span><span class="sc">{</span>summary[<span class="st">'tiers'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb74-109"><a href="#cb74-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"done"</span></span>
+<span id="cb74-110"><a href="#cb74-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-111"><a href="#cb74-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the workflow</span></span>
+<span id="cb74-112"><a href="#cb74-112" aria-hidden="true" tabindex="-1"></a>load <span class="op">=</span> LoadDataJob()</span>
+<span id="cb74-113"><a href="#cb74-113" aria-hidden="true" tabindex="-1"></a>validate <span class="op">=</span> ValidateUserJob()</span>
+<span id="cb74-114"><a href="#cb74-114" aria-hidden="true" tabindex="-1"></a>transform <span class="op">=</span> TransformUserJob()</span>
+<span id="cb74-115"><a href="#cb74-115" aria-hidden="true" tabindex="-1"></a>save <span class="op">=</span> SaveResultsJob()</span>
+<span id="cb74-116"><a href="#cb74-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-117"><a href="#cb74-117" aria-hidden="true" tabindex="-1"></a>workflow <span class="op">=</span> load <span class="op">&gt;&gt;</span> validate <span class="op">&gt;&gt;</span> transform <span class="op">&gt;&gt;</span> save</span>
+<span id="cb74-118"><a href="#cb74-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-119"><a href="#cb74-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the hustle</span></span>
+<span id="cb74-120"><a href="#cb74-120" aria-hidden="true" tabindex="-1"></a>hustle <span class="op">=</span> ct.Hustle(start<span class="op">=</span>workflow)</span>
+<span id="cb74-121"><a href="#cb74-121" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> {<span class="st">"users"</span>: users_data}</span>
+<span id="cb74-122"><a href="#cb74-122" aria-hidden="true" tabindex="-1"></a>hustle.run(manifest)</span>
+<span id="cb74-123"><a href="#cb74-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-124"><a href="#cb74-124" aria-hidden="true" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb74-125"><a href="#cb74-125" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
+<span id="cb74-126"><a href="#cb74-126" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Processed Users:"</span>)</span>
+<span id="cb74-127"><a href="#cb74-127" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> user <span class="kw">in</span> manifest[<span class="st">"processed_users"</span>]:</span>
+<span id="cb74-128"><a href="#cb74-128" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - </span><span class="sc">{</span>user[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>user[<span class="st">'tier'</span>]<span class="sc">}</span><span class="ss"> tier (age </span><span class="sc">{</span>user[<span class="st">'age'</span>]<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb74-129"><a href="#cb74-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-130"><a href="#cb74-130" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Invalid Records:"</span>)</span>
+<span id="cb74-131"><a href="#cb74-131" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> user <span class="kw">in</span> manifest[<span class="st">"invalid_users"</span>]:</span>
+<span id="cb74-132"><a href="#cb74-132" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  - </span><span class="sc">{</span>user<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </div>
@@ -1714,7 +1873,14 @@ users_data = [
 </section>
 <section id="when-to-use-codetrain" class="level3">
 <h3 class="anchored" data-anchor-id="when-to-use-codetrain">When to Use CodeTrain</h3>
-<p>CodeTrain is ideal for: - <strong>Data processing pipelines</strong> (ETL workflows) - <strong>AI-powered automation</strong> (LLM-based workflows) - <strong>Business process automation</strong> (order processing, approvals) - <strong>Microservice orchestration</strong> (chaining API calls) - <strong>Any multi-step process</strong> that needs reliability and clarity</p>
+<p>CodeTrain is ideal for:</p>
+<ul>
+<li><strong>Data processing pipelines</strong> (ETL workflows)</li>
+<li><strong>AI-powered automation</strong> (LLM-based workflows)</li>
+<li><strong>Business process automation</strong> (order processing, approvals)</li>
+<li><strong>Microservice orchestration</strong> (chaining API calls)</li>
+<li><strong>Any multi-step process</strong> that needs reliability and clarity</li>
+</ul>
 </section>
 <section id="next-steps" class="level3">
 <h3 class="anchored" data-anchor-id="next-steps">Next Steps</h3>
@@ -1741,8 +1907,8 @@ users_data = [
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>CodeTrain GitHub</strong>: https://github.com/Speedykom/CodeTrain</li>
-<li><strong>PocketFlow</strong> (inspiration): https://github.com/The-Pocket/PocketFlow</li>
+<li><strong>CodeTrain GitHub</strong>: <a href="https://github.com/Speedykom/CodeTrain">https://github.com/Speedykom/CodeTrain</a></li>
+<li><strong>PocketFlow</strong> (inspiration): <a href="https://github.com/The-Pocket/PocketFlow">https://github.com/The-Pocket/PocketFlow</a></li>
 <li><strong>Examples</strong>: Check the <code>examples/</code> folder in the CodeTrain repo</li>
 <li><strong>SKILL.md</strong>: Comprehensive guide for AI agents building CodeTrain workflows</li>
 </ul>

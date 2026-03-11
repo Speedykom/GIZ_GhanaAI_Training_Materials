@@ -585,6 +585,7 @@ with torch.no_grad():
 You might be wondering: *"The weather prediction problem we just solved used **Linear Regression** and **Logistic Regression** - those are traditional Machine Learning techniques, not Deep Learning! Why are we in a Deep Learning course?"*
 
 Great question! The answer is that **the weather problem is a "bridge"** - it helped you understand the fundamentals of:
+
 - Training and testing data
 - Features and targets
 - Model evaluation (RMSE, Accuracy)
@@ -613,6 +614,7 @@ Use **Linear Regression, Logistic Regression, Random Forest, XGBoost** when:
 5. **Quick baseline needed** - ML models train in seconds
 
 **Examples:**
+
 - Predicting house prices (our Ghana housing data!)
 - Customer churn prediction
 - Credit scoring
@@ -629,6 +631,7 @@ Use **Neural Networks** when:
 5. **You have GPU** - Training is much faster with graphics cards
 
 **Examples:**
+
 - Image classification (self-driving cars, medical scans)
 - Language translation (Google Translate)
 - Voice assistants (Alexa, Siri)
