@@ -19,6 +19,19 @@ jupyter: python3
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
+::: {.callout-warning}
+## IMPORTANT: Enable GPU Before Running!
+
+**Before you run any code, you MUST enable GPU acceleration:**
+
+1. Click **Runtime** in the top menu
+2. Select **Change runtime type**
+3. Under **Hardware accelerator**, select **T4 GPU**
+4. Click **Save**
+
+Without GPU, training will be extremely slow (or may not work properly).
+:::
+
 # Setup Instructions
 
 ## Before You Start
@@ -105,6 +118,7 @@ A **Convolution** is like a detective in a dark room with a **small square flash
 2. **Scanning Top-to-Bottom:** They methodically move the flashlight across the entire image, one small patch at a time.
 
 3. **Different Flashlights for Different Clues:** 
+   
    - One flashlight (filter) detects **vertical edges** (door frames, tree trunks)
    - Another detects **horizontal edges** (roads, horizons)
    - Another detects **curves** (eyes, wheels)
@@ -674,11 +688,13 @@ We'll use the actual **German Traffic Sign Recognition Benchmark (GTSRB)** datas
 **Dataset Source**: [German Traffic Sign Recognition Benchmark](https://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
 
 The dataset contains:
+
 - **43 different traffic sign classes**
 - **Over 50,000 images** with varying lighting, angles, and weather conditions
 - **Real-world photographs** (not synthetic)
 
 We'll focus on 4 important signs:
+
 - **Priority Road** (yellow diamond) - Class 12
 - **Give Way** (inverted triangle) - Class 13  
 - **Stop** (octagon) - Class 14
@@ -1170,6 +1186,7 @@ def evaluate(model, loader, criterion, device):
 **What it does:** Measures how wrong our predictions are
 
 - **CrossEntropyLoss**: Used for multi-class classification
+  
   - Combines `LogSoftmax` + `NLLLoss` (Negative Log Likelihood)
   - Penalizes wrong predictions heavily
   - Works with raw logits (no need for softmax in model)
@@ -1184,6 +1201,7 @@ If model predicts [0.1, 0.2, 0.7] and true label is class 0:
 **What it does:** Updates weights to minimize loss
 
 - **Adam**: Adaptive Moment Estimation
+  
   - Combines benefits of RMSprop + momentum
   - Adapts learning rate for each parameter automatically
   - Works well for most deep learning tasks

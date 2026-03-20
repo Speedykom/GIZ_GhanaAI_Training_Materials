@@ -19,6 +19,19 @@ jupyter: python3
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
+::: {.callout-warning}
+## IMPORTANT: Enable GPU Before Running!
+
+**Before you run any code, you MUST enable GPU acceleration:**
+
+1. Click **Runtime** in the top menu
+2. Select **Change runtime type**
+3. Under **Hardware accelerator**, select **T4 GPU**
+4. Click **Save**
+
+Without GPU, training will be extremely slow (or may not work properly).
+:::
+
 # Philosophy: First the Fire, Then the Physics
 
 Most courses teach you how to build a carburetor before letting you drive a car. **We do the opposite.** 
