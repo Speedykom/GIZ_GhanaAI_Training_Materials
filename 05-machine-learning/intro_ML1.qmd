@@ -939,6 +939,7 @@ plt.show()
 - **Red lines**: RMSE threshold—most predictions should be within these bounds
 - **Blue lines**: MAE threshold—average error magnitude
 - **Histogram shape**:
+  
   - Centered around zero: Model is unbiased
   - Wide spread: Model has high variance
   - Skewed: Systematic over/under prediction
@@ -958,6 +959,7 @@ plt.show()
 ## Common Mistakes with Loss Functions
 
 **1. Using MSE on data with outliers**
+
 - Outliers can dominate MSE (squared term)
 - Consider: Winsorize data first, or use MAE
 
@@ -966,6 +968,7 @@ plt.show()
 - Use RMSE for interpretation
 
 **3. R² < 0 means "no correlation"**
+
 - Actually means "worse than predicting the mean"
 - Check your data preprocessing and model
 :::

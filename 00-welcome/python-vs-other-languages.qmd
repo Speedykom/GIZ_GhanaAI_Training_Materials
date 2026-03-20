@@ -2,11 +2,18 @@
 title: "Why Python for AI & Data Science?"
 subtitle: "A Language Comparison for MERN Stack Developers"
 author: "Speedykom Group GmbH"
+jupyter: python3
 format:
   html:
     number-sections: false
-jupyter: python3
-css: styles.css
+    css: styles.css
+  pdf:
+    number-sections: false
+    colorlinks: true
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
 ## Introduction: The Language Landscape in 2026

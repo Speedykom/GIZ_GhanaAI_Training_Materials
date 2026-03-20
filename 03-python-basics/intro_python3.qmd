@@ -11,14 +11,14 @@ css: styles.css
 
 In the previous lessons, you learned Python's syntax and data structures. Now we'll cover the **architectural patterns** you'll use in every AI/ML project:
 
-- **Lambda Functions** – Compact one-line functions for data processing
-- **Classes & OOP** – Organizing code with objects and blueprints
-- **Error Handling** – Building robust data pipelines
-- **Modules & Imports** – Organizing multi-file projects
+-   **Lambda Functions** – Compact one-line functions for data processing
+-   **Classes & OOP** – Organizing code with objects and blueprints
+-   **Error Handling** – Building robust data pipelines
+-   **Modules & Imports** – Organizing multi-file projects
 
 These aren't "advanced topics" – they're **essential tools** you'll use from Day 1 of AI engineering. Let's get started.
 
----
+------------------------------------------------------------------------
 
 # 1. Lambda Functions: Compact Anonymous Functions
 
@@ -47,13 +47,14 @@ print(f'Type: {type(square_lambda)}')  # Shows <class 'function'>
 
 **Syntax breakdown:**
 
-- `lambda` keyword
-- `x` - the parameter(s)
-- `:` - separates parameters from the expression
-- `x ** 2` - the expression that gets returned automatically (no `return` keyword needed)
+-   `lambda` keyword
+-   `x` - the parameter(s)
+-   `:` - separates parameters from the expression
+-   `x ** 2` - the expression that gets returned automatically (no `return` keyword needed)
 
 **JavaScript comparison:**
-```javascript
+
+``` javascript
 // JavaScript arrow function
 const square = (x) => x ** 2;
 
@@ -66,6 +67,23 @@ square = lambda x: x ** 2
 You rarely store lambdas in variables like we did above. Instead, you pass them **directly into other functions** as arguments. This pattern appears everywhere in data science.
 
 **The common pattern:** "I need to tell this function HOW to do something, but the logic is so simple I don't want to write a whole function for it."
+
+### Real-World Example: Extracting Usernames from Emails
+
+This is a super common task in web development: getting the username part of an email address.
+
+```{python}
+#| code-fold: false
+# A quick, disposable function to grab the name before the '@'
+get_username = lambda email: email.split("@")[0]
+
+# Test with different emails
+print(get_username("kojo@gmail.com"))      # Output: kojo
+print(get_username("ama.o@company.org"))   # Output: ama.o
+print(get_username("student12@university.edu"))  # Output: student12
+```
+
+**What's happening:** - `email.split("@")` splits the email into `["username", "domain.com"]` - `[0]` grabs the first part (the username)
 
 ### Example 1: Sorting Dictionaries
 
@@ -91,9 +109,9 @@ print(f"\nTop Scorer: {users[0]['name']}")
 
 **What's happening:**
 
-- Python needs to know: "What value should I use to sort each user?"
-- `lambda user: user["score"]` tells Python: "For each dictionary, extract the 'score' value"
-- Python then sorts based on those extracted values
+-   Python needs to know: "What value should I use to sort each user?"
+-   `lambda user: user["score"]` tells Python: "For each dictionary, extract the 'score' value"
+-   Python then sorts based on those extracted values
 
 **The metaphor:** Imagine sorting a stack of student papers. Someone asks you "How should I sort these?" You say "By the grade at the top of each paper." The lambda is your instruction: "look at this specific part of each item."
 
@@ -111,13 +129,13 @@ print(admins)
 
 **What's happening:**
 
-- `filter()` asks: "Which items should I keep?"
-- `lambda user: user["role"] == "admin"` answers: "Keep only items where role equals 'admin'"
-- The lambda returns `True` or `False` for each item
+-   `filter()` asks: "Which items should I keep?"
+-   `lambda user: user["role"] == "admin"` answers: "Keep only items where role equals 'admin'"
+-   The lambda returns `True` or `False` for each item
 
 **Why `list()`?** In Python 3, `filter()` returns an iterator (for memory efficiency with large datasets). Wrapping it in `list()` converts it to an actual list you can print or work with.
 
----
+------------------------------------------------------------------------
 
 ## 🧪 Practice: Lambda Functions
 
@@ -190,100 +208,168 @@ for img in high_confidence:
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 # 2. Object-Oriented Programming: Classes Explained
 
-**The Delivery Metaphor: The "Order Form"**
+## Why Do We Need Classes?
 
-Imagine you are building a food delivery app like UberEats or DoorDash.
+Before we learn the syntax, let's understand **why** classes exist.
 
-**The Class (Order)**: This is the blank digital form in the app's code. It dictates that every order must have a delivery_address, a list_of_items, and a total_price. It also defines actions like `calculate_tax()` or `assign_driver()`.
+**The Problem:** Imagine you want to track 100 students. With **functions alone**, you'd have:
 
-**The Object (Your Lunch)**: When you hit "Checkout," you create an instance of that order.
+``` python
+# Option 1: Scattered variables (chaos!)
+student1_name = "Ama"
+student1_age = 20
+student1_grade = 85
 
-* **Object 1**: Address: 123 Maple St; Items: Burger; Status: Out for delivery.
+student2_name = "Kwame"
+student2_age = 22
+student2_grade = 92
 
-* **Object 2**: Address: 456 Oak Ave; Items: Sushi; Status: Preparing.
+# ... up to student100! How do you loop through them?
+```
 
-**Key Takeaway**: The Class defines the structure (what it knows and what it can do), while the Object holds the actual data.
+**The Solution:** Classes let you bundle **data** (attributes) and **actions** (methods) together into reusable blueprints. Instead of 100 scattered variables, you have 100 instances of the same blueprint.
 
-::: {.callout-note}
-## Real-World AI Connection: Model Architectures
-In AI, almost every "Model" (like a Neural Network) is a **Class**. When you use libraries like PyTorch or TensorFlow, you create a class that inherits from a base "Module". This class defines the "Layers" (Attributes) and the "Forward Pass" or how data moves through the brain (Methods).
+**Real-world analogy:** A Class is like a **form template**. The template defines what spaces exist (Name field, Age field, Grade field). Each filled-out form is an **instance** - a real student with real data.
+
+::: callout-tip
+## Key Concept
+
+-   **Class** = The blueprint/template (what every student HAS and CAN DO)
+-   **Object/Instance** = One filled-out form (one real student)
+-   **Attribute** = A field on the form (name, age, grade)
+-   **Method** = An action the student can perform (study, take_exam)
 :::
 
 ## The Simplest Possible Class
 
-Let's start with something so simple you could explain it to a 10-year-old: a dog.
+Let's start with the simplest class possible: a **Greeter** that just says hello.
+
+```{python}
+#| code-fold: false
+
+# Step 1: Define the class (the blueprint)
+class Greeter:
+    # The greet method - every greeter can do this
+    def greet(self):
+        return "Hello!"
+
+# Step 2: Create an instance (one real greeter)
+g = Greeter()
+
+# Step 3: Call the method
+print(g.greet())
+```
+
+**Three steps to remember:** 
+
+1. `class Name:` - Define the blueprint 
+2. `instance = Name()` - Create an instance 
+3. `instance.method()` - Use it!
+
+## A Slightly More Useful Class
+
+Let's add some **data** to our class. Meet the simplest useful class: a **Greeter with a name**.
+
+```{python}
+#| code-fold: false
+
+class Greeter:
+    # __init__ runs automatically when you create an instance
+    def __init__(self, name):
+        self.name = name  # Store the name
+    
+    # A method that uses the stored name
+    def greet(self):
+        return f"Hello, {self.name}!"
+
+# Create two different greeters
+g1 = Greeter("Ama")
+g2 = Greeter("Kwame")
+
+print(g1.greet())  # Hello, Ama!
+print(g2.greet())  # Hello, Kwame!
+
+# They are completely independent!
+print(g1.name)     # Ama
+print(g2.name)     # Kwame
+```
+
+**The key insight:** `self.name` stores data that belongs to THIS specific instance. When `g1.greet()` runs, `self` refers to `g1`. When `g2.greet()` runs, `self` refers to `g2`.
+
+## The Dog Example (Beginner-Friendly)
+
+Let's use our Ghanaian friends: a **dog** that can bark!
 
 ```{python}
 #| code-fold: false
 
 class Dog:
-    # Constructor - runs when you create a new dog
-    def __init__(self, name, breed):
-        self.name = name      # Every dog has a name
-        self.breed = breed    # Every dog has a breed
-        self.energy = 100     # All dogs start with full energy
+    # __init__ = the constructor (runs when creating a new dog)
+    def __init__(self, name):
+        self.name = name  # This dog has a name
+        self.hunger = 50  # All dogs start at 50% hungry
     
-    # Method - an action this dog can do
+    # A method = an action this dog can do
     def bark(self):
         return f"{self.name} says: Woof!"
     
-    # Method - another action
+    # Dogs get hungry when they play
     def play(self):
-        if self.energy > 10:
-            self.energy -= 20
-            return f"{self.name} is playing! Energy now: {self.energy}"
-        else:
-            return f"{self.name} is too tired to play."
+        self.hunger += 20
+        return f"{self.name} played! Hunger is now {self.hunger}%"
 
-# Create two different dogs (instances)
-my_dog = Dog("Max", "Golden Retriever")
-your_dog = Dog("Bella", "Poodle")
+# Create two dogs
+rex = Dog("Rex")
+fido = Dog("Fido")
 
-# Each dog is independent
-print(my_dog.bark())        # Max says: Woof!
-print(your_dog.bark())      # Bella says: Woof!
+print(rex.bark())
+print(fido.bark())
 
-print(my_dog.play())        # Max is playing! Energy now: 80
-print(my_dog.play())        # Max is playing! Energy now: 60
-print(your_dog.play())      # Bella is playing! Energy now: 80
+print(rex.play())
+print(rex.play())
 
-# See? Max's energy is 60, but Bella's is 80. They're separate!
-print(f"Max's energy: {my_dog.energy}")
-print(f"Bella's energy: {your_dog.energy}")
+# Each dog is INDEPENDENT!
+print(f"Rex's hunger: {rex.hunger}")
+print(f"Fido's hunger: {fido.hunger}")  # Fido didn't play, so still 50!
 ```
 
-**What just happened?**
+::: callout-note
+## Why Classes Instead of Functions?
 
-1. We created a blueprint (Dog class) that defines what all dogs should have
-2. We created two actual dogs (instances) from that blueprint
-3. Each dog has its own name, breed, and energy level
-4. When Max plays, it doesn't affect Bella's energy
+With functions, tracking 100 dogs would look like this:
+
+``` python
+dogs = [
+    {"name": "Rex", "hunger": 50},
+    {"name": "Fido", "hunger": 50},
+    # ... 98 more dogs
+]
+```
+
+With classes, it's cleaner and each dog manages its own state!
+:::
 
 ## Understanding `self`
 
-The `self` parameter is how Python knows **which instance** a method is working with. This is **mandatory as the first argument** in every method, unlike JavaScript's `this` which is implicit.
+The `self` parameter tells Python **which instance** is being used. When you write:
 
-**Car rental metaphor:** Imagine a car rental company with 50 cars. When you call and say "start the engine," the company needs to know: **Which car?** The Toyota in Bay 3? The Honda in Bay 7?
-
-In Python, `self` is the way a method knows "which car" (which instance) it's operating on.
-
-When you write:
-```python
-my_dog.bark()
+``` python
+rex.bark()
 ```
 
-Python automatically translates this to:
-```python
-Dog.bark(my_dog)  # ← my_dog becomes 'self'
+Python secretly runs:
+
+``` python
+Dog.bark(rex)  # rex becomes 'self'
 ```
 
-**The rule:** You must always include `self` as the first parameter in every method definition. Python passes it automatically when you call the method.
+**Rule:** Always put `self` as the first parameter in every method.
 
-## A Practical AI Example: Mobile Money Account
+## Real-World AI Example: Mobile Money Account
 
 Let's build something more relevant to African tech: a mobile money system.
 
@@ -348,12 +434,12 @@ ama_account.show_history()
 
 **Key observations:**
 
-- Kwame's transactions don't affect Ama's account
-- Each account maintains its own balance and history
-- The methods (deposit, withdraw) work the same way for both accounts
-- Each instance is completely independent
+-   Kwame's transactions don't affect Ama's account
+-   Each account maintains its own balance and history
+-   The methods (deposit, withdraw) work the same way for both accounts
+-   Each instance is completely independent
 
----
+------------------------------------------------------------------------
 
 ## 🧪 Practice: Building a Simple Bank Account
 
@@ -446,119 +532,143 @@ print(account.get_balance())
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 ## Inheritance: Building on Existing Classes
 
-Let’s look at the **Master Dough** as the ultimate inheritance metaphor.
+**The Concept:** Inheritance lets you create a new class based on an existing one. The new class gets all the abilities of the parent, plus its own special ones.
 
-In a bakery, you don't start from scratch (flour/water/yeast) for every single item. You make a massive batch of **Base Dough**, and then you branch out.
+**The Analogy:** Think of **animals**. All animals can breathe and eat. A Cat is an Animal, so it inherits those abilities. But cats also have their own special ability: they meow.
 
-### 1. The Parent Class: "The Master Dough"
-
-Think of this as the foundation. It contains everything that is **universal** to bread.
-
-* **Attributes (What it has):** Flour type, Water ratio, Yeast amount.
-* **Methods (What it can do):** `knead()`, `rise()`, and `bake()`.
-
-### 2. The Child Class: "The Cinnamon Roll"
-
-Now, a Cinnamon Roll **is-a** piece of dough, but it’s specialized.
-
-* **Inheritance:** It "inherits" the `knead()` and `rise()` steps from the Master Dough. You don't have to rewrite the science of how yeast works.
-* **Specialization:** It adds its own unique attributes (Cinnamon, Sugar, Frosting) and its own methods (`roll_up()`).
-
-### 3. The Child Class: "The Pizza Base"
-
-A Pizza Base also **is-a** piece of dough.
-
-* **Inheritance:** It also uses the same `knead()` and `rise()` logic from the Parent.
-* **Specialization:** It adds a `stretch()` method and a `topping` attribute.
-
-
-### Why this matters (The "Aha!" Moment)
-
-Imagine you are the Head Baker (the Tech Lead). You realize the bakery is too cold, so the dough needs to rise for **2 hours** instead of 1.
-
-* **Without Inheritance:** you would have to go to the Cinnamon Roll station, the Pizza station, and the Bagel station to tell everyone individually to change their timer.
-* **With Inheritance:** You simply update the `rise()` method in the **Master Dough** class. Because the Cinnamon Roll and Pizza "inherit" from it, they both automatically start rising for 2 hours.
-
-**Summary in Code Logic**
-
-1. **Parent:** Defines the "General" rules (How to be dough).
-2. **Child:** Inherits the general rules but adds "Specific" flair (Sugar vs. Salt).
-3. **The Result:** You write the hard logic (the chemistry of baking) only **once**.
-
-
-Actually, you can have a class with zero methods (just data), but it’s the **methods** that make a class powerful. Without them, it’s just a "dumb" container. Methods allow the object to **act** on its own data.
-
-In Python, a class usually feels "justified" when it handles its own logic so you don't have to write manual `if/else` statements everywhere in your main code.
-
-Let’s add two "Fullstack" style methods:
-
-1. **A Logic-based Method**: `calculate_bonus()` (Business logic).
-2. **A Utility Method**: `promote()` (State management).
-
-### The Enhanced Employee System
+### The Simplest Inheritance Example
 
 ```{python}
-class Profile:
-    def __init__(self, first, last, age, qualification):
-        self.first = first
-        self.last = last
-        self.age = age
-        self.qualification = qualification
-        self.email = f"{first.lower()}.{last.lower()}@techafrica.io"
+#| code-fold: false
 
-class Employee(Profile):
-    def __init__(self, first, last, age, qualification, dept, title, salary):
-        super().__init__(first, last, age, qualification)
-        self.dept = dept
-        self.title = title
-        self.salary = salary
+# Parent class - the base for all animals
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def eat(self):
+        return f"{self.name} is eating."
 
-    # METHOD 1: Business Logic (The Calculator)
-    # This keeps payroll logic inside the class, not scattered in your main code
-    def get_annual_bonus(self):
-        if self.dept == "Engineering":
-            return self.salary * 0.15  # 15% for devs
-        elif self.dept == "Accounts":
-            return self.salary * 0.10  # 10% for finance
-        return self.salary * 0.05      # 5% for everyone else
+# Child class - Cat INHERITS from Animal
+class Cat(Animal):
+    def meow(self):
+        return f"{self.name} says: Meow!"
 
-    # METHOD 2: State Management (The Updater)
-    # This allows the object to "evolve" over time
-    def promote(self, new_title, raise_amount):
-        self.title = new_title
-        self.salary += raise_amount
-        print(f"Congrats! {self.first} is now {self.title} with a new salary of ${self.salary:,}")
+# Child class - Dog INHERITS from Animal
+class Dog(Animal):
+    def bark(self):
+        return f"{self.name} says: Woof!"
 
-# --- Testing the Logic ---
-emp1 = Employee("Amina", "Okonjo", 30, "Software Eng", "Engineering", "Junior Dev", 50000)
+# Create instances
+cat = Cat("Whiskers")
+dog = Dog("Rex")
 
-# 1. Use the logic method
-bonus = emp1.get_annual_bonus()
-print(f"{emp1.first}'s Bonus: ${bonus:,.2f}")
+# Cat and Dog both inherited eat() from Animal!
+print(cat.eat())    # Whiskers is eating.
+print(dog.eat())   # Rex is eating.
 
-# 2. Use the state-change method
-emp1.promote("Senior Dev", 25000)
-
+# But each has its own unique sound
+print(cat.meow())  # Whiskers says: Meow!
+print(dog.bark())  # Rex says: Woof!
 ```
 
----
+**What just happened:** - `Cat(Animal)` means "Cat is a type of Animal" - Cat automatically gets `eat()` from Animal - Cat adds its own `meow()` method - Same for Dog - it inherits `eat()` but adds `bark()`
 
-### Why this "justifies" the Class:
+### Why Use Inheritance?
 
-* **Encapsulation**: If the board decides "Accounts" now gets a 12% bonus instead of 10%, you change it inside the `get_annual_bonus` method. You don't have to hunt through your entire codebase to find every place you calculated a bonus.
-* **Self-Contained State**: The `promote` method ensures that the `title` and `salary` are updated together. You don't risk updating the title in one variable and forgetting to update the salary in another.
+**Without inheritance** (repeating code - bad!):
 
-### A Tech Lead's Perspective
+``` python
+class Cat:
+    def __init__(self, name):
+        self.name = name
+    def eat(self):  # Copied from Animal
+        return f"{self.name} is eating."
+    def meow(self):
+        return f"{self.name} says: Meow!"
+```
 
-In a real-world app, these methods might also trigger external events. For example, the `promote` method could internally call a function to **update the database** or **send a Slack notification** to the team.
+**With inheritance** (clean!):
 
+``` python
+class Cat(Animal):  # Just say "Cat inherits from Animal"
+    def meow(self):  # Only add what's unique to Cat
+        return f"{self.name} says: Meow!"
+```
 
-::: {.callout-important}
-## 🧪 Mini-Task: Create your own Child Class
+**Key Takeaway:** You write shared logic once in the parent, and all children automatically get it!
+
+::: callout-note
+## Real-World AI Connection
+
+In PyTorch, neural networks use inheritance extensively. You create a class that inherits from `nn.Module`, and you only define the layers that are specific to your model. The "training loop" logic is inherited from the parent!
+:::
+
+## Practice: Create a Smartphone Class
+
+Let's practice inheritance! Complete the code below to make a `Smartphone` class that inherits from a `Device` class.
+
+```{python}
+#| eval: false
+
+# 1. The Parent Class
+class Device:
+    def __init__(self, brand, battery_level=100):
+        self.brand = brand  # Assign the brand parameter
+        self.battery_level = battery_level  # Assign the battery_level parameter
+        
+    def charge(self):
+        self.battery_level = 100
+        return f"{self.brand} is fully charged!"
+
+# 2. The Child Class (Inherits from Device)
+class Smartphone(Device):
+    # Smartphone doesn't need its own __init__ - it inherits from Device!
+    
+    # Let's add a method just for Smartphones
+    def install_app(self, app_name):
+        self.battery_level -= 5
+        return f"Installed {app_name} on {self.brand}. Battery: {self.battery_level}%"
+
+# 3. Testing it out
+my_phone = Smartphone("Samsung")
+
+# Use the child's method
+print(my_phone.install_app("WhatsApp"))
+
+# Use the parent's inherited method
+print(my_phone.charge())
+```
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+```{python}
+#| code-fold: true
+
+class Device:
+    def __init__(self, brand, battery_level=100):
+        self.brand = brand
+        self.battery_level = battery_level
+        
+    def charge(self):
+        self.battery_level = 100
+        return f"{self.brand} is fully charged!"
+
+class Smartphone(Device):
+    def install_app(self, app_name):
+        self.battery_level -= 5
+        return f"Installed {app_name} on {self.brand}. Battery: {self.battery_level}%"
+
+my_phone = Smartphone("Samsung")
+print(my_phone.install_app("WhatsApp"))
+print(my_phone.charge())
+```
+:::
 
 Let's practice inheritance! Complete the code below to make a `Smartphone` class that inherits from a `Device` class.
 
@@ -595,10 +705,10 @@ my_phone.install_app("WhatsApp")
 # Use the parent's inherited method
 my_phone.charge()
 ```
+
 :::
 
-
----
+------------------------------------------------------------------------
 
 # 3. Error Handling: Building Robust Pipelines
 
@@ -608,12 +718,13 @@ In JavaScript, you use `try...catch`. Python uses `try...except`. The concept is
 
 **Why this matters in AI/ML:**
 
-- One corrupted image shouldn't crash your entire training pipeline processing 10,000 images
-- Missing data in row 5,000 of a CSV shouldn't stop processing
-- API rate limits need graceful handling
+-   One corrupted image shouldn't crash your entire training pipeline processing 10,000 images
+-   Missing data in row 5,000 of a CSV shouldn't stop processing
+-   API rate limits need graceful handling
 
-::: {.callout-note}
+::: callout-note
 ## Real-World AI Connection: Robust Pipelines
+
 Industrial AI systems run on millions of data points. If your code is scraping 10,000 websites and site #452 is down, you don't want the whole program to stop. You use `try...except` to log the error for that one site and then immediately skip to #453. This is how "pipelines" stay running 24/7.
 :::
 
@@ -637,16 +748,42 @@ print(safe_divide(10, 0))      # Division by zero
 print(safe_divide(10, "two"))  # Wrong type
 ```
 
+### Real-World Example: Handling User Input Errors
+
+This is the most common error beginners face: what happens when a user types wrong data into a form? Let's simulate what happens with good input vs bad input.
+
+```{python}
+#| code-fold: false
+
+def validate_age(user_input):
+    try:
+        age = int(user_input)
+        return f"You will be {age + 1} next year!"
+    except ValueError:
+        return "Error: Please enter a number, not text!"
+
+# Test with GOOD input (a number as a string)
+print(validate_age("25"))     # Output: "You will be 26 next year!"
+
+# Test with BAD input (text instead of number)
+print(validate_age("twenty")) # Output: "Error: Please enter a number, not text!"
+```
+
+**What just happened:** 
+
+- `int(user_input)` tries to convert the text to a number 
+- If the user typed "twenty" instead of "25", Python can't convert it 
+- The `except ValueError` catches this problem and shows a friendly message instead of crashing
+
 **The metaphor:** You're teaching a robot to make tea. Without error handling:
 
-- Robot: "Boil water" → Water runs out → Robot crashes, kitchen floods
+-   Robot: "Boil water" → Water runs out → Robot crashes, kitchen floods
 
 With error handling:
 
-- Robot: "Boil water" → Water runs out → Robot says "No water available, cannot make tea" → Continues functioning
+-   Robot: "Boil water" → Water runs out → Robot says "No water available, cannot make tea" → Continues functioning
 
-
----
+------------------------------------------------------------------------
 
 # 4. Modules & Imports: Organizing Multi-File Projects
 
@@ -656,10 +793,10 @@ To explain **Modules and Libraries** simply, let's go back to our bakery.
 
 Imagine you are building a world-class bakery. You *could* build a flour mill, a sugar refinery, and a dairy farm in your backyard just to get started. But that’s a waste of time. Instead, you go to the store and buy pre-packaged ingredients.
 
-* **A Module** is like a **Spice Jar**. It’s a single file of code someone else wrote (or you wrote earlier) that contains specific "flavors" (functions like `calculate_tax` or `resize_image`).
-* **A Library (or Package)** is like a **Kitchen Kit**. It’s a collection of many modules. If you buy a "Baking Kit," it comes with a whisk, a bowl, and a timer. In Python, if you install a library like `pandas`, it comes with everything you need to handle data.
+-   **A Module** is like a **Spice Jar**. It’s a single file of code someone else wrote (or you wrote earlier) that contains specific "flavors" (functions like `calculate_tax` or `resize_image`).
+-   **A Library (or Package)** is like a **Kitchen Kit**. It’s a collection of many modules. If you buy a "Baking Kit," it comes with a whisk, a bowl, and a timer. In Python, if you install a library like `pandas`, it comes with everything you need to handle data.
 
----
+------------------------------------------------------------------------
 
 ### Why do we use them?
 
@@ -669,19 +806,17 @@ You use modules because **you shouldn't reinvent the wheel.** If someone has alr
 
 In the modern Python world, we use a tool called **`uv`**. Think of `uv` as your **Kitchen Supplier**. You tell it what you need, and it goes out, finds the best version, and puts it in your pantry.
 
-To add a library to your project, you just run:
-`uv add pandas` (This "buys" the data analysis kit and puts it in your kitchen).
+To add a library to your project, you just run: `uv add pandas` (This "buys" the data analysis kit and puts it in your kitchen).
 
----
+------------------------------------------------------------------------
 
 ### Importing & Aliases: "Nicknames"
 
 When you bring a module into your code, you use the `import` command. Sometimes, module names are long and annoying to type, so we give them **aliases** (nicknames).
 
-**Think of it like this:**
-Your friend's name might be *Christopher*, but in the kitchen, you just yell **"Chris!"** to get his attention. It’s faster.
+**Think of it like this:** Your friend's name might be *Christopher*, but in the kitchen, you just yell **"Chris!"** to get his attention. It’s faster.
 
-```python
+``` python
 # Instead of typing this every time:
 import statistics
 print(statistics.mean([1, 2, 3]))
@@ -689,20 +824,18 @@ print(statistics.mean([1, 2, 3]))
 # We use an alias (a nickname):
 import statistics as stats
 print(stats.mean([1, 2, 3])) # Much faster for a busy developer!
-
 ```
 
-
----
+------------------------------------------------------------------------
 
 # 5. Final Project: Student Registration System
 
 Let's build a practical **Student Registration System** that combines everything we've learned:
 
-- **Classes** (organizing student data)
-- **Lambda functions** (calculating ages and sorting)
-- **Error handling** (validating data)
-- **Methods** (actions like enrolling, updating grades)
+-   **Classes** (organizing student data)
+-   **Lambda functions** (calculating ages and sorting)
+-   **Error handling** (validating data)
+-   **Methods** (actions like enrolling, updating grades)
 
 ## Understanding Methods vs Attributes
 
@@ -710,24 +843,24 @@ Before we start, let's clarify two important concepts:
 
 **Attributes (Nouns)** - These are the **properties** or **data** that describe an object:
 
-- `first_name` - stores the student's first name
-- `date_of_birth` - stores when the student was born
-- `current_class` - stores what grade level they're in
-- `grades` - stores their test scores
+-   `first_name` - stores the student's first name
+-   `date_of_birth` - stores when the student was born
+-   `current_class` - stores what grade level they're in
+-   `grades` - stores their test scores
 
 **Methods (Verbs)** - These are the **actions** or **functions** that an object can perform:
 
-- `calculate_age()` - calculates how old the student is
-- `enroll()` - registers the student in a class
-- `add_grade()` - records a new test score
-- `get_average()` - calculates average grade
+-   `calculate_age()` - calculates how old the student is
+-   `enroll()` - registers the student in a class
+-   `add_grade()` - records a new test score
+-   `get_average()` - calculates average grade
 
 **Metaphor:** Think of a smartphone again:
 
-- **Attributes** = battery level, model name, storage capacity (what it HAS)
-- **Methods** = make_call(), send_message(), take_photo() (what it DOES)
+-   **Attributes** = battery level, model name, storage capacity (what it HAS)
+-   **Methods** = make_call(), send_message(), take_photo() (what it DOES)
 
----
+------------------------------------------------------------------------
 
 ## Building the StudentRegistration Class
 
@@ -957,43 +1090,44 @@ print(student1.get_info())
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 # Summary: What You've Learned
 
 In this lesson, you mastered the core architectural patterns for Python AI/ML development:
 
 ## 1. Lambda Functions
-- Compact one-line functions for data processing
-- Used with `sort()`, `filter()`, `map()` and other higher-order functions
-- Perfect for simple transformations
+
+-   Compact one-line functions for data processing
+-   Used with `sort()`, `filter()`, `map()` and other higher-order functions
+-   Perfect for simple transformations
 
 ## 2. Classes & OOP
 
-- Classes are blueprints, objects are instances
-- `self` is mandatory in methods (unlike JavaScript's `this`)
-- Inheritance lets you build on existing classes
-- Critical for organizing AI models and data pipelines
+-   Classes are blueprints, objects are instances
+-   `self` is mandatory in methods (unlike JavaScript's `this`)
+-   Inheritance lets you build on existing classes
+-   Critical for organizing AI models and data pipelines
 
 ## 3. Error Handling
 
-- `try...except` blocks prevent crashes
-- Essential for production pipelines processing thousands of files
-- Continue processing after errors, don't crash completely
+-   `try...except` blocks prevent crashes
+-   Essential for production pipelines processing thousands of files
+-   Continue processing after errors, don't crash completely
 
 ## 4. Modules & Imports
 
-- Python uses named imports only (no `export default`)
-- `__init__.py` marks folders as packages
-- Three import styles: full module, specific items, or aliased
+-   Python uses named imports only (no `export default`)
+-   `__init__.py` marks folders as packages
+-   Three import styles: full module, specific items, or aliased
 
 ## 5. Practical Integration
 
-- Combined all concepts in a real-world Student Registration System
-- Used lambdas for calculations
-- Applied error handling for validation
-- Organized code with classes and methods
+-   Combined all concepts in a real-world Student Registration System
+-   Used lambdas for calculations
+-   Applied error handling for validation
+-   Organized code with classes and methods
 
----
+------------------------------------------------------------------------
 
 Keep coding! 🚀

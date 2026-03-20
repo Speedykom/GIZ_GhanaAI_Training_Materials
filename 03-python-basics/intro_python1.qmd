@@ -73,6 +73,37 @@ stack.append("Python") # JS: .push()
 print(stack)
 ```
 
+### Real-World Example: A Shopping Cart at Accra Mall
+
+Let's assume we went shopping at **Accra Mall** and our cart has these items. Lists are perfect for this because you can add, remove, or change items as you shop - this is what "mutable" means!
+
+```{python}
+#| code-fold: false
+# Our cart after shopping at Accra Mall
+shopping_cart = ["Banku", "Tom Bobo", "Peanut Butter", "Plantain Chips", "Coca Cola"]
+
+print("Items in cart:", shopping_cart)
+
+# Forgot to add Gari! Add it to the end
+shopping_cart.append("Gari")
+print("After adding Gari:", shopping_cart)
+
+# First item in the cart
+first_item = shopping_cart[0]
+print(f"First item: {first_item}")
+
+# Last item (negative indexing - Python's superpower!)
+last_item = shopping_cart[-1]
+print(f"Last item: {last_item}")
+
+# Change your mind - remove Tom Bobo (too spicy!)
+shopping_cart.remove("Tom Bobo")
+print("After removing Tom Bobo:", shopping_cart)
+
+# How many items are we buying?
+print(f"Total items: {len(shopping_cart)}")
+```
+
 ### Advanced Lists & Mixed Data Types
 
 Lists in Python can hold mixed data types, including numbers, strings, and even formatted f-strings. Let's look at a more complex list and use `len()` to check how many items it holds.
@@ -236,6 +267,33 @@ new_coordinates = (6.67, -1.57)  # New tuple with Kumasi coordinates
 print("New coordinates:", new_coordinates)
 ```
 
+### Real-World Example: RGB Color Codes
+
+Every color on your screen is made of Red, Green, and Blue values. These are **immutable** - once you define the color "Red", it should always be `(255, 0, 0)`. You wouldn't want someone to accidentally change it to green mid-design!
+
+```{python}
+#| code-fold: false
+# RGB Color codes are perfect tuples - they should NEVER change
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+
+# Tuple unpacking - get each color value
+r, g, b = red
+print(f"Red color: R={r}, G={g}, B={b}")
+
+# Mix colors (creates a NEW tuple, doesn't change the original)
+orange = (255, 165, 0)
+purple = (128, 0, 128)
+print(f"Orange: {orange}")
+print(f"Purple: {purple}")
+
+# Days of the week are also perfect tuples - Monday is always Monday!
+weekdays = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+print(f"First weekday: {weekdays[0]}")
+print(f"Last weekday: {weekdays[-1]}")
+```
+
 ::: callout-note
 ## Real-World AI Connection: Fixed Dimensions
 
@@ -319,6 +377,34 @@ print(user["name"])
 
 # Safe Access (prevents crashing if key missing)
 print(user.get("salary", 0)) # JS: user.salary || 0
+```
+
+### Real-World Example: Movie Metadata
+
+Think of a dictionary like **movie metadata** on Netflix or Spotify. Each key tells you something specific about the movie or song, and you can look it up instantly by name.
+
+```{python}
+#| code-fold: false
+# A movie on a streaming platform
+movie = {
+    "title": "Black Panther",
+    "year": 2018,
+    "rating": 9.3,
+    "genres": ["Action", "Sci-Fi"],  # A list inside a dictionary!
+    "director": "Ryan Coogler"
+}
+
+# Access specific information
+print(f"Now playing: {movie['title']}")
+print(f"Released: {movie['year']}")
+print(f"Rating: {movie['rating']}/10")
+
+# What genres are available?
+print(f"Genres: {', '.join(movie['genres'])}")
+
+# Safe access - what if 'box_office' doesn't exist?
+box_office = movie.get("box_office", "Unknown")
+print(f"Box Office: {box_office}")
 ```
 
 ### Building Dictionaries Dynamically

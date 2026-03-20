@@ -2,8 +2,15 @@
 title: "Module 2: Professional Version Control"
 subtitle: "Git, GitHub, and AI Engineering Standards"
 author: "Speedykom Group GmbH"
-format: html
-css: styles.css
+format: 
+  html:
+    css: styles.css
+  pdf:
+    colorlinks: true
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
 # 1. The "Time Machine" for Code

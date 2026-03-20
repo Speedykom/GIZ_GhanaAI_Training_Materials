@@ -138,6 +138,7 @@ tb.head()
 
 ### The Tidying Strategy
 We need to:
+
 1.  **Melt** the columns (except `iso2` and `year`).
 2.  **Split** the new variable column into `sex` and `age`.
 
@@ -247,6 +248,7 @@ print(billboard.columns[:10])
 ```
 
 **Task:**
+
 1. Use `.melt()` to create a column called `week` and `rank`.
 2. Convert the `week` column into a number (e.g., "wk1" → 1).
 3. Drop rows where the rank is missing (`NaN`).

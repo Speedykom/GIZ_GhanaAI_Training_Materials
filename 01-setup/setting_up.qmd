@@ -2,8 +2,15 @@
 title: "Module 1: Environment Setup"
 subtitle: "Python, package management"
 author: "Speedykom Group GmbH"
-format: html
-css: styles.css
+format: 
+  html:
+    css: styles.css
+  pdf:
+    colorlinks: true
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---
 
 # Introduction: Why Setup Matters

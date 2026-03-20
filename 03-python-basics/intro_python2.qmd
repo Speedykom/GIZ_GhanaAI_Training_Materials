@@ -11,21 +11,19 @@ css: styles.css
 
 By the end of this lesson, you will:
 
-1. Write Pythonic loops using `for...in`, `enumerate()`, and `zip()`
-2. Master List Comprehensions to replace `.map()` and `.filter()` patterns
-3. Understand conditional logic and Python's truthiness model
-4. Build flexible functions using `*args` and `**kwargs`
-5. Parse and transform data using functional programming techniques
+1.  Write Pythonic loops using `for...in`, `enumerate()`, and `zip()`
+2.  Master List Comprehensions to replace `.map()` and `.filter()` patterns
+3.  Understand conditional logic and Python's truthiness model
+4.  Build flexible functions using `*args` and `**kwargs`
+5.  Parse and transform data using functional programming techniques
 
----
+------------------------------------------------------------------------
 
 # 1. Conditionals: The Syntax Switch
 
 You already know logic from JavaScript. You just need the new keywords.
 
-**Key Differences:**
-- JavaScript: `else if` and `{ }`
-- Python: `elif` and **indentation**
+**Key Differences:** - JavaScript: `else if` and `{ }` - Python: `elif` and **indentation**
 
 ```{python}
 #| code-fold: false
@@ -39,9 +37,25 @@ else:
     print("Server Error")
 ```
 
+### Real-World Example: Free Shipping Calculator
+
+Every e-commerce site uses this logic. "If you spend GHS 100 or more, you get free delivery!"
+
+```{python}
+#| code-fold: false
+cart_total = 75
+
+if cart_total >= 100:
+    print("You qualify for FREE shipping!")
+else:
+    remaining = 100 - cart_total
+    print(f"Add GHS {remaining} more for FREE shipping!")
+    print(f"Your current total: GHS {cart_total}")
+```
+
 ## The "Truthiness" Trap
 
-**Critical Difference:** In JavaScript, `[]` is `true`.  
+**Critical Difference:** In JavaScript, `[]` is `true`.\
 In Python, empty structures are **Falsy**: `[]`, `{}`, `""`, `0`, `None`
 
 ```{python}
@@ -53,16 +67,17 @@ if not users:
     print("No users found!") 
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Best Practice
+
 Always use `if not collection:` to check for empty lists/dicts, rather than checking length.
 :::
 
----
+------------------------------------------------------------------------
 
 # 2. The "Pythonic" Loop
 
-**Golden Rule:** Developers often try to write C-style loops. **Don't.**  
+**Golden Rule:** Developers often try to write C-style loops. **Don't.**\
 In Python, we iterate directly over objects.
 
 ## A. Basic Iteration (`for...in`)
@@ -84,17 +99,33 @@ for tech in stack:
     print(f"Learning: {tech}")
 ```
 
+### Real-World Example: Sending Party Invites
+
+Loops are perfect for sending the same message to different people.
+
+```{python}
+#| code-fold: false
+# Your guest list
+friends = ["Ama", "Kojo", "Yaa", "Kwame"]
+
+# Send an invite to each friend
+for friend in friends:
+    print(f"Sending party invite to {friend}...")
+    print(f"  -> Hi {friend}! You're invited to my birthday party!")
+```
+
 **Comparison:**
-```javascript
+
+``` javascript
 // JavaScript
-for (const tech of stack) {
-    console.log(`Learning: ${tech}`);
+for (const friend of friends) {
+    console.log(`Sending party invite to ${friend}...`);
 }
 ```
 
 ## B. The Index Problem (`enumerate`)
 
-*"But how do I get the index `i`?"*  
+*"But how do I get the index `i`?"*\
 Use `enumerate()`. It gives you a tuple of `(index, item)` each step.
 
 ```{python}
@@ -105,14 +136,15 @@ for i, tech in enumerate(stack):
     print(f"Index {i}: {tech}")
 ```
 
-::: {.callout-note}
+::: callout-note
 ## Why enumerate()?
+
 It's cleaner and more Pythonic than using `range(len(stack))`. You get both the index and value automatically.
 :::
 
 ## C. Looping Two Lists (`zip`)
 
-AI data often comes in separate lists (e.g., `images` and `labels`).  
+AI data often comes in separate lists (e.g., `images` and `labels`).\
 Use `zip()` to loop them together like a zipper on a jacket.
 
 ```{python}
@@ -138,7 +170,7 @@ for name, score, role in zip(names, scores, roles):
     print(f"{name} ({role}) scored {score}")
 ```
 
-::: {.callout-important}
+::: callout-important
 ## 🧪 Mini-Task: Multi-Zip
 
 Fill in the missing pieces to combine these three lists into a single formatted sentence per city.
@@ -157,8 +189,9 @@ for ..., ..., ... in zip(..., ..., ...):
 ```
 :::
 
-::: {.callout-note}
+::: callout-note
 ## Real-World AI Connection: Pairing Data
+
 In Machine Learning, we almost always have two separate lists: **Features** (the inputs like image pixels) and **Labels** (the answers like "cat" or "dog"). We use `zip()` to pair them together so the computer can learn that *this* specific input belongs to *that* specific answer.
 :::
 
@@ -166,7 +199,7 @@ In Machine Learning, we almost always have two separate lists: **Features** (the
 
 ### Critical Edge Cases with `zip()`
 
-::: {.callout-warning}
+::: callout-warning
 ## What happens with unequal lengths?
 
 **`zip()` stops at the shortest list!** Data is silently lost.
@@ -234,13 +267,13 @@ for letter, num in zip(letters, numbers):
     print(f"{letter}{num}")
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Best Practice
 
-- Use `zip()` when you're **certain** both iterables are the same length
-- Use `zip_longest()` when lengths might differ and you need all data
-- **Never** use `zip()` with sets in production code (unpredictable order)
-- Always validate data lengths before zipping in real applications
+-   Use `zip()` when you're **certain** both iterables are the same length
+-   Use `zip_longest()` when lengths might differ and you need all data
+-   **Never** use `zip()` with sets in production code (unpredictable order)
+-   Always validate data lengths before zipping in real applications
 :::
 
 ### Quick Exercise: Debugging `zip()`
@@ -283,7 +316,7 @@ if len(features) != len(labels):
 
 **Why this matters:** In machine learning, silently dropping training data can lead to subtle bugs that are hard to debug. Always validate before zipping!
 
----
+------------------------------------------------------------------------
 
 # 3. List Comprehensions (The "Killer Feature")
 
@@ -293,7 +326,7 @@ This is the **most important tool** for data cleaning. It replaces `.map()` and 
 
 ## The Bridge: Traditional Loop vs. Comprehension
 
-Before looking at the syntax, let's look at *why* we use comprehensions. Suppose we want to multiply every number in a list by 5. 
+Before looking at the syntax, let's look at *why* we use comprehensions. Suppose we want to multiply every number in a list by 5.
 
 Here is the traditional way using a standard `for` loop and `.append()`:
 
@@ -362,14 +395,54 @@ result = [x * 2 for x in nums if x % 2 == 0]
 print(result)
 ```
 
-::: {.callout-note}
+### Real-World Example: Cleaning User Input
+
+This is what list comprehensions are really used for in real apps: **data cleaning**. Imagine users typed their names messily when signing up. We need to clean them all up in one line!
+
+```{python}
+#| code-fold: false
+# Users typed their names with weird spaces and inconsistent casing
+raw_names = [" aMa ", "  kOjO", "yAA  ", "  EVE  "]
+
+# Clean them all up in one line!
+# 1. .strip() removes extra spaces from the ends
+# 2. .capitalize() makes the first letter uppercase, rest lowercase
+clean_names = [name.strip().capitalize() for name in raw_names]
+
+print("Before cleaning:", raw_names)
+print("After cleaning:", clean_names)
+```
+
+### Real-World Example: Filtering Social Media Posts
+
+You just built an app with comments. Some comments contain bad words. Filter them out!
+
+```{python}
+#| code-fold: false
+comments = [
+    "This is amazing!",
+    "Great tutorial, thanks!",
+    "Buy crypto now!!!",
+    "Spam content here",
+    "Love this video"
+]
+
+# Keep only comments that DON'T contain spam
+safe_comments = [comment for comment in comments if "crypto" not in comment and "Spam" not in comment]
+
+print("Safe comments:", safe_comments)
+```
+
+::: callout-note
 ## Real-World AI Connection: Feature Scaling
+
 Before feeding data into an AI model, we often need to "scale" it (e.g., converting all numbers to be between 0 and 1). List comprehensions are the fastest way to apply a mathematical formula to thousands of data points instantly.
 :::
 
-::: {.callout-warning}
+::: callout-warning
 ## Readability First
-If your list comprehension becomes too complex (nested conditions, multiple transformations), break it into a regular loop or multiple steps. Readability > cleverness.
+
+If your list comprehension becomes too complex (nested conditions, multiple transformations), break it into a regular loop or multiple steps. Readability \> cleverness.
 :::
 
 ## From For Loop to List Comprehension: Walking Backwards
@@ -379,15 +452,16 @@ The key skill is **reverse engineering** a for loop into a comprehension. Let's 
 ### The Translation Pattern
 
 Every list comprehension follows this structure:
-```python
+
+``` python
 result = [WHAT_TO_KEEP for ITEM in SOURCE if CONDITION]
 ```
 
 **Step-by-step translation:**
 
-1. Find what's being **appended** → This becomes `WHAT_TO_KEEP`
-2. Find the **loop variable** → This becomes `ITEM in SOURCE`
-3. Find any **if statement** → This becomes the `if CONDITION`
+1.  Find what's being **appended** → This becomes `WHAT_TO_KEEP`
+2.  Find the **loop variable** → This becomes `ITEM in SOURCE`
+3.  Find any **if statement** → This becomes the `if CONDITION`
 
 ### Worked Example: Temperature Converter
 
@@ -409,7 +483,7 @@ print(fahrenheit)
 
 **Translation Steps:**
 
-```python
+``` python
 # Step 1: What's being appended?
 #         → converted = temp * 9/5 + 32
 
@@ -434,8 +508,9 @@ fahrenheit = [temp * 9/5 + 32 for temp in celsius_temps if temp >= 20]
 print(fahrenheit)  # [68.0, 86.0, 104.0]
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Reading Comprehensions Aloud
+
 Try reading it in English: "Give me `temp * 9/5 + 32` for each `temp` in `celsius_temps` if `temp >= 20`"
 :::
 
@@ -459,7 +534,7 @@ print(passing_students)
 
 **How to convert this:**
 
-```python
+``` python
 # Step 1: What's appended? → student
 # Step 2: Loop structure? → We need BOTH student and grade
 #         Solution: use zip() to pair them!
@@ -479,7 +554,7 @@ passing_students = [student for student, grade in zip(students, grades) if grade
 print(passing_students)  # ['Ama', 'Yaw', 'Akosua', 'Kofi']
 ```
 
----
+------------------------------------------------------------------------
 
 ## Exercise 1: Your Turn - Price Calculator
 
@@ -524,7 +599,7 @@ print(final_prices)  # [230.0, 345.0]
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 ## Exercise 2: Data Cleaning Challenge
 
@@ -577,10 +652,12 @@ for city in user_inputs:
 ```
 :::
 
-::: {.callout-warning}
+::: callout-warning
 ## When NOT to Use Comprehensions
+
 If you find yourself doing this:
-```python
+
+``` python
 # TOO COMPLEX - Don't do this!
 result = [x.strip().title().replace("City", "").split()[0] 
           for x in data if len(x) > 5 and x.startswith("A")]
@@ -589,7 +666,7 @@ result = [x.strip().title().replace("City", "").split()[0]
 Use a regular loop instead! Readability matters more than being "clever."
 :::
 
----
+------------------------------------------------------------------------
 
 ## Exercise 3: The Real-World Test
 
@@ -643,7 +720,7 @@ print(adult_active_users)  # ['Kwame', 'Akosua']
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 # 4. Lambda Functions: A Brief Intro
 
@@ -651,13 +728,14 @@ In JavaScript, you often use arrow functions for quick operations: `(x) => x * 2
 
 We use lambdas for **quick, one-line operations** where defining a full function with `def` would be overkill. You'll see these most often when sorting data or using specific libraries.
 
-```python
+``` python
 # The Syntax: lambda arguments: expression
 double = lambda x: x * 2
 print(double(5)) # 10
 ```
 
 ### Common Use: Sorting Data
+
 You have a list of students and want to sort by age. The `key` parameter expects a function that tells it *how* to sort.
 
 ```{python}
@@ -673,12 +751,13 @@ students.sort(key=lambda s: s["age"])
 print(students)
 ```
 
-::: {.callout-note}
+::: callout-note
 ## Moving Forward
+
 We'll dive much deeper into advanced Lambda patterns (like filtering, data mapping, and multi-level sorting) in **Lesson 3**.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Real-World Example: Processing API Data
 
@@ -707,7 +786,7 @@ temps = list(map(lambda c: c["temp"], weather_data))
 print(f"All temperatures: {temps}")
 ```
 
-::: {.callout-warning}
+::: callout-warning
 ## The "Pythonic" Way
 
 While the above code works, experienced Python developers would write:
@@ -723,7 +802,7 @@ temps = [c["temp"] for c in weather_data]  # Comprehension
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 We use `def` to define functions. But for AI work, you need to understand **Dynamic Arguments**.
 
@@ -744,8 +823,8 @@ print(greet("Kofi", "Hello"))   # Overrides default
 
 AI libraries (like Transformers) use these to accept endless configuration settings.
 
-- `*args`: Collects extra positional arguments into a **Tuple** (like JS `...args`)
-- `**kwargs`: Collects extra keyword arguments into a **Dictionary**
+-   `*args`: Collects extra positional arguments into a **Tuple** (like JS `...args`)
+-   `**kwargs`: Collects extra keyword arguments into a **Dictionary**
 
 ```{python}
 #| code-fold: false
@@ -757,11 +836,12 @@ def build_model(name, **config):
 build_model("ChatBot", layers=12, speed="fast", gpu=True)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Real-World AI Example: The "Config Builder"
+
 In AI libraries like **HuggingFace Transformers**, models take dozens of settings (dropout rates, attention heads, etc.). Instead of writing a function with 50 parameters, developers use `**kwargs`.
 
-```python
+``` python
 # A realistic look at how AI models are initialized
 def initialize_ai_model(model_name, **hyperparameters):
     print(f"Loading weights for: {model_name}")
@@ -816,18 +896,18 @@ connect_db("postgres://localhost:5432", timeout=30, ssl=True, user="admin")
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 # 6. Modules: Organizing Code
 
-In JavaScript, you use `export` and `import` (or `module.exports`).  
+In JavaScript, you use `export` and `import` (or `module.exports`).\
 In Python, **every file is automatically a module**.
 
 ## A. Importing
 
 Assume we have a file named `math_utils.py`:
 
-```python
+``` python
 # Import the whole file
 import math_utils
 math_utils.calculate()
@@ -847,7 +927,7 @@ You will see this everywhere. It's a guard block.
 
 Code inside this block **only runs if you execute the file directly** (e.g., `python file.py`). It does **not** run if you import the file into another script.
 
-```python
+``` python
 def main():
     print("Running main logic...")
 
@@ -857,49 +937,54 @@ if __name__ == "__main__":
 
 **Use case:** You can write reusable functions at the top of a file, and testing code at the bottom that only runs when you test the file directly.
 
----
+------------------------------------------------------------------------
 
-# 7. Final Challenge: The Log Parser
+# 7. Final Challenge: The VIP Guest List
 
-**Scenario:** You have a list of server logs. You need to extract and clean only the "ERROR" messages.
+**Scenario:** You are organizing a tech conference. You have a raw list of attendees, but some are marked as VIPs. You need to extract *only* the names of the VIPs so you can print their special badges.
 
 **Input:**
 
-```python
-logs = [
-    "INFO: User logged in",
-    "ERROR: Database connection failed",
-    "INFO: Page loaded",
-    "ERROR: Timeout 500ms"
+``` python
+attendees = [
+    "REGULAR: Kwame Mensah",
+    "VIP: Ama Osei",
+    "REGULAR: Joshua Doe",
+    "VIP: Yaa Asantewaa"
 ]
 ```
 
 **Requirements:**
 
-1. Define a function `parse_logs(log_list)`
-2. Use a **List Comprehension** to filter only strings starting with "ERROR"
-3. Strip the "ERROR: " prefix using string methods
-4. Return the clean list
+1.  Define a function `get_vips(guest_list)`
+2.  Use a **List Comprehension** to filter only strings starting with "VIP: "
+3.  Strip the "VIP: " prefix so you are left with just the name
+4.  Return the clean list of names
 
-**Expected Output:** `['Database connection failed', 'Timeout 500ms']`
+**Expected Output:** `['Ama Osei', 'Yaa Asantewaa']`
 
 ```{python}
 #| eval: false
-def parse_logs(log_list):
-    # Write your list comprehension here
-    # Hint: string.startswith("ERROR") and string.replace(...)
+def get_vips(guest_list):
+    # STEP 1: Think about how to filter the list to only include VIPs
+    # Hint: guest.startswith("VIP:")
+    
+    # STEP 2: Think about how to remove the "VIP: " part
+    # Hint: guest.replace("VIP: ", "")
+    
+    # Now combine them into a list comprehension!
     pass
 
 # Test your function
-logs = [
-    "INFO: User logged in",
-    "ERROR: Database connection failed",
-    "INFO: Page loaded",
-    "ERROR: Timeout 500ms"
+attendees = [
+    "REGULAR: Kwame Mensah",
+    "VIP: Ama Osei",
+    "REGULAR: Joshua Doe",
+    "VIP: Yaa Asantewaa"
 ]
 
-cleaned_errors = parse_logs(logs)
-print(cleaned_errors)
+vip_names = get_vips(attendees)
+print(vip_names)
 ```
 
 ::: {.callout-note collapse="true"}
@@ -907,40 +992,40 @@ print(cleaned_errors)
 
 ```{python}
 #| code-fold: true
-logs = [
-    "INFO: User logged in",
-    "ERROR: Database connection failed",
-    "INFO: Page loaded",
-    "ERROR: Timeout 500ms"
+attendees = [
+    "REGULAR: Kwame Mensah",
+    "VIP: Ama Osei",
+    "REGULAR: Joshua Doe",
+    "VIP: Yaa Asantewaa"
 ]
 
-def parse_logs(log_list):
-    # Filter for "ERROR" AND remove the prefix
-    return [entry.replace("ERROR: ", "") for entry in log_list if entry.startswith("ERROR")]
+def get_vips(guest_list):
+    # Filter for "VIP" AND remove the prefix in one elegant line
+    return [guest.replace("VIP: ", "") for guest in guest_list if guest.startswith("VIP")]
 
-cleaned_errors = parse_logs(logs)
-print(cleaned_errors) 
-# Output: ['Database connection failed', 'Timeout 500ms']
+vip_names = get_vips(attendees)
+print(vip_names) 
+# Output: ['Ama Osei', 'Yaa Asantewaa']
 ```
 :::
 
----
+------------------------------------------------------------------------
 
 # Summary
 
 You've now mastered the core control flow patterns in Python:
 
-✅ **Loops:** `for...in`, `enumerate()`, `zip()`  
-✅ **List Comprehensions:** The `.map()` and `.filter()` replacement  
-✅ **Functions:** Default args, `*args`, `**kwargs`  
+✅ **Loops:** `for...in`, `enumerate()`, `zip()`\
+✅ **List Comprehensions:** The `.map()` and `.filter()` replacement\
+✅ **Functions:** Default args, `*args`, `**kwargs`\
 ✅ **Modules:** How Python organizes code
 
 ## Key Takeaways
 
-1. **Iterate directly** - Never write `for i in range(len(list))`
-2. **List comprehensions are powerful** - But keep them readable
-3. **`**kwargs` is everywhere** - Essential for AI library configs
-4. **Think in transformations** - Filter → Transform → Collect
+1.  **Iterate directly** - Never write `for i in range(len(list))`
+2.  **List comprehensions are powerful** - But keep them readable
+3.  **`**kwargs` is everywhere** - Essential for AI library configs
+4.  **Think in transformations** - Filter → Transform → Collect
 
 ## Next Steps
 
@@ -948,37 +1033,39 @@ Before moving to Pandas and Data Science, we need to cover one more foundation:
 
 **Lesson 3: Classes & OOP**
 
-- Understanding `self` and `__init__`
-- Building data models
-- Working with class methods
+-   Understanding `self` and `__init__`
+-   Building data models
+-   Working with class methods
 
 This will prepare you for understanding how libraries like Pandas and PyTorch are structured internally.
 
----
+------------------------------------------------------------------------
 
 ## Practice Exercises (Homework)
 
-1. **Temperature Converter:**  
-   Write a function that accepts a list of temperatures in Celsius and returns Fahrenheit. Use a list comprehension. Formula: `F = C * 9/5 + 32`
+1.  **Temperature Converter:**\
+    Write a function that accepts a list of temperatures in Celsius and returns Fahrenheit. Use a list comprehension. Formula: `F = C * 9/5 + 32`
 
-2. **User Filter:**  
-   Given a list of user dictionaries, filter out inactive users and extract just their names:
-   ```python
-   users = [
-       {"name": "Kwame", "active": True},
-       {"name": "Ama", "active": False},
-       {"name": "Yaw", "active": True}
-   ]
-   ```
+2.  **User Filter:**\
+    Given a list of user dictionaries, filter out inactive users and extract just their names:
 
-3. **Config Merger:**  
-   Write a function `merge_configs(defaults, **overrides)` that takes a default config dictionary and merges it with any keyword arguments passed in.
+    ``` python
+    users = [
+        {"name": "Kwame", "active": True},
+        {"name": "Ama", "active": False},
+        {"name": "Yaw", "active": True}
+    ]
+    ```
 
-::: {.callout-tip}
+3.  **Config Merger:**\
+    Write a function `merge_configs(defaults, **overrides)` that takes a default config dictionary and merges it with any keyword arguments passed in.
+
+::: callout-tip
 ## Testing Your Code
+
 Remember to test each function with different inputs. Think about edge cases:
 
-- What if the list is empty?
-- What if all items are filtered out?
-- What if someone passes unexpected data types?
+-   What if the list is empty?
+-   What if all items are filtered out?
+-   What if someone passes unexpected data types?
 :::

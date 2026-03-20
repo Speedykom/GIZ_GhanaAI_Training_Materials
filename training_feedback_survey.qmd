@@ -1,0 +1,175 @@
+---
+title: "AI Training Feedback Survey"
+format: pdf
+---
+
+# AI Training Feedback Survey
+
+## Section 1: Overall Experience
+
+**1. On a scale of 1 to 5, how would you rate your overall experience with this training program?**
+*(1 = Poor, 5 = Excellent)*
+
+**2. How would you describe the overall pace of the training?**
+- [ ] Much too slow
+- [ ] A bit too slow
+- [ ] Just right
+- [ ] A bit too fast
+- [ ] Much too fast
+
+---
+
+## Section 2: Core Comprehension & Confidence
+
+*Please rate your current level of confidence in performing tasks related to the following modules. (1 = Not confident at all, 5 = Highly confident/Could do it independently)*
+
+**3. Environment & Version Control:** Setting up Python/Jupyter and collaborating using Git and GitHub.
+- Scale: 1 - 2 - 3 - 4 - 5
+
+**4. Python Programming:** Using Python basics, writing functions, and applying Object-Oriented Programming (OOP) concepts.
+- Scale: 1 - 2 - 3 - 4 - 5
+
+**5. Data Analysis:** Using Pandas to clean, filter, group, and preprocess datasets.
+- Scale: 1 - 2 - 3 - 4 - 5
+
+**6. Machine Learning:** Using scikit-learn for supervised learning (regression/classification), feature engineering, and evaluating models.
+- Scale: 1 - 2 - 3 - 4 - 5
+
+**7. Deep Learning:** Building, training, and optimizing Convolutional Neural Networks (CNNs) using PyTorch (e.g., working with image datasets like the Cassava plant project).
+- Scale: 1 - 2 - 3 - 4 - 5
+
+**8. Agentic AI:** Understanding AI agent concepts and building agents using Opencode.
+- Scale: 1 - 2 - 3 - 4 - 5
+
+---
+
+## Section 3: Prior Exposure to Topics
+
+*This helps us understand if difficulty was due to prior experience or teaching style.*
+
+**9. Before this training, how would you describe your prior experience with each of the following topics?**
+
+| Topic | No prior experience | Some exposure (heard of it) | Used it briefly before | Regular user |
+|-------|---------------------|----------------------------|-----------------------|--------------|
+| Python Programming | [ ] | [ ] | [ ] | [ ] |
+| Git/GitHub | [ ] | [ ] | [ ] | [ ] |
+| Pandas/Data Analysis | [ ] | [ ] | [ ] | [ ] |
+| Machine Learning (scikit-learn) | [ ] | [ ] | [ ] | [ ] |
+| Deep Learning (PyTorch/TensorFlow) | [ ] | [ ] | [ ] | [ ] |
+| AI Agents/Opencode | [ ] | [ ] | [ ] | [ ] |
+
+**10. Did you have any prior programming experience with Python before this course?**
+- [ ] No programming experience at all
+- [ ] A little (wrote simple scripts in Python)
+- [ ] Moderate (comfortable with Python basics)
+- [ ] Extensive (professional Python developer)
+
+---
+
+## Section 4: Post-Class Review Habits
+
+*This helps us understand how much self-study happened after class.*
+
+**11. After each class session, did you make time to review the materials on your own?**
+- [ ] Yes, after every single class
+- [ ] Yes, after most classes (4-6 out of 7)
+- [ ] Yes, after some classes (2-3 out of 7)
+- [ ] Rarely (1 or none)
+- [ ] Never
+
+**12. How soon after each class did you typically review the materials?**
+- [ ] Same day or next day
+- [ ] Within 2-3 days
+- [ ] Within a week
+- [ ] More than a week later
+- [ ] I didn't review after class
+
+**13. When reviewing, which of the following did you do? (Select all that apply)**
+- [ ] Reran the Jupyter notebooks from start to finish
+- [ ] Read through the notebooks without running code
+- [ ] Tried exercises on my own without looking at solutions
+- [ ] Modified the code to experiment
+- [ ] Reviewed the slide decks/HTML files
+- [ ] I didn't review at all
+
+**14. Did you need to reinstall Python or any packages after the training sessions?**
+- [ ] Yes, I had to reinstall everything from scratch
+- [ ] Yes, but only some packages
+- [ ] No, everything still worked
+- [ ] I never set up my environment after the first day
+
+**15. How would you rate the thoroughness of your post-class review?**
+- [ ] Very thorough - I reviewed all materials and completed exercises
+- [ ] Somewhat thorough - I reviewed most materials
+- [ ] Light review - I only skimmed through
+- [ ] No review at all
+
+**16. When you reviewed, approximately how much of the materials did you cover?**
+- [ ] All modules (100%)
+- [ ] Most modules (75-99%)
+- [ ] About half of the modules (50-74%)
+- [ ] Only a few modules (25-49%)
+- [ ] Very little or none (< 25%)
+- [ ] I didn't review at all
+
+---
+
+## Section 5: Course Content Feedback
+
+**19. Which of the modules above did you find the MOST valuable or interesting, and why?**
+_____________________________________________________________
+_____________________________________________________________
+
+**20. Which module did you find the MOST challenging or confusing to grasp? What made it difficult?**
+_____________________________________________________________
+_____________________________________________________________
+
+**21. How helpful were the provided Jupyter/Quarto notebooks and hands-on datasets in helping you understand the concepts?**
+- [ ] Extremely helpful
+- [ ] Very helpful
+- [ ] Somewhat helpful
+- [ ] Not very helpful
+
+---
+
+## Section 6: Identifying Gaps
+
+**22. Was there any specific concept, tool, or framework you were hoping to learn in this course that we did NOT cover?**
+_____________________________________________________________
+_____________________________________________________________
+_____________________________________________________________
+
+**23. If we were to add an "Advanced Track" or extra modules to this training, which of the following topics would you be most eager to see? (Select up to 3)**
+- [ ] Natural Language Processing (NLP) & Large Language Models (LLMs)
+- [ ] MLOps & Model Deployment (e.g., Docker, AWS, Streamlit/Gradio apps)
+- [ ] Advanced Computer Vision techniques (Object Detection, Segmentation)
+- [ ] Time Series Forecasting
+- [ ] Unsupervised Learning (Clustering, Dimensionality Reduction)
+- [ ] Data Collection & Web Scraping
+- [ ] Advanced Agentic AI Workflows
+- [ ] Other: ______________
+
+**24. Did you feel there was a good balance between theoretical explanations and hands-on coding?**
+- [ ] Too much theory, not enough coding
+- [ ] Perfect balance
+- [ ] Too much coding, not enough theoretical background
+
+---
+
+## Section 7: Final Thoughts
+
+**25. Now that you've completed the training, do you feel equipped to apply these AI and Data Science skills to real-world projects or your career?**
+- [ ] Yes, definitely
+- [ ] Yes, but I need a bit more practice
+- [ ] I'm unsure where to start
+- [ ] No, I still feel unprepared
+
+**26. Any final feedback, suggestions, or comments for the instructor to improve this course for the next cohort?**
+_____________________________________________________________
+_____________________________________________________________
+_____________________________________________________________
+
+**27. Any feedback, suggestions, or comments for the organizers and sponsors (GIZ, CodeTrain Africa, Speedykom Group, WINS Global Consult) on how to improve the training program?**
+_____________________________________________________________
+_____________________________________________________________
+_____________________________________________________________

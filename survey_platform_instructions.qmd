@@ -1,0 +1,218 @@
+---
+title: "How to Create Your Survey in Microsoft Forms or Google Forms"
+format: pdf
+---
+
+# How to Create Your Survey in Microsoft Forms or Google Forms
+
+This guide provides step-by-step instructions for uploading your survey to online form platforms.
+
+---
+
+## Option 1: Microsoft Forms (Recommended - Uses AI Import)
+
+### Method A: Using Quick Import (Easiest)
+
+**Step 1: Prepare Your Document**
+
+1. Open Microsoft Word
+2. Copy the survey content from `training_feedback_survey.md` or use the PDF version
+3. Paste it into a new Word document
+4. Save the Word document to your computer
+
+**Step 2: Import into Microsoft Forms**
+
+1. Go to [forms.microsoft.com](https://forms.microsoft.com) and sign in with your Microsoft account
+2. Click on **Quick Import** (located near the top left of the page)
+3. Select **Upload from this device**
+4. Choose your Word document (.docx)
+5. Select **Form** (not Quiz) when prompted
+6. Click **Import**
+
+**Step 3: Review and Edit**
+
+1. Microsoft Forms will automatically create questions from your document
+2. Review each question and fix any issues:
+   - Change "Scale" questions to **Linear Scale** type (1-5)
+   - Change checkbox lists to **Checkbox** type
+   - Add section titles if needed
+3. Click on each question to edit options
+
+**Step 4: Publish**
+
+1. Click the **Share** button at the top right
+2. Copy the link to share with your students
+3. Or click **Collect responses** to get a QR code or embed code
+
+---
+
+### Method B: Manual Creation in Microsoft Forms
+
+**Step 1: Create a Blank Form**
+
+1. Go to [forms.microsoft.com](https://forms.microsoft.com)
+2. Click **+ New form** (blank form)
+3. Enter the title: "AI Training Feedback Survey"
+
+**Step 2: Add Questions**
+
+For each question in your survey:
+
+1. Click **+ Add question**
+2. Choose the question type:
+   - **Choice** = Multiple choice (radio buttons)
+   - **Checkbox** = Select multiple options
+   - **Text** = Open-ended short answer
+   - **Rating** = Stars (not suitable for 1-5 scale)
+   - **Linear Scale** = Numbered scale (1-5, 1-10)
+
+3. Type your question text
+4. Add options for choice/checkbox questions
+
+**Step 3: Pro Tips**
+
+- **Copy-Paste Multiple Options:** When adding options like in Question 13, copy the entire list of topics and paste into one option box - Microsoft Forms will automatically split them into separate options!
+- **Add Sections:** Use **Section** from the toolbar to organize questions into the 5 sections
+- **Required Questions:** Toggle "Required" on if you want students to answer
+
+**Step 4: Share**
+
+1. Click **Share**
+2. Copy the link or generate a QR code
+3. Send to your students
+
+---
+
+## Option 2: Google Forms
+
+### Method A: Using a Third-Party Import Tool
+
+**Step 1: Use a Free Add-on**
+
+1. Go to [forms.google.com](https://forms.google.com)
+2. Create a new blank form
+3. Click the three dots (⋮) in the top right
+4. Select **Get add-ons**
+5. Search for **"Form Publisher"** or **"Form Maker"** (these can import from documents)
+6. Install the add-on and follow its instructions to import from your Word/PDF file
+
+### Method B: Manual Creation in Google Forms (Recommended)
+
+**Step 1: Create a Blank Form**
+
+1. Go to [forms.google.com](https://forms.google.com) and sign in
+2. Click **+ Blank form**
+3. Enter the title: "AI Training Feedback Survey"
+
+**Step 2: Add Sections (Recommended)**
+
+1. Click the **Add section** icon (two horizontal lines with a +) in the right toolbar
+2. Create 5 sections matching your survey sections:
+   - Section 1: Overall Experience
+   - Section 2: Core Comprehension & Confidence
+   - Section 3: Course Content Feedback
+   - Section 4: Identifying Gaps
+   - Section 5: Final Thoughts
+3. Add a description to each section
+
+**Step 3: Add Questions**
+
+For each question:
+
+1. Click the **+** icon to add a question
+2. Select the question type:
+   - **Multiple choice** = Radio buttons (single answer)
+   - **Checkboxes** = Multiple selections
+   - **Short answer** = Single line text
+   - **Paragraph** = Multi-line text
+   - **Linear scale** = 1-5 or 1-10 scale (found under "Dropdown" in question types)
+   - **Multiple choice grid** = For matrix-style questions
+
+3. Type your question text
+4. Add your answer options
+
+**Step 4: The Magic Copy-Paste Trick**
+
+For questions with many options (like Question 13):
+
+1. Copy this list from your survey:
+   ```
+   Natural Language Processing (NLP) & Large Language Models (LLMs)
+   MLOps & Model Deployment (e.g., Docker, AWS, Streamlit/Gradio apps)
+   Advanced Computer Vision techniques (Object Detection, Segmentation)
+   Time Series Forecasting
+   Unsupervised Learning (Clustering, Dimensionality Reduction)
+   Data Collection & Web Scraping
+   Advanced Agentic AI Workflows
+   Other
+   ```
+
+2. Click on "Option 1" in Google Forms
+3. Press **Ctrl+V** (Paste)
+4. Google Forms will automatically create a separate checkbox for each line!
+
+**Step 5: Configure Settings**
+
+1. Click the **Settings** tab (next to Questions)
+2. Configure:
+   - **Collect email addresses?** (optional)
+   - **Allow response editing?** = On
+   - **Show progress bar?** = On (helps students see how far they are)
+
+**Step 6: Share**
+
+1. Click the **Send** button (top right)
+2. Choose how to share:
+   - **Link** = Copy and send via WhatsApp/email
+   - **Embed** = Add to a website
+   - **Email** = Send directly to email addresses
+
+---
+
+## Quick Comparison
+
+| Feature | Microsoft Forms | Google Forms |
+|---------|-----------------|--------------|
+| Import from Word/PDF | Yes (Quick Import) | Requires add-on |
+| Linear Scale (1-5) | Yes | Yes |
+| Sections | Yes | Yes |
+| Auto-split pasted options | Yes | Yes |
+| Free to use | Yes | Yes |
+| Requires Microsoft account | Yes | Yes (Google account) |
+
+---
+
+## Tips for Both Platforms
+
+1. **Test First:** Fill out the survey yourself before sending to students to make sure everything works
+
+2. **Enable Response Collection:**
+   - Both platforms automatically collect responses in a spreadsheet
+   - In Microsoft Forms: Click "Responses" tab
+   - In Google Forms: Click "Responses" tab → Click the Sheets icon to open in Excel/Sheets
+
+3. **Set a Deadline:** Remind students when the survey closes
+
+4. **Share Results (Optional):** Both platforms let you show summary charts after submission
+
+5. **Mobile-Friendly:** Both work great on phones - your students can fill it out on WhatsApp!
+
+---
+
+## Troubleshooting
+
+**Q: The linear scale isn't showing 1-5 properly**
+- In Google Forms: Choose "Linear scale" from the question type dropdown, then set min to 1 and max to 5
+- In Microsoft Forms: Choose "Linear scale" and set the range 1-5
+
+**Q: The options didn't split when I pasted**
+- Make sure each option is on its own line (press Enter between each)
+- Delete the existing options first, then paste into "Option 1"
+
+**Q: I can't see the responses**
+- Make sure you're signed into the same account that created the form
+- Check the "Responses" tab in both platforms
+
+---
+
+*Survey created from: training_feedback_survey.md*
