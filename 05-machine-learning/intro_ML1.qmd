@@ -219,6 +219,25 @@ Where:
 - $w$ = weight (coefficient - how much the feature affects the prediction)
 - $x$ = input feature
 
+::: {.callout-tip}
+## Mental Model: The Taxi Fare
+
+Think of predicting house prices like calculating a **taxi fare**:
+
+- **Fare = Base Fee + (Cost per km × Distance)**
+
+For example:
+- Base Fee (Bias/b): GHS 10 (just getting in the car!)
+- Cost per km (Weight/w): GHS 5 per kilometer
+- Distance (Feature/x): 8 km
+
+**Total Fare = 10 + (5 × 8) = GHS 50**
+
+In Machine Learning, we do the reverse! We look at 1,000 past taxi receipts and *let the computer figure out* that the base fee is GHS 10 and the rate is GHS 5 per km. The model **learns** the weights from data!
+:::
+
+
+
 ### Why This Notation Matters
 
 When you see $\hat{y}$, you immediately know: **this is a prediction, not the actual value**.
@@ -479,6 +498,21 @@ print(f"\nNew columns: {df_encoded.columns.tolist()}")
 ```
 
 ### Feature Scaling: Why It Matters
+
+::: {.callout-tip}
+## Mental Model: Age vs. Income
+
+Imagine you are predicting someone's **credit score** using two features:
+
+- **Age**: ranges from 18 to 70
+- **Annual Income**: ranges from GHS 5,000 to GHS 500,000
+
+The math will accidentally think **Income is 10,000 times more important** than Age—purely because 500,000 is a bigger number than 70!
+
+**Feature Scaling** shrinks both values to a fair 0-1 range so the model judges them equally, not by their size.
+
+Think of it like converting GHS and USD to the same currency before comparing—they need to be in the same "scale" to be fair!
+:::
 
 Different features have different scales:
 

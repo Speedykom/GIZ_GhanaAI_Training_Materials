@@ -197,6 +197,24 @@ plt.show()
 
 ### Training a Simple Classifier on Iris
 
+::: {.callout-tip}
+## Mental Model: Dimmer Switch vs. Light Switch
+
+The name "Logistic *Regression*" confuses newbies because it sounds like regression (predicting numbers), but it's actually used for **classification** (predicting categories).
+
+Think of it this way:
+
+- **Dimmer Switch Output**: "The light is at 73% brightness" (a probability between 0-100%)
+- **Light Switch Decision**: "Is it over 50%? Then ON. Otherwise OFF." (the threshold)
+
+Logistic Regression gives you the **dimmer value** (probability). Then we apply a **threshold** (usually 50%) to snap it to a category:
+
+- Probability 73% that this flower is "Setosa" → Predict "Setosa"
+- Probability 32% that this email is spam → Predict "Not Spam"
+
+The model learns: "Flowers with petal length > 2.5cm tend to be Setosa." Then it outputs how confident it is (the percentage).
+:::
+
 Let's train our first classification model using Logistic Regression:
 
 ```{python}
