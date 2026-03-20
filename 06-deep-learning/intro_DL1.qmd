@@ -30,6 +30,18 @@ We start by training a working model. Once you've seen it work, we peel back the
 
 This follows the mantra: **"You don't need to understand the carburetor to drive a car, but you'll want to when it breaks down."**
 
+::: {.callout-tip}
+## Why Are We Moving to Google Colab? (The Bicycle vs. The Cargo Ship)
+
+You might be wondering why we are using Google Colab for this module.
+
+Think of **traditional Machine Learning** (like predicting house prices) as moving 50 boxes across town. You can easily do that on a **bicycle** (your laptop's CPU).
+
+**Deep Learning** (especially with images and large datasets) requires moving *millions* of boxes at once. If you use your laptop CPU, it will take weeks! A **GPU** (Graphics Processing Unit) is like a massive **Cargo Ship** that moves all those boxes simultaneously.
+
+Google Colab gives us free, temporary access to one of these Cargo Ships in the cloud. Let's set sail!
+:::
+
 ---
 
 # The Problem: Will It Rain Tomorrow?
@@ -171,6 +183,20 @@ plt.show()
 
 ## From Linear Regression to Neural Networks
 
+::: {.callout-tip}
+## Mental Model: The Corporate Office
+
+Think of a Neural Network as a **corporate office** trying to make a decision (e.g., "Will it rain tomorrow?").
+
+- **Input Layer (The Interns):** They each look at one raw piece of data. Intern A checks humidity. Intern B checks pressure. They pass their notes upward.
+
+- **Hidden Layer (The Managers):** They receive the notes from all interns. They combine information. "Ah! Intern A says humidity is HIGH and Intern B says pressure is DROPPING. I'm flagging this as a storm risk!" They pass summaries upward.
+
+- **Output Layer (The Boss):** The boss receives all the managers' summaries and makes the final 0 or 1 decision.
+
+**Training (Backpropagation):** When the prediction is wrong, the boss yells at the managers, who yell at the interns, and everyone adjusts how much they weight each factor. Eventually, they learn the right recipe for predicting rain!
+:::
+
 **Reminder**: In traditional machine learning, Linear Regression finds:
 $$\hat{y} = w_1 x_1 + w_2 x_2 + w_3 x_3 + w_4 x_4 + b$$
 
@@ -278,6 +304,21 @@ A neural network is just many of these neurons connected together!
 
 ### Understanding Activation Functions
 
+::: {.callout-tip}
+## Mental Model: The Bouncer at the Club (ReLU)
+
+Activation functions sound scary, but ReLU is just a **strict bouncer at a nightclub**:
+
+- If a number is **negative** (bad vibes): The bouncer shouts **"Zero! You don't get in!"**
+- If a number is **positive** (good vibes): The bouncer says **"Come right in exactly as you are!"**
+
+**Why do we need a bouncer?**
+
+Without activation functions, stacking layers is useless—it's just one giant linear equation. The bouncer adds **non-linearity**, allowing the network to learn complex patterns like "Only trigger rain warning if humidity is HIGH AND pressure is LOW" (combining two things!).
+
+Think of it like adding spices to cooking. Without spices (activations), everything tastes bland (linear). With spices, you get complex flavors (non-linear patterns)!
+:::
+
 **ReLU (Rectified Linear Unit)**:
 $$\text{ReLU}(x) = \max(0, x)$$
 
@@ -314,6 +355,24 @@ plt.show()
 ---
 
 # The Five Sacred Steps of Training
+
+::: {.callout-tip}
+## Mental Model: Throwing Darts Blindfolded
+
+Imagine learning to throw darts at a bullseye while **blindfolded**. This is exactly what training a neural network feels like!
+
+1. **Forward Pass (Throw the dart):** You throw at the board. You have no idea where you aimed!
+
+2. **Calculate Loss (Friend yells feedback):** Your friend shouts, "You missed the bullseye by 2 meters to the LEFT!"
+
+3. **Backward Pass (Your brain calculates):** You think, "Okay, my right arm was too tense. I need to adjust."
+
+4. **Update Weights (Adjust and throw again):** You shift your stance slightly and throw again.
+
+5. **Epoch:** Doing this 100 times until you finally hit the bullseye!
+
+The **Loss Function** is your friend yelling how wrong you are. The **Optimizer** is your brain figuring out how to adjust. The **Epochs** are the number of throws you take until you get good!
+:::
 
 Every neural network training loop follows these exact steps:
 

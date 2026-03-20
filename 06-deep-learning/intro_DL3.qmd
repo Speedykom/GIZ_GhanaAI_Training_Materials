@@ -90,6 +90,31 @@ print(f"Output classes: {resnet18.fc.out_features}")
 
 ## The Two-Phase Approach
 
+::: {.callout-tip}
+## Mental Model: The Master Chef (Transfer Learning)
+
+Think of Transfer Learning as **hiring a Master Chef** who already knows how to cook perfectly.
+
+**Phase 1: Feature Extraction (Freezing = Don't let them forget!)**
+
+You hire a 5-star Master Chef who has spent 10 years perfecting:
+- Knife skills (detecting edges/textures)
+- Flavor combinations (detecting shapes/objects)
+- Presentation (detecting complex patterns)
+
+But you want them to cook **Ghanaian food**, not French food. 
+
+So you **FREEZE their brain** (freeze layers). You don't want them to unlearn their perfect knife skills! You only give them a new "menu" (final layer) that tells them to make Fufu instead of Croissants.
+
+**Phase 2: Fine-Tuning (Gentle Adaptation)**
+
+After the chef masters Fufu, you **unfreeze a little** of their brain. You let them experiment with minor spice adjustments specific to Ghanaian palates.
+
+This is why Transfer Learning works so well—the chef already knows how to chop vegetables perfectly (detecting edges). You just teach them a new recipe (cassava diseases instead of ImageNet categories)!
+
+**Key Insight:** We freeze the "knife skills" (early layers) but retrain the "menu" (final layer).
+:::
+
 **Phase 1: Feature Extraction**
 
 - Freeze all pre-trained layers

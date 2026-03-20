@@ -93,6 +93,28 @@ That's **1.2 million parameters** just for the first layer!
 
 **We need Convolutional Neural Networks (CNNs).**
 
+::: {.callout-tip}
+## Mental Model: The Detective with a Flashlight (How CNNs "See")
+
+Imagine looking at a 1080p image (2 million pixels) all at once. Overwhelming, right?
+
+A **Convolution** is like a detective in a dark room with a **small square flashlight**:
+
+1. **The Flashlight (Kernel/Filter):** The detective only shines light on a small 3×3 patch at a time.
+
+2. **Scanning Top-to-Bottom:** They methodically move the flashlight across the entire image, one small patch at a time.
+
+3. **Different Flashlights for Different Clues:** 
+   - One flashlight (filter) detects **vertical edges** (door frames, tree trunks)
+   - Another detects **horizontal edges** (roads, horizons)
+   - Another detects **curves** (eyes, wheels)
+   - Another detects **textures** (fur, leaves)
+
+4. **Building Up Understanding:** Layer after layer, the detective builds from simple clues (edges) to complex objects (this is a cat, this is a stop sign).
+
+This is why CNNs are so efficient—they don't look at the whole image at once. They scan systematically with specialized "flashlights"!
+:::
+
 ---
 
 # CPUs vs GPUs: Why Hardware Matters for Deep Learning
