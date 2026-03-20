@@ -206,11 +206,21 @@ Follow these steps to build your cassava disease classifier:
 
 This notebook uses the **Cassava Leaf Disease Classification** dataset from Kaggle (~1.3 GB).
 
-**If you are running on Google Colab:**
-Run the cell below - it will prompt you to upload your `kaggle.json` file directly in the browser.
+**Step 1: Get Your Kaggle API Key (Do this on your LOCAL laptop first!)**
+
+1. Go to [https://www.kaggle.com/settings](https://www.kaggle.com/settings)
+2. Click on **"Account"** tab
+3. Scroll down to **"API"** section
+4. Click **"Create New API Token"** under "Legacy API Credentials"
+5. This downloads `kaggle.json` to your local Downloads folder
+6. Keep this file safe—you will upload it to Colab in Step 2
+
+**Step 2: Run the Code Cell Below**
+
+The next cell will prompt you to upload your `kaggle.json` file directly in the browser. Upload the file you downloaded in Step 1.
 
 **If you are running locally (with GPU):**
-Make sure you have your `kaggle.json` file in `~/.kaggle/kaggle.json` (or run `kaggle datasets download` manually).
+Place your `kaggle.json` file in `~/.kaggle/kaggle.json` (or run `kaggle datasets download` manually).
 :::
 
 ```{python}
