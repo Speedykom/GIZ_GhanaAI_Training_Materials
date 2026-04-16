@@ -5,10 +5,11 @@
 # But allow directories to be traversed
 !*/
 
-# Keep this file
+# Keep these files
 !.gitignore
+!README.md
 
-# Only track these 5 file types
+# Only track these 5 file types (plus README)
 !*.py
 !*.ipynb
 !*.pptx
