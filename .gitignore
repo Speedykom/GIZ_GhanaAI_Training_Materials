@@ -1,32 +1,43 @@
-docs
-cassava_dataset/
-.env
+# Source files - don't push
+*.qmd
+*.md
+*.html
+*.Rmd
+*.rst
+*.py
 
-/.quarto/
+# Generated files except outputs we want
 **/*.quarto_ipynb
+.quarto/
+_files/
+_freeze/
 
-# Books - legal rights uncertain
-08-resources/books/*.pdf
+# Datasets (too large, download from source)
+*.csv
+*.xlsx
+*.json
+*.parquet
+*/data/
+*/dataset*/
+*/GTSRB/
+*/cassava_dataset/
 
-# Copyrighted notebooks
-08-resources/032-traffic-data-as-images-and-video.ipynb
-08-resources/033-object-detection-with-yolov8.ipynb
+# Cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.DS_Store
+*.ipynb_checkpoints
+.venv/
+venv/
 
-# Local datasets - students download when needed
-06-deep-learning/setup_gtsrb.py
-06-deep-learning/cassava_data.py
-06-deep-learning/data/
-05-machine-learning/data/
+# Keep only these formats
+!*.ipynb
+!*.pdf
 
-# Rendered outputs (generated locally, not needed in repo)
-**/*.html
-**/*.pdf
-
-# Generated assets from Quarto rendering
-**/*_files/
-
-# Model weights (large binary files)
-*.pth
-*.h5
-*.ckpt
-*.bin
+# Generated auxiliary files
+*.aux
+*.log
+*.out
+*.tex
