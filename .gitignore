@@ -35,6 +35,7 @@ venv/
 # Keep only these formats
 !*.ipynb
 !*.pdf
+!*.pptx
 
 # Generated auxiliary files
 *.aux
