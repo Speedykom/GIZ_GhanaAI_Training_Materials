@@ -1,28 +1,33 @@
-# Source files - don't push
+# Ignore all files by default
+*
+*/
+
+# But allow directories to be traversed
+!*/
+
+# Only track these 5 file types
+!*.py
+!*.ipynb
+!*.pptx
+!*.pdf
+!*.csv
+
+# Don't track backup or generated files
 *.qmd
 *.md
 *.html
 *.Rmd
 *.rst
-*.py
-
-# Generated files except outputs we want
+*.backup
+*.bak
 **/*.quarto_ipynb
 .quarto/
 _files/
 _freeze/
-
-# Datasets (too large, download from source)
-*.csv
-*.xlsx
-*.json
-*.parquet
 */data/
 */dataset*/
 */GTSRB/
 */cassava_dataset/
-
-# Cache and temporary files
 __pycache__/
 *.pyc
 *.pyo
@@ -31,13 +36,6 @@ __pycache__/
 *.ipynb_checkpoints
 .venv/
 venv/
-
-# Keep only these formats
-!*.ipynb
-!*.pdf
-!*.pptx
-
-# Generated auxiliary files
 *.aux
 *.log
 *.out
