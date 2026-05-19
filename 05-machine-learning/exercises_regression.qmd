@@ -5,14 +5,14 @@ author: "Speedykom Group GmbH"
 format:
   html:
     toc: true
-    toc-depth: 1
+    toc-depth: 2
     theme: cosmo
     code-fold: true
     code-block-bg: true
     css: styles.css
 jupyter: python3
 execute:
-  eval: false
+  eval: true
   echo: true
   warning: false
   message: false
@@ -24,475 +24,429 @@ execute:
 
 Unlike classification (yes/no), regression answers: "How much?" or "How many?"
 
-**Real-world problem:** A real estate agent in Accra needs to price a house. She has:
+**Real-world problem:** A real estate agent in Accra needs to price a house. She knows:
 - Number of bedrooms
 - Square footage
 - Location (suburb)
 - Number of bathrooms
+- Whether it's furnished
 
-Your job: **Build a model to predict rental prices** using real Ghana housing data from Kaggle.
+**Your job:** Build a model to predict rental prices using real Ghana housing data from Kaggle.
 
 **Why this matters:** Pricing is crucial. Too high = no customers. Too low = lost revenue. A regression model helps make data-driven decisions.
 
 ---
 
-## Getting the Data: Standard Kaggle Setup
+## Exercise 1: Exploratory Data Analysis (EDA)
 
-### One-Time Setup (2 minutes)
+**Goal:** Understand the Ghana housing dataset structure, distributions, and key patterns.
 
-**Step 1: Get your Kaggle API credentials**
-1. Go to https://www.kaggle.com/account/settings/api
-2. Click "Create New API Token"
-3. A file `kaggle.json` downloads to your computer
-
-**Step 2: Install Kaggle library**
-```bash
-pip install kaggle
-```
-
-**Step 3: Move credentials to the right location**
-
-**Linux/Mac:**
-```bash
-mkdir -p ~/.kaggle
-cp ~/Downloads/kaggle.json ~/.kaggle/
-chmod 600 ~/.kaggle/kaggle.json
-```
-
-**Windows:**
-```bash
-# Create folder: C:\Users\YourUsername\.kaggle\
-# Copy kaggle.json file there
-```
-
-**That's it!** Kaggle library will automatically find your credentials.
-
----
-
-## Exercise 0: Download Ghana Housing Data from Kaggle
-
-**Goal:** Download the real Ghana housing dataset and load it into memory.
-
-**Prerequisites:** Make sure you've already run `uv sync` to install kaggle and all dependencies.
+**Setup: Load and inspect the data**
 
 ```{python}
-import io
-import zipfile
-import pandas as pd
-from kaggle.api.kaggle_api_extended import KaggleApi
-
-print("Connecting to Kaggle API...")
-api = KaggleApi()
-api.authenticate()
-print("✓ Authenticated\n")
-
-# Download dataset
-print("Downloading: ghana-house-rental-dataset...")
-response = api.datasets_download(
-    owner_slug='epigos',
-    dataset_slug='ghana-house-rental-dataset',
-    _preload_content=False
-)
-print("✓ Download complete\n")
-
-# Handle ZIP or CSV
-raw_bytes = io.BytesIO(response.data)
-
-if zipfile.is_zipfile(raw_bytes):
-    print("Detected: ZIP archive")
-    raw_bytes.seek(0)
-    with zipfile.ZipFile(raw_bytes) as z:
-        print(f"Files in archive: {z.namelist()}")
-        # Find CSV file
-        csv_files = [f for f in z.namelist() if f.endswith('.csv')]
-        csv_file = csv_files[0] if csv_files else z.namelist()[0]
-        df = pd.read_csv(z.open(csv_file))
-        print(f"✓ Loaded: {csv_file}\n")
-else:
-    print("Detected: Plain CSV")
-    raw_bytes.seek(0)
-    df = pd.read_csv(raw_bytes)
-
-print("✅ DATASET READY!")
-print(f"Shape: {df.shape}")
-print(f"Columns: {list(df.columns)}\n")
-print("Preview:")
-print(df.head())
-```
-
----
-
-## Exercise 1: Explore Housing Data
-
-**Goal:** Understand the dataset structure and distributions.
-
-**Setup: Load and inspect data**
-
-```{python}
-#| eval: false
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 
 # Load Ghana housing data
-# (Assumes Exercise 0 was completed to download the dataset)
-try:
-    df = pd.read_csv('house-rental-prices.csv')
-    print("✓ Dataset loaded from current directory")
-except FileNotFoundError:
-    # Fallback: try manual download folder
-    try:
-        df = pd.read_csv('ghana_housing/house-rental-prices.csv')
-        print("✓ Dataset loaded from ghana_housing/ folder")
-    except FileNotFoundError:
-        print("ERROR: Dataset not found!")
-        print("Please run Exercise 0 first to download the data from Kaggle")
-        raise
+df = pd.read_csv('house_rentals.csv')
 
 print("DATASET OVERVIEW")
 print("=" * 70)
-print(f"Shape: {df.shape} (rows, columns)")
-print(f"\nColumn names and types:")
+print(f"Shape: {df.shape[0]:,} rows × {df.shape[1]} columns\n")
+
+print("Data types:")
 print(df.dtypes)
-print(f"\nFirst 5 rows:")
-print(df.head())
+
+print(f"\n\nFirst 3 listings:")
+print(df[['name', 'price', 'bedrooms', 'bathrooms', 'floor_area', 'location']].head(3))
 ```
 
-**Analysis: Explore key statistics and distributions**
+**Analysis: Understand price distribution and features**
 
 ```{python}
-print("\nDESCRIPTIVE STATISTICS")
+print("\n\nDESCRIPTIVE STATISTICS - Price (Target Variable)")
 print("=" * 70)
-print(df.describe())
+print(f"Count: {df['price'].count():,} properties")
+print(f"Mean:  GHS {df['price'].mean():,.0f}/month")
+print(f"Median: GHS {df['price'].median():,.0f}/month")
+print(f"Min:   GHS {df['price'].min():,.0f}")
+print(f"Max:   GHS {df['price'].max():,.0f}")
+print(f"Std Dev: GHS {df['price'].std():,.0f}")
 
-print("\nMISSING VALUES")
+print("\n\nKEY FEATURES FOR REGRESSION")
 print("=" * 70)
-missing = df.isnull().sum()
-if missing.sum() > 0:
-    print(missing[missing > 0])
-else:
-    print("No missing values! ✓")
+print(f"Bedrooms (range): {df['bedrooms'].min():.0f} - {df['bedrooms'].max():.0f}")
+print(f"  Mean: {df['bedrooms'].mean():.1f} | Median: {df['bedrooms'].median():.0f}")
 
-print("\nKEY INSIGHTS")
-print("=" * 70)
+print(f"\nBathrooms (range): {df['bathrooms'].min():.0f} - {df['bathrooms'].max():.0f}")
+print(f"  Mean: {df['bathrooms'].mean():.1f} | Median: {df['bathrooms'].median():.0f}")
 
-# Focus on price column (target variable)
-if 'price' in df.columns or 'rental_price' in df.columns or 'Price' in df.columns:
-    price_col = [col for col in df.columns if 'price' in col.lower()][0]
-    print(f"Price column: {price_col}")
-    print(f"  Min: GHS {df[price_col].min():,.0f}")
-    print(f"  Max: GHS {df[price_col].max():,.0f}")
-    print(f"  Mean: GHS {df[price_col].mean():,.0f}")
-    print(f"  Median: GHS {df[price_col].median():,.0f}")
+print(f"\nFloor Area (m²): {df['floor_area'].min():.0f} - {df['floor_area'].max():.0f}")
+print(f"  Mean: {df['floor_area'].mean():.0f} | Median: {df['floor_area'].median():.0f}")
 
-# Feature columns
-feature_cols = [col for col in df.columns if col.lower() not in ['price', 'rental_price', 'id']]
-print(f"\nFeatures ({len(feature_cols)} available):")
-for col in feature_cols[:5]:
-    print(f"  - {col}")
+print(f"\nTop 5 Locations by count:")
+print(df['location'].value_counts().head())
 
-print("\n✓ Exercise 1 passed!")
+print(f"\nCondition types:")
+print(df['condition'].value_counts())
+
+print(f"\nFurnished status:")
+print(df['is_furnished'].value_counts())
+```
+
+**Visualization: See price patterns**
+
+```{python}
+# Create EDA visualizations
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+# Plot 1: Price distribution
+ax = axes[0, 0]
+ax.hist(df['price'], bins=50, color='steelblue', edgecolor='navy', alpha=0.7)
+ax.set_xlabel('Rental Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_ylabel('Number of Properties', fontsize=11, fontweight='bold')
+ax.set_title('Distribution of House Rental Prices in Ghana', fontsize=12, fontweight='bold')
+ax.axvline(df['price'].mean(), color='red', linestyle='--', linewidth=2, label=f"Mean: {df['price'].mean():,.0f}")
+ax.legend()
+ax.grid(True, alpha=0.3, axis='y')
+
+# Plot 2: Price vs Bedrooms
+ax = axes[0, 1]
+ax.scatter(df['bedrooms'], df['price'], alpha=0.3, color='steelblue', s=20)
+ax.set_xlabel('Number of Bedrooms', fontsize=11, fontweight='bold')
+ax.set_ylabel('Rental Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Price vs Bedrooms', fontsize=12, fontweight='bold')
+ax.grid(True, alpha=0.3)
+
+# Plot 3: Price vs Floor Area
+ax = axes[1, 0]
+ax.scatter(df['floor_area'], df['price'], alpha=0.3, color='green', s=20)
+ax.set_xlabel('Floor Area (m²)', fontsize=11, fontweight='bold')
+ax.set_ylabel('Rental Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Price vs Floor Area', fontsize=12, fontweight='bold')
+ax.grid(True, alpha=0.3)
+
+# Plot 4: Price by Condition
+ax = axes[1, 1]
+condition_prices = df.groupby('condition')['price'].mean().sort_values(ascending=False)
+bars = ax.bar(condition_prices.index, condition_prices.values, color='coral', edgecolor='darkorange', alpha=0.7)
+ax.set_ylabel('Average Rental Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Average Price by Property Condition', fontsize=12, fontweight='bold')
+ax.tick_params(axis='x', rotation=45)
+for bar in bars:
+    height = bar.get_height()
+    ax.text(bar.get_x() + bar.get_width()/2., height,
+            f'GHS {height:,.0f}',
+            ha='center', va='bottom', fontsize=10, fontweight='bold')
+ax.grid(True, alpha=0.3, axis='y')
+
+plt.tight_layout()
+plt.show()
+
+print("✓ Exercise 1 passed!")
 ```
 
 ---
 
-## Exercise 2: Simple Linear Regression (One Feature)
+## Exercise 2: Data Preparation & Cleaning
 
-**Goal:** Predict price using just one feature (e.g., bedrooms).
+**Goal:** Prepare data for regression by handling missing values, creating new features, and selecting relevant columns.
 
-**Setup: Select feature and prepare data**
+**Setup: Check data quality**
 
 ```{python}
-# Identify price and feature columns
-price_col = [col for col in df.columns if 'price' in col.lower()][0]
-
-# Use bedrooms as our single feature
-# (You can change this to 'bathrooms', 'size', etc.)
-feature_col = 'bedrooms'  # Adjust if your data uses different column names
-
-# Create X (features) and y (target)
-X = df[[feature_col]].dropna()
-y = df.loc[X.index, price_col]
-
-print("DATA PREPARED")
+print("DATA QUALITY CHECK")
 print("=" * 70)
-print(f"Feature: {feature_col}")
-print(f"Target: {price_col}")
-print(f"Samples: {len(X)}")
+print(f"Missing values per column:")
+missing = df.isnull().sum()
+if missing.sum() == 0:
+    print("✓ No missing values detected!")
+else:
+    print(missing[missing > 0])
 
-# Check for any NaN in y after matching indices
-if y.isnull().any():
-    valid_idx = ~y.isnull()
-    X = X[valid_idx]
-    y = y[valid_idx]
-    print(f"After removing NaNs: {len(X)} samples")
-
-print(f"\nFeature statistics:")
-print(f"  {feature_col}: min={X[feature_col].min()}, max={X[feature_col].max()}")
-print(f"\nTarget statistics:")
-print(f"  {price_col}: min=GHS {y.min():,.0f}, max=GHS {y.max():,.0f}")
-
-# Split into train/test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-print(f"\nTrain set: {len(X_train)} | Test set: {len(X_test)}")
+print(f"\n\nOutlier Detection (Price):")
+Q1 = df['price'].quantile(0.25)
+Q3 = df['price'].quantile(0.75)
+IQR = Q3 - Q1
+outlier_threshold = Q3 + 1.5 * IQR
+outliers = df[df['price'] > outlier_threshold]
+print(f"Outliers (price > {outlier_threshold:,.0f}): {len(outliers)} properties ({len(outliers)/len(df)*100:.1f}%)")
+print(f"  These are luxury properties we'll keep (valuable information)")
 ```
 
-**Analysis: Train and evaluate simple linear regression**
+**Analysis: Create features for regression**
 
 ```{python}
-# Train simple linear regression
-# y = m*x + b (slope * feature + intercept)
-model_simple = LinearRegression()
-model_simple.fit(X_train, y_train)
+# Create a clean dataset for regression
+df_clean = df.copy()
 
-print("SIMPLE LINEAR REGRESSION MODEL")
+# Feature 1: Binary encoding for categorical features
+df_clean['is_furnished_numeric'] = (df_clean['is_furnished'] != 'Unfurnished').astype(int)
+df_clean['is_new'] = (df_clean['condition'] == 'New').astype(int)
+
+# Feature 2: Extract region from location (e.g., "Greater Accra, East Legon" → "Greater Accra")
+df_clean['region'] = df_clean['location'].str.split(',').str[0]
+
+# Feature 3: Count amenities (how many amenities listed)
+df_clean['amenity_count'] = df_clean['amenities'].fillna('').str.split(',').apply(len)
+
+# Feature 4: Parking space (convert boolean to int)
+df_clean['has_parking'] = df_clean['parking_space'].astype(int)
+
+print("NEW FEATURES CREATED")
 print("=" * 70)
-print(f"Equation: Price = {model_simple.intercept_:,.0f} + {model_simple.coef_[0]:,.0f} × {feature_col}")
+print(f"✓ is_furnished_numeric: 1 = furnished, 0 = unfurnished")
+print(f"✓ is_new: 1 = new condition, 0 = used")
+print(f"✓ region: extracted from location")
+print(f"✓ amenity_count: number of amenities listed")
+print(f"✓ has_parking: 1 if parking, 0 if none")
 
-# Make predictions
-y_pred_train = model_simple.predict(X_train)
-y_pred_test = model_simple.predict(X_test)
+print(f"\n\nFinal features for modeling:")
+feature_cols = ['bedrooms', 'bathrooms', 'floor_area', 'is_furnished_numeric',
+                'is_new', 'amenity_count', 'has_parking']
+print(f"Columns: {feature_cols}")
 
-# Evaluate
-r2_train = r2_score(y_train, y_pred_train)
-r2_test = r2_score(y_test, y_pred_test)
-rmse_test = np.sqrt(mean_squared_error(y_test, y_pred_test))
-mae_test = mean_absolute_error(y_test, y_pred_test)
+# Select regression dataset
+X = df_clean[feature_cols].copy()
+y = df_clean['price'].copy()
 
-print(f"\nMODEL PERFORMANCE")
-print("=" * 70)
-print(f"R² Score (train): {r2_train:.3f}")
-print(f"R² Score (test):  {r2_test:.3f}")
-print(f"  (R² = 1.0 is perfect, 0.0 is terrible)")
-print(f"\nRoot Mean Squared Error (test): GHS {rmse_test:,.0f}")
-print(f"Mean Absolute Error (test): GHS {mae_test:,.0f}")
-print(f"  (Average prediction error)")
-
-# Prediction example
-example_bedrooms = 3
-example_price = model_simple.predict([[example_bedrooms]])[0]
-print(f"\nEXAMPLE PREDICTION")
-print("=" * 70)
-print(f"A house with {example_bedrooms} bedrooms → Predicted price: GHS {example_price:,.0f}")
+print(f"\n\nDataset ready for modeling:")
+print(f"Samples: {len(X):,}")
+print(f"Features: {len(feature_cols)}")
+print(f"Target range: GHS {y.min():,.0f} - GHS {y.max():,.0f}")
 
 print("\n✓ Exercise 2 passed!")
 ```
 
 ---
 
-## Exercise 3: Multiple Linear Regression
+## Exercise 3: Simple Linear Regression (Bedrooms Only)
 
-**Goal:** Use multiple features to predict price (more accurate than one feature).
+**Goal:** Build a baseline model using just one feature (bedrooms) to predict price.
 
-**Setup: Prepare multiple features**
+**Setup: Prepare single-feature data**
 
 ```{python}
-# Select multiple features for prediction
-# Adjust column names based on your dataset
-features = [col for col in df.columns if col.lower() not in [price_col.lower(), 'id', 'location', 'title']][:4]
+# Use only bedrooms as predictor
+X_simple = df_clean[['bedrooms']].copy()
+y_simple = df_clean['price'].copy()
 
-print("MULTIPLE LINEAR REGRESSION SETUP")
-print("=" * 70)
-print(f"Features selected: {features}")
-print(f"Target: {price_col}")
+# Remove any rows with missing values
+mask = ~(X_simple.isnull().any(axis=1) | y_simple.isnull())
+X_simple = X_simple[mask]
+y_simple = y_simple[mask]
 
-# Prepare data: remove rows with missing values
-data_clean = df[[price_col] + features].dropna()
-X_multi = data_clean[features]
-y_multi = data_clean[price_col]
-
-print(f"Samples with complete data: {len(X_multi)}")
-
-# Check for any remaining issues
-if X_multi.isnull().any().any() or y_multi.isnull().any():
-    print("Warning: Some NaN values remain, dropping...")
-    valid_idx = ~(X_multi.isnull().any(axis=1) | y_multi.isnull())
-    X_multi = X_multi[valid_idx]
-    y_multi = y_multi[valid_idx]
-
-print(f"Final sample size: {len(X_multi)}")
-
-# Split data
-X_train_multi, X_test_multi, y_train_multi, y_test_multi = train_test_split(
-    X_multi, y_multi, test_size=0.2, random_state=42
+# Split: 80% train, 20% test
+X_train, X_test, y_train, y_test = train_test_split(
+    X_simple, y_simple, test_size=0.2, random_state=42
 )
 
-print(f"\nTrain: {len(X_train_multi)} | Test: {len(X_test_multi)}")
+print("SIMPLE LINEAR REGRESSION SETUP")
+print("=" * 70)
+print(f"Feature: bedrooms")
+print(f"Target: price")
+print(f"Total samples: {len(X_simple):,}")
+print(f"Train set: {len(X_train):,} | Test set: {len(X_test):,}")
 ```
 
-**Analysis: Train and compare with simple regression**
+**Analysis: Train and evaluate**
 
 ```{python}
-# Train multiple linear regression
-model_multi = LinearRegression()
-model_multi.fit(X_train_multi, y_train_multi)
+# Train simple linear regression
+model_simple = LinearRegression()
+model_simple.fit(X_train, y_train)
 
-print("MULTIPLE LINEAR REGRESSION MODEL")
+print("\n\nSIMPLE LINEAR REGRESSION MODEL")
 print("=" * 70)
-print("Coefficients (how much each feature affects price):")
-for feature, coef in zip(features, model_multi.coef_):
-    print(f"  {feature}: {coef:+,.2f}")
-print(f"Intercept (baseline): GHS {model_multi.intercept_:,.0f}")
+print(f"Equation: Price = GHS {model_simple.intercept_:,.0f} + GHS {model_simple.coef_[0]:,.0f} × Bedrooms")
+print(f"\nInterpretation: Each additional bedroom adds ~GHS {model_simple.coef_[0]:,.0f} to the price")
 
-# Predictions and evaluation
-y_pred_train_multi = model_multi.predict(X_train_multi)
-y_pred_test_multi = model_multi.predict(X_test_multi)
+# Predictions
+y_pred_train = model_simple.predict(X_train)
+y_pred_test = model_simple.predict(X_test)
 
-r2_train_multi = r2_score(y_train_multi, y_pred_train_multi)
-r2_test_multi = r2_score(y_test_multi, y_pred_test_multi)
-rmse_test_multi = np.sqrt(mean_squared_error(y_test_multi, y_pred_test_multi))
-mae_test_multi = mean_absolute_error(y_test_multi, y_pred_test_multi)
+# Evaluation metrics
+r2_train = r2_score(y_train, y_pred_train)
+r2_test = r2_score(y_test, y_pred_test)
+rmse_test = np.sqrt(mean_squared_error(y_test, y_pred_test))
+mae_test = mean_absolute_error(y_test, y_pred_test)
 
-print(f"\nMODEL PERFORMANCE")
+print("\n\nMODEL PERFORMANCE - Simple (Bedrooms Only)")
 print("=" * 70)
-print(f"R² Score (train): {r2_train_multi:.3f}")
-print(f"R² Score (test):  {r2_test_multi:.3f}")
-print(f"RMSE (test): GHS {rmse_test_multi:,.0f}")
-print(f"MAE (test): GHS {mae_test_multi:,.0f}")
+print(f"R² Score (train): {r2_train:.3f}")
+print(f"R² Score (test):  {r2_test:.3f}")
+print(f"  (R² = 1.0 is perfect prediction, 0.0 means model is useless)")
+print(f"\nRMSE (test): GHS {rmse_test:,.0f}")
+print(f"  (Average prediction error)")
+print(f"MAE (test): GHS {mae_test:,.0f}")
+print(f"  (Median absolute error)")
 
-# Compare: Simple vs Multiple
-print(f"\nCOMPARISON: Simple vs Multiple Regression")
+# Example prediction
+print("\n\nEXAMPLE PREDICTIONS")
 print("=" * 70)
-print(f"Simple R² (test):   {r2_test:.3f}")
-print(f"Multiple R² (test): {r2_test_multi:.3f}")
-improvement = (r2_test_multi - r2_test) * 100
-print(f"Improvement: {improvement:+.1f}%")
-
-if r2_test_multi > r2_test:
-    print("✓ Multiple features improved the model!")
-else:
-    print("⚠ Multiple features didn't help much (or overfitting?)")
+for bedrooms in [1, 2, 3, 4]:
+    predicted_price = model_simple.predict([[bedrooms]])[0]
+    print(f"  {bedrooms}-bedroom house → Predicted price: GHS {predicted_price:,.0f}")
 
 print("\n✓ Exercise 3 passed!")
 ```
 
 ---
 
-## Exercise 4: Residual Analysis
+## Exercise 4: Multiple Linear Regression (All Features)
 
-**Goal:** Understand where and why the model makes mistakes.
+**Goal:** Use all available features to build a more accurate model.
 
-**Setup: Calculate residuals**
+**Setup: Prepare multi-feature data**
 
 ```{python}
-# Residuals = actual - predicted
-residuals = y_test_multi - y_pred_test_multi
+# Prepare multiple features
+feature_cols = ['bedrooms', 'bathrooms', 'floor_area', 'is_furnished_numeric',
+                'is_new', 'amenity_count', 'has_parking']
+X_multi = df_clean[feature_cols].copy()
+y_multi = df_clean['price'].copy()
 
-print("RESIDUAL ANALYSIS")
+# Remove missing values
+mask = ~(X_multi.isnull().any(axis=1) | y_multi.isnull())
+X_multi = X_multi[mask]
+y_multi = y_multi[mask]
+
+# Split
+X_train_m, X_test_m, y_train_m, y_test_m = train_test_split(
+    X_multi, y_multi, test_size=0.2, random_state=42
+)
+
+print("MULTIPLE LINEAR REGRESSION SETUP")
 print("=" * 70)
-print(f"Mean residual: GHS {residuals.mean():,.0f}")
-print(f"  (Should be close to 0)")
-print(f"Std dev of residuals: GHS {residuals.std():,.0f}")
-print(f"  (Measure of consistency)")
-
-print(f"\nResidual distribution:")
-print(f"  Min: GHS {residuals.min():,.0f}")
-print(f"  Q1:  GHS {residuals.quantile(0.25):,.0f}")
-print(f"  Q2:  GHS {residuals.median():,.0f}")
-print(f"  Q3:  GHS {residuals.quantile(0.75):,.0f}")
-print(f"  Max: GHS {residuals.max():,.0f}")
-
-# Count over/under predictions
-over_pred = (residuals < 0).sum()
-under_pred = (residuals > 0).sum()
-print(f"\nPrediction direction:")
-print(f"  Over-predicted (too high): {over_pred} times")
-print(f"  Under-predicted (too low): {under_pred} times")
+print(f"Features: {feature_cols}")
+print(f"Total samples: {len(X_multi):,}")
+print(f"Train set: {len(X_train_m):,} | Test set: {len(X_test_m):,}")
 ```
 
-**Analysis: Visualize residual patterns**
+**Analysis: Compare simple vs multiple**
 
 ```{python}
-# Create residual plots
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+# Train multiple linear regression
+model_multi = LinearRegression()
+model_multi.fit(X_train_m, y_train_m)
 
-# Plot 1: Residuals vs Predicted (should be random scatter)
-ax = axes[0]
-ax.scatter(y_pred_test_multi, residuals, alpha=0.6, color='steelblue', edgecolor='navy')
-ax.axhline(y=0, color='red', linestyle='--', linewidth=2, label='Perfect predictions')
-ax.set_xlabel('Predicted Price (GHS)', fontsize=11, fontweight='bold')
-ax.set_ylabel('Residuals (GHS)', fontsize=11, fontweight='bold')
-ax.set_title('Residuals vs Predicted Values', fontsize=12, fontweight='bold')
-ax.grid(True, alpha=0.3)
-ax.legend()
-
-# Plot 2: Histogram of residuals (should look normal/bell-shaped)
-ax = axes[1]
-ax.hist(residuals, bins=15, color='green', edgecolor='darkgreen', alpha=0.7)
-ax.axvline(x=residuals.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: GHS {residuals.mean():,.0f}')
-ax.set_xlabel('Residual Size (GHS)', fontsize=11, fontweight='bold')
-ax.set_ylabel('Frequency', fontsize=11, fontweight='bold')
-ax.set_title('Distribution of Residuals', fontsize=12, fontweight='bold')
-ax.legend()
-ax.grid(True, alpha=0.3, axis='y')
-
-plt.tight_layout()
-plt.show()
-
-print("\nINTERPRETATION")
+print("\n\nMULTIPLE LINEAR REGRESSION - Feature Coefficients")
 print("=" * 70)
-print("Left plot (Residuals vs Predicted):")
-print("  ✓ Good: Random scatter around 0")
-print("  ✗ Bad: Pattern or trend (model missing something)")
-print("\nRight plot (Distribution):")
-print("  ✓ Good: Bell-shaped (normal distribution)")
-print("  ✗ Bad: Skewed (model biased)")
+for feature, coef in zip(feature_cols, model_multi.coef_):
+    print(f"  {feature:25s}: GHS {coef:+12,.0f}")
+print(f"  Intercept (baseline):        GHS {model_multi.intercept_:12,.0f}")
+
+# Predictions
+y_pred_train_m = model_multi.predict(X_train_m)
+y_pred_test_m = model_multi.predict(X_test_m)
+
+# Evaluation
+r2_train_m = r2_score(y_train_m, y_pred_train_m)
+r2_test_m = r2_score(y_test_m, y_pred_test_m)
+rmse_test_m = np.sqrt(mean_squared_error(y_test_m, y_pred_test_m))
+mae_test_m = mean_absolute_error(y_test_m, y_pred_test_m)
+
+print("\n\nMODEL COMPARISON")
+print("=" * 70)
+print("Simple (Bedrooms only):")
+print(f"  R² (test): {r2_test:.3f}")
+print(f"  RMSE: GHS {rmse_test:,.0f}")
+
+print("\nMultiple (All features):")
+print(f"  R² (test): {r2_test_m:.3f}")
+print(f"  RMSE: GHS {rmse_test_m:,.0f}")
+
+improvement = (r2_test_m - r2_test) * 100
+print(f"\nImprovement: {improvement:+.1f}% better R²")
+
+if r2_test_m > r2_test:
+    print("✓ Multiple features significantly improved the model!")
+else:
+    print("⚠ Multiple features didn't help much")
 
 print("\n✓ Exercise 4 passed!")
 ```
 
 ---
 
-## Exercise 5: Make Predictions on New Houses
+## Exercise 5: Random Forest (Ensemble Model)
 
-**Goal:** Use your trained model to predict prices for houses not in the dataset.
+**Goal:** Use a more sophisticated model (ensemble) to capture complex price patterns.
 
-**Setup: Create example houses**
+**Setup: Train Random Forest**
 
 ```{python}
-# Create example houses with values in realistic ranges
-# Adjust feature names and ranges based on your dataset
+# Train Random Forest regressor
+model_rf = RandomForestRegressor(
+    n_estimators=100,        # 100 decision trees
+    max_depth=15,            # Tree depth (prevent overfitting)
+    random_state=42,
+    n_jobs=-1,               # Use all CPU cores
+    verbose=0
+)
 
-example_houses = pd.DataFrame({
-    features[0]: [2, 3, 4, 5],  # Adjust based on actual feature
-    features[1]: [1, 2, 2, 3],
-    features[2]: [50, 100, 150, 200],
-    features[3]: [0.5, 1.0, 1.5, 2.0],
-})
+model_rf.fit(X_train_m, y_train_m)
 
-print("EXAMPLE HOUSES TO PREDICT")
+print("RANDOM FOREST REGRESSOR TRAINED")
 print("=" * 70)
-print(example_houses)
+print(f"Model: {model_rf.n_estimators} trees")
+print(f"Training samples: {len(X_train_m):,}")
 ```
 
-**Analysis: Make predictions**
+**Analysis: Feature importance & performance**
 
 ```{python}
-# Predict prices for example houses
-predicted_prices = model_multi.predict(example_houses)
+# Predictions
+y_pred_rf = model_rf.predict(X_test_m)
 
-print("\nPREDICTIONS FOR NEW HOUSES")
+# Evaluation
+r2_rf = r2_score(y_test_m, y_pred_rf)
+rmse_rf = np.sqrt(mean_squared_error(y_test_m, y_pred_rf))
+mae_rf = mean_absolute_error(y_test_m, y_pred_rf)
+
+print("\n\nRANDOM FOREST PERFORMANCE")
 print("=" * 70)
-for idx, (house_idx, pred_price) in enumerate(zip(example_houses.index, predicted_prices)):
-    print(f"House {idx+1}: GHS {pred_price:,.0f}/month")
+print(f"R² Score (test): {r2_rf:.3f}")
+print(f"RMSE (test): GHS {rmse_rf:,.0f}")
+print(f"MAE (test): GHS {mae_rf:,.0f}")
 
-# Confidence estimate (based on training R²)
-confidence = r2_test_multi * 100
-print(f"\nModel confidence: {confidence:.0f}%")
-print(f"  (Based on test R² score)")
+# Feature importance
+importance_df = pd.DataFrame({
+    'feature': feature_cols,
+    'importance': model_rf.feature_importances_
+}).sort_values('importance', ascending=False)
 
-print("\nWHAT THIS MEANS")
+print("\n\nFEATURE IMPORTANCE (What drives price?)")
 print("=" * 70)
-print("- These are ESTIMATES, not exact prices")
-print("- Real prices vary based on factors we didn't include")
-print("  (neighborhood, condition, amenities, market trends, etc.)")
-print("- Use predictions to: narrow down search, compare offers, negotiate")
-print("- Don't rely on them alone!")
+for idx, row in importance_df.iterrows():
+    pct = row['importance'] * 100
+    bar = '█' * int(pct / 5) + '░' * (20 - int(pct / 5))
+    print(f"  {row['feature']:25s} {bar} {pct:5.1f}%")
+
+# Final comparison
+print("\n\nFINAL MODEL COMPARISON")
+print("=" * 70)
+models_comparison = pd.DataFrame({
+    'Model': ['Simple LR (Bedrooms)', 'Multiple LR (7 features)', 'Random Forest'],
+    'R² Score': [f"{r2_test:.3f}", f"{r2_test_m:.3f}", f"{r2_rf:.3f}"],
+    'RMSE (GHS)': [f"{rmse_test:,.0f}", f"{rmse_test_m:,.0f}", f"{rmse_rf:,.0f}"],
+    'MAE (GHS)': [f"{mae_test:,.0f}", f"{mae_test_m:,.0f}", f"{mae_rf:,.0f}"]
+})
+print(models_comparison.to_string(index=False))
+
+best_model = max([
+    ('Simple LR', r2_test),
+    ('Multiple LR', r2_test_m),
+    ('Random Forest', r2_rf)
+], key=lambda x: x[1])
+
+print(f"\n\n🏆 Best model: {best_model[0]} (R² = {best_model[1]:.3f})")
 
 print("\n✓ Exercise 5 passed!")
 ```
@@ -501,27 +455,14 @@ print("\n✓ Exercise 5 passed!")
 
 ## Summary
 
-You've built a **complete regression pipeline**:
+You've now built and compared **three regression models**:
 
-1. ✅ Explored data
-2. ✅ Built simple model (one feature)
-3. ✅ Built complex model (multiple features)
-4. ✅ Analyzed errors (residuals)
-5. ✅ Made predictions on new data
+- ✅ **Simple Linear Regression** — Baseline with 1 feature
+- ✅ **Multiple Linear Regression** — 7 features with coefficients
+- ✅ **Random Forest** — Ensemble that captures complex patterns
 
-**Real-world applications:**
-- 🏠 Real estate pricing (what we just did)
-- 📈 Stock price prediction
-- 🌡️ Temperature forecasting
-- 💰 Salary estimation
-- 🚗 Car value prediction
-
-**Next steps:**
-- Try polynomial regression (curved relationships)
-- Feature scaling (normalize features)
-- Regularization (prevent overfitting)
-- Try different models (Random Forest, XGBoost, etc.)
-
----
-
-*Ghana housing data source: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset*
+**Key takeaways:**
+1. More features → Better predictions (usually)
+2. Non-linear models (like RF) often beat linear models
+3. Feature importance shows what drives house prices
+4. Always split train/test to measure real-world performance
