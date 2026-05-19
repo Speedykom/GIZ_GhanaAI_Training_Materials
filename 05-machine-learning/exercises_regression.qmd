@@ -573,17 +573,124 @@ print("\n✓ Exercise 5 passed!")
 
 ---
 
+## Exercise 6: XGBoost (Extreme Gradient Boosting)
+
+**Goal:** Use XGBoost, a state-of-the-art ensemble method, and see if it beats Random Forest.
+
+**What is XGBoost?** XGBoost is a gradient boosting algorithm that builds trees sequentially, where each new tree learns from mistakes of previous trees. It's often more accurate than Random Forest because of this sequential learning approach.
+
+**Setup: Train XGBoost model**
+
+```{python}
+from xgboost import XGBRegressor
+
+# Train XGBoost regressor
+model_xgb = XGBRegressor(
+    n_estimators=100,        # 100 boosting rounds
+    max_depth=5,             # Shallow trees (XGBoost typically uses shallow trees)
+    learning_rate=0.1,       # How much each tree contributes
+    random_state=42,
+    verbosity=0
+)
+
+print("TRAINING XGBOOST...")
+print("=" * 70)
+model_xgb.fit(X_train_m, y_train_m)
+print("✓ XGBoost model trained\n")
+```
+
+**Analysis: Compare XGBoost with all previous models**
+
+```{python}
+# Predictions
+y_pred_xgb = model_xgb.predict(X_test_m)
+
+# Evaluation
+r2_xgb = r2_score(y_test_m, y_pred_xgb)
+rmse_xgb = np.sqrt(mean_squared_error(y_test_m, y_pred_xgb))
+mae_xgb = mean_absolute_error(y_test_m, y_pred_xgb)
+
+print("XGBOOST PERFORMANCE")
+print("=" * 70)
+print(f"R² Score (test): {r2_xgb:.3f}")
+print(f"RMSE (test): GHS {rmse_xgb:,.0f}")
+print(f"MAE (test): GHS {mae_xgb:,.0f}")
+
+# Feature importance from XGBoost
+importance_xgb = pd.DataFrame({
+    'feature': feature_cols,
+    'importance': model_xgb.feature_importances_
+}).sort_values('importance', ascending=False)
+
+print("\n\nFEATURE IMPORTANCE (XGBoost)")
+print("=" * 70)
+for idx, row in importance_xgb.iterrows():
+    pct = row['importance'] * 100
+    bar = '█' * int(pct / 5) + '░' * (20 - int(pct / 5))
+    print(f"  {row['feature']:25s} {bar} {pct:5.1f}%")
+
+# COMPLETE MODEL COMPARISON
+print("\n\n" + "=" * 70)
+print("FINAL MODEL COMPARISON - ALL 4 MODELS")
+print("=" * 70)
+models_comparison = pd.DataFrame({
+    'Model': [
+        'Simple LR (Bedrooms)',
+        'Multiple LR (7 features)',
+        'Random Forest',
+        'XGBoost'
+    ],
+    'R² Score': [f"{r2_test:.3f}", f"{r2_test_m:.3f}", f"{r2_rf:.3f}", f"{r2_xgb:.3f}"],
+    'RMSE (GHS)': [f"{rmse_test:,.0f}", f"{rmse_test_m:,.0f}", f"{rmse_rf:,.0f}", f"{rmse_xgb:,.0f}"],
+    'MAE (GHS)': [f"{mae_test:,.0f}", f"{mae_test_m:,.0f}", f"{mae_rf:,.0f}", f"{mae_xgb:,.0f}"]
+})
+print(models_comparison.to_string(index=False))
+
+# Find best model
+all_models = [
+    ('Simple LR', r2_test, rmse_test),
+    ('Multiple LR', r2_test_m, rmse_test_m),
+    ('Random Forest', r2_rf, rmse_rf),
+    ('XGBoost', r2_xgb, rmse_xgb)
+]
+best_model = max(all_models, key=lambda x: x[1])
+
+print(f"\n\n🏆 CHAMPION MODEL: {best_model[0]}")
+print(f"   R² Score: {best_model[1]:.3f}")
+print(f"   RMSE: GHS {best_model[2]:,.0f}")
+
+# Show improvements
+print(f"\n\nIMPROVEMENT ANALYSIS")
+print("=" * 70)
+print(f"Simple LR vs Multiple LR: {(r2_test_m - r2_test)*100:+.1f}% R² improvement")
+print(f"Multiple LR vs Random Forest: {(r2_rf - r2_test_m)*100:+.1f}% R² improvement")
+print(f"Random Forest vs XGBoost: {(r2_xgb - r2_rf)*100:+.1f}% R² improvement")
+
+if r2_xgb > r2_rf:
+    print(f"\n✓ XGBoost beat Random Forest!")
+else:
+    print(f"\n✓ Random Forest still wins, but XGBoost is close!")
+
+print("\n✓ Exercise 6 passed!")
+```
+
+---
+
 ## Summary
 
-You've now built and compared **three regression models**:
+You've now built and compared **four regression models**:
 
 - ✅ **Simple Linear Regression** — Baseline with 1 feature
-- ✅ **Multiple Linear Regression** — 7 features with coefficients
-- ✅ **Random Forest** — Ensemble that captures complex patterns
+- ✅ **Multiple Linear Regression** — 7 features with interpretable coefficients
+- ✅ **Random Forest** — Parallel ensemble of trees
+- ✅ **XGBoost** — Sequential ensemble (learns from mistakes)
 
 **Key takeaways:**
 
 1. More features → Better predictions (usually)
-2. Non-linear models (like RF) often beat linear models
-3. Feature importance shows what drives house prices
-4. Always split train/test to measure real-world performance
+2. Non-linear models (RF, XGBoost) beat linear models on complex data
+3. Ensemble methods (RF, XGBoost) are more accurate than single models
+4. XGBoost often edges out Random Forest due to sequential learning
+5. Feature importance reveals what truly drives house prices in Ghana
+6. Always measure on test set to avoid overfitting
+7. Trade-off: Simpler models are faster and interpretable; complex models are more accurate
