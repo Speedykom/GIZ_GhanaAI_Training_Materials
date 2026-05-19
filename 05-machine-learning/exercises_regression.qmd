@@ -37,6 +37,54 @@ Unlike classification (yes/no), regression answers: "How much?" or "How many?"
 
 ---
 
+## Getting Started: Download the Data
+
+### Method 1: Download from Kaggle (Recommended - Real-world skill)
+
+**Step 1: Create a Kaggle account**
+1. Go to https://www.kaggle.com/register
+2. Sign up (free account)
+
+**Step 2: Get your Kaggle API credentials**
+1. Click your profile icon → Settings
+2. Go to "Account" → scroll to "API"
+3. Click "Create New API Token"
+4. A `kaggle.json` file downloads
+
+**Step 3: Place credentials in the right location**
+
+**Linux/Mac:**
+```bash
+mkdir -p ~/.kaggle
+cp ~/Downloads/kaggle.json ~/.kaggle/
+chmod 600 ~/.kaggle/kaggle.json
+```
+
+**Windows:**
+```bash
+# Create folder: C:\Users\YourUsername\.kaggle\
+# Move kaggle.json there
+```
+
+**Step 4: Verify it works**
+```bash
+kaggle datasets list | head -5
+```
+
+That's it! The notebook will automatically download the data.
+
+### Method 2: Manual Download (If Kaggle fails)
+
+If the automated download fails in the notebook, you can manually download:
+1. Go to: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset
+2. Click "Download" button
+3. Save to the **same folder** as this notebook (05-machine-learning/)
+4. Extract: `unzip ghana-house-rental-dataset.zip`
+
+The notebook will automatically detect and use the local CSV file.
+
+---
+
 ## Exercise 1: Exploratory Data Analysis (EDA)
 
 **Goal:** Understand the Ghana housing dataset structure, distributions, and key patterns.
@@ -52,9 +100,66 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+import os
 
-# Load Ghana housing data
-df = pd.read_csv('house_rentals.csv')
+# Load Ghana housing data - with automatic fallback
+print("LOADING DATA...")
+print("=" * 70)
+
+df = None
+data_source = None
+
+# Try Method 1: Download from Kaggle
+try:
+    from kaggle.api.kaggle_api_extended import KaggleApi
+    import zipfile
+    import io
+
+    print("Method 1: Downloading from Kaggle API...")
+    api = KaggleApi()
+    api.authenticate()
+
+    # Use kaggle CLI command for more reliable download
+    os.system('kaggle datasets download -d epigos/ghana-house-rental-dataset -q')
+
+    # Extract and load
+    if os.path.exists('ghana-house-rental-dataset.zip'):
+        with zipfile.ZipFile('ghana-house-rental-dataset.zip', 'r') as z:
+            csv_files = [f for f in z.namelist() if f.endswith('.csv')]
+            if csv_files:
+                with z.open(csv_files[0]) as f:
+                    df = pd.read_csv(f)
+                    data_source = "✓ Kaggle API (automatically downloaded)"
+
+except Exception as e:
+    print(f"  Kaggle download failed: {str(e)[:80]}...")
+
+# Try Method 2: Load from local CSV if download failed
+if df is None:
+    try:
+        if os.path.exists('house_rentals.csv'):
+            df = pd.read_csv('house_rentals.csv')
+            data_source = "✓ Local file (house_rentals.csv)"
+        else:
+            raise FileNotFoundError("house_rentals.csv not found")
+    except Exception as e:
+        print(f"  Local file not found: {e}")
+
+# If both failed, show helpful error message
+if df is None:
+    print("\n⚠️  Data loading failed. Please do one of the following:")
+    print("\nOption A: Set up Kaggle API")
+    print("  1. Go to https://www.kaggle.com/account/settings/api")
+    print("  2. Click 'Create New API Token' (saves kaggle.json)")
+    print("  3. Move it to ~/.kaggle/kaggle.json")
+    print("  4. Rerun this cell")
+    print("\nOption B: Manual download")
+    print("  1. Download from: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset")
+    print("  2. Extract to this folder (05-machine-learning/)")
+    print("  3. Rerun this cell")
+    raise RuntimeError("Cannot load data - see instructions above")
+
+print(f"Data loaded: {data_source}\n")
 
 print("DATASET OVERVIEW")
 print("=" * 70)
