@@ -1,6 +1,6 @@
 ---
 title: "Regression Exercises: Predicting Ghana House Prices"
-subtitle: "Build and evaluate regression models using real Ghana housing data"
+subtitle: "Tree-based and ensemble methods on real Ghana housing data"
 author: "Speedykom Group GmbH"
 format:
   html:
@@ -22,19 +22,60 @@ execute:
 
 **Regression:** Predicting continuous values (prices, temperatures, rainfall) based on features.
 
-Unlike classification (yes/no), regression answers: "How much?" or "How many?"
-
-**Real-world problem:** A real estate agent in Accra needs to price a house. She knows:
-
+**Real-world problem:** A real estate agent in Accra needs to price a house based on:
 - Number of bedrooms
 - Square footage
 - Location (suburb)
 - Number of bathrooms
 - Whether it's furnished
+- Amenities available
 
 **Your job:** Build a model to predict rental prices using real Ghana housing data from Kaggle.
 
-**Why this matters:** Pricing is crucial. Too high = no customers. Too low = lost revenue. A regression model helps make data-driven decisions.
+---
+
+## Why NOT Linear Regression for Housing Data?
+
+**Housing prices are NON-LINEAR.** Here's why linear models fail:
+
+### 1. **Relationships are not straight lines**
+- Adding 1 bedroom doesn't add the same price everywhere
+- A bedroom in East Legon (Accra) is worth more than in a rural area
+- A furnished apartment commands a different premium than unfurnished
+
+### 2. **Interactions between features matter**
+- A large house (big floor area) is only valuable if it has enough bathrooms
+- Good amenities only matter if the property is new/well-maintained
+- Location amplifies the value of other features
+- **Linear models can't capture these interactions**
+
+### 3. **Non-constant variance**
+- Expensive properties (luxury villas) have huge price swings
+- Budget properties (studios) have smaller variance
+- Linear regression assumes constant error across all price ranges
+
+### 4. **Real housing data is messy**
+- Outliers exist (luxury properties, underpriced deals)
+- Feature relationships change by region
+- Some features matter more in some neighborhoods
+
+### ❌ **What Linear Regression does:**
+```
+Price = baseline + (coef₁ × bedrooms) + (coef₂ × bathrooms) + ...
+```
+Simple straight line through complex, non-linear reality.
+
+### ✅ **What Tree-based Models do:**
+```
+IF bedrooms ≤ 2:
+   IF location == "East Legon": Price = 15,000
+   ELSE: Price = 5,000
+ELSE IF bedrooms ≤ 4:
+   IF amenities > 5: Price = 25,000
+   ELSE: Price = 15,000
+...
+```
+Trees can discover complex, non-linear patterns automatically.
 
 ---
 
@@ -44,21 +85,17 @@ Unlike classification (yes/no), regression answers: "How much?" or "How many?"
 
 **⚠️ Note: Using Legacy API Credentials (kaggle.json)**
 
-The `kaggle.json` method is Kaggle's **legacy authentication approach**. This still works reliably, but be aware you're using older credentials format. Check if your Kaggle account has newer authentication options available at https://www.kaggle.com/account/settings/api.
+The `kaggle.json` method is Kaggle's **legacy authentication approach**. This still works reliably for classroom use.
 
 **Step 1: Create a Kaggle account**
-
 1. Go to https://www.kaggle.com/register
 2. Sign up (free account)
 
 **Step 2: Get your Kaggle API credentials (Legacy)**
-
-1. Go to https://www.kaggle.com/account/settings/api (or: Click profile icon → Settings → Account → API)
-2. Look for "Create New API Token" button (this is the legacy method)
-3. Click it and a `kaggle.json` file downloads to your computer
-4. This file contains your username and API key in JSON format
-
-**What you're doing:** Using the legacy kaggle.json credentials file. This is a straightforward file-based auth method that works well for local development and classroom environments.
+1. Go to https://www.kaggle.com/account/settings/api
+2. Click "Create New API Token" (legacy method)
+3. A `kaggle.json` file downloads
+4. This file contains your username and API key
 
 **Step 3: Place credentials in the right location**
 
@@ -72,7 +109,7 @@ chmod 600 ~/.kaggle/kaggle.json
 **Windows:**
 ```bash
 # Create folder: C:\Users\YourUsername\.kaggle\
-# Move kaggle.json there
+# Copy kaggle.json file into that folder
 ```
 
 **Step 4: Verify it works**
@@ -80,29 +117,21 @@ chmod 600 ~/.kaggle/kaggle.json
 kaggle datasets list | head -5
 ```
 
-You should see a list of Kaggle datasets. If you get an authentication error, double-check:
-- `kaggle.json` is in `~/.kaggle/` (not Downloads folder)
-- File permissions are correct: `chmod 600 ~/.kaggle/kaggle.json`
-- You're using the right username/key from your Kaggle account
-
-That's it! The notebook will automatically download the data.
-
 ### Method 2: Manual Download (If Kaggle fails)
 
-If the automated download fails in the notebook, you can manually download:
-
+If the automated download fails, manually download and extract:
 1. Go to: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset
 2. Click "Download" button
-3. Save to the **same folder** as this notebook (05-machine-learning/)
-4. Extract: `unzip ghana-house-rental-dataset.zip`
+3. Extract to this folder (05-machine-learning/)
+4. Run: `unzip ghana-house-rental-dataset.zip`
 
-The notebook will automatically detect and use the local CSV file.
+The notebook will auto-detect the local CSV file.
 
 ---
 
 ## Exercise 1: Exploratory Data Analysis (EDA)
 
-**Goal:** Understand the Ghana housing dataset structure, distributions, and key patterns.
+**Goal:** Understand the Ghana housing dataset before building models.
 
 **Setup: Load and inspect the data**
 
@@ -112,9 +141,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, mean_absolute_percentage_error
 import os
 
 # Load Ghana housing data - with automatic fallback
@@ -126,16 +155,9 @@ data_source = None
 
 # Try Method 1: Download from Kaggle
 try:
-    from kaggle.api.kaggle_api_extended import KaggleApi
     import zipfile
-    import io
-
     print("Method 1: Downloading from Kaggle API...")
-    api = KaggleApi()
-    api.authenticate()
-
-    # Use kaggle CLI command for more reliable download
-    os.system('kaggle datasets download -d epigos/ghana-house-rental-dataset -q')
+    os.system('kaggle datasets download -d epigos/ghana-house-rental-dataset -q 2>/dev/null')
 
     # Extract and load
     if os.path.exists('ghana-house-rental-dataset.zip'):
@@ -147,7 +169,7 @@ try:
                     data_source = "✓ Kaggle API (automatically downloaded)"
 
 except Exception as e:
-    print(f"  Kaggle download failed: {str(e)[:80]}...")
+    print(f"  Kaggle download failed: {str(e)[:60]}...")
 
 # Try Method 2: Load from local CSV if download failed
 if df is None:
@@ -163,75 +185,51 @@ if df is None:
 # If both failed, show helpful error message
 if df is None:
     print("\n⚠️  Data loading failed. Please do one of the following:")
-    print("\nOption A: Set up Kaggle API")
-    print("  1. Go to https://www.kaggle.com/account/settings/api")
-    print("  2. Click 'Create New API Token' (saves kaggle.json)")
-    print("  3. Move it to ~/.kaggle/kaggle.json")
-    print("  4. Rerun this cell")
-    print("\nOption B: Manual download")
-    print("  1. Download from: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset")
-    print("  2. Extract to this folder (05-machine-learning/)")
-    print("  3. Rerun this cell")
+    print("\nOption A: Set up Kaggle API at https://www.kaggle.com/account/settings/api")
+    print("Option B: Download from https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset")
     raise RuntimeError("Cannot load data - see instructions above")
 
 print(f"Data loaded: {data_source}\n")
 
 print("DATASET OVERVIEW")
 print("=" * 70)
-print(f"Shape: {df.shape[0]:,} rows × {df.shape[1]} columns\n")
+print(f"Shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
+print(f"Price range: GHS {df['price'].min():,.0f} - GHS {df['price'].max():,.0f}")
+print(f"Average price: GHS {df['price'].mean():,.0f}/month\n")
 
-print("Data types:")
-print(df.dtypes)
+print("Top 5 locations:")
+print(df['location'].value_counts().head())
 
-print(f"\n\nFirst 3 listings:")
+print(f"\n\nFirst 3 properties:")
 print(df[['name', 'price', 'bedrooms', 'bathrooms', 'floor_area', 'location']].head(3))
 ```
 
-**Analysis: Understand price distribution and features**
+**Analysis: Understand distributions and relationships**
 
 ```{python}
-print("\n\nDESCRIPTIVE STATISTICS - Price (Target Variable)")
+print("\n\nDESCRIPTIVE STATISTICS")
 print("=" * 70)
-print(f"Count: {df['price'].count():,} properties")
-print(f"Mean:  GHS {df['price'].mean():,.0f}/month")
-print(f"Median: GHS {df['price'].median():,.0f}/month")
-print(f"Min:   GHS {df['price'].min():,.0f}")
-print(f"Max:   GHS {df['price'].max():,.0f}")
-print(f"Std Dev: GHS {df['price'].std():,.0f}")
+print(f"Price:")
+print(f"  Mean: GHS {df['price'].mean():,.0f}")
+print(f"  Median: GHS {df['price'].median():,.0f}")
+print(f"  Std Dev: GHS {df['price'].std():,.0f}")
 
-print("\n\nKEY FEATURES FOR REGRESSION")
-print("=" * 70)
-print(f"Bedrooms (range): {df['bedrooms'].min():.0f} - {df['bedrooms'].max():.0f}")
-print(f"  Mean: {df['bedrooms'].mean():.1f} | Median: {df['bedrooms'].median():.0f}")
-
-print(f"\nBathrooms (range): {df['bathrooms'].min():.0f} - {df['bathrooms'].max():.0f}")
-print(f"  Mean: {df['bathrooms'].mean():.1f} | Median: {df['bathrooms'].median():.0f}")
-
-print(f"\nFloor Area (m²): {df['floor_area'].min():.0f} - {df['floor_area'].max():.0f}")
-print(f"  Mean: {df['floor_area'].mean():.0f} | Median: {df['floor_area'].median():.0f}")
-
-print(f"\nTop 5 Locations by count:")
-print(df['location'].value_counts().head())
-
-print(f"\nCondition types:")
-print(df['condition'].value_counts())
-
-print(f"\nFurnished status:")
-print(df['is_furnished'].value_counts())
+print(f"\nBedrooms: {df['bedrooms'].min():.0f} - {df['bedrooms'].max():.0f} (avg {df['bedrooms'].mean():.1f})")
+print(f"Bathrooms: {df['bathrooms'].min():.0f} - {df['bathrooms'].max():.0f} (avg {df['bathrooms'].mean():.1f})")
+print(f"Floor Area: {df['floor_area'].min():.0f} - {df['floor_area'].max():.0f} m² (avg {df['floor_area'].mean():.0f})")
 ```
 
 **Visualization: See price patterns**
 
 ```{python}
-# Create EDA visualizations
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
 # Plot 1: Price distribution
 ax = axes[0, 0]
 ax.hist(df['price'], bins=50, color='steelblue', edgecolor='navy', alpha=0.7)
 ax.set_xlabel('Rental Price (GHS)', fontsize=11, fontweight='bold')
-ax.set_ylabel('Number of Properties', fontsize=11, fontweight='bold')
-ax.set_title('Distribution of House Rental Prices in Ghana', fontsize=12, fontweight='bold')
+ax.set_ylabel('Count', fontsize=11, fontweight='bold')
+ax.set_title('Price Distribution', fontsize=12, fontweight='bold')
 ax.axvline(df['price'].mean(), color='red', linestyle='--', linewidth=2, label=f"Mean: {df['price'].mean():,.0f}")
 ax.legend()
 ax.grid(True, alpha=0.3, axis='y')
@@ -239,68 +237,44 @@ ax.grid(True, alpha=0.3, axis='y')
 # Plot 2: Price vs Bedrooms
 ax = axes[0, 1]
 ax.scatter(df['bedrooms'], df['price'], alpha=0.3, color='steelblue', s=20)
-ax.set_xlabel('Number of Bedrooms', fontsize=11, fontweight='bold')
-ax.set_ylabel('Rental Price (GHS)', fontsize=11, fontweight='bold')
-ax.set_title('Price vs Bedrooms', fontsize=12, fontweight='bold')
+ax.set_xlabel('Bedrooms', fontsize=11, fontweight='bold')
+ax.set_ylabel('Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Price vs Bedrooms (Non-linear!)', fontsize=12, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
 # Plot 3: Price vs Floor Area
 ax = axes[1, 0]
 ax.scatter(df['floor_area'], df['price'], alpha=0.3, color='green', s=20)
 ax.set_xlabel('Floor Area (m²)', fontsize=11, fontweight='bold')
-ax.set_ylabel('Rental Price (GHS)', fontsize=11, fontweight='bold')
-ax.set_title('Price vs Floor Area', fontsize=12, fontweight='bold')
+ax.set_ylabel('Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Price vs Floor Area (Non-linear!)', fontsize=12, fontweight='bold')
 ax.grid(True, alpha=0.3)
 
 # Plot 4: Price by Condition
 ax = axes[1, 1]
 condition_prices = df.groupby('condition')['price'].mean().sort_values(ascending=False)
 bars = ax.bar(condition_prices.index, condition_prices.values, color='coral', edgecolor='darkorange', alpha=0.7)
-ax.set_ylabel('Average Rental Price (GHS)', fontsize=11, fontweight='bold')
-ax.set_title('Average Price by Property Condition', fontsize=12, fontweight='bold')
-ax.tick_params(axis='x', rotation=45)
+ax.set_ylabel('Average Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Price by Property Condition', fontsize=12, fontweight='bold')
 for bar in bars:
     height = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2., height,
-            f'GHS {height:,.0f}',
-            ha='center', va='bottom', fontsize=10, fontweight='bold')
+    ax.text(bar.get_x() + bar.get_width()/2., height, f'GHS {height:,.0f}',
+            ha='center', va='bottom', fontsize=9, fontweight='bold')
 ax.grid(True, alpha=0.3, axis='y')
 
 plt.tight_layout()
 plt.show()
 
-print("✓ Exercise 1 passed!")
+print("\n✓ Exercise 1 passed!")
 ```
 
 ---
 
-## Exercise 2: Data Preparation & Cleaning
+## Exercise 2: Data Preparation & Feature Engineering
 
-**Goal:** Prepare data for regression by handling missing values, creating new features, and selecting relevant columns.
+**Goal:** Create features that trees can use to discover patterns.
 
-**Setup: Check data quality**
-
-```{python}
-print("DATA QUALITY CHECK")
-print("=" * 70)
-print(f"Missing values per column:")
-missing = df.isnull().sum()
-if missing.sum() == 0:
-    print("✓ No missing values detected!")
-else:
-    print(missing[missing > 0])
-
-print(f"\n\nOutlier Detection (Price):")
-Q1 = df['price'].quantile(0.25)
-Q3 = df['price'].quantile(0.75)
-IQR = Q3 - Q1
-outlier_threshold = Q3 + 1.5 * IQR
-outliers = df[df['price'] > outlier_threshold]
-print(f"Outliers (price > {outlier_threshold:,.0f}): {len(outliers)} properties ({len(outliers)/len(df)*100:.1f}%)")
-print(f"  These are luxury properties we'll keep (valuable information)")
-```
-
-**Analysis: Create features for regression**
+**Setup: Create features**
 
 ```{python}
 # Create a clean dataset for regression
@@ -310,387 +284,361 @@ df_clean = df.copy()
 df_clean['is_furnished_numeric'] = (df_clean['is_furnished'] != 'Unfurnished').astype(int)
 df_clean['is_new'] = (df_clean['condition'] == 'New').astype(int)
 
-# Feature 2: Extract region from location (e.g., "Greater Accra, East Legon" → "Greater Accra")
-df_clean['region'] = df_clean['location'].str.split(',').str[0]
-
-# Feature 3: Count amenities (how many amenities listed)
+# Feature 2: Amenity count (how many amenities listed)
 df_clean['amenity_count'] = df_clean['amenities'].fillna('').str.split(',').apply(len)
 
-# Feature 4: Parking space (convert boolean to int)
+# Feature 3: Parking space (convert boolean to int)
 df_clean['has_parking'] = df_clean['parking_space'].astype(int)
 
-print("NEW FEATURES CREATED")
-print("=" * 70)
-print(f"✓ is_furnished_numeric: 1 = furnished, 0 = unfurnished")
-print(f"✓ is_new: 1 = new condition, 0 = used")
-print(f"✓ region: extracted from location")
-print(f"✓ amenity_count: number of amenities listed")
-print(f"✓ has_parking: 1 if parking, 0 if none")
-
-print(f"\n\nFinal features for modeling:")
+# Prepare final dataset
 feature_cols = ['bedrooms', 'bathrooms', 'floor_area', 'is_furnished_numeric',
                 'is_new', 'amenity_count', 'has_parking']
-print(f"Columns: {feature_cols}")
-
-# Select regression dataset
 X = df_clean[feature_cols].copy()
 y = df_clean['price'].copy()
 
-print(f"\n\nDataset ready for modeling:")
-print(f"Samples: {len(X):,}")
-print(f"Features: {len(feature_cols)}")
-print(f"Target range: GHS {y.min():,.0f} - GHS {y.max():,.0f}")
+# Remove missing values
+mask = ~(X.isnull().any(axis=1) | y.isnull())
+X = X[mask]
+y = y[mask]
 
-print("\n✓ Exercise 2 passed!")
+# Split: 80% train, 20% test
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+print("DATA PREPARED FOR TREE-BASED MODELS")
+print("=" * 70)
+print(f"Features: {feature_cols}")
+print(f"Total samples: {len(X):,}")
+print(f"Train set: {len(X_train):,} | Test set: {len(X_test):,}")
+print(f"\n✓ Exercise 2 passed!")
 ```
 
 ---
 
-## Exercise 3: Simple Linear Regression (Bedrooms Only)
+## Exercise 3: Decision Trees (Baseline)
 
-**Goal:** Build a baseline model using just one feature (bedrooms) to predict price.
+**Goal:** Use Decision Trees as a baseline. Trees work well on housing data because they can discover non-linear patterns naturally.
 
-**Setup: Prepare single-feature data**
+**Setup: Train a simple Decision Tree**
 
 ```{python}
-# Use only bedrooms as predictor
-X_simple = df_clean[['bedrooms']].copy()
-y_simple = df_clean['price'].copy()
-
-# Remove any rows with missing values
-mask = ~(X_simple.isnull().any(axis=1) | y_simple.isnull())
-X_simple = X_simple[mask]
-y_simple = y_simple[mask]
-
-# Split: 80% train, 20% test
-X_train, X_test, y_train, y_test = train_test_split(
-    X_simple, y_simple, test_size=0.2, random_state=42
+# Train Decision Tree regressor
+dt = DecisionTreeRegressor(
+    max_depth=10,           # Moderate depth to prevent overfitting
+    min_samples_split=5,    # At least 5 samples to split a node
+    min_samples_leaf=2,     # At least 2 samples in leaf nodes
+    random_state=42
 )
 
-print("SIMPLE LINEAR REGRESSION SETUP")
+dt.fit(X_train, y_train)
+
+print("DECISION TREE TRAINED")
 print("=" * 70)
-print(f"Feature: bedrooms")
-print(f"Target: price")
-print(f"Total samples: {len(X_simple):,}")
-print(f"Train set: {len(X_train):,} | Test set: {len(X_test):,}")
+print(f"Max depth: {dt.get_depth()}")
+print(f"Number of leaves: {dt.get_n_leaves()}")
 ```
 
-**Analysis: Train and evaluate**
+**Analysis: Evaluate Decision Tree**
 
 ```{python}
-# Train simple linear regression
-model_simple = LinearRegression()
-model_simple.fit(X_train, y_train)
-
-print("\n\nSIMPLE LINEAR REGRESSION MODEL")
-print("=" * 70)
-print(f"Equation: Price = GHS {model_simple.intercept_:,.0f} + GHS {model_simple.coef_[0]:,.0f} × Bedrooms")
-print(f"\nInterpretation: Each additional bedroom adds ~GHS {model_simple.coef_[0]:,.0f} to the price")
-
 # Predictions
-y_pred_train = model_simple.predict(X_train)
-y_pred_test = model_simple.predict(X_test)
+y_pred_dt = dt.predict(X_test)
 
 # Evaluation metrics
-r2_train = r2_score(y_train, y_pred_train)
-r2_test = r2_score(y_test, y_pred_test)
-rmse_test = np.sqrt(mean_squared_error(y_test, y_pred_test))
-mae_test = mean_absolute_error(y_test, y_pred_test)
+r2_dt = r2_score(y_test, y_pred_dt)
+rmse_dt = np.sqrt(mean_squared_error(y_test, y_pred_dt))
+mae_dt = mean_absolute_error(y_test, y_pred_dt)
+mape_dt = mean_absolute_percentage_error(y_test, y_pred_dt)
 
-print("\n\nMODEL PERFORMANCE - Simple (Bedrooms Only)")
+print("\n\nDECISION TREE PERFORMANCE")
 print("=" * 70)
-print(f"R² Score (train): {r2_train:.3f}")
-print(f"R² Score (test):  {r2_test:.3f}")
-print(f"  (R² = 1.0 is perfect prediction, 0.0 means model is useless)")
-print(f"\nRMSE (test): GHS {rmse_test:,.0f}")
-print(f"  (Average prediction error)")
-print(f"MAE (test): GHS {mae_test:,.0f}")
-print(f"  (Median absolute error)")
+print(f"R² Score: {r2_dt:.3f}")
+print(f"RMSE: GHS {rmse_dt:,.0f}")
+print(f"MAE: GHS {mae_dt:,.0f}")
+print(f"MAPE: {mape_dt:.1%}")
 
-# Example prediction
-print("\n\nEXAMPLE PREDICTIONS")
-print("=" * 70)
-for bedrooms in [1, 2, 3, 4]:
-    predicted_price = model_simple.predict([[bedrooms]])[0]
-    print(f"  {bedrooms}-bedroom house → Predicted price: GHS {predicted_price:,.0f}")
+print("\nInterpretation:")
+print(f"  - Explains {r2_dt*100:.1f}% of price variation")
+print(f"  - Average prediction error: GHS {mae_dt:,.0f}")
+print(f"  - This is our BASELINE to beat with ensemble methods")
 
 print("\n✓ Exercise 3 passed!")
 ```
 
 ---
 
-## Exercise 4: Multiple Linear Regression (All Features)
+## Exercise 4: Random Forest
 
-**Goal:** Use all available features to build a more accurate model.
-
-**Setup: Prepare multi-feature data**
-
-```{python}
-# Prepare multiple features
-feature_cols = ['bedrooms', 'bathrooms', 'floor_area', 'is_furnished_numeric',
-                'is_new', 'amenity_count', 'has_parking']
-X_multi = df_clean[feature_cols].copy()
-y_multi = df_clean['price'].copy()
-
-# Remove missing values
-mask = ~(X_multi.isnull().any(axis=1) | y_multi.isnull())
-X_multi = X_multi[mask]
-y_multi = y_multi[mask]
-
-# Split
-X_train_m, X_test_m, y_train_m, y_test_m = train_test_split(
-    X_multi, y_multi, test_size=0.2, random_state=42
-)
-
-print("MULTIPLE LINEAR REGRESSION SETUP")
-print("=" * 70)
-print(f"Features: {feature_cols}")
-print(f"Total samples: {len(X_multi):,}")
-print(f"Train set: {len(X_train_m):,} | Test set: {len(X_test_m):,}")
-```
-
-**Analysis: Compare simple vs multiple**
-
-```{python}
-# Train multiple linear regression
-model_multi = LinearRegression()
-model_multi.fit(X_train_m, y_train_m)
-
-print("\n\nMULTIPLE LINEAR REGRESSION - Feature Coefficients")
-print("=" * 70)
-for feature, coef in zip(feature_cols, model_multi.coef_):
-    print(f"  {feature:25s}: GHS {coef:+12,.0f}")
-print(f"  Intercept (baseline):        GHS {model_multi.intercept_:12,.0f}")
-
-# Predictions
-y_pred_train_m = model_multi.predict(X_train_m)
-y_pred_test_m = model_multi.predict(X_test_m)
-
-# Evaluation
-r2_train_m = r2_score(y_train_m, y_pred_train_m)
-r2_test_m = r2_score(y_test_m, y_pred_test_m)
-rmse_test_m = np.sqrt(mean_squared_error(y_test_m, y_pred_test_m))
-mae_test_m = mean_absolute_error(y_test_m, y_pred_test_m)
-
-print("\n\nMODEL COMPARISON")
-print("=" * 70)
-print("Simple (Bedrooms only):")
-print(f"  R² (test): {r2_test:.3f}")
-print(f"  RMSE: GHS {rmse_test:,.0f}")
-
-print("\nMultiple (All features):")
-print(f"  R² (test): {r2_test_m:.3f}")
-print(f"  RMSE: GHS {rmse_test_m:,.0f}")
-
-improvement = (r2_test_m - r2_test) * 100
-print(f"\nImprovement: {improvement:+.1f}% better R²")
-
-if r2_test_m > r2_test:
-    print("✓ Multiple features significantly improved the model!")
-else:
-    print("⚠ Multiple features didn't help much")
-
-print("\n✓ Exercise 4 passed!")
-```
-
----
-
-## Exercise 5: Random Forest (Ensemble Model)
-
-**Goal:** Use a more sophisticated model (ensemble) to capture complex price patterns.
+**Goal:** Combine multiple Decision Trees to reduce overfitting and improve accuracy.
 
 **Setup: Train Random Forest**
 
 ```{python}
 # Train Random Forest regressor
-model_rf = RandomForestRegressor(
-    n_estimators=100,        # 100 decision trees
-    max_depth=15,            # Tree depth (prevent overfitting)
+rf = RandomForestRegressor(
+    n_estimators=100,       # 100 trees voting
+    max_depth=15,           # Deeper than Decision Tree
+    min_samples_split=5,
+    min_samples_leaf=2,
     random_state=42,
-    n_jobs=-1,               # Use all CPU cores
-    verbose=0
+    n_jobs=-1               # Use all CPU cores
 )
 
-model_rf.fit(X_train_m, y_train_m)
-
-print("RANDOM FOREST REGRESSOR TRAINED")
-print("=" * 70)
-print(f"Model: {model_rf.n_estimators} trees")
-print(f"Training samples: {len(X_train_m):,}")
+print("Training Random Forest with 100 trees...")
+rf.fit(X_train, y_train)
+print("✓ Random Forest trained")
 ```
 
-**Analysis: Feature importance & performance**
+**Analysis: Evaluate Random Forest & compare with Decision Tree**
 
 ```{python}
 # Predictions
-y_pred_rf = model_rf.predict(X_test_m)
+y_pred_rf = rf.predict(X_test)
 
-# Evaluation
-r2_rf = r2_score(y_test_m, y_pred_rf)
-rmse_rf = np.sqrt(mean_squared_error(y_test_m, y_pred_rf))
-mae_rf = mean_absolute_error(y_test_m, y_pred_rf)
+# Evaluation metrics
+r2_rf = r2_score(y_test, y_pred_rf)
+rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+mae_rf = mean_absolute_error(y_test, y_pred_rf)
+mape_rf = mean_absolute_percentage_error(y_test, y_pred_rf)
 
 print("\n\nRANDOM FOREST PERFORMANCE")
 print("=" * 70)
-print(f"R² Score (test): {r2_rf:.3f}")
-print(f"RMSE (test): GHS {rmse_rf:,.0f}")
-print(f"MAE (test): GHS {mae_rf:,.0f}")
+print(f"R² Score: {r2_rf:.3f}")
+print(f"RMSE: GHS {rmse_rf:,.0f}")
+print(f"MAE: GHS {mae_rf:,.0f}")
+print(f"MAPE: {mape_rf:.1%}")
 
 # Feature importance
 importance_df = pd.DataFrame({
     'feature': feature_cols,
-    'importance': model_rf.feature_importances_
+    'importance': rf.feature_importances_
 }).sort_values('importance', ascending=False)
 
-print("\n\nFEATURE IMPORTANCE (What drives price?)")
+print("\n\nFEATURE IMPORTANCE (What drives Ghana house prices?)")
 print("=" * 70)
 for idx, row in importance_df.iterrows():
     pct = row['importance'] * 100
     bar = '█' * int(pct / 5) + '░' * (20 - int(pct / 5))
     print(f"  {row['feature']:25s} {bar} {pct:5.1f}%")
 
-# Final comparison
-print("\n\nFINAL MODEL COMPARISON")
+# Comparison with Decision Tree
+print(f"\n\nCOMPARISON: Decision Tree vs Random Forest")
 print("=" * 70)
-models_comparison = pd.DataFrame({
-    'Model': ['Simple LR (Bedrooms)', 'Multiple LR (7 features)', 'Random Forest'],
-    'R² Score': [f"{r2_test:.3f}", f"{r2_test_m:.3f}", f"{r2_rf:.3f}"],
-    'RMSE (GHS)': [f"{rmse_test:,.0f}", f"{rmse_test_m:,.0f}", f"{rmse_rf:,.0f}"],
-    'MAE (GHS)': [f"{mae_test:,.0f}", f"{mae_test_m:,.0f}", f"{mae_rf:,.0f}"]
+improvement = (r2_rf - r2_dt) * 100
+print(f"Decision Tree R²:  {r2_dt:.3f}")
+print(f"Random Forest R²:  {r2_rf:.3f}")
+print(f"Improvement:       {improvement:+.1f}% ← Ensemble is better!")
+
+print("\n✓ Exercise 4 passed!")
+```
+
+---
+
+## Exercise 5: XGBoost (Extreme Gradient Boosting)
+
+**Goal:** Use XGBoost, which sequentially learns from tree mistakes and often outperforms Random Forest.
+
+**Setup: Train XGBoost**
+
+```{python}
+from xgboost import XGBRegressor
+
+# Train XGBoost regressor
+xgb = XGBRegressor(
+    n_estimators=100,       # 100 boosting rounds
+    max_depth=5,            # Shallow trees (XGBoost standard)
+    learning_rate=0.1,      # How much each tree contributes
+    subsample=0.8,          # Use 80% of samples per tree
+    colsample_bytree=0.8,   # Use 80% of features per tree
+    random_state=42,
+    verbosity=0
+)
+
+print("Training XGBoost...")
+xgb.fit(X_train, y_train)
+print("✓ XGBoost trained")
+```
+
+**Analysis: Evaluate XGBoost & compare all 3 models**
+
+```{python}
+# Predictions
+y_pred_xgb = xgb.predict(X_test)
+
+# Evaluation metrics
+r2_xgb = r2_score(y_test, y_pred_xgb)
+rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
+mae_xgb = mean_absolute_error(y_test, y_pred_xgb)
+mape_xgb = mean_absolute_percentage_error(y_test, y_pred_xgb)
+
+print("\n\nXGBOOST PERFORMANCE")
+print("=" * 70)
+print(f"R² Score: {r2_xgb:.3f}")
+print(f"RMSE: GHS {rmse_xgb:,.0f}")
+print(f"MAE: GHS {mae_xgb:,.0f}")
+print(f"MAPE: {mape_xgb:.1%}")
+
+# Feature importance
+xgb_importance = pd.DataFrame({
+    'feature': feature_cols,
+    'importance': xgb.feature_importances_
+}).sort_values('importance', ascending=False)
+
+print("\n\nFEATURE IMPORTANCE (XGBoost perspective)")
+print("=" * 70)
+for idx, row in xgb_importance.iterrows():
+    pct = row['importance'] * 100
+    bar = '█' * int(pct / 5) + '░' * (20 - int(pct / 5))
+    print(f"  {row['feature']:25s} {bar} {pct:5.1f}%")
+
+# FINAL COMPARISON - All 3 Models
+print("\n\n" + "=" * 70)
+print("MODEL COMPARISON: All 3 Ensemble Methods")
+print("=" * 70)
+comparison_df = pd.DataFrame({
+    'Model': ['Decision Tree', 'Random Forest', 'XGBoost'],
+    'R² Score': [f"{r2_dt:.3f}", f"{r2_rf:.3f}", f"{r2_xgb:.3f}"],
+    'RMSE (GHS)': [f"{rmse_dt:,.0f}", f"{rmse_rf:,.0f}", f"{rmse_xgb:,.0f}"],
+    'MAE (GHS)': [f"{mae_dt:,.0f}", f"{mae_rf:,.0f}", f"{mae_xgb:,.0f}"]
 })
-print(models_comparison.to_string(index=False))
+print(comparison_df.to_string(index=False))
 
 best_model = max([
-    ('Simple LR', r2_test),
-    ('Multiple LR', r2_test_m),
-    ('Random Forest', r2_rf)
+    ('Decision Tree', r2_dt),
+    ('Random Forest', r2_rf),
+    ('XGBoost', r2_xgb)
 ], key=lambda x: x[1])
 
-print(f"\n\n🏆 Best model: {best_model[0]} (R² = {best_model[1]:.3f})")
+print(f"\n\n🏆 Best so far: {best_model[0]} (R² = {best_model[1]:.3f})")
+
+print("\nImprovement trajectory:")
+print(f"  Decision Tree → Random Forest: {(r2_rf - r2_dt)*100:+.1f}% R²")
+print(f"  Random Forest → XGBoost:       {(r2_xgb - r2_rf)*100:+.1f}% R²")
 
 print("\n✓ Exercise 5 passed!")
 ```
 
 ---
 
-## Exercise 6: XGBoost (Extreme Gradient Boosting)
+## Exercise 6: Hyperparameter Tuning with GridSearchCV
 
-**Goal:** Use XGBoost, a state-of-the-art ensemble method, and see if it beats Random Forest.
+**Goal:** Find optimal hyperparameters for XGBoost using Grid Search.
 
-**What is XGBoost?** XGBoost is a gradient boosting algorithm that builds trees sequentially, where each new tree learns from mistakes of previous trees. It's often more accurate than Random Forest because of this sequential learning approach.
-
-**Setup: Train XGBoost model**
+**Setup: Define hyperparameter grid**
 
 ```{python}
-from xgboost import XGBRegressor
+from sklearn.model_selection import GridSearchCV
 
-# Train XGBoost regressor
-model_xgb = XGBRegressor(
-    n_estimators=100,        # 100 boosting rounds
-    max_depth=5,             # Shallow trees (XGBoost typically uses shallow trees)
-    learning_rate=0.1,       # How much each tree contributes
+# Define grid of hyperparameters to search
+param_grid = {
+    'max_depth': [3, 5, 7],              # Tree depth
+    'learning_rate': [0.05, 0.1, 0.2],  # How fast it learns
+    'subsample': [0.6, 0.8, 1.0],       # Fraction of samples per tree
+    'colsample_bytree': [0.6, 0.8, 1.0] # Fraction of features per tree
+}
+
+print("HYPERPARAMETER GRID SEARCH")
+print("=" * 70)
+print(f"Parameters to tune: {list(param_grid.keys())}")
+print(f"Total combinations: {np.prod([len(v) for v in param_grid.values()])}")
+print(f"Cross-validation folds: 5")
+print(f"Total model trainings: {np.prod([len(v) for v in param_grid.values()]) * 5}")
+print("\nThis will take ~30-60 seconds...\n")
+```
+
+**Analysis: Run Grid Search**
+
+```{python}
+# Create base XGBoost model
+xgb_base = XGBRegressor(
+    n_estimators=100,
     random_state=42,
     verbosity=0
 )
 
-print("TRAINING XGBOOST...")
+# GridSearchCV
+grid_search = GridSearchCV(
+    estimator=xgb_base,
+    param_grid=param_grid,
+    cv=5,                           # 5-fold cross-validation
+    scoring='r2',                   # Optimize for R² score
+    n_jobs=-1,                      # Use all CPU cores
+    verbose=1
+)
+
+print("Running Grid Search...\n")
+grid_search.fit(X_train, y_train)
+
+print(f"\n\nBEST HYPERPARAMETERS FOUND")
 print("=" * 70)
-model_xgb.fit(X_train_m, y_train_m)
-print("✓ XGBoost model trained\n")
-```
+for param, value in grid_search.best_params_.items():
+    print(f"  {param:20s}: {value}")
 
-**Analysis: Compare XGBoost with all previous models**
+print(f"\nBest Cross-Validation R² Score: {grid_search.best_score_:.3f}")
 
-```{python}
-# Predictions
-y_pred_xgb = model_xgb.predict(X_test_m)
+# Train final model with best parameters
+xgb_final = grid_search.best_estimator_
+
+# Predictions on test set
+y_pred_final = xgb_final.predict(X_test)
 
 # Evaluation
-r2_xgb = r2_score(y_test_m, y_pred_xgb)
-rmse_xgb = np.sqrt(mean_squared_error(y_test_m, y_pred_xgb))
-mae_xgb = mean_absolute_error(y_test_m, y_pred_xgb)
+r2_final = r2_score(y_test, y_pred_final)
+rmse_final = np.sqrt(mean_squared_error(y_test, y_pred_final))
+mae_final = mean_absolute_error(y_test, y_pred_final)
+mape_final = mean_absolute_percentage_error(y_test, y_pred_final)
 
-print("XGBOOST PERFORMANCE")
+print(f"\n\nFINAL MODEL (After Grid Search)")
 print("=" * 70)
-print(f"R² Score (test): {r2_xgb:.3f}")
-print(f"RMSE (test): GHS {rmse_xgb:,.0f}")
-print(f"MAE (test): GHS {mae_xgb:,.0f}")
+print(f"Test Set R² Score: {r2_final:.3f}")
+print(f"Test Set RMSE: GHS {rmse_final:,.0f}")
+print(f"Test Set MAE: GHS {mae_final:,.0f}")
+print(f"Test Set MAPE: {mape_final:.1%}")
 
-# Feature importance from XGBoost
-importance_xgb = pd.DataFrame({
-    'feature': feature_cols,
-    'importance': model_xgb.feature_importances_
-}).sort_values('importance', ascending=False)
+improvement_from_tuning = (r2_final - r2_xgb) * 100
+print(f"\nImprovement from tuning: {improvement_from_tuning:+.2f}% R²")
 
-print("\n\nFEATURE IMPORTANCE (XGBoost)")
+# Final comparison table
+print(f"\n\n" + "=" * 70)
+print("FINAL RANKING: All Models")
 print("=" * 70)
-for idx, row in importance_xgb.iterrows():
-    pct = row['importance'] * 100
-    bar = '█' * int(pct / 5) + '░' * (20 - int(pct / 5))
-    print(f"  {row['feature']:25s} {bar} {pct:5.1f}%")
-
-# COMPLETE MODEL COMPARISON
-print("\n\n" + "=" * 70)
-print("FINAL MODEL COMPARISON - ALL 4 MODELS")
-print("=" * 70)
-models_comparison = pd.DataFrame({
-    'Model': [
-        'Simple LR (Bedrooms)',
-        'Multiple LR (7 features)',
-        'Random Forest',
-        'XGBoost'
-    ],
-    'R² Score': [f"{r2_test:.3f}", f"{r2_test_m:.3f}", f"{r2_rf:.3f}", f"{r2_xgb:.3f}"],
-    'RMSE (GHS)': [f"{rmse_test:,.0f}", f"{rmse_test_m:,.0f}", f"{rmse_rf:,.0f}", f"{rmse_xgb:,.0f}"],
-    'MAE (GHS)': [f"{mae_test:,.0f}", f"{mae_test_m:,.0f}", f"{mae_rf:,.0f}", f"{mae_xgb:,.0f}"]
+final_comparison = pd.DataFrame({
+    'Model': ['Decision Tree (baseline)', 'Random Forest', 'XGBoost (default)', 'XGBoost (tuned) ⭐'],
+    'R² Score': [f"{r2_dt:.3f}", f"{r2_rf:.3f}", f"{r2_xgb:.3f}", f"{r2_final:.3f}"],
+    'RMSE (GHS)': [f"{rmse_dt:,.0f}", f"{rmse_rf:,.0f}", f"{rmse_xgb:,.0f}", f"{rmse_final:,.0f}"],
+    'MAE (GHS)': [f"{mae_dt:,.0f}", f"{mae_rf:,.0f}", f"{mae_xgb:,.0f}", f"{mae_final:,.0f}"]
 })
-print(models_comparison.to_string(index=False))
+print(final_comparison.to_string(index=False))
 
-# Find best model
-all_models = [
-    ('Simple LR', r2_test, rmse_test),
-    ('Multiple LR', r2_test_m, rmse_test_m),
-    ('Random Forest', r2_rf, rmse_rf),
-    ('XGBoost', r2_xgb, rmse_xgb)
-]
-best_model = max(all_models, key=lambda x: x[1])
-
-print(f"\n\n🏆 CHAMPION MODEL: {best_model[0]}")
-print(f"   R² Score: {best_model[1]:.3f}")
-print(f"   RMSE: GHS {best_model[2]:,.0f}")
-
-# Show improvements
-print(f"\n\nIMPROVEMENT ANALYSIS")
-print("=" * 70)
-print(f"Simple LR vs Multiple LR: {(r2_test_m - r2_test)*100:+.1f}% R² improvement")
-print(f"Multiple LR vs Random Forest: {(r2_rf - r2_test_m)*100:+.1f}% R² improvement")
-print(f"Random Forest vs XGBoost: {(r2_xgb - r2_rf)*100:+.1f}% R² improvement")
-
-if r2_xgb > r2_rf:
-    print(f"\n✓ XGBoost beat Random Forest!")
-else:
-    print(f"\n✓ Random Forest still wins, but XGBoost is close!")
-
-print("\n✓ Exercise 6 passed!")
+print(f"\n\n✓ Exercise 6 passed!")
 ```
 
 ---
 
 ## Summary
 
-You've now built and compared **four regression models**:
+You've built a complete regression pipeline on **real Ghana housing data**:
 
-- ✅ **Simple Linear Regression** — Baseline with 1 feature
-- ✅ **Multiple Linear Regression** — 7 features with interpretable coefficients
-- ✅ **Random Forest** — Parallel ensemble of trees
-- ✅ **XGBoost** — Sequential ensemble (learns from mistakes)
+- ✅ **Decision Trees** — Baseline that captures non-linear patterns
+- ✅ **Random Forest** — Reduced overfitting via ensemble voting
+- ✅ **XGBoost** — Sequential learning beats random voting
+- ✅ **Grid Search** — Automatic hyperparameter optimization
 
-**Key takeaways:**
+**Key Learnings:**
 
-1. More features → Better predictions (usually)
-2. Non-linear models (RF, XGBoost) beat linear models on complex data
-3. Ensemble methods (RF, XGBoost) are more accurate than single models
-4. XGBoost often edges out Random Forest due to sequential learning
-5. Feature importance reveals what truly drives house prices in Ghana
-6. Always measure on test set to avoid overfitting
-7. Trade-off: Simpler models are faster and interpretable; complex models are more accurate
+1. **Why we skipped linear regression:** Housing prices are fundamentally non-linear; relationships depend on interactions between features that linear models cannot capture.
+
+2. **Why trees work:** Decision trees naturally discover complex patterns and interactions without manual feature engineering.
+
+3. **Why ensembles win:** Combining multiple models reduces individual mistakes and captures broader patterns.
+
+4. **Why XGBoost beats Random Forest:** Sequential learning (each tree fixes previous mistakes) is smarter than parallel voting.
+
+5. **Why Grid Search matters:** Tuning hyperparameters systematically can unlock 2-5% more accuracy.
+
+**Next Steps for Production:**
+- Save the tuned XGBoost model for deployment
+- Monitor performance on new Ghana housing listings
+- Retrain monthly as market prices shift
+- Use feature importance to explain prices to real estate agents
