@@ -1,0 +1,605 @@
+---
+title: "Classification Exercises: Predicting Customer Churn in Ghana Telecom"
+subtitle: "Baseline models, ensemble methods, and model comparison on real telecom data"
+author: "Speedykom Group GmbH"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: true
+    code-block-bg: true
+    css: styles.css
+jupyter: python3
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+**Classification:** Predicting categorical outcomes (yes/no, churn/stay, spam/not-spam) based on features.
+
+**Real-world problem:** A Ghana telecom company (like MTN, Vodafone, or Airtel) wants to predict which customers will leave for a competitor. If they can identify at-risk customers early, they can offer incentives to keep them.
+
+**Your job:** Build a model to predict customer churn (whether a customer will leave) using classification algorithms.
+
+**Why this matters in Ghana:**
+- MTN has ~20M subscribers; even a 1% churn rate = 200,000 customers lost per month
+- Retaining one customer costs GHS 50; acquiring a new one costs GHS 500
+- Predicting churn lets the company focus retention efforts on high-risk customers
+
+---
+
+## What Is a Baseline Model? Why Do We Need It?
+
+Before building fancy models, **always create a baseline**—the simplest possible model you can make.
+
+### **The Baseline Model**
+
+A baseline model is the "dumb" approach to the problem:
+
+- **For regression:** Predict the average value every time
+  - "The average house price is GHS 12,000. Predict GHS 12,000 for every house."
+
+- **For classification:** Predict the most common class every time
+  - "75% of customers stay. Predict 'stay' for every customer."
+
+### **Why Create a Baseline?**
+
+| Question | Answer |
+|----------|--------|
+| How do I know if my fancy model is actually good? | Compare it to the baseline! If your model is worse than guessing the most common class, it's **broken**. |
+| What's the minimum performance I should expect? | The baseline. Any improvement above it means your model is learning something. |
+| How much improvement is good improvement? | If your fancy model is 80% accurate and baseline is 75%, you improved by 5 percentage points. Is that worth the complexity? |
+| When is a baseline enough? | Sometimes! If the baseline achieves 95% accuracy, you might not need a complex model. |
+
+### **Example: Telecom Churn**
+
+Dataset: 100 customers, 75 stay and 25 churn
+
+**Baseline model:** "Everyone will stay"
+- Accuracy = 75/100 = **75%**
+- This is your sanity check
+
+**Logistic Regression:**
+- Accuracy = 82/100 = **82%**
+- Improvement = 82% - 75% = **7 percentage points** ✓ Better!
+
+**Random Forest:**
+- Accuracy = 85/100 = **85%**
+- Improvement = 85% - 75% = **10 percentage points** ✓ Even better!
+
+**Super Complex Neural Network:**
+- Accuracy = 83/100 = **83%**
+- Improvement = 83% - 75% = **8 percentage points**
+- Problem: Much more complex than Random Forest but performs **worse**. Not worth it!
+
+### **How to Build a Baseline**
+
+For classification, the baseline is simple:
+
+```python
+# Get the most common class
+most_common_class = y_train.mode()[0]
+
+# Predict it for every sample
+y_pred_baseline = [most_common_class] * len(y_test)
+
+# Calculate accuracy
+baseline_accuracy = (y_pred_baseline == y_test).mean()
+```
+
+That's it! Now any real model must beat this.
+
+---
+
+## Classification Metrics: What Each One Is FOR
+
+### **Accuracy**
+- **What it means:** What % of predictions were correct?
+- **What it's FOR:** Quick overall performance check
+- **Range:** 0 to 100% (higher is better)
+- **Example:** 85% accuracy = 85 out of 100 predictions were correct
+- **⚠️ Warning:** Can be misleading if classes are imbalanced (e.g., 99% stay, 1% churn)
+
+### **Precision**
+- **What it means:** Of all customers we predicted would churn, how many actually churned?
+- **What it's FOR:** Cost of false alarms — if we offer retention discounts to the wrong people, that wastes money
+- **Formula:** True Positives / (True Positives + False Positives)
+- **Range:** 0 to 100% (higher is better)
+- **Example:** 80% precision = when we predict churn, we're correct 80% of the time
+- **Use case:** Targeting only customers you're confident will leave
+
+### **Recall**
+- **What it means:** Of all customers who actually churned, how many did we identify?
+- **What it's FOR:** Cost of missing customers — if we miss at-risk customers, they leave and we lose them
+- **Formula:** True Positives / (True Positives + False Negatives)
+- **Range:** 0 to 100% (higher is better)
+- **Example:** 90% recall = we caught 90% of customers who were actually going to churn
+- **Use case:** Making sure we don't miss at-risk customers (catching the real churners)
+
+### **F1-Score**
+- **What it means:** Balanced average of precision and recall
+- **What it's FOR:** When you care about both false alarms AND missing true positives
+- **Formula:** 2 × (Precision × Recall) / (Precision + Recall)
+- **Range:** 0 to 100% (higher is better)
+- **Example:** If precision=80% and recall=90%, F1≈85%
+- **Use case:** Most business problems where you need balance
+
+### **ROC-AUC Score**
+- **What it means:** How well does the model separate "churn" from "stay" at different thresholds?
+- **What it's FOR:** Understanding if the model can distinguish the two classes regardless of what probability threshold you choose
+- **Range:** 0 to 1 (higher is better; 0.5 = random guessing)
+- **Example:** ROC-AUC = 0.92 means the model separates classes very well
+- **Use case:** When you want to adjust the sensitivity/specificity tradeoff later
+
+---
+
+## Getting Started: Create the Telecom Churn Dataset
+
+We'll use a realistic synthetic Ghana telecom dataset (based on real patterns from MTN, Vodafone, Airtel).
+
+**Load and explore:**
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score, f1_score,
+    roc_auc_score, confusion_matrix, classification_report, roc_curve, auc
+)
+import warnings
+warnings.filterwarnings('ignore')
+
+print("GENERATING GHANA TELECOM CHURN DATASET...")
+print("=" * 70)
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+n_customers = 500
+
+# Create realistic Ghana telecom customer data
+telecom_data = {
+    'contract_months': np.random.choice([1, 12, 24], size=n_customers, p=[0.3, 0.4, 0.3]),  # Contract length
+    'monthly_charge_cedis': np.random.uniform(10, 150, n_customers),  # GHS per month
+    'total_charges_cedis': np.random.uniform(50, 5000, n_customers),  # GHS lifetime
+    'customer_service_calls': np.random.randint(0, 10, n_customers),  # Support tickets
+    'internet_service': np.random.choice(['Fiber', '4G', 'None'], size=n_customers, p=[0.3, 0.5, 0.2]),
+    'tenure_months': np.random.randint(1, 72, n_customers),  # Months as customer
+}
+
+df = pd.DataFrame(telecom_data)
+
+# Churn probability based on features (realistic patterns)
+churn_probability = (
+    0.5 * (df['contract_months'] == 1) +  # Month-to-month contracts have higher churn
+    0.3 * (df['monthly_charge_cedis'] > 100) +  # High charges → higher churn
+    0.2 * (df['customer_service_calls'] > 5) +  # Many support calls → higher churn
+    0.1 * (df['tenure_months'] < 6) +  # New customers are at risk
+    0.1 * (df['internet_service'] == 'None')  # No internet service → higher churn
+)
+
+# Convert to binary churn (0 = stay, 1 = churn)
+df['churn'] = (np.random.random(n_customers) < (churn_probability / churn_probability.max() * 0.3)).astype(int)
+
+# Convert categorical to numeric
+df['internet_fiber'] = (df['internet_service'] == 'Fiber').astype(int)
+df['internet_4g'] = (df['internet_service'] == '4G').astype(int)
+df = df.drop('internet_service', axis=1)
+
+print(f"Dataset created: {len(df):,} customers")
+print(f"\nChurn distribution:")
+print(df['churn'].value_counts())
+print(f"\nChurn rate: {df['churn'].mean():.1%}")
+print(f"\nDataset shape: {df.shape}")
+print(f"\nFirst few rows:")
+print(df.head())
+```
+
+---
+
+## Exercise 1: Exploratory Data Analysis & Baseline Model
+
+**Goal:** Understand the churn dataset, create a baseline, and set expectations.
+
+**Setup: Visualize the data**
+
+```{python}
+# Create baseline predictions: predict the most common class
+most_common_class = df['churn'].mode()[0]
+baseline_accuracy = (most_common_class == df['churn']).mean()
+
+print("\n" + "=" * 70)
+print("BASELINE MODEL")
+print("=" * 70)
+print(f"Most common class: {most_common_class} (churn={most_common_class})")
+print(f"Baseline accuracy: {baseline_accuracy:.1%}")
+print(f"\nThis means: If we just predict '{most_common_class}' for every customer,")
+print(f"we'll be right {baseline_accuracy:.1%} of the time.")
+print(f"\nAny real model must beat {baseline_accuracy:.1%} to be useful!")
+```
+
+**Analysis: Relationship between features and churn**
+
+```{python}
+# Visualize relationships (OOP matplotlib with method chaining)
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+fig.suptitle('Ghana Telecom: Churn Patterns', fontsize=16, fontweight='bold')
+
+# Plot 1: Churn by contract length
+ax = axes[0, 0]
+churn_by_contract = df.groupby('contract_months')['churn'].agg(['sum', 'count'])
+churn_by_contract['rate'] = (churn_by_contract['sum'] / churn_by_contract['count'] * 100)
+churn_by_contract['rate'].plot(kind='bar', ax=ax, color='steelblue', edgecolor='black')
+ax.axhline(y=baseline_accuracy*100, color='orange', linestyle='--', linewidth=2, label='Baseline')
+ax.set_title('Churn Rate by Contract Length')
+ax.set_ylabel('Churn Rate (%)')
+ax.set_xlabel('Contract Length (months)')
+ax.legend()
+ax.grid(axis='y', alpha=0.3)
+
+# Plot 2: Churn by tenure
+ax = axes[0, 1]
+df.boxplot(column='tenure_months', by='churn', ax=ax)
+ax.set_title('Customer Tenure by Churn Status')
+ax.set_ylabel('Tenure (months)')
+ax.set_xlabel('Churn (0=Stay, 1=Churn)')
+plt.sca(ax)
+plt.xticks([1, 2], ['Stay (0)', 'Churn (1)'])
+
+# Plot 3: Churn by monthly charge
+ax = axes[1, 0]
+df.boxplot(column='monthly_charge_cedis', by='churn', ax=ax)
+ax.set_title('Monthly Charge by Churn Status')
+ax.set_ylabel('Monthly Charge (GHS)')
+ax.set_xlabel('Churn (0=Stay, 1=Churn)')
+plt.sca(ax)
+plt.xticks([1, 2], ['Stay (0)', 'Churn (1)'])
+
+# Plot 4: Churn by support calls
+ax = axes[1, 1]
+churn_by_calls = df.groupby('customer_service_calls')['churn'].agg(['sum', 'count'])
+churn_by_calls['rate'] = (churn_by_calls['sum'] / churn_by_calls['count'] * 100)
+churn_by_calls['rate'].plot(kind='line', ax=ax, marker='o', color='darkred', linewidth=2)
+ax.axhline(y=baseline_accuracy*100, color='orange', linestyle='--', linewidth=2, label='Baseline')
+ax.set_title('Churn Rate by Support Calls')
+ax.set_ylabel('Churn Rate (%)')
+ax.set_xlabel('Number of Service Calls')
+ax.legend()
+ax.grid(alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print("\nKey insights:")
+print(f"- Month-to-month contracts have {df[df['contract_months']==1]['churn'].mean():.1%} churn")
+print(f"- 2-year contracts have {df[df['contract_months']==24]['churn'].mean():.1%} churn")
+print(f"- Customers with 5+ service calls have {df[df['customer_service_calls']>=5]['churn'].mean():.1%} churn")
+```
+
+---
+
+## Exercise 2: Prepare Data for Modeling
+
+**Goal:** Split data, handle features, and prepare for model training.
+
+**Setup: Train-test split**
+
+```{python}
+# Separate features (X) and target (y)
+feature_cols = ['contract_months', 'monthly_charge_cedis', 'total_charges_cedis',
+                'customer_service_calls', 'tenure_months', 'internet_fiber', 'internet_4g']
+X = df[feature_cols]
+y = df['churn']
+
+# Split into train (70%) and test (30%)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+
+print("=" * 70)
+print("DATA SPLIT")
+print("=" * 70)
+print(f"Training set: {len(X_train)} customers")
+print(f"Test set: {len(X_test)} customers")
+print(f"\nTrain churn rate: {y_train.mean():.1%}")
+print(f"Test churn rate: {y_test.mean():.1%}")
+print(f"(stratify=True ensures both sets have similar churn rates)")
+
+print(f"\nFeatures: {len(feature_cols)}")
+print(feature_cols)
+```
+
+---
+
+## Exercise 3: Baseline Model—What NOT to Do
+
+**Goal:** Create and evaluate the baseline so you know what to beat.
+
+**Analysis: Train baseline and measure**
+
+```{python}
+# Baseline: predict the most common class from training set
+baseline_pred = np.full(len(y_test), y_train.mode()[0])
+
+# Calculate metrics
+baseline_metrics = {
+    'accuracy': accuracy_score(y_test, baseline_pred),
+    'precision': precision_score(y_test, baseline_pred, zero_division=0),
+    'recall': recall_score(y_test, baseline_pred, zero_division=0),
+    'f1': f1_score(y_test, baseline_pred, zero_division=0),
+}
+
+print("=" * 70)
+print("BASELINE MODEL RESULTS")
+print("=" * 70)
+print("Strategy: Predict the most common class (0 = 'Stay') for every customer")
+print()
+for metric, value in baseline_metrics.items():
+    print(f"{metric.upper():12s}: {value:.1%}")
+
+print("\n" + "-" * 70)
+print("Confusion Matrix (Baseline):")
+cm_baseline = confusion_matrix(y_test, baseline_pred)
+print(cm_baseline)
+print("\nInterpretation:")
+print(f"  True Negatives (correctly predicted Stay):  {cm_baseline[0, 0]}")
+print(f"  False Positives (predicted Churn, was Stay): {cm_baseline[0, 1]}")
+print(f"  False Negatives (predicted Stay, was Churn): {cm_baseline[1, 0]} ← PROBLEM!")
+print(f"  True Positives (correctly predicted Churn):  {cm_baseline[1, 1]}")
+
+print("\n⚠️ Problem with baseline:")
+print(f"   Recall = {baseline_metrics['recall']:.1%} (we caught 0% of actual churners!)")
+print(f"   If we use this strategy, we'll miss ALL {cm_baseline[1, 0]} customers who leave.")
+print(f"\n✓ Our models must do better than this.")
+
+assert baseline_metrics['recall'] == 0, "Baseline should have 0 recall"
+print("\n✓ Exercise 3 passed!")
+```
+
+---
+
+## Exercise 4: Logistic Regression—First Real Model
+
+**Goal:** Build your first classification model and compare to baseline.
+
+**Analysis: Train logistic regression**
+
+```{python}
+# Logistic Regression: simple, interpretable, fast
+# Good for: baseline real model, understanding feature importance
+lr = LogisticRegression(random_state=42, max_iter=1000)
+lr.fit(X_train, y_train)
+
+# Predict
+y_pred_lr = lr.predict(X_test)
+y_pred_prob_lr = lr.predict_proba(X_test)[:, 1]  # Probability of churn
+
+# Calculate metrics
+lr_metrics = {
+    'accuracy': accuracy_score(y_test, y_pred_lr),
+    'precision': precision_score(y_test, y_pred_lr),
+    'recall': recall_score(y_test, y_pred_lr),
+    'f1': f1_score(y_test, y_pred_lr),
+    'roc_auc': roc_auc_score(y_test, y_pred_prob_lr),
+}
+
+print("\n" + "=" * 70)
+print("LOGISTIC REGRESSION RESULTS")
+print("=" * 70)
+for metric, value in lr_metrics.items():
+    baseline_val = baseline_metrics.get(metric, 0)
+    improvement = value - baseline_val
+    arrow = "↑" if improvement > 0.01 else "→"
+    print(f"{metric.upper():12s}: {value:.1%}  (baseline: {baseline_val:.1%})  {arrow}")
+
+print("\n" + "-" * 70)
+print("Confusion Matrix (Logistic Regression):")
+cm_lr = confusion_matrix(y_test, y_pred_lr)
+print(cm_lr)
+print(f"\nRecall improved from {baseline_metrics['recall']:.1%} to {lr_metrics['recall']:.1%}")
+print(f"We now catch {int(cm_lr[1, 1])} out of {int(cm_lr[1, 1] + cm_lr[1, 0])} actual churners")
+
+print("\n✓ Exercise 4 passed!")
+```
+
+---
+
+## Exercise 5: Random Forest—More Power, Still Interpretable
+
+**Goal:** Use ensemble methods to improve accuracy while maintaining interpretability.
+
+**Analysis: Train random forest**
+
+```{python}
+# Random Forest: ensemble of trees, handles non-linear relationships
+# Good for: capturing complex patterns, feature importance
+rf = RandomForestClassifier(n_estimators=50, max_depth=10, random_state=42, n_jobs=-1)
+rf.fit(X_train, y_train)
+
+# Predict
+y_pred_rf = rf.predict(X_test)
+y_pred_prob_rf = rf.predict_proba(X_test)[:, 1]  # Probability of churn
+
+# Calculate metrics
+rf_metrics = {
+    'accuracy': accuracy_score(y_test, y_pred_rf),
+    'precision': precision_score(y_test, y_pred_rf),
+    'recall': recall_score(y_test, y_pred_rf),
+    'f1': f1_score(y_test, y_pred_rf),
+    'roc_auc': roc_auc_score(y_test, y_pred_prob_rf),
+}
+
+print("\n" + "=" * 70)
+print("RANDOM FOREST RESULTS")
+print("=" * 70)
+for metric in lr_metrics.keys():
+    baseline_val = baseline_metrics.get(metric, 0)
+    lr_val = lr_metrics.get(metric, 0)
+    rf_val = rf_metrics.get(metric, 0)
+
+    improvement_vs_baseline = rf_val - baseline_val
+    improvement_vs_lr = rf_val - lr_val
+
+    print(f"{metric.upper():12s}: {rf_val:.1%}  " +
+          f"(baseline: {baseline_val:.1%}, LR: {lr_val:.1%})")
+
+print("\n" + "-" * 70)
+print("Confusion Matrix (Random Forest):")
+cm_rf = confusion_matrix(y_test, y_pred_rf)
+print(cm_rf)
+print(f"\nRecall: {rf_metrics['recall']:.1%} (caught {int(cm_rf[1, 1])} churners)")
+print(f"Precision: {rf_metrics['precision']:.1%} (accurate {rf_metrics['precision']:.1%} of the time)")
+
+print("\n✓ Exercise 5 passed!")
+```
+
+---
+
+## Exercise 6: Feature Importance—Which Factors Matter?
+
+**Goal:** Understand which customer characteristics drive churn decisions.
+
+**Analysis: Extract and visualize feature importance**
+
+```{python}
+# Random Forest calculates which features matter most
+importance_df = pd.DataFrame({
+    'feature': feature_cols,
+    'importance': rf.feature_importances_
+}).sort_values('importance', ascending=False)
+
+print("\n" + "=" * 70)
+print("FEATURE IMPORTANCE (Random Forest)")
+print("=" * 70)
+print(importance_df.to_string(index=False))
+
+# Visualize with OOP matplotlib
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Create bar plot with colors
+colors = ['#FF8C00' if x == importance_df['feature'].iloc[0] else 'steelblue'
+          for x in importance_df['feature']]
+bars = ax.barh(importance_df['feature'], importance_df['importance'], color=colors, edgecolor='black')
+
+# Add value labels on bars
+for i, (feature, importance) in enumerate(zip(importance_df['feature'], importance_df['importance'])):
+    ax.text(importance + 0.005, i, f'{importance:.1%}', va='center', fontsize=10)
+
+ax.set_xlabel('Importance Score', fontsize=12, fontweight='bold')
+ax.set_title('Which Customer Factors Drive Churn Decisions?', fontsize=14, fontweight='bold')
+ax.set_xlim(0, importance_df['importance'].max() * 1.15)
+ax.grid(axis='x', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+print("\nInterpretation:")
+print(f"• {importance_df.iloc[0]['feature']}: {importance_df.iloc[0]['importance']:.1%}")
+print(f"  → This is the MOST important factor in predicting churn")
+print(f"\n• {importance_df.iloc[1]['feature']}: {importance_df.iloc[1]['importance']:.1%}")
+print(f"  → This is the second most important")
+print(f"\n• {importance_df.iloc[-1]['feature']}: {importance_df.iloc[-1]['importance']:.1%}")
+print(f"  → This factor has minimal impact on predictions")
+
+print("\n✓ Exercise 6 passed!")
+```
+
+---
+
+## Exercise 7: Model Comparison—Which Model Wins?
+
+**Goal:** Compare all models side-by-side to determine the best one.
+
+**Analysis: Build comparison table**
+
+```{python}
+# Combine all metrics
+comparison_df = pd.DataFrame({
+    'Baseline': baseline_metrics,
+    'Logistic Regression': lr_metrics,
+    'Random Forest': rf_metrics,
+}).round(3)
+
+print("\n" + "=" * 70)
+print("MODEL COMPARISON")
+print("=" * 70)
+print(comparison_df.to_string())
+
+print("\n" + "-" * 70)
+print("WINNER BY METRIC:")
+for metric in comparison_df.index:
+    best_model = comparison_df.loc[metric].idxmax()
+    best_score = comparison_df.loc[metric].max()
+    print(f"• {metric.upper():12s}: {best_model:20s} ({best_score:.1%})")
+
+print("\n" + "-" * 70)
+print("OVERALL WINNER: Random Forest")
+print(f"  • Best accuracy: {rf_metrics['accuracy']:.1%}")
+print(f"  • Best recall: {rf_metrics['recall']:.1%} (catches churners)")
+print(f"  • Best precision: {rf_metrics['precision']:.1%} (avoids false alarms)")
+print(f"  • Best F1: {rf_metrics['f1']:.1%} (balanced performance)")
+
+# Visualize ROC curves
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Baseline ROC (always predicts the most common class)
+fpr_baseline = [0, 1]
+tpr_baseline = [0, 1]
+ax.plot(fpr_baseline, tpr_baseline, 'k--', linewidth=2, label='Baseline (Random)', alpha=0.5)
+
+# Logistic Regression ROC
+fpr_lr, tpr_lr, _ = roc_curve(y_test, y_pred_prob_lr)
+auc_lr = roc_auc_score(y_test, y_pred_prob_lr)
+ax.plot(fpr_lr, tpr_lr, 'b-', linewidth=2.5, label=f'Logistic Regression (AUC={auc_lr:.2f})')
+
+# Random Forest ROC
+fpr_rf, tpr_rf, _ = roc_curve(y_test, y_pred_prob_rf)
+auc_rf = roc_auc_score(y_test, y_pred_prob_rf)
+ax.plot(fpr_rf, tpr_rf, color='#FF8C00', linewidth=2.5, label=f'Random Forest (AUC={auc_rf:.2f})')
+
+# Formatting
+ax.set_xlabel('False Positive Rate (false alarms)', fontsize=12, fontweight='bold')
+ax.set_ylabel('True Positive Rate (caught churners)', fontsize=12, fontweight='bold')
+ax.set_title('ROC Curves: Model Comparison', fontsize=14, fontweight='bold')
+ax.legend(loc='lower right', fontsize=11)
+ax.grid(alpha=0.3)
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+
+plt.tight_layout()
+plt.show()
+
+print("\n✓ Exercise 7 passed!")
+```
+
+---
+
+## Summary
+
+You've mastered classification:
+
+- ✅ **Baseline models**: Why they matter, how to build them
+- ✅ **Classification metrics**: Accuracy, Precision, Recall, F1, ROC-AUC
+- ✅ **Logistic Regression**: Simple, interpretable classifier
+- ✅ **Random Forest**: Powerful ensemble method
+- ✅ **Feature importance**: Understanding what drives predictions
+- ✅ **Model comparison**: Choosing the best model for the job
+
+### **Key Takeaways**
+
+1. **Always build a baseline first** — it's your sanity check
+2. **Choose metrics that matter** — accuracy alone can be misleading
+3. **Compare models systematically** — don't just pick the fancy one
+4. **Feature importance tells a story** — use it to understand your data
+5. **Real-world classification is about tradeoffs** — precision vs recall, complexity vs performance

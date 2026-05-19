@@ -139,24 +139,28 @@ The notebook will auto-detect the local CSV file.
 
 ### **R² Score (Coefficient of Determination)**
 - **What it means:** What percentage of price variation does the model explain?
+- **What it's FOR:** Checking if your model is actually learning patterns or just guessing randomly
 - **Range:** 0 to 1 (higher is better)
 - **Example:** R² = 0.50 means the model explains 50% of price variation
 - **Use it for:** Overall model performance comparison
 
 ### **RMSE (Root Mean Squared Error)**
 - **What it means:** Average prediction error in GHS (penalizes large errors heavily)
+- **What it's FOR:** Penalizing big mistakes heavily — a GHS 5,000 error is worse than two GHS 2,500 errors
 - **Range:** 0 to ∞ (lower is better)
 - **Example:** RMSE = 7,500 means predictions are typically off by ±GHS 7,500
 - **Use it for:** Understanding typical error magnitude in currency terms
 
 ### **MAE (Mean Absolute Error)**
 - **What it means:** Average absolute prediction error in GHS (treats all errors equally)
+- **What it's FOR:** Getting a practical, easy-to-understand error value in actual currency terms
 - **Range:** 0 to ∞ (lower is better)
 - **Example:** MAE = 4,300 means predictions are typically off by ±GHS 4,300
 - **Use it for:** Practical interpretation (more interpretable than RMSE)
 
 ### **MAPE (Mean Absolute Percentage Error)**
 - **What it means:** Average percentage error relative to actual price
+- **What it's FOR:** Comparing error fairly across properties of different prices (a GHS 1,000 error on a GHS 10,000 property is worse than on a GHS 100,000 property)
 - **Range:** 0% to ∞% (lower is better)
 - **Example:** MAPE = 15% means predictions are typically off by 15% of the actual price
 - **Use it for:** Understanding error relative to property price
