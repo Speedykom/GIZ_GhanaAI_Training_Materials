@@ -360,9 +360,88 @@ print(f"\n✓ Exercise 2 passed!")
 
 ---
 
-## Exercise 3: Decision Trees (Baseline)
+## Understanding Baselines - Critical Concept!
 
-**Goal:** Use Decision Trees as a baseline. Trees work well on housing data because they can discover non-linear patterns naturally.
+**A baseline is your "dumb model" — the simplest possible solution to compare against.**
+
+### **What Is a Baseline?**
+
+A baseline is the performance you'd get from a **naive, non-learning approach**. It's your sanity check.
+
+**Examples of baselines:**
+- **Regression:** Always predict the average price (GHS 7,999) for every house
+  - R² would be 0.0 (doesn't explain any variation)
+  - RMSE would be the std dev of prices (GHS 10,404)
+- **Classification:** Always predict the most common class
+  - Accuracy would be ~33% (if 3 equal classes)
+- **Time series:** Always predict "same as yesterday"
+
+### **Why Do We Need a Baseline?**
+
+1. **Sanity check** — Your complex model MUST beat the baseline
+   - If it doesn't, your model is broken
+   - If Decision Tree (R² = 0.45) beats "always predict average" (R² = 0.0), you know it's working
+
+2. **Prevents false confidence** — Metrics can be misleading
+   - 95% accuracy sounds great... unless the baseline is 94%
+   - Without baseline, you don't know if you're improving
+
+3. **Sets expectations** — How much room for improvement is there?
+   - If baseline is R² = 0.1, reaching 0.5 is huge improvement
+   - If baseline is R² = 0.8, reaching 0.82 is small improvement
+
+4. **Justifies complexity** — More complex models cost more
+   - Does Random Forest's +3.7% improvement justify 100× more computation?
+   - Without baseline, you can't answer this
+
+### **How Do We Use a Baseline?**
+
+**Simple formula:**
+```
+Is my model better than baseline?
+  → YES: Good! My model is learning something
+  → NO: Bad! My model is worse than guessing
+
+By how much better?
+  → Little improvement: Maybe not worth the complexity
+  → Big improvement: Definitely worth using this model
+```
+
+### **For Ghana Housing Example:**
+
+**Baseline (always predict average price = GHS 7,999):**
+- R² = 0.0 (explains 0% of variation)
+- MAE = GHS 10,404 (huge average error)
+
+**Decision Tree (our first real model):**
+- R² = 0.445 (explains 44.5% of variation)
+- MAE = GHS 4,530 (smaller error)
+
+**Verdict:** Decision Tree is **massively better** than baseline. Worth pursuing!
+
+**Random Forest (improves Decision Tree):**
+- R² = 0.482 (explains 48.2% of variation)
+- MAE = GHS 4,388 (slightly smaller error)
+
+**Verdict:** Random Forest is **better than Decision Tree**, but improvement is smaller. Is it worth the complexity? Maybe.
+
+---
+
+## Exercise 3: Decision Trees (Baseline Model)
+
+**Goal:** Build Decision Tree as our BASELINE model. All future models must beat these metrics.
+
+**Why Decision Tree as baseline (not "always predict average")?**
+- "Always predict average" is too naive — we're actually building models
+- Decision Tree is simple enough to be interpretable (we can see the if-then rules)
+- Yet sophisticated enough to capture non-linear patterns
+- Perfect benchmark for comparing Random Forest and XGBoost
+
+**What we're looking for:**
+- Establish metrics: R², RMSE, MAE, MAPE
+- These numbers are our TARGET to beat
+- Random Forest must outperform these metrics
+- XGBoost must outperform Random Forest
 
 **Setup: Train a simple Decision Tree**
 
@@ -406,7 +485,16 @@ print("\nWhat this tells us:")
 print(f"  ✓ Decision Tree explains {r2_dt*100:.1f}% of Ghana house prices")
 print(f"  ✓ Typical prediction error: GHS {mae_dt:,.0f}")
 print(f"  ✓ On average, predictions are off by {mape_dt:.1%} of actual price")
-print(f"  ✓ This is our BASELINE - we'll try to beat these numbers")
+
+print("\n" + "🎯 " * 20)
+print("\nTHIS IS OUR BASELINE!")
+print("=" * 70)
+print(f"Metrics to beat:")
+print(f"  • R² = {r2_dt:.3f}  (Random Forest needs to exceed this)")
+print(f"  • MAE = GHS {mae_dt:,.0f}  (Random Forest should reduce this)")
+print(f"  • RMSE = GHS {rmse_dt:,.0f}  (Random Forest should reduce this)")
+print(f"  • MAPE = {mape_dt:.1%}  (Random Forest should reduce this)")
+print("\nIn Exercise 4, we'll see if Random Forest can beat these baseline metrics!")
 
 print("\n✓ Exercise 3 passed!")
 ```
