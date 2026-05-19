@@ -25,6 +25,7 @@ execute:
 Unlike classification (yes/no), regression answers: "How much?" or "How many?"
 
 **Real-world problem:** A real estate agent in Accra needs to price a house. She knows:
+
 - Number of bedrooms
 - Square footage
 - Location (suburb)
@@ -41,15 +42,23 @@ Unlike classification (yes/no), regression answers: "How much?" or "How many?"
 
 ### Method 1: Download from Kaggle (Recommended - Real-world skill)
 
+**⚠️ Note: Using Legacy API Credentials (kaggle.json)**
+
+The `kaggle.json` method is Kaggle's **legacy authentication approach**. This still works reliably, but be aware you're using older credentials format. Check if your Kaggle account has newer authentication options available at https://www.kaggle.com/account/settings/api.
+
 **Step 1: Create a Kaggle account**
+
 1. Go to https://www.kaggle.com/register
 2. Sign up (free account)
 
-**Step 2: Get your Kaggle API credentials**
-1. Click your profile icon → Settings
-2. Go to "Account" → scroll to "API"
-3. Click "Create New API Token"
-4. A `kaggle.json` file downloads
+**Step 2: Get your Kaggle API credentials (Legacy)**
+
+1. Go to https://www.kaggle.com/account/settings/api (or: Click profile icon → Settings → Account → API)
+2. Look for "Create New API Token" button (this is the legacy method)
+3. Click it and a `kaggle.json` file downloads to your computer
+4. This file contains your username and API key in JSON format
+
+**What you're doing:** Using the legacy kaggle.json credentials file. This is a straightforward file-based auth method that works well for local development and classroom environments.
 
 **Step 3: Place credentials in the right location**
 
@@ -71,11 +80,17 @@ chmod 600 ~/.kaggle/kaggle.json
 kaggle datasets list | head -5
 ```
 
+You should see a list of Kaggle datasets. If you get an authentication error, double-check:
+- `kaggle.json` is in `~/.kaggle/` (not Downloads folder)
+- File permissions are correct: `chmod 600 ~/.kaggle/kaggle.json`
+- You're using the right username/key from your Kaggle account
+
 That's it! The notebook will automatically download the data.
 
 ### Method 2: Manual Download (If Kaggle fails)
 
 If the automated download fails in the notebook, you can manually download:
+
 1. Go to: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset
 2. Click "Download" button
 3. Save to the **same folder** as this notebook (05-machine-learning/)
@@ -567,6 +582,7 @@ You've now built and compared **three regression models**:
 - ✅ **Random Forest** — Ensemble that captures complex patterns
 
 **Key takeaways:**
+
 1. More features → Better predictions (usually)
 2. Non-linear models (like RF) often beat linear models
 3. Feature importance shows what drives house prices

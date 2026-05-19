@@ -24,15 +24,19 @@ def check_kaggle_credentials():
 
     if kaggle_json.exists():
         print("✓ Found Kaggle credentials at ~/.kaggle/kaggle.json")
+        print("  (Using legacy API credentials - still works great!)")
         return True
     else:
         print("\n⚠️  Kaggle credentials not found!")
-        print("\nTo set up Kaggle API:")
+        print("\nTo set up Kaggle API (Legacy method):")
         print("  1. Go to https://www.kaggle.com/account/settings/api")
-        print("  2. Click 'Create New API Token' (downloads kaggle.json)")
-        print("  3. Move file to ~/.kaggle/kaggle.json")
-        print("  4. Run: chmod 600 ~/.kaggle/kaggle.json")
-        print("  5. Then rerun this script")
+        print("  2. Look for 'Create New API Token' (legacy credentials)")
+        print("  3. Click it - downloads kaggle.json file")
+        print("  4. Move file: mv ~/Downloads/kaggle.json ~/.kaggle/kaggle.json")
+        print("  5. Permissions: chmod 600 ~/.kaggle/kaggle.json")
+        print("  6. Then rerun this script")
+        print("\nNote: kaggle.json is Kaggle's legacy auth method.")
+        print("      It works reliably for this course.")
         return False
 
 def download_kaggle_dataset():
