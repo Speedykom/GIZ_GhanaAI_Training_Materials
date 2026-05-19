@@ -1,0 +1,591 @@
+---
+title: "Pandas Exercises: Phase 2 Supplementary Practice"
+subtitle: "Real-world data cleaning and analysis with Sales data"
+author: "Speedykom Group GmbH"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    css: styles.css
+jupyter: python3
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+These exercises use **real sales data** from 2019. The data has real-world messiness: missing values, type inconsistencies, text anomalies, and unstructured address fields.
+
+**Why this matters:** In real companies, data often arrives in **chunks** (monthly reports, daily logs, multiple data sources). Your job is to combine them and then clean them.
+
+**Data source:** [Sales_Analysis repository](https://github.com/theAfricanQuant/Sales_Analysis) — 12 monthly CSV files (Jan–Dec 2019)
+
+---
+
+## Exercise 0: Loading Multiple Files – Merging Monthly Data
+
+**Option A: From Local Folder (File System)**
+
+If you download files into a `sales_data/` folder:
+
+```{python}
+import pandas as pd
+import glob
+import os
+
+# glob.glob() finds all CSV files matching the pattern
+csv_files = glob.glob('sales_data/*.csv')
+csv_files.sort()  # Sort alphabetically (Jan, Feb, Mar...)
+
+if len(csv_files) == 0:
+    print("⚠️  No CSV files found in 'sales_data/' folder.")
+    print("   Download files from: https://github.com/theAfricanQuant/Sales_Analysis/tree/master/Sales_Data")
+else:
+    print(f"✓ Found {len(csv_files)} files\n")
+
+    # Load each file one by one
+    all_months = []
+    for file in csv_files:
+        df = pd.read_csv(file)
+        month_name = os.path.basename(file)
+        print(f"{month_name}: {df.shape}")
+        all_months.append(df)
+
+    # Concatenate all months
+    df_all = pd.concat(all_months, ignore_index=True)
+    print(f"\n✓ Combined shape: {df_all.shape}")
+    print("✓ Exercise 0 (Local Files) passed!")
+```
+
+**Option B: From URLs (Cloud/GitHub)**
+
+Load directly without downloading:
+
+```{python}
+import pandas as pd
+
+# List of month names for building URLs
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+print("Loading 12 months from GitHub...")
+all_months = []
+
+for month in months:
+    # Build URL: base_url + "Sales_January_2019.csv", etc.
+    url = base_url + f"Sales_{month}_2019.csv"
+    df = pd.read_csv(url)
+    all_months.append(df)
+    print(f"  ✓ {month}: {df.shape}")
+
+# Concatenate into one DataFrame
+df = pd.concat(all_months, ignore_index=True)
+
+print(f"\n✓ Combined shape: {df.shape}")
+print(f"✓ Exercise 0 (URLs) passed!")
+```
+
+**When to use:**
+
+- Local files: ✅ Production code, offline work
+- URLs: ✅ Quick learning, easy sharing
+
+---
+
+## Exercise 1: Explore Merged Data
+
+**Goal:** Understand what data we have and what needs cleaning.
+
+```{python}
+import pandas as pd
+
+# Load all 12 months from GitHub
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+# Combine all months (reusing the pattern from Exercise 0)
+all_months = []
+for month in months:
+    url = base_url + f"Sales_{month}_2019.csv"
+    all_months.append(pd.read_csv(url))
+
+df = pd.concat(all_months, ignore_index=True)
+
+print("MERGED DATASET OVERVIEW")
+print("="*60)
+print(f"Shape: {df.shape} rows × columns")
+print(f"\nColumns: {df.columns.tolist()}")
+print(f"\nFirst 5 rows:")
+print(df.head())
+print(f"\nData types (all 'object' = stored as strings):")
+print(df.dtypes)
+print(f"\nMissing values:")
+print(df.isnull().sum())
+print(f"\nCompletely empty rows: {df[df.isnull().all(axis=1)].shape[0]}")
+
+assert len(df) > 100000
+print("\n✓ Exercise 1 passed!")
+```
+
+---
+
+## Exercise 2: Remove Nulls and Filter Anomalies
+
+**Goal:** Clean data by removing empty rows and header text that snuck into the data.
+
+**Setup: Load and merge 12 months**
+
+```{python}
+import pandas as pd
+
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+all_months = [pd.read_csv(base_url + f"Sales_{month}_2019.csv") for month in months]
+df = pd.concat(all_months, ignore_index=True)
+
+print(f"Original shape: {df.shape}")
+```
+
+**Analysis: Clean the data**
+
+```{python}
+# Count header rows BEFORE filtering (for display)
+anomalies = df[df['Order ID'].str[0:2] == 'Or']
+print(f"Found {len(anomalies)} header rows to remove")
+
+# Clean data using method chaining
+df_clean = (df
+    # .dropna(how='all') - Remove completely empty rows (all NaN)
+    .dropna(how='all')
+    # .loc[lambda x: ...] - Filter out rows where Order ID starts with "Or"
+    .loc[lambda x: x['Order ID'].str[0:2] != 'Or']
+    # .reset_index(drop=True) - Make index sequential (0, 1, 2, ...)
+    .reset_index(drop=True)
+)
+
+print(f"Original shape: {df.shape}")
+print(f"After removing empty rows: {len(df.dropna(how='all'))} rows")
+print(f"After removing headers: {df_clean.shape}")
+print(f"\nFinal: {df_clean.shape} ({100*len(df_clean)/len(df):.1f}% kept)")
+print(f"Sample cleaned rows:")
+print(df_clean[['Order ID', 'Product']].head(3))
+
+assert len(df_clean) > 100000
+print("✓ Exercise 2 passed!")
+```
+
+---
+
+## Exercise 3: Type Conversion – Strings to Numbers
+
+**Goal:** Convert "Quantity Ordered" and "Price Each" from strings to numeric types.
+
+**Setup: Load and clean**
+
+```{python}
+import pandas as pd
+
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+# Load, merge, and clean using method chaining
+all_months = [pd.read_csv(base_url + f"Sales_{month}_2019.csv") for month in months]
+
+df = (pd.concat(all_months, ignore_index=True)
+      .dropna(how='all')  # Remove completely empty rows
+      .loc[lambda x: x['Order ID'].str[0:2] != 'Or']  # Filter header rows
+      .reset_index(drop=True)  # Sequential index
+)
+```
+
+**Analysis: Convert types and create Sales column**
+
+```{python}
+print("BEFORE conversion:")
+print(df[['Quantity Ordered', 'Price Each']].dtypes)
+print(df[['Quantity Ordered', 'Price Each']].head(2))
+
+# Convert strings to numeric AND create Sales column using method chaining
+# errors='coerce' means: if can't convert, replace with NaN
+df_clean = (df
+    # .assign() - Create/update columns in the chain
+    .assign(
+        # Convert 'Quantity Ordered' string → float64
+        **{'Quantity Ordered': lambda x: pd.to_numeric(x['Quantity Ordered'], errors='coerce')}
+    )
+    # Chain another .assign() for 'Price Each'
+    .assign(
+        # Convert 'Price Each' string → float64
+        **{'Price Each': lambda x: pd.to_numeric(x['Price Each'], errors='coerce')}
+    )
+    # Remove rows where conversion failed (NaN values in these columns)
+    .dropna(subset=['Quantity Ordered', 'Price Each'])
+    # Create 'Sales' column: Quantity × Price (now both are numeric)
+    .assign(Sales=lambda x: x['Quantity Ordered'] * x['Price Each'])
+)
+
+print("\nAFTER conversion:")
+print(df_clean[['Quantity Ordered', 'Price Each', 'Sales']].dtypes)
+
+print(f"\nSales column created (Quantity × Price):")
+print(df_clean[['Quantity Ordered', 'Price Each', 'Sales']].head(2))
+
+assert df_clean['Sales'].dtype == 'float64'
+print("✓ Exercise 3 passed!")
+```
+
+---
+
+## Exercise 4: Tidy Data – Parse Addresses
+
+**Goal:** Extract Street, City+State (combined), and Zip from messy "Purchase Address" column.
+
+**Why keep City and State together?** Many cities have duplicate names across US states:
+
+- Portland exists in Oregon AND Maine
+- Springfield exists in Illinois AND Missouri
+- Washington exists in DC AND multiple states
+
+Splitting them creates ambiguity. Keeping them together (e.g., "Portland, OR") is the unique identifier.
+
+**Setup: Load, clean, and convert types**
+
+```{python}
+import pandas as pd
+
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+# Load, clean, and convert types using method chaining
+all_months = [pd.read_csv(base_url + f"Sales_{month}_2019.csv") for month in months]
+
+df = (pd.concat(all_months, ignore_index=True)
+      .dropna(how='all')  # Remove completely empty rows
+      .loc[lambda x: x['Order ID'].str[0:2] != 'Or']  # Filter header rows
+      .reset_index(drop=True)  # Sequential index
+      .assign(  # Convert string columns to numeric
+          **{
+              'Quantity Ordered': lambda x: pd.to_numeric(x['Quantity Ordered'], errors='coerce'),
+              'Price Each': lambda x: pd.to_numeric(x['Price Each'], errors='coerce')
+          }
+      )
+)
+```
+
+**Analysis: Extract address components into separate columns**
+
+```{python}
+print("MESSY DATA (multiple values in one column):")
+print(df['Purchase Address'].head(2).tolist())
+
+# Extract address components using method chaining with .assign()
+df_clean = (df
+    # .assign() - Split comma-separated fields and strip whitespace
+    .assign(
+        # Split on comma and extract first part (Street), then clean whitespace
+        Street=lambda x: x['Purchase Address'].str.split(',').str[0].str.strip(),
+        # Keep City and State together (second + third parts after comma)
+        # This preserves uniqueness: "Portland, OR" vs "Portland, ME"
+        City_State=lambda x: (x['Purchase Address'].str.split(',').str[1].str.strip() + ', ' +
+                              x['Purchase Address'].str.split(',').str[2].str.split().str[0]),
+        # Extract zip code (last word of the third part)
+        Zip=lambda x: x['Purchase Address'].str.split(',').str[2].str.split().str[1]
+    )
+)
+
+print("\nTIDY DATA (one value per column):")
+print(df_clean[['Street', 'City_State', 'Zip']].head(2))
+
+print(f"\nSample unique City_State combinations:")
+print(df_clean['City_State'].value_counts().head(10))
+
+print(f"\nTotal unique City_State locations: {df_clean['City_State'].nunique()}")
+
+assert 'City_State' in df_clean.columns and 'Zip' in df_clean.columns
+print("✓ Exercise 4 passed!")
+```
+
+---
+
+## Exercise 5: Time-Series Analysis – When Do Customers Order?
+
+**Setup: Load and prepare**
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+# Load, clean, and prepare using method chaining
+all_months = [pd.read_csv(base_url + f"Sales_{month}_2019.csv") for month in months]
+
+df = (pd.concat(all_months, ignore_index=True)
+      .dropna(how='all')  # Remove completely empty rows
+      .loc[lambda x: x['Order ID'].str[0:2] != 'Or']  # Filter header rows
+      .reset_index(drop=True)  # Sequential index
+      .assign(  # Convert types and create new columns
+          **{
+              'Quantity Ordered': lambda x: pd.to_numeric(x['Quantity Ordered'], errors='coerce'),
+              'Price Each': lambda x: pd.to_numeric(x['Price Each'], errors='coerce'),
+              'Order Date': lambda x: pd.to_datetime(x['Order Date']),  # Convert to datetime
+              'Month': lambda x: pd.to_datetime(x['Order Date']).dt.month,  # Extract month
+              'Hour': lambda x: pd.to_datetime(x['Order Date']).dt.hour,  # Extract hour
+              'Day_of_Week': lambda x: pd.to_datetime(x['Order Date']).dt.dayofweek  # Extract day
+          }
+      )
+)
+```
+
+**Analysis: Analyze orders by hour of day**
+
+```{python}
+print("ANALYSIS: Orders by Hour of Day")
+print("="*60)
+
+# Count orders by hour
+sales_by_hour = df.groupby('Hour').size()
+busiest_hour = sales_by_hour.idxmax()
+
+print(f"Orders by hour (0=midnight, 23=11pm):")
+print(sales_by_hour)
+print(f"\nBusiest hour: {busiest_hour}:00 ({sales_by_hour[busiest_hour]} orders)")
+```
+
+**Visualization: Orders by hour**
+
+```{python}
+# Create figure and axes explicitly (OOP style)
+fig, ax = plt.subplots(figsize=(12, 5))
+
+# Get the peak value for the reference line
+peak_value = sales_by_hour[busiest_hour]
+
+# Method chaining with detailed comments
+(ax
+ # .bar() - Create vertical bars for each hour
+ .bar(sales_by_hour.index, sales_by_hour.values,
+      color='steelblue', edgecolor='navy', alpha=0.7)
+)
+
+# .set_xlabel() - Label x-axis (which hour)
+ax.set_xlabel('Hour of Day (0=midnight, 23=11pm)', fontsize=12, fontweight='bold')
+
+# .set_ylabel() - Label y-axis (count of orders)
+ax.set_ylabel('Number of Orders', fontsize=12, fontweight='bold')
+
+# .set_title() - Add descriptive title
+ax.set_title('When Do Customers Order? Sales by Hour of Day', fontsize=14, fontweight='bold')
+
+# .grid() - Add horizontal reference lines
+ax.grid(axis='y', alpha=0.3, linestyle='--')
+
+# .set_xticks() - Show all 24 hours
+ax.set_xticks(range(0, 24))
+
+# .axvline() - Highlight the busiest hour with vertical line (orange)
+ax.axvline(x=busiest_hour, color='#FF8C00', linestyle='--', linewidth=2,
+           alpha=0.7, label=f'Busiest: {busiest_hour}:00')
+
+# .hlines() - Draw horizontal line from y-axis to peak of busiest hour (orange)
+# This helps students visually see the exact height of the tallest bar
+ax.hlines(y=peak_value, xmin=-0.5, xmax=busiest_hour,
+          color='#FF8C00', linestyle=':', linewidth=2, alpha=0.5)
+
+# .legend() - Show legend
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+
+assert pd.api.types.is_datetime64_any_dtype(df['Order Date'])
+print("✓ Exercise 5 passed!")
+```
+
+---
+
+## Exercise 6: Product Analysis – What Sells Best?
+
+**Setup: Load and prepare**
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+base_url = "https://raw.githubusercontent.com/theAfricanQuant/Sales_Analysis/master/Sales_Data/"
+
+# Load, clean, convert types, and create Sales column using method chaining
+all_months = [pd.read_csv(base_url + f"Sales_{month}_2019.csv") for month in months]
+
+df = (pd.concat(all_months, ignore_index=True)
+      .dropna(how='all')  # Remove completely empty rows
+      .loc[lambda x: x['Order ID'].str[0:2] != 'Or']  # Filter header rows
+      .reset_index(drop=True)  # Sequential index
+      .assign(  # Convert types and create new columns
+          **{
+              'Quantity Ordered': lambda x: pd.to_numeric(x['Quantity Ordered'], errors='coerce'),
+              'Price Each': lambda x: pd.to_numeric(x['Price Each'], errors='coerce')
+          }
+      )
+      .assign(Sales=lambda x: x['Quantity Ordered'] * x['Price Each'])  # Revenue calculation
+      .dropna(subset=['Sales'])  # Remove failed conversions
+)
+```
+
+**Analysis 1: Top Products by QUANTITY**
+
+```{python}
+print("TOP PRODUCTS BY QUANTITY (units sold)")
+print("="*60)
+
+# Group by Product and sum quantities
+quantity_by_product = (df
+            .groupby('Product')
+            ['Quantity Ordered']
+            .sum()
+            .sort_values(ascending=False)
+            )
+
+print("\nTop 10 products by quantity:")
+print(quantity_by_product.head(10))
+```
+
+**Visualization 1: Top products by quantity**
+
+```{python}
+fig, ax = plt.subplots(figsize=(12, 6))
+top_10_qty = quantity_by_product.head(10)
+
+(ax
+ # .barh() - Horizontal bars (easier for long product names)
+ .barh(range(len(top_10_qty)), top_10_qty.values,
+       color='green', edgecolor='darkgreen', alpha=0.7)
+)
+
+# .set_yticks() - Position y-axis ticks
+ax.set_yticks(range(len(top_10_qty)))
+
+# .set_yticklabels() - Label with product names
+ax.set_yticklabels(top_10_qty.index)
+
+# .set_xlabel() - Label x-axis
+ax.set_xlabel('Total Quantity Ordered (units)', fontsize=12, fontweight='bold')
+ax.set_ylabel('Product', fontsize=12, fontweight='bold')
+ax.set_title('Top 10 Products by Units Sold', fontsize=14, fontweight='bold')
+
+# .grid() - Add reference lines
+ax.grid(axis='x', alpha=0.3, linestyle='--')
+
+# Add value labels on each bar
+for i, v in enumerate(top_10_qty.values):
+    ax.text(v + 10, i, str(int(v)), va='center', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+**Analysis 2: Top Products by REVENUE (dollars)**
+
+```{python}
+print("\nTOP PRODUCTS BY REVENUE (sales in dollars)")
+print("="*60)
+
+# Group by Product and sum revenue
+revenue_by_product = df.groupby('Product')['Sales'].sum().sort_values(ascending=False)
+
+print("\nTop 10 products by revenue:")
+for i, (product, revenue) in enumerate(revenue_by_product.head(10).items(), 1):
+    print(f"  {i}. {product}: ${revenue:,.2f}")
+```
+
+**Visualization 2: Top products by revenue**
+
+```{python}
+fig, ax = plt.subplots(figsize=(12, 6))
+top_10_revenue = revenue_by_product.head(10)
+
+(ax
+ # .barh() - Horizontal bars for revenue comparison
+ .barh(range(len(top_10_revenue)), top_10_revenue.values,
+       color='darkblue', edgecolor='navy', alpha=0.7)
+)
+
+ax.set_yticks(range(len(top_10_revenue)))
+ax.set_yticklabels(top_10_revenue.index)
+ax.set_xlabel('Total Revenue (USD)', fontsize=12, fontweight='bold')
+ax.set_ylabel('Product', fontsize=12, fontweight='bold')
+ax.set_title('Top 10 Products by Revenue (Total Sales in Dollars)', fontsize=14, fontweight='bold')
+ax.grid(axis='x', alpha=0.3, linestyle='--')
+
+# Add currency-formatted labels
+for i, v in enumerate(top_10_revenue.values):
+    ax.text(v + 1000, i, f'${v:,.0f}', va='center', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+**Analysis 3: Summary insights**
+
+```{python}
+print("\nSUMMARY: Key Business Insights")
+print("="*60)
+print(f"Total unique products: {df['Product'].nunique()}")
+print(f"Total orders: {len(df):,}")
+print(f"Total quantity sold: {df['Quantity Ordered'].sum():,.0f} units")
+print(f"Total revenue: ${df['Sales'].sum():,.2f}")
+print(f"Average order value: ${df['Sales'].mean():.2f}")
+
+# Compare top quantity vs top revenue
+print(f"\nTop product by QUANTITY: {quantity_by_product.index[0]}")
+print(f"Top product by REVENUE: {revenue_by_product.index[0]}")
+
+assert len(df) > 0
+print("\n✓ Exercise 6 passed!")
+```
+
+---
+
+## Summary
+
+You've completed the **data cleaning pipeline**:
+
+1. ✅ Load & merge (combining 12 monthly files)
+2. ✅ Explore (understand structure and problems)
+3. ✅ Remove nulls (clean empty rows)
+4. ✅ Type conversion (strings → numbers → calculations)
+5. ✅ Feature extraction (parse complex fields)
+6. ✅ Time-series analysis (temporal patterns)
+7. ✅ Aggregation (product insights)
+
+**Real-world applications:**
+
+- Mobile money (MTN/mPesa): merging daily transaction files, handling missing IDs
+- Market data: parsing addresses, calculating totals, finding top performers
+- Health systems: consolidating clinic reports, identifying trends
+
+**Data cleaning is 80% of real data science work.**

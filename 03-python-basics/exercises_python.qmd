@@ -1,0 +1,552 @@
+---
+title: "Python Exercises: Phase 1 Supplementary Practice"
+subtitle: "Ghana-context problems to deepen Python mastery"
+author: "Speedykom Group GmbH"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    css: styles.css
+jupyter: python3
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+These exercises reinforce Phase 1 concepts (variables, data structures, functions, comprehensions, OOP) using **Ghana-specific scenarios**: MTN subscriber data, student records, MoMo transactions, Accra markets, etc.
+
+Each exercise builds on previous ones. **Try them solo first**, then expand your solution by modifying parameters or using different approaches.
+
+---
+
+## Exercise 1: String Manipulation – MTN Subscriber Data
+
+**Scenario:** MTN Ghana receives subscriber data in messy format: 
+
+`"KWAME_OSEI_0551234567_ACCRA_PREMIUM"`. Clean it and extract key fields.
+
+**Task:** Write a function `parse_mtm_subscriber(data_string)` that:
+
+1. Splits the string by underscore
+2. Returns a dictionary with keys: `name`, `phone`, `location`, `plan`
+3. Converts phone to `+233-XX-XXX-XXXX` format (Ghana country code +233)
+4. Capitalizes location (e.g., "accra" → "Accra")
+
+```{python}
+def parse_mtm_subscriber(data_string: str) -> dict:
+    """Parse MTN subscriber data string into structured dictionary.
+
+    Example:
+        >>> parse_mtm_subscriber("KWAME_OSEI_0551234567_ACCRA_PREMIUM")
+        {
+            'name': 'Kwame Osei',
+            'phone': '+233-55-123-4567',
+            'location': 'Accra',
+            'plan': 'Premium'
+        }
+    """
+    # SOLUTION
+    parts = data_string.split("_")
+    first_name, last_name, phone, location, plan = parts
+
+    # Convert phone: 0551234567 → +233-55-123-4567
+    phone_digits = phone[1:]  # Remove leading 0
+    formatted_phone = f"+233-{phone_digits[0:2]}-{phone_digits[2:5]}-{phone_digits[5:]}"
+
+    return {
+        "name": f"{first_name.capitalize()} {last_name.capitalize()}",
+        "phone": formatted_phone,
+        "location": location.capitalize(),
+        "plan": plan.capitalize()
+    }
+
+# Test it
+test_data = "KWAME_OSEI_0551234567_ACCRA_PREMIUM"
+result = parse_mtm_subscriber(test_data)
+print(result)
+assert result["phone"] == "+233-55-123-4567"
+assert result["name"] == "Kwame Osei"
+print("✓ Exercise 1 passed!")
+```
+
+**Try this variation:**
+
+- Parse multiple subscribers: `["AMA_MENSAH_0544334455_TEMA_BASIC", "YAW_AGYEMAN_0591111111_KUMASI_PREMIUM"]`
+
+---
+
+## Exercise 2: List Comprehensions – Accra Market Prices
+
+**Scenario:** You have a list of market prices from Accra Central Market. Filter for affordable items (under ₵50) and calculate discounted prices (10% off for bulk buying).
+
+**Task:** Use **list comprehensions** (no loops!) to:
+
+1. Filter items under ₵50
+2. Calculate 10% discount prices
+3. Create tuples of (item, original_price, discounted_price)
+
+```{python}
+# Raw data: (item_name, price_in_cedis)
+market_prices = [
+    ("Tomatoes (kg)", 45),
+    ("Onions (kg)", 38),
+    ("Plantains (bunch)", 55),
+    ("Cassava (kg)", 42),
+    ("Corn (ear)", 8),
+    ("Pepper (kg)", 65),
+    ("Yam (kg)", 52),
+    ("Beans (kg)", 48),
+]
+
+# SOLUTION: Single list comprehension for all three steps
+affordable_items = [
+    (item, price, round(price * 0.9, 2))
+    for item, price in market_prices
+    if price < 50
+]
+
+print("Affordable items (under ₵50) with 10% discount:")
+for item, original, discounted in affordable_items:
+    savings = original - discounted
+    print(f"{item}: ₵{original} → ₵{discounted} (save ₵{savings:.2f})")
+
+# Verify
+assert len(affordable_items) == 5
+assert affordable_items[0][2] == round(45 * 0.9, 2)
+print("✓ Exercise 2 passed!")
+```
+
+**Try this variation:**
+
+- Calculate total savings if you buy one of each affordable item at discount price
+- Create a second comprehension to find items over ₵50
+
+---
+
+## Exercise 3: Dictionary Operations – Student Grade System
+
+**Scenario:** Track student grades at CodeTrain. Create a system to add students, record grades, calculate averages, and identify top performers.
+
+**Task:** Build a **dictionary of dictionaries** where:
+
+- Keys: student names
+- Values: dictionary with `grades` (list), `average` (float), `level` (string)
+
+```{python}
+class StudentGradeBook:
+    """Manage student grades and calculate statistics."""
+
+    def __init__(self):
+        self.students = {}
+
+    def add_student(self, name: str):
+        """Add a new student with empty grades list."""
+        self.students[name] = {"grades": [], "average": 0.0, "level": "Unknown"}
+
+    def add_grade(self, name: str, grade: float):
+        """Add a grade and recalculate average and level."""
+        if name not in self.students:
+            self.add_student(name)
+
+        self.students[name]["grades"].append(grade)
+
+        # Recalculate average
+        grades = self.students[name]["grades"]
+        self.students[name]["average"] = sum(grades) / len(grades)
+
+        # Assign level based on average
+        avg = self.students[name]["average"]
+        if avg >= 90:
+            self.students[name]["level"] = "Excellent"
+        elif avg >= 80:
+            self.students[name]["level"] = "Very Good"
+        elif avg >= 70:
+            self.students[name]["level"] = "Good"
+        elif avg >= 60:
+            self.students[name]["level"] = "Pass"
+        else:
+            self.students[name]["level"] = "Needs Improvement"
+
+    def top_students(self, n: int = 3):
+        """Return top N students by average."""
+        sorted_students = sorted(
+            self.students.items(),
+            key=lambda x: x[1]["average"],
+            reverse=True
+        )
+        return sorted_students[:n]
+
+# SOLUTION
+gradebook = StudentGradeBook()
+gradebook.add_grade("Kwame", 92)
+gradebook.add_grade("Kwame", 88)
+gradebook.add_grade("Kwame", 95)
+gradebook.add_grade("Ama", 78)
+gradebook.add_grade("Ama", 82)
+gradebook.add_grade("Yaw", 85)
+
+print("Top 2 students:")
+for name, data in gradebook.top_students(2):
+    print(f"{name}: {data['average']:.1f} ({data['level']})")
+
+assert gradebook.students["Kwame"]["level"] == "Excellent"
+assert gradebook.students["Ama"]["level"] == "Very Good"
+print("✓ Exercise 3 passed!")
+```
+
+**Try this variation:**
+
+- Add a method `below_threshold(threshold=70)` to find struggling students
+- Track assignment grades separately from exam grades
+
+---
+
+## Exercise 4: OOP – MoMo Transaction Class
+
+**Scenario:** Build a simple Mobile Money (MoMo) transaction tracker for Ghanaian traders.
+
+**Task:** Create a `MoMoTransaction` class and `Wallet` class that:
+
+- Track individual transactions (sender, receiver, amount, type, timestamp)
+- Calculate wallet balance and transaction history
+- Validate transactions (non-negative amounts)
+
+```{python}
+from datetime import datetime
+
+class MoMoTransaction:
+    """Represents a single MoMo transaction."""
+
+    def __init__(self, sender: str, receiver: str, amount: float, tx_type: str):
+        if amount <= 0:
+            raise ValueError("Amount must be positive")
+
+        self.sender = sender
+        self.receiver = receiver
+        self.amount = amount
+        self.tx_type = tx_type  # "send" or "receive"
+        self.timestamp = datetime.now()
+
+    def __str__(self):
+        return f"{self.timestamp.strftime('%Y-%m-%d %H:%M')} | {self.sender} → {self.receiver}: ₵{self.amount:.2f}"
+
+class Wallet:
+    """Manages a user's MoMo wallet and transaction history."""
+
+    def __init__(self, owner: str, initial_balance: float = 0):
+        self.owner = owner
+        self.balance = initial_balance
+        self.transactions = []
+
+    def send(self, receiver: str, amount: float):
+        """Send money and record transaction."""
+        if amount > self.balance:
+            raise ValueError("Insufficient balance")
+
+        self.balance -= amount
+        tx = MoMoTransaction(self.owner, receiver, amount, "send")
+        self.transactions.append(tx)
+
+    def receive(self, sender: str, amount: float):
+        """Receive money and record transaction."""
+        self.balance += amount
+        tx = MoMoTransaction(sender, self.owner, amount, "receive")
+        self.transactions.append(tx)
+
+    def get_balance(self):
+        return f"₵{self.balance:.2f}"
+
+    def print_history(self):
+        """Print transaction history."""
+        print(f"\n=== {self.owner}'s Transaction History ===")
+        for tx in self.transactions:
+            print(tx)
+        print(f"Current Balance: {self.get_balance()}\n")
+
+# SOLUTION
+wallet = Wallet("Kwame's Store", initial_balance=500)
+wallet.receive("Ama", 100)  # Customer pays
+wallet.send("Supplier Ltd", 200)  # Pay supplier
+wallet.receive("Yaw", 75)  # Another customer
+wallet.print_history()
+
+assert wallet.balance == 475
+print("✓ Exercise 4 passed!")
+```
+
+**Try this variation:**
+
+- Add transaction fees (e.g., 1% of amount for sends)
+- Add a `monthly_summary()` method that shows total sent/received
+- Implement transaction IDs and search by ID
+
+---
+
+## Exercise 5: Exception Handling – Data Cleaning Pipeline
+
+**Scenario:** CodeTrain student data has missing/invalid fields. Build a robust pipeline to clean it.
+
+**Task:** Create a function `clean_student_record(record_dict)` that:
+
+- Validates required fields (name, email, phone)
+- Catches and logs errors gracefully
+- Returns cleaned data or error message
+
+```{python}
+def clean_student_record(record: dict) -> dict | str:
+    """Clean and validate student record.
+
+    Returns:
+        - Dictionary with cleaned data if valid
+        - Error message string if invalid
+    """
+    try:
+        # Extract and validate
+        name = record.get("name", "").strip()
+        if not name:
+            raise ValueError("Name is required and cannot be empty")
+
+        email = record.get("email", "").strip().lower()
+        if "@" not in email or "." not in email:
+            raise ValueError(f"Invalid email: {email}")
+
+        phone = record.get("phone", "").strip()
+        phone_digits = phone.replace("-", "").replace(" ", "")
+        if not phone_digits.isdigit() or len(phone_digits) < 10:
+            raise ValueError(f"Invalid phone: {phone}")
+
+        cohort = record.get("cohort", "Unknown")
+
+        return {
+            "name": name.title(),
+            "email": email,
+            "phone": f"+233-{phone_digits[-9:]}",
+            "cohort": cohort
+        }
+
+    except ValueError as e:
+        return f"Error: {str(e)}"
+    except Exception as e:
+        return f"Unexpected error: {str(e)}"
+
+# SOLUTION - Test with valid and invalid data
+test_records = [
+    {
+        "name": "  kwame osei  ",
+        "email": "KWAME@EXAMPLE.COM",
+        "phone": "0551234567",
+        "cohort": "Weekday"
+    },
+    {
+        "name": "",  # Invalid: missing name
+        "email": "ama@example.com",
+        "phone": "0544334455"
+    },
+    {
+        "name": "Yaw Agyeman",
+        "email": "yaw.example.com",  # Invalid: missing @
+        "phone": "059111111"  # Invalid: too short
+    },
+]
+
+for i, record in enumerate(test_records, 1):
+    result = clean_student_record(record)
+    print(f"Record {i}: {result}")
+
+print("✓ Exercise 5 passed!")
+```
+
+**Try this variation:**
+
+- Add phone number formatting for different countries (Nigeria, Kenya)
+- Validate cohort against allowed values: `["Weekday", "Weekend", "Online"]`
+
+---
+
+## Exercise 6: Modules & Code Organization – Building a Simple CLI Tool
+
+**Scenario:** Create a CLI tool for managing CodeTrain student rosters.
+
+**Task:** Write clean, modular code that:
+
+- Separates concerns: data model, business logic, user interface
+- Uses functions and classes appropriately
+- Demonstrates professional code organization
+
+```{python}
+# ============================================================================
+# DATA LAYER: Classes for data structures
+# ============================================================================
+
+class Cohort:
+    """Represents a CodeTrain cohort."""
+
+    def __init__(self, name: str, cohort_type: str):
+        self.name = name
+        self.cohort_type = cohort_type  # "Weekday", "Weekend", "Online"
+        self.students = []
+
+    def add_student(self, name: str, email: str):
+        self.students.append({"name": name, "email": email})
+
+    def count(self):
+        return len(self.students)
+
+# ============================================================================
+# BUSINESS LOGIC LAYER: Functions for operations
+# ============================================================================
+
+def create_cohort(name: str, cohort_type: str) -> Cohort:
+    """Factory function to create a cohort."""
+    return Cohort(name, cohort_type)
+
+def list_cohorts(cohorts: list):
+    """Display all cohorts."""
+    print("\n=== CodeTrain Cohorts ===")
+    for cohort in cohorts:
+        print(f"{cohort.name} ({cohort.cohort_type}): {cohort.count()} students")
+
+def enroll_student(cohort: Cohort, name: str, email: str):
+    """Enroll a student in a cohort."""
+    cohort.add_student(name, email)
+    print(f"✓ Enrolled {name} in {cohort.name}")
+
+# ============================================================================
+# USER INTERFACE LAYER: Simple CLI
+# ============================================================================
+
+def main():
+    """Run the CLI."""
+    cohorts = []
+
+    # Create cohorts
+    weekday = create_cohort("Weekday Cohort 1", "Weekday")
+    weekend = create_cohort("Weekend Cohort 1", "Weekend")
+    cohorts.extend([weekday, weekend])
+
+    # Enroll students
+    enroll_student(weekday, "Kwame Osei", "kwame@example.com")
+    enroll_student(weekday, "Ama Mensah", "ama@example.com")
+    enroll_student(weekend, "Yaw Agyeman", "yaw@example.com")
+
+    # Display results
+    list_cohorts(cohorts)
+
+# SOLUTION
+main()
+print("✓ Exercise 6 passed!")
+```
+
+**Try this variation:**
+
+- Add a `save_cohort(cohort, filename)` function to export to CSV
+- Add a `load_cohort(filename)` function to import from CSV
+- Create a menu-driven CLI that lets users interactively create cohorts
+
+---
+
+## Challenge: Combine Everything – Ghana Student Marketplace
+
+**Bonus Challenge:** Build a simple online marketplace for student services (tutoring, coding help, etc.) using everything you've learned.
+
+Requirements:
+
+- Use **classes**: `Student`, `Service`, `Marketplace`
+- Use **list comprehensions**: Filter services by category/price
+- Use **dictionaries**: Store ratings and reviews
+- Use **error handling**: Validate service listings
+- Use **f-strings**: Pretty-print results
+
+```{python}
+class Service:
+    """Represents a student service listing."""
+
+    def __init__(self, title: str, provider: str, price: float, category: str):
+        if price < 0:
+            raise ValueError("Price cannot be negative")
+        self.title = title
+        self.provider = provider
+        self.price = price
+        self.category = category
+        self.rating = 0.0
+        self.reviews = []
+
+    def add_review(self, stars: int, comment: str):
+        if not 1 <= stars <= 5:
+            raise ValueError("Stars must be 1-5")
+        self.reviews.append({"stars": stars, "comment": comment})
+        self.rating = sum(r["stars"] for r in self.reviews) / len(self.reviews)
+
+    def __str__(self):
+        return f"{self.title} ({self.category}) - ₵{self.price} | {self.provider} | ⭐ {self.rating:.1f}"
+
+class Marketplace:
+    """Manages student services marketplace."""
+
+    def __init__(self):
+        self.services = []
+
+    def post_service(self, title: str, provider: str, price: float, category: str):
+        service = Service(title, provider, price, category)
+        self.services.append(service)
+        return service
+
+    def search_by_price(self, max_price: float):
+        """Find affordable services using list comprehension."""
+        return [s for s in self.services if s.price <= max_price]
+
+    def search_by_category(self, category: str):
+        """Find services by category."""
+        return [s for s in self.services if s.category.lower() == category.lower()]
+
+# SOLUTION
+marketplace = Marketplace()
+
+# Post services
+tutoring = marketplace.post_service("Python Tutoring", "Kwame", 50, "Programming")
+help_ai = marketplace.post_service("AI Homework Help", "Ama", 35, "AI")
+coding_project = marketplace.post_service("Build Your Capstone", "Yaw", 100, "Programming")
+
+# Add reviews
+tutoring.add_review(5, "Kwame explains things really well!")
+tutoring.add_review(4, "Great, but slow response time")
+help_ai.add_review(5, "Ama helped me understand LLMs!")
+
+# Search
+print("=== Affordable services (under ₵60) ===")
+for service in marketplace.search_by_price(60):
+    print(service)
+
+print("\n=== Programming services ===")
+for service in marketplace.search_by_category("Programming"):
+    print(service)
+
+print("✓ Challenge passed!")
+```
+
+---
+
+## Summary
+
+You've practiced:
+
+- ✅ String manipulation and formatting
+- ✅ List comprehensions (no loops!)
+- ✅ Dictionary operations and nested structures
+- ✅ Object-oriented programming (classes, inheritance)
+- ✅ Exception handling (try/except)
+- ✅ Code organization (separation of concerns)
+
+**Next steps:** These skills are the foundation for data science. In Phase 2, you'll use them to build data pipelines with Pandas.
+
+---
+
+*All exercises use Ghana-specific context. If you find issues or have improvements, file a GitHub issue!*

@@ -9,16 +9,15 @@
 !.gitignore
 !README.md
 
-# Only track these 5 file types (plus README)
+# Track source files (Quarto) and dependencies
+!*.qmd
 !*.py
 !*.ipynb
 !*.pptx
 !*.pdf
 !*.csv
 
-# Don't track backup or generated files
-*.qmd
-*.md
+# Don't track generated/backup files
 *.html
 *.Rmd
 *.rst
@@ -44,3 +43,5 @@ venv/
 *.log
 *.out
 *.tex
+
+/.quarto/

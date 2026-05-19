@@ -1,0 +1,357 @@
+---
+title: "CodeTrain Instructor Handbook"
+subtitle: "Guidance for Richard & Joshua delivering 16-week curriculum"
+author: "Speedykom Group GmbH"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    css: styles.css
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    geometry: margin=0.75in
+    fontsize: 10pt
+    number-sections: true
+execute:
+  eval: false
+  echo: false
+---
+
+## Welcome
+
+This handbook supports the Codetrain instructorsin delivering the 16-week CodeTrain AI curriculum to 65+ students across weekday, weekend, and online cohorts. It contains:
+
+- Common student struggles per phase
+- Recommended interventions
+- Demo Day logistics
+- Cohort-specific adaptations
+- Ghana-context examples
+
+---
+
+## Phase 1: Foundations (Weeks 1–4)
+
+### Learning Goals
+- Students transition from JavaScript to Pythonic thinking
+- Master variables, functions, scope, OOP
+- Complete Gate 1: Python mastery
+
+### Common Struggles
+**"What's the difference between `x = [1, 2]` and `x = (1, 2)`?"**
+
+- Students confuse list (mutable) vs tuple (immutable)
+- **Intervention:** Use street analogy: "List is like a mutable marketplace stall (you can rearrange goods); tuple is like an immutable store sign (you can't change it)"
+- Have them predict: "Will this code work?" before running
+
+**"I don't understand scope (LEGB rule)"**
+
+- JavaScript has function scope; Python adds enclosing scope (tricky for JS devs)
+- **Intervention:** Draw boxes: Global box → Enclosing box → Local box. Visual helps.
+- Use the notebook's LEGB examples; don't rush.
+
+**"List comprehensions feel like magic"**
+
+- Students write loops instead: `result = []; for x in items: result.append(x*2)`
+- **Intervention:** Show them the 1-to-1 mapping: `[x*2 for x in items]` = loop without intermediate list
+- Practice: Give them 5 loops; ask them to rewrite as comprehensions
+
+### Session Structure
+1. **Live code-along** (50 min): Demonstrate the concept, type slowly, make mistakes
+2. **Guided practice** (20 min): Students code while you watch (share screen on weekday)
+3. **Exercise time** (10 min): Assign 2–3 exercises; walk around or monitor chat
+
+### Ghana Context to Inject
+- Kwame, Ama, Yaw, Akosua as character names (familiar)
+- MTN subscriber manager, MoMo transactions, Accra market data
+- "Store receipts" analogy for dictionaries (list of (item, price) tuples)
+
+### Pacing Notes
+- **Tight timeline:** 4 weeks for 3 notebooks + exercises
+- If stuck on scope: assign extra Scope Patrol exercises (in notebook 2)
+- Do NOT skip list comprehensions (it's needed for Pandas)
+
+### Gate 1 Check (End of Week 4)
+Watch for: "Do students write `[x for x in items if x > 5]` naturally?"
+
+- If yes → Pass Gate 1
+- If no → Assign extra comprehension drills before Mini Demo Day 1
+
+---
+
+## Phase 2: Analytics (Weeks 5–8)
+
+### Learning Goals
+- Load, explore, clean, visualize data
+- Master `.loc[]` and `.iloc[]` indexing
+- Complete Gate 2: Pandas fluency
+
+### Common Struggles
+**"`.loc[]` vs `.iloc[]` – which one do I use?"**
+
+- **Intervention:** Create a cheat sheet they can print:
+  - `.loc[]` = label (column name, like dictionary key)
+  - `.iloc[]` = integer position (0, 1, 2...)
+- Have them predict: "Will `df.loc[0]` get the first row?" (No! 0 is a label, not position)
+
+**"My dataset has 1M rows – Pandas is slow"**
+
+- Real issue, not their fault
+- **Intervention:** Teach `.sample(10000)` to work with subset; use `eval: false` for large operations
+
+**"Visualization overwhelm – so many plot types"**
+
+- **Intervention:** Decision tree: "Is it time series? → Line plot. Two variables? → Scatter. Distribution? → Histogram."
+- Focus on 3 types: line, scatter, histogram (bar comes later)
+
+### Ghana Data Examples
+- Use `house_rentals.csv` throughout (real Ghana housing data)
+- Discuss real price ranges in Accra/Kumasi
+- Explain why cleaning matters: "Bad data → bad predictions → bad decisions for homebuyers"
+
+### Gate 2 Check (End of Week 8)
+Students should:
+
+- [ ] Use `.loc[mask, col]` without syntax lookup
+- [ ] Answer "How many transactions per user?" with `groupby().size()`
+- [ ] Create 3-panel visualizations (subplots)
+
+---
+
+## Phase 3: Intelligence (Weeks 9–12)
+
+### Learning Goals
+- Train, evaluate, interpret ML models
+- Understand precision vs recall trade-offs
+- Complete Gate 3: Model building competency
+
+### Common Struggles
+**"My train/test split leads to different results each time"**
+
+- They didn't set `random_state`
+- **Intervention:** "Always set `random_state=42` for reproducibility. It's not magic—it just freezes randomness."
+
+**"Random Forest has 1000 parameters – how do I know what to change?"**
+
+- Overwhelm is real
+- **Intervention:** Teach the "Big 3": `n_estimators` (more trees = slower but better), `max_depth` (control overfitting), `random_state`
+- Leave GridSearchCV for later cohorts if they struggle
+
+**"I'm getting 95% accuracy but my teacher says it's wrong"**
+
+- Likely data leakage (fit on test data) or class imbalance
+- **Intervention:** Ask: "Did you `.fit()` before seeing test data?" and "Are 95% of your samples one class?"
+
+### Ghana Context
+- Ghana housing prices: show feature importance (bedrooms >> color)
+- MoMo fraud detection: explain precision vs recall (false positives cost customer trust)
+- Cocoa yield prediction: show how ML helps smallholders
+
+---
+
+## Phase 4: Advanced AI (Weeks 13–16)
+
+### Learning Goals
+- Build neural networks in PyTorch
+- Understand transfer learning
+- Complete capstone project
+
+### GPU/Colab Setup
+- **DO:** Send Colab link before Week 13 (students need time to set up)
+- **DO:** Require students to test Colab access in Week 12
+- **DON'T:** Assume they know how to use Colab (show them step-by-step)
+- Backup: Provide pre-trained model checkpoints for offline work
+
+### Common Struggles
+**"GPU is out of memory"**
+
+- Likely: batch size too large or model too big
+- **Intervention:** Start with small batch (32), small model (2 conv layers)
+
+**"My loss isn't decreasing"**
+
+- Learning rate wrong, or model not seeing data
+- **Intervention:** Try `lr = 0.001` first (very conservative). Print batch loss every 10 iterations.
+
+**"Transfer learning – do I freeze weights?"**
+
+- Yes, at first. Then unfreeze for fine-tuning.
+- **Intervention:** Provide their notebook with boilerplate code (don't make them write from scratch)
+
+---
+
+## Demo Day Logistics
+
+### Mini Demo Days 1–3 (15 min per student)
+**Setup:**
+
+- 10 min: Student presents
+- 5 min: Q&A
+- Score in real-time using rubric
+
+**Student Prep:**
+
+- Send project link 24 hrs before
+- Download/test their code
+- Note any issues to ask about
+
+**Your Role:**
+
+- Ask 2–3 probing questions (not gotcha questions)
+- Praise effort; be constructive on feedback
+- Take a screenshot of top 3 projects to share with next cohort
+
+### Final Demo Day (20 min per team)
+**Setup:**
+
+- 15 min: Team presents
+- 5 min: Q&A
+- Use full rubric (50 points)
+
+**Team Dynamics:**
+
+- Ask each member one question individually
+- Score each person separately (fairness)
+- Note any free-rider behavior for feedback
+
+---
+
+## Cohort-Specific Guidance
+
+### Weekday Cohort (Mon/Wed/Fri afternoons)
+- **Audience:** Working professionals, tired after work
+- **Pacing:** Slightly slower (give breaks)
+- **Homework:** Expect less time investment (2 hrs/wk max)
+- **Tip:** Record sessions; students replay at own pace
+
+### Weekend Cohort (Saturday mornings)
+- **Audience:** Energetic; dedicated time
+- **Pacing:** Can go deeper; 4-hour sessions allow immersion
+- **Homework:** Weekend coding projects (Capstone can be more ambitious)
+- **Tip:** Use Sunday office hours to catch up stragglers
+
+### Online Cohort (Async + live Q&A)
+- **Audience:** Distributed, variable time zones
+- **Pacing:** Self-paced videos; uniform live Q&A
+- **Homework:** Video submissions (code-along recordings)
+- **Tip:** Use office hours to build community (many feel isolated)
+
+---
+
+## Office Hours & 1:1 Support
+
+### When to Escalate to 1:1
+- Student scores <15 on a Demo Day
+- Student is "stuck" (can't do loop/function/indexing)
+- Student missed 2+ weeks
+- Student is disengaged (quiet, not submitting)
+
+### 1:1 Session Structure (30 min)
+1. **Diagnose** (5 min): "What's the blocker?"
+2. **Teach** (15 min): Whiteboard; walk through concept
+3. **Practice** (8 min): Have them code while you watch
+4. **Plan** (2 min): What to practice before next class?
+
+### Resources to Offer
+- Links to tutorials (Real Python, freeCodeCamp)
+- Related exercises from their notebook
+- Peer study buddy matching
+
+---
+
+## Ghana Context Tips
+
+### Cultural Relevance
+- Use student names: Kwame, Ama, Yaw, Akosua, Kofi, Abena
+- Reference Accra, Kumasi, Tema, Cape Coast (students' hometowns)
+- Use GHS (Ghana Cedis) for all monetary examples
+- Reference MTN, mPharma, Hubtel (local companies students know)
+
+### Problem Framing
+- "Why is this relevant?" before every unit
+- Connect to local problems: crop disease, student retention, financial inclusion
+- Celebrate when students solve problems that matter in Ghana
+
+### Capstone Ideas (Student Suggestions)
+- Cocoa yield prediction (help farmers)
+- Student dropout early warning (keep students in school)
+- Mobile money fraud detection (trust in mPesa/MTN)
+- Electricity load forecasting (help Accra avoid blackouts)
+- Crop disease detection (smartphone app for farmers)
+
+---
+
+## FAQs (Answers for Your Use)
+
+**Q: A student hasn't done anything for 2 weeks. What do I do?**
+
+- Reach out 1:1: "Haven't seen you – everything OK?"
+- Offer to catch up synchronously
+- Check if it's technical (no internet) or personal (life event)
+- Celebrate if they return
+
+**Q: Can I change the pacing for my cohort?**
+
+- Yes! Use `delivery_schedule.qmd` as a template
+- If students are ahead: add stretch projects (deploy to web, submit to Kaggle)
+- If students are behind: extend phase by 1 week, compress next phase
+
+**Q: What if we don't have enough time for all 4 phases?**
+
+- Prioritize Phase 2 (Pandas) – it's the foundation for everything
+- Compress Phase 4 – focus on one deep learning project vs multiple exercises
+- Students can self-study Phase 4 after course ends
+
+**Q: How do I know if a student is actually learning?**
+
+- Can they explain concepts in their own words (not copy-paste)?
+- Do they ask good debugging questions?
+- Can they solve a variant of an exercise (not just replicate)?
+
+---
+
+## Your Success as an Instructor
+
+You are successful when:
+
+- ✅ >80% pass Gate 1 (Python mastery, Week 4)
+- ✅ >80% pass Gate 2 (Pandas fluency, Week 8)
+- ✅ >80% pass Gate 3 (Model building, Week 12)
+- ✅ >70% complete capstone with portfolio-ready code
+- ✅ Students can explain their code to a non-technical friend
+- ✅ Students teach each other (peer learning happens)
+
+---
+
+## Before You Start
+
+- [ ] Read `curriculum_strategy.qmd` (understand the big picture)
+- [ ] Read `delivery_schedule.qmd` (your week-by-week roadmap)
+- [ ] Review all exercise notebooks (you should solve them first!)
+- [ ] Set up your Colab + test GPU access
+- [ ] Create a Slack/Discord for student Q&A
+- [ ] Print rubrics and post in office
+
+---
+
+## During the 16 Weeks
+
+- [ ] Give feedback on exercises within 48 hours
+- [ ] Celebrate Demo Days (take photos, share with future cohorts)
+- [ ] Adjust pacing weekly based on student progress
+- [ ] Collect 1–2 student stories of "aha!" moments to motivate future cohorts
+
+---
+
+## After the 16 Weeks
+
+- [ ] Collect student feedback (what worked, what didn't)
+- [ ] Identify students for mentorship/jobs at CodeTrain
+- [ ] Archive top capstone projects as examples
+- [ ] Share lessons learned with Ricky for next cohort curriculum improvements
+
+---
+
+*You've got this. Teaching Python to MERN developers is unique—you're their bridge to a new domain. Lean on the "why" (the notebooks) and the "how" (demonstrations). Good luck!*

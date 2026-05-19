@@ -1,0 +1,701 @@
+---
+title: "16-Week Delivery Schedule & Pacing Guide"
+subtitle: "Session-by-session breakdown for weekday, weekend, and online cohorts"
+author: "Speedykom Group GmbH"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: false
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    css: styles.css
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    geometry: margin=0.75in
+    number-sections: true
+    fontsize: 10pt
+execute:
+  eval: false
+  echo: true
+---
+
+## How to Read This Schedule
+
+This document provides a **week-by-week breakdown** of the 16-week curriculum. Each section includes:
+
+- **Content:** Notebooks and exercises to cover
+- **Learning Objectives:** What students must master by week's end
+- **Estimated Hours:** Total instructional + study time
+- **Cohort Notes:** How each cohort type (weekday, weekend, online) adapts the timing
+
+### Cohort Types
+
+| Cohort | Sessions/Week | Hours/Session | Total/Week | Best For |
+|--------|---------------|---------------|-----------|----------|
+| **Weekday** | 3 (Mon, Wed, Fri) | 1.5 hours | ~4.5 hours | Working professionals, flexible schedules |
+| **Weekend** | 1 (Saturday) | 4 hours | ~4 hours | 9-to-5 workers; includes optional Sunday office hours (1 hr) |
+| **Online** | Async + 1 live | Videos + 2hr Q&A | ~5 hours | Distributed learners, different time zones |
+
+---
+
+## PHASE 1: FOUNDATIONS (Weeks 1–4)
+
+### Week 1: Welcome, Setup & Environment
+**Goal:** Students have working Python development environment; understand why Python for AI
+
+**Content:**
+
+- `00-welcome/python-vs-other-languages.qmd` (1 hour)
+- `01-setup/setting_up.qmd` (2 hours)
+- **Live Activity:** Install uv, Python 3.12, VS Code; create first virtual environment
+
+**Learning Objectives:**
+
+- Understand the Python ecosystem for AI (PyTorch, TensorFlow, Hugging Face)
+- Install and manage Python versions with `uv`
+- Create isolated environments using `pyproject.toml`
+- Open and navigate a Jupyter notebook
+
+**Estimated Hours:** 3 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon (Welcome) + 1.5hr Wed (Setup) = 3 hrs
+- **Weekend:** 3hr Saturday morning session
+- **Online:** Pre-recorded videos (watch 1 hr) + 2hr live Q&A Saturday morning
+
+**Homework:**
+
+- [ ] Successfully run `uv sync` in a test project
+- [ ] Create a GitHub account; fork the course repo
+- [ ] Verify Jupyter launches and can run `print("Hello, Ghana!")`
+
+---
+
+### Week 2: Professional Version Control with Git & GitHub
+**Goal:** Students use Git/GitHub as AI engineers (not just web developers)
+
+**Content:**
+
+- `02-version-control/Git_Github.qmd` (3 hours)
+- **Live Activity:** Clone a repo, make a branch, commit, push, create a pull request
+
+**Learning Objectives:**
+
+- Understand Git vs GitHub distinction
+- Create meaningful commit messages
+- Use branches for experiment tracking
+- Build a GitHub portfolio for AI employers
+- Understand merge conflicts and resolution
+
+**Estimated Hours:** 3 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed
+- **Weekend:** 3hr Saturday (or split across Sat + Sun if needed)
+- **Online:** 2hr live session + 1hr async homework
+
+**Homework:**
+
+- [ ] Create 3 feature branches and merge to main
+- [ ] Write 5 meaningful commits (not "fix typo")
+- [ ] Review a peer's PR (if working in cohort)
+
+---
+
+### Week 3: Python Basics – Variables & Data Structures
+**Goal:** Smooth transition from JavaScript to Pythonic syntax
+
+**Content:**
+
+- `03-python-basics/intro_python1.qmd` (4 hours)
+- **Live Activity:** Code-along; walk through 4 exercises (lists, tuples, dicts, sets)
+
+**Learning Objectives:**
+
+- Master Python naming conventions (snake_case)
+- Create and manipulate lists, dicts, sets, tuples
+- Index and slice sequences correctly
+- Understand mutable vs immutable types
+- Use f-strings for string formatting
+
+**Estimated Hours:** 4 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon (Variables) + 1.5hr Wed (Data Structures) + 1hr Fri (exercises)
+- **Weekend:** 2hr Saturday + 2hr Sunday
+- **Online:** 3hr async videos + 1hr live Q&A Tuesday evening
+
+**Homework:**
+- [ ] Complete all 4 exercises in the notebook with correct solutions
+- [ ] Write 3 additional list comprehensions (no loops)
+- [ ] Quiz (5 questions on indexing and slicing)
+
+---
+
+### Week 4: Functions, Scope & Pythonic Patterns (+ Mini Demo Day 1)
+**Goal:** Master functions and Pythonic idioms; deliver first mini-project
+
+**Content:**
+
+- `03-python-basics/intro_python2.qmd` (5 hours)
+- `03-python-basics/intro_python3.qmd` (5 hours)
+- `03-python-basics/exercises_python.qmd` (2 hours - supplementary)
+- **Live Activity:** Code-along; troubleshoot scope issues; present Mini Demo Day 1 projects
+
+**Learning Objectives:**
+
+- Write clean, reusable functions with docstrings
+- Understand Python scope (LEGB rule)
+- Use *args, **kwargs, and default arguments
+- Write list/dict/set comprehensions fluently
+- Understand OOP basics: classes, inheritance, methods
+- Handle exceptions with try/except
+
+**Estimated Hours:** 12 hours total (4.5 hours live + 7.5 hours study + exercises)
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon (Functions) + 1.5hr Wed (Comprehensions) + 1.5hr Fri (OOP) + 1.5hr Fri (Demo Day prep)
+- **Weekend:** 3hr Saturday (Functions + Comprehensions) + 3hr Sunday (OOP + Demo Day prep)
+- **Online:** 5hr async videos + 2hr live Wed evening (Q&A) + async demo prep
+
+**Mini Demo Day 1: Simple Logic Script**
+
+- **Timing:** Friday late afternoon or Saturday for weekend cohort
+- **Format:** Students present 10-min demo of working Python CLI tool
+- **Examples:** Voting system, expense tracker, MTN subscriber manager, student grade calculator
+- **Submission:** Working Python script (.py file) + README.md + GitHub repo link
+- **Grading:** See `milestone_rubrics.qmd` for scoring rubric
+
+**Homework:**
+
+- [ ] Complete exercises 1–6 from `exercises_python.qmd`
+- [ ] Build your Mini Demo Day 1 project
+- [ ] Practice 1-min elevator pitch for your project
+
+---
+
+## PHASE 2: ANALYTICS (Weeks 5–8)
+
+### Week 5: Pandas Fundamentals – DataFrames & Series
+**Goal:** Load, explore, and manipulate data with Pandas
+
+**Content:**
+
+- `04-data-analysis/intro_pandas1.qmd` (5 hours)
+- **Live Activity:** Load CSV, explore with `.head()`, `.describe()`, `.info()`, practice indexing
+
+**Learning Objectives:**
+
+- Load data from CSV, JSON, Excel
+- Understand DataFrame vs Series
+- Use `.loc[]` (label-based) and `.iloc[]` (position-based) indexing
+- Select columns and rows using boolean masks
+- Handle missing values and duplicates
+- Understand data types and convert when needed
+
+**Estimated Hours:** 5 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1hr Fri
+- **Weekend:** 2hr Saturday + 2hr Sunday
+- **Online:** 3hr async videos + 1.5hr live Wed Q&A
+
+**Homework:**
+
+- [ ] Load 3 different CSV files; describe their shape and dtypes
+- [ ] Use `.loc[]` and `.iloc[]` to answer 5 data questions
+- [ ] Fix a messy dataset (convert dtypes, handle NaN)
+
+---
+
+### Week 6: Data Visualization & Transformation
+**Goal:** Create publication-ready visualizations; understand data storytelling
+
+**Content:**
+
+- `04-data-analysis/intro_pandas2.qmd` (5 hours)
+- **Live Activity:** Create line plots, scatter plots, histograms, heatmaps
+
+**Learning Objectives:**
+
+- Use Matplotlib for low-level control
+- Use Seaborn for statistical beauty
+- Create multi-panel figures
+- Visualize distributions, correlations, time series
+- Understand when to use which plot type
+- Add titles, labels, legends; make plots publication-ready
+
+**Estimated Hours:** 5 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1hr Fri
+- **Weekend:** 2hr Saturday + 2hr Sunday
+- **Online:** 3hr async videos + 1.5hr live Wed Q&A
+
+**Homework:**
+
+- [ ] Recreate 5 plots from the notebook
+- [ ] Create 3 new visualizations on Ghana tourism or health data
+- [ ] Quiz: "What plot would you use to show correlation between 50 variables?"
+
+---
+
+### Week 7: Tidy Data, Groupby & Merging
+**Goal:** Reshape and combine datasets; prepare data for machine learning
+
+**Content:**
+
+- `04-data-analysis/intro_pandas3.qmd` (5 hours)
+- `04-data-analysis/exercises_pandas.qmd` (2 hours - supplementary)
+- **Live Activity:** Melt, pivot, groupby, merge operations
+
+**Learning Objectives:**
+
+- Understand tidy data principles (Wickham 2014)
+- Use `.melt()` to reshape wide → long format
+- Use `.pivot_table()` to reshape long → wide format
+- Apply groupby + aggregation patterns
+- Merge DataFrames using `.merge()`, `.join()`, `.concat()`
+- Identify and fix multi-table databases
+
+**Estimated Hours:** 7 hours
+
+**Cohort Notes:**
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1.5hr Fri + 1hr supplementary
+- **Weekend:** 3hr Saturday + 2hr Sunday
+- **Online:** 4hr async videos + 2hr live Fri evening (Q&A)
+
+**Homework:**
+- [ ] Melt 2 wide datasets to long format
+- [ ] Groupby + aggregate to answer 5 business questions (Ghana housing, health, telecom)
+- [ ] Merge 2 datasets; verify no data loss or duplication
+
+---
+
+### Week 8: Mini Demo Day 2 – EDA Report (+ Visualization Review)
+**Goal:** Deliver first analysis project; refine visualization and communication skills
+
+**Content:**
+
+- `data_analysis_presentation.qmd` (1 hour - recap)
+- **Live Activity:** Group work on Mini Demo Day 2 projects; peer review
+
+**Learning Objectives:**
+
+- Complete end-to-end EDA on a real dataset
+- Write clear data narratives
+- Create publication-ready figures
+- Present findings to non-technical audience
+
+**Estimated Hours:** 6 hours (live + project time)
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon (EDA tips) + ongoing project work + 1.5hr Fri (presentations)
+- **Weekend:** 2hr Saturday (tips) + async project work + 2hr Sunday (presentations)
+- **Online:** 1hr async tips video + async project + 2hr live Saturday evening (presentations)
+
+**Mini Demo Day 2: Exploratory Data Analysis Report**
+
+- **Timing:** End of week 8 (Friday afternoon or Sunday)
+- **Format:** Jupyter notebook + PDF report + 5-slide summary
+- **Dataset:** Ghana health, education, telecom, or housing data (provided or student-chosen)
+- **Deliverables:**
+  1. Data exploration (10 questions answered)
+  2. 5+ visualization with interpretations
+  3. Key findings summary (1-page executive summary)
+- **Submission:** GitHub repo + PDF report
+- **Grading:** See `milestone_rubrics.qmd`
+
+**Homework:**
+
+- [ ] Complete exercises 1–6 from `exercises_pandas.qmd`
+- [ ] Build your Mini Demo Day 2 EDA project
+- [ ] Practice 5-min elevator pitch
+
+---
+
+## PHASE 3: INTELLIGENCE (Weeks 9–12)
+
+### Week 9: Machine Learning Fundamentals & Linear Regression
+**Goal:** Understand ML workflow; implement first predictive model
+
+**Content:**
+
+- `05-machine-learning/intro_ML1.qmd` (5 hours)
+- **Live Activity:** Code-along train/test split, fit linear regression, interpret coefficients
+
+**Learning Objectives:**
+
+- Understand ML problem framing (supervised vs unsupervised)
+- Implement proper train/test split (no data leakage)
+- Fit linear regression models
+- Calculate loss functions (MSE, RMSE)
+- Interpret model coefficients
+- Understand underfitting vs overfitting
+- Create learning curves
+
+**Estimated Hours:** 5 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1hr Fri
+- **Weekend:** 2.5hr Saturday + 1.5hr Sunday
+- **Online:** 3hr async + 1.5hr live Wed Q&A
+
+**Homework:**
+
+- [ ] Fit linear regression on 3 different datasets
+- [ ] Calculate residuals and interpret them
+- [ ] Quiz: "Why do we need train/test split?"
+
+---
+
+### Week 10: Classification & Model Evaluation
+**Goal:** Build classifiers; master evaluation metrics
+
+**Content:**
+
+- `05-machine-learning/intro_ML2.qmd` (5 hours)
+- **Live Activity:** Train logistic regression and decision trees; build confusion matrices
+
+**Learning Objectives:**
+
+- Understand classification vs regression
+- Train logistic regression and decision trees
+- Interpret decision boundaries
+- Create confusion matrices
+- Calculate precision, recall, F1, ROC-AUC
+- Choose metrics based on use case (imbalanced data, cost asymmetry)
+- Handle overfitting with tree depth control
+
+**Estimated Hours:** 5 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1hr Fri
+- **Weekend:** 2.5hr Saturday + 1.5hr Sunday
+- **Online:** 3hr async + 1.5hr live Wed Q&A
+
+**Homework:**
+
+- [ ] Train 3 classifiers on iris/titanic datasets
+- [ ] Build confusion matrices and calculate 5 metrics
+- [ ] Quiz: "When would you optimize for recall instead of precision?"
+
+---
+
+### Week 11: Ensemble Methods & Hyperparameter Tuning
+**Goal:** Master advanced ML techniques; improve model performance
+
+**Content:**
+
+- `05-machine-learning/intro_ML3.qmd` (5 hours)
+- `05-machine-learning/exercises_ml.qmd` (2 hours - supplementary)
+- **Live Activity:** Train Random Forest and XGBoost; use GridSearchCV for tuning
+
+**Learning Objectives:**
+
+- Understand ensemble methods: bagging vs boosting
+- Implement Random Forest and XGBoost
+- Extract and interpret feature importance
+- Use GridSearchCV for hyperparameter tuning
+- Avoid overfitting with regularization and cross-validation
+- Compare model performance using multiple metrics
+
+**Estimated Hours:** 7 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1.5hr Fri + 1hr supplementary
+- **Weekend:** 3hr Saturday + 2hr Sunday
+- **Online:** 4hr async + 2hr live Fri evening (Q&A)
+
+**Homework:**
+
+- [ ] Complete exercises 1–5 from `exercises_ml.qmd`
+- [ ] Tune Random Forest on Ghana housing data
+- [ ] Compare XGBoost vs Random Forest on evaluation metrics
+
+---
+
+### Week 12: Mini Demo Day 3 – Predictive Model Build
+**Goal:** Deliver end-to-end ML project; prepare for capstone work
+
+**Content:**
+
+- `machine_learning_presentation.qmd` (1 hour - recap)
+- **Live Activity:** Model selection workshop; peer code review
+
+**Learning Objectives:**
+
+- Complete end-to-end ML pipeline
+- Make defensible model choices
+- Interpret predictions and explain limitations
+- Document code and decisions
+
+**Estimated Hours:** 8 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon (Model selection) + ongoing project + 1.5hr Fri (presentations)
+- **Weekend:** 2hr Saturday (tips) + async project + 2hr Sunday (presentations)
+- **Online:** 1hr async video + async project + 2hr live Saturday evening
+
+**Mini Demo Day 3: Predictive Model Build**
+
+- **Timing:** End of week 12
+- **Format:** Trained model (.pkl) + evaluation report + code notebook
+- **Dataset:** Ghana housing prices, student performance, or telecom churn (provided)
+- **Deliverables:**
+  1. Preprocessed dataset with feature engineering
+  2. 3+ trained models (logistic regression, decision tree, Random Forest)
+  3. Evaluation report: metrics, confusion matrix, ROC curve
+  4. Model interpretation: feature importance, SHAP values (if time)
+- **Submission:** GitHub repo + saved model + evaluation notebook
+- **Grading:** See `milestone_rubrics.qmd`
+
+**Homework:**
+
+- [ ] Complete supplementary ML exercises if needed
+- [ ] Build your Mini Demo Day 3 model
+- [ ] Prepare 5-min presentation
+
+---
+
+## PHASE 4: ADVANCED AI (Weeks 13–16)
+
+### Week 13: Deep Learning Fundamentals & Neural Networks
+**Goal:** Understand neural networks; implement training loops in PyTorch
+
+**Content:**
+
+- `06-deep-learning/intro_DL1.qmd` (6 hours)
+- **Live Activity:** Code-along simple neural networks; debug training loops on Colab
+
+**Learning Objectives:**
+
+- Understand neurons, layers, weights, biases
+- Implement forward pass
+- Understand backpropagation conceptually
+- Use PyTorch to build and train networks
+- Choose activation functions (ReLU, Sigmoid, Softmax)
+- Understand loss functions and optimizers (SGD, Adam)
+- Debug overfitting with regularization and dropout
+
+**Estimated Hours:** 6 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1.5hr Fri (+ optional Colab homework)
+- **Weekend:** 3hr Saturday + 2hr Sunday (+ Colab homework)
+- **Online:** 4hr async videos + 1.5hr live Wed Q&A (+ Colab homework)
+
+**Note on GPU:** Deep learning requires GPU access. Students should:
+
+- Use Google Colab (free) for hands-on exercises
+- Download trained checkpoints to run locally if needed
+
+**Homework:**
+
+- [ ] Run 3 training loops on MNIST in Google Colab
+- [ ] Experiment with learning rates: `[0.0001, 0.001, 0.01, 0.1]`
+- [ ] Plot learning curves; identify underfitting/overfitting
+
+---
+
+### Week 14: CNNs, Image Classification & Transfer Learning
+**Goal:** Build image classifiers; understand transfer learning
+
+**Content:**
+
+- `06-deep-learning/intro_DL2.qmd` (6 hours)
+- **Live Activity:** Code-along CNN architecture; train on traffic signs; visualize learned features
+
+**Learning Objectives:**
+
+- Understand convolutions and pooling
+- Build CNNs for image classification
+- Use data augmentation to improve generalization
+- Apply transfer learning: load pre-trained weights, fine-tune
+- Visualize learned filters
+- Handle imbalanced datasets
+
+**Estimated Hours:** 6 hours
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1.5hr Fri (+ Colab homework)
+- **Weekend:** 3hr Saturday + 2hr Sunday (+ Colab homework)
+- **Online:** 4hr async videos + 1.5hr live Wed Q&A (+ Colab homework)
+
+**Homework:**
+
+- [ ] Train a CNN on GTSRB (German traffic signs) in Colab
+- [ ] Fine-tune a pre-trained ResNet on cassava disease data
+- [ ] Visualize 5 learned filters from the first convolution layer
+
+---
+
+### Week 15: Agentic AI, LLMs & Orchestration
+**Goal:** Understand the future of AI; build simple agents
+
+**Content:**
+
+- `06-deep-learning/intro_DL3.qmd` (6 hours - transfer learning + deployment)
+- `07-agentic-ai/agentic_ai_presentation.qmd` (1 hour - slide recap)
+- `07-agentic-ai/intro-to-agentic-ai.qmd` (2 hours)
+- `07-agentic-ai/intro-to-codetrain.qmd` (2 hours)
+- `07-agentic-ai/opencode_student_guide.qmd` (2 hours)
+- `07-agentic-ai/codetrain_tests.qmd` (2 hours)
+- **Live Activity:** Build a simple chatbot or research agent
+
+**Learning Objectives:**
+
+- Understand LLMs and their capabilities/limitations
+- Understand Retrieval Augmented Generation (RAG)
+- Understand agentic workflows: decision loops, tool use
+- Build a simple agent using CodeTrain or similar framework
+- Understand model orchestration and scaling
+
+**Estimated Hours:** 15 hours (mix of async videos + live coding)
+
+**Cohort Notes:**
+
+- **Weekday:** 1.5hr Mon + 1.5hr Wed + 1.5hr Fri (Week 15) + 1.5hr Mon + 1.5hr Wed (Week 16 project)
+- **Weekend:** 3hr Saturday + 3hr Sunday (split across weeks 15–16)
+- **Online:** 5hr async videos (week 15) + 2hr live Wed Q&A + async project (week 16)
+
+**Homework:**
+
+- [ ] Watch OpenCode/CodeTrain tutorials
+- [ ] Build a simple chatbot using LLM API
+- [ ] Deploy the agent and test with 5 sample inputs
+
+---
+
+### Week 16: Final Demo Day – Capstone AI Solution
+**Goal:** Deliver portfolio-ready AI project; celebrate learning
+
+**Content:**
+
+- **Live Activity:** Team capstone presentations; peer feedback; instructor Q&A
+
+**Learning Objectives:**
+
+- Complete end-to-end AI solution (image classifier, NLP agent, or predictive model)
+- Present technical work to non-technical audience
+- Document code and decisions for future reference
+- Reflect on learning and next steps
+
+**Estimated Hours:** 8 hours (presentations + preparation)
+
+**Capstone Project: Final Demo Day**
+
+- **Teams:** 2–3 students per team
+- **Project Duration:** Weeks 13–16 (4 weeks to build)
+- **Deliverables:**
+  1. GitHub repository with documented code
+  2. Trained model (or deployed agent) + inference script
+  3. 10-slide presentation deck
+  4. 3-page technical report
+- **Presentation:** 15 min demo + 10 min Q&A
+- **Grading:** See `milestone_rubrics.qmd`
+- **Portfolio Goal:** Students should be able to show this project to employers
+
+**Capstone Project Ideas:**
+
+- **Image Classification:** Classify crops (healthy vs diseased) for Ghanaian farmers
+- **NLP Agent:** Customer service chatbot for MTN or mPharma
+- **Predictive Model:** Predict student dropout risk or loan default
+- **Time Series:** Forecast electricity demand for Accra
+- **Recommendation System:** Recommend educational content to students
+
+---
+
+## Cohort-Specific Pacing Notes
+
+### Weekday Cohort (Mon/Wed/Fri afternoons)
+
+- **Advantages:** Consistent rhythm; students can ask questions immediately
+- **Challenges:** Students juggle work/study; limited async flexibility
+- **Recommendation:** 1.5-hour sessions max; record all sessions for async review
+- **Office Hours:** Friday 4–5pm or Monday morning (optional)
+
+### Weekend Cohort (Saturday mornings)
+
+- **Advantages:** Immersive; dedicated time; can go deeper
+- **Challenges:** Single session may drag; students tired after 4 hours
+- **Recommendation:** 4-hour session with 15-min break midway; optional 1-hour Sunday review
+- **Office Hours:** Sunday afternoons (optional, 1 hour)
+
+### Online Cohort (Async + live Q&A)
+
+- **Advantages:** Flexible; students watch videos at own pace; distributed access
+- **Challenges:** Risk of falling behind; less interaction; needs structure
+- **Recommendation:**
+  - Pre-record all lectures (can use PowerPoint + voiceover or Jupyter + Loom)
+  - Require weekly video submissions (students screen-record exercises)
+  - Live Q&A session mid-week (same 5-minute questions answered live)
+  - Assign peer reviewers for exercise solutions
+- **Office Hours:** Async Slack channel + 1-hour Tuesday evening live (optional)
+
+---
+
+## Assessment Timeline
+
+| Week | Gate / Milestone |
+|------|-----------------|
+| 4 | Mini Demo Day 1: Python Logic Script |
+| 8 | Mini Demo Day 2: Exploratory Data Analysis |
+| 12 | Mini Demo Day 3: Predictive Model Build |
+| 16 | Final Demo Day: Capstone AI Solution |
+
+**Grading Rubrics:** See `milestone_rubrics.qmd` for detailed scoring criteria.
+
+---
+
+## Catch-Up & Remediation
+
+### If a student falls behind:
+1. **Week 1–4:** Assign extra Python exercises. Do NOT proceed to Pandas if they're still confused on variables/scope.
+2. **Week 5–8:** Offer supplementary Pandas exercises. Pair with a study buddy.
+3. **Week 9–12:** Assign ML exercises; offer 1:1 tutoring on model evaluation.
+4. **Week 13–16:** Simplify capstone scope (use pre-trained model, focus on deployment/presentation).
+
+### If a student is ahead:
+1. Encourage them to help peers with exercises
+2. Suggest extended projects: "Build this on a different dataset" or "Deploy this model as an API"
+3. Introduce research papers related to the week's topic
+
+---
+
+## Resources & Tools
+
+**For Students:**
+
+- Python IDE: VS Code or JupyterLab
+- GPU: Google Colab (free GPU for deep learning)
+- Version Control: GitHub
+- Chat/Q&A: Slack or Discord channel
+
+**For Instructors:**
+
+- Curriculum Strategy: `curriculum_strategy.qmd`
+- Assessment Rubrics: `milestone_rubrics.qmd`
+- Trainer Guide: `trainer_guide.qmd` (common struggles, interventions)
+- Presentation Slides: Available in each module folder (`*_presentation.qmd`)
+
+---
+
+*This schedule is designed to be flexible. Adjust week-by-week based on cohort pace and learning gates. The goal is mastery, not rushing.*

@@ -1,0 +1,337 @@
+---
+title: "CodeTrain 16-Week AI Curriculum Strategy"
+subtitle: "The Blueprint for Scaling Python/AI Training Across 65+ Students"
+author: "Speedykom Group GmbH"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    code-fold: false
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    css: styles.css
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    geometry: margin=1in
+    number-sections: true
+execute:
+  eval: false
+  echo: true
+---
+
+## Executive Summary
+
+This document is the **Root Blueprint** for delivering the CodeTrain AI curriculum across **16 weeks** to **65+ students** in multiple cohorts (weekday, weekend, online). It transforms the original 2-week Training of Trainers (ToT) materials into a structured, paced, classroom-ready program with clear learning objectives, critical gates, and assessment milestones.
+
+---
+
+## The 4-Phase Structure
+
+The curriculum is organized into 4 distinct phases, each 4 weeks long, culminating in a milestone demo.
+
+### Phase 1: Foundations (Weeks 1–4)
+**Learning Goal:** Students master Python syntax, data structures, and control flow as JavaScript developers transitioning to Python.
+
+**Key Principle:** "You already know logic. This is just new syntax."
+
+| Week | Content | Focus |
+|------|---------|-------|
+| 1 | Welcome + Environment Setup | Installation, uv, VS Code |
+| 2 | Version Control Fundamentals | Git/GitHub for AI portfolios |
+| 3 | Python Basics (Variables, Data Structures) | Lists, dicts, tuples, sets; JS-to-Python comparisons |
+| 4 | Functions, Scope, Pythonic Patterns | Functions, comprehensions, modules; OOP intro |
+
+**Module Mapping:**
+
+- 00-welcome: `python-vs-other-languages.qmd`
+- 01-setup: `setting_up.qmd`
+- 02-version-control: `Git_Github.qmd`
+- 03-python-basics: `intro_python1.qmd`, `intro_python2.qmd`, `intro_python3.qmd`, `python_basics_presentation.qmd` (slides)
+
+**Critical Gate 1 (End of Week 4):** Python Mastery
+
+- ✅ Students write list comprehensions naturally (without looking them up)
+- ✅ Function scope (LEGB) is automatic, not confusing
+- ✅ Code reads as Pythonic, not JavaScript-in-Python
+- ✅ Mini Demo Day 1: Simple Logic Script (CLI tool, e.g., voting system, expense tracker)
+
+**Learning Objectives (Phase 1):**
+
+1. Understand why Python dominates AI/ML (ecosystem, speed of prototyping)
+2. Install Python 3.12, uv, and VS Code; create isolated environments
+3. Use Git/GitHub for version control and portfolio building
+4. Write Pythonic code: f-strings, comprehensions, functions, type hints
+5. Understand variable scope (local, enclosing, global, built-in)
+6. Master basic OOP: classes, inheritance, error handling
+
+---
+
+### Phase 2: Analytics (Weeks 5–8)
+**Learning Goal:** Students build data pipelines, clean messy data, and extract insights using Pandas and visualization.
+
+**Key Principle:** "Data science is 80% cleaning, 20% modeling. Master the cleaning first."
+
+| Week | Content | Focus |
+|------|---------|-------|
+| 5 | Pandas Fundamentals | DataFrames, Series, loading data, indexing |
+| 6 | Data Visualization & Transformation | Matplotlib, Seaborn, data types, chaining |
+| 7 | Tidy Data & Groupby | Reshaping, groupby, aggregation, merging |
+| 8 | Mini Demo Day 2 Prep & Presentation | EDA challenge, report writing, presentation skills |
+
+**Module Mapping:**
+
+- 04-data-analysis: `intro_pandas1.qmd`, `intro_pandas2.qmd`, `intro_pandas3.qmd`, `data_analysis_presentation.qmd` (slides)
+
+**Critical Gate 2 (End of Week 8):** Pandas Fluency
+
+- ✅ `.loc[]` vs `.iloc[]` is automatic (no syntax lookup)
+- ✅ Groupby and aggregation are intuitive
+- ✅ Data questions are answered without external resources
+- ✅ Mini Demo Day 2: Exploratory Data Analysis Report (notebook + PDF + 5-slide summary)
+
+**Learning Objectives (Phase 2):**
+
+1. Load data from CSV, JSON, Excel; explore with `.head()`, `.describe()`, `.info()`
+2. Handle missing values, duplicates, and data quality issues
+3. Select, filter, and manipulate DataFrames using `.loc[]`, `.iloc[]`, boolean indexing
+4. Create publication-ready visualizations: line plots, scatter, histograms, heatmaps
+5. Write data pipelines using chaining: `df.filter().sort().groupby().agg()`
+6. Reshape data with `.melt()`, `.pivot_table()`, and normalization
+
+---
+
+### Phase 3: Intelligence (Weeks 9–12)
+**Learning Goal:** Students train, evaluate, and deploy machine learning models on real-world datasets.
+
+**Key Principle:** "ML is applied statistics. Understand the data before optimizing the model."
+
+| Week | Content | Focus |
+|------|---------|-------|
+| 9 | Machine Learning Fundamentals | Train/test split, loss, metrics, linear regression |
+| 10 | Classification & Decision Boundaries | Logistic regression, decision trees, confusion matrices |
+| 11 | Ensemble Methods & Hyperparameter Tuning | Random Forest, XGBoost, grid search, feature importance |
+| 12 | Mini Demo Day 3 Prep & Presentation | Model selection, evaluation, interpretation |
+
+**Module Mapping:**
+
+- 05-machine-learning: `intro_ML1.qmd`, `intro_ML2.qmd`, `intro_ML3.qmd`, `machine_learning_presentation.qmd` (slides)
+
+**Critical Gate 3 (End of Week 12):** Model Building Competency
+
+- ✅ Train/test split is automatic (no leakage, no confusion)
+- ✅ Model evaluation metrics make sense (precision vs recall, F1)
+- ✅ Hyperparameter tuning is methodical (grid search, not guessing)
+- ✅ Mini Demo Day 3: Predictive Model Build (trained model, evaluation metrics, code notebook)
+
+**Learning Objectives (Phase 3):**
+
+1. Understand the ML workflow: problem framing, feature engineering, train/test split, evaluation
+2. Implement linear regression from scratch and using sklearn
+3. Train classifiers (logistic regression, decision trees) and interpret predictions
+4. Evaluate models using confusion matrices, precision, recall, F1, ROC-AUC
+5. Combat overfitting using regularization, cross-validation, and ensemble methods
+6. Use Random Forest and XGBoost for tabular data; tune hyperparameters with GridSearchCV
+7. Extract feature importance and explain model predictions
+
+---
+
+### Phase 4: Advanced AI (Weeks 13–16)
+**Learning Goal:** Students build end-to-end deep learning solutions and understand agentic AI paradigms.
+
+**Key Principle:** "Deep learning unlocks unstructured data: images, text, sequences. Agents unlock reasoning."
+
+| Week | Content | Focus |
+|------|---------|-------|
+| 13 | Deep Learning Fundamentals | Neural networks, activation functions, backpropagation, PyTorch |
+| 14 | CNNs & Image Classification | Convolutions, pooling, transfer learning, Google Colab |
+| 15 | Advanced AI: Agents & Orchestration | LLMs, RAG, agentic workflows, CodeTrain framework |
+| 16 | Final Demo Day & Capstone | Team presentations, code review, deployment walkthrough |
+
+**Module Mapping:**
+
+- 06-deep-learning: `intro_DL1.qmd`, `intro_DL2.qmd`, `intro_DL3.qmd`, `deep_learning_presentation.qmd` (slides)
+- 07-agentic-ai: `agentic_ai_presentation.qmd`, `intro-to-agentic-ai.qmd`, `intro-to-codetrain.qmd`, `opencode_student_guide.qmd`, `codetrain_tests.qmd`
+
+**Final Demo Day (End of Week 16):** Capstone Project
+
+- ✅ Working AI application (image classifier, NLP agent, or predictive model)
+- ✅ Real dataset, real model, real inference
+- ✅ GitHub repository with documented code
+- ✅ 15-min team presentation + 10-min Q&A
+- ✅ Portfolio-ready for employers
+
+**Learning Objectives (Phase 4):**
+
+1. Build and train neural networks in PyTorch: layers, activation functions, loss functions, optimizers
+2. Understand backpropagation conceptually and debug training loops
+3. Implement CNNs for image classification; understand pooling and dropout
+4. Use transfer learning: load pre-trained weights, fine-tune on new data
+5. Understand LLMs, Retrieval Augmented Generation (RAG), and orchestration frameworks
+6. Build AI agents: decision loops, tool use, workflow orchestration
+7. Deploy models to production: model export, API serving, inference at scale
+
+---
+
+## Critical Learning Gates
+
+These gates act as competency checkpoints. If a student doesn't pass a gate, they cannot meaningfully proceed to the next phase.
+
+### Gate 1: Python Mastery (End of Week 4)
+
+**Observable Behavior:**
+
+- Student writes a 20-line function with list comprehensions, no syntax lookup, no StackOverflow visits
+- Student uses `.format()` naturally; understands when to use `*args` vs `**kwargs`
+- Student's code contains type hints and docstrings (Google style)
+- Error messages don't confuse them; they use tracebacks to debug
+
+**If a student struggles:** Assign supplementary Python exercises from `03-python-basics/exercises_python.qmd`. Do NOT proceed to Pandas until they pass.
+
+**Assessment:** Mini Demo Day 1 (Python Logic Script) — must score 18+ out of 25 points.
+
+---
+
+### Gate 2: Pandas Fluency (End of Week 8)
+
+**Observable Behavior:**
+
+- Student writes `.loc[mask, column]` without hesitation
+- Student groups data, aggregates, and reshapes without external help
+- Student answers "How many transactions per user?" by writing `df.groupby('user').size()` automatically
+- Student creates 3-panel visualizations without copy-pasting code
+
+**If a student struggles:** Assign supplementary Pandas exercises from `04-data-analysis/exercises_pandas.qmd`. Pair with strong students for study groups.
+
+**Assessment:** Mini Demo Day 2 (EDA Report) — must score 18+ out of 25 points.
+
+---
+
+### Gate 3: Model Building Competency (End of Week 12)
+
+**Observable Behavior:**
+
+- Student trains/tests without leaking (they use `.fit()` on train only, never on test)
+- Student understands precision vs recall and chooses metrics for their use case
+- Student uses GridSearchCV to tune hyperparameters (not random guessing)
+- Student can explain feature importance and model limitations
+
+**If a student struggles:** Assign ML exercises from `05-machine-learning/exercises_ml.qmd`. Offer 1:1 mentorship on model interpretation.
+
+**Assessment:** Mini Demo Day 3 (Predictive Model) — must score 18+ out of 25 points.
+
+---
+
+## Content Mapping: All 19 Notebooks Across 4 Phases
+
+| Phase | Week(s) | Notebook | Module | Hours |
+|-------|---------|----------|--------|-------|
+| Phase 1 | 1 | python-vs-other-languages | 00-welcome | 1 |
+| Phase 1 | 1 | setting_up | 01-setup | 2 |
+| Phase 1 | 2 | Git_Github | 02-version-control | 3 |
+| Phase 1 | 3–4 | intro_python1 | 03-python-basics | 4 |
+| Phase 1 | 3–4 | intro_python2 | 03-python-basics | 5 |
+| Phase 1 | 4 | intro_python3 | 03-python-basics | 5 |
+| Phase 1 | 4 | python_basics_presentation | 03-python-basics | 1 (recap) |
+| Phase 2 | 5–6 | intro_pandas1 | 04-data-analysis | 5 |
+| Phase 2 | 6–7 | intro_pandas2 | 04-data-analysis | 5 |
+| Phase 2 | 7–8 | intro_pandas3 | 04-data-analysis | 5 |
+| Phase 2 | 8 | data_analysis_presentation | 04-data-analysis | 1 (recap) |
+| Phase 3 | 9–10 | intro_ML1 | 05-machine-learning | 5 |
+| Phase 3 | 10–11 | intro_ML2 | 05-machine-learning | 5 |
+| Phase 3 | 11–12 | intro_ML3 | 05-machine-learning | 5 |
+| Phase 3 | 12 | machine_learning_presentation | 05-machine-learning | 1 (recap) |
+| Phase 4 | 13–14 | intro_DL1 | 06-deep-learning | 6 |
+| Phase 4 | 14 | intro_DL2 | 06-deep-learning | 6 |
+| Phase 4 | 15 | intro_DL3 | 06-deep-learning | 6 |
+| Phase 4 | 15 | agentic-ai (all 5 files) | 07-agentic-ai | 8 |
+
+**Total:** ~95 contact/study hours across 16 weeks (~6 hrs/week)
+
+---
+
+## How to Use This Curriculum
+
+### For Instructors (Richard & Joshua)
+
+1. **Pre-Week Prep:** Review the week's content from the delivery schedule
+2. **Live Sessions:** Follow the session plans; use the slide presentations for motivation, the notebooks for hands-on coding
+3. **Exercise Time:** Direct students to the supplementary exercises (`exercises_python.qmd`, `exercises_pandas.qmd`, etc.)
+4. **Assessment:** Use the milestone rubrics to grade Demo Days fairly and transparently
+5. **Office Hours:** Address common struggles (see `trainer_guide.qmd` for typical pain points)
+
+### For Students
+
+1. **Before Class:** Read the learning objectives for the week
+2. **During Class:** Follow along with the instructor; take notes on the "Why" sections
+3. **After Class:** Complete the exercises and self-check against solutions
+4. **Before Milestone:** Prep your Demo Day submission using the rubric as your checklist
+
+### For Cohort Managers
+
+1. **Weekday Cohort:** 3 × 1.5hr sessions per week (Mon, Wed, Fri afternoon or Tue, Thu morning + 1 more)
+2. **Weekend Cohort:** 1 × 4hr session per week (Saturday morning) + optional Sunday 1hr office hours
+3. **Online Cohort:** Async videos + 1 × 2hr live Q&A per week (Monday evening)
+
+See `delivery_schedule.qmd` for detailed session timing and content.
+
+---
+
+## The Learning Philosophy
+
+> **Why → How → Why Next**
+
+Every lesson follows this arc:
+
+- **Why:** The historical problem solved by this concept (e.g., "Why do we need functions?")
+- **How:** The implementation and code examples
+- **Why Next:** The evolution and what comes after (e.g., "Functions lead to modules; modules lead to classes")
+
+This bridges theory and practice. Students don't just learn *what* to code—they understand *why* the concept exists.
+
+---
+
+## Quality Assurance
+
+### Before Rolling Out:
+
+- [ ] All 19 notebooks render without errors: `quarto render 0X-*/intro_*.qmd`
+- [ ] All `eval: true` code cells in exercise notebooks run without exceptions
+- [ ] Each phase has a well-defined milestone with clear submission format
+- [ ] Trainer guide reviewed by Richard & Joshua for accuracy
+- [ ] Delivery schedule cross-checked: all weeks 1–16 accounted for, all notebooks assigned
+
+### During Delivery:
+
+- [ ] Weekly pulse checks: Is the cohort hitting learning gates?
+- [ ] Feedback loops: Students struggle → adjust pacing for next cohort
+- [ ] Capstone projects: Real dataset, real problem, real evaluation
+
+---
+
+## Success Metrics
+
+By the end of 16 weeks, 80%+ of students should be able to:
+
+1. **Phase 1:** Write Pythonic code; understand scope and imports
+2. **Phase 2:** Load, clean, visualize, and present data insights
+3. **Phase 3:** Train, evaluate, and interpret machine learning models
+4. **Phase 4:** Build and deploy end-to-end AI solutions
+
+**Final outcome:** Portfolio-ready projects that students can show employers in Ghana and Europe.
+
+---
+
+## Next Steps
+
+1. Review the `delivery_schedule.qmd` for week-by-week session plans
+2. Study the `milestone_rubrics.qmd` to understand assessment criteria
+3. Read the `trainer_guide.qmd` for pedagogical tips and common struggles
+4. Use supplementary exercise notebooks (`exercises_*.qmd`) to fill curriculum gaps
+5. Schedule mentorship sessions with Richard & Joshua (2 days of the 7-day scope)
+
+---
+
+*Created as part of the CodeTrain Flexible Remuneration extension (7-day scope). This document is the root blueprint for 16-week delivery to 65+ students across weekday, weekend, and online cohorts.*

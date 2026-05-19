@@ -1,0 +1,400 @@
+---
+title: "ML Exercises: Phase 3 Practice"
+subtitle: "Build, evaluate, and interpret machine learning models"
+author: "Speedykom Group GmbH"
+format:
+  html:
+    toc: true
+    toc-depth: 1
+    theme: cosmo
+    code-fold: true
+    code-block-bg: true
+    css: styles.css
+jupyter: python3
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+These exercises teach you how to **build, train, and evaluate machine learning models** on real-world problems from Ghana and beyond.
+
+**What you'll learn:**
+
+- Supervised learning: classification & regression
+- Unsupervised learning: clustering
+- Model evaluation: accuracy, precision, recall
+- Hyperparameter tuning: finding the best model
+- Interpreting results: what does the model actually tell us?
+
+**Why Ghana context matters:** Financial institutions need credit scoring. Markets need customer segmentation. Schools need to predict student success. These are not hypothetical problems—they're challenges that practitioners face every day.
+
+---
+
+## Exercise 1: Ghana Credit Scoring (Logistic Regression)
+
+**Goal:** Build a model to predict loan defaults for a Ghanaian bank.
+
+**Setup: Load and prepare credit data**
+
+```{python}
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Synthetic Ghana credit data (realistic income/employment patterns)
+np.random.seed(42)
+n_samples = 200
+
+data = {
+    'income_cedis': np.random.uniform(500, 5000, n_samples),  # GHS 500-5000 monthly
+    'employment_years': np.random.uniform(0, 30, n_samples),  # Years at current job
+    'loan_amount_cedis': np.random.uniform(100, 2000, n_samples),  # GHS 100-2000
+    'defaults': np.random.binomial(1, 0.2, n_samples)  # 20% default rate (realistic for emerging markets)
+}
+
+df = pd.DataFrame(data)
+
+print("DATASET OVERVIEW")
+print("=" * 60)
+print(f"Total records: {len(df)}")
+print(f"Default rate: {df['defaults'].mean():.1%}")
+print(f"\nFeature statistics:")
+print(df.describe().round(2))
+
+# Prepare features (X) and target (y)
+X = df[['income_cedis', 'employment_years', 'loan_amount_cedis']]
+y = df['defaults']
+
+# Split into training and testing sets
+# 80% train (learn patterns), 20% test (evaluate on unseen data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print(f"\nTrain set: {len(X_train)} records")
+print(f"Test set: {len(X_test)} records")
+```
+
+**Analysis: Train and evaluate the model**
+
+```{python}
+# Create and train logistic regression model
+# Logistic regression: best for yes/no predictions (default or not?)
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+print("\nMODEL TRAINED")
+print("=" * 60)
+
+# Make predictions on test set
+y_pred = model.predict(X_test)
+
+# Evaluate accuracy: what % of predictions were correct?
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2%}")
+
+# Confusion matrix: breakdown of correct and incorrect predictions
+print("\nConfusion Matrix:")
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+print("\nInterpretation:")
+print(f"  True Negatives (correctly predicted No Default): {cm[0, 0]}")
+print(f"  False Positives (incorrectly predicted Default): {cm[0, 1]}")
+print(f"  False Negatives (missed defaults - RISK!): {cm[1, 0]}")
+print(f"  True Positives (correctly predicted Default): {cm[1, 1]}")
+
+# Classification report: precision, recall, F1-score
+print("\nDetailed Classification Report:")
+print(classification_report(y_test, y_pred, target_names=['No Default', 'Default']))
+
+assert accuracy > 0.6  # Basic threshold
+print("✓ Exercise 1 passed!")
+```
+
+---
+
+## Exercise 2: Student Performance Classification
+
+**Goal:** Predict whether a student will pass using study habits and attendance.
+
+**Setup: Load student data**
+
+```{python}
+from sklearn.tree import DecisionTreeClassifier
+
+# Student performance data (realistic patterns)
+student_data = {
+    'study_hours': [2, 5, 8, 3, 7, 1, 6, 9, 4, 8],
+    'attendance': [60, 85, 95, 70, 90, 50, 80, 98, 75, 92],
+    'passed_exams': [1, 1, 1, 1, 1, 0, 1, 1, 1, 1],  # 1 = passed, 0 = failed
+}
+
+df_students = pd.DataFrame(student_data)
+
+print("STUDENT DATA")
+print("=" * 60)
+print(df_students)
+print(f"\nPass rate: {df_students['passed_exams'].mean():.1%}")
+
+# Prepare features and target
+X = df_students[['study_hours', 'attendance']]
+y = df_students['passed_exams']
+```
+
+**Analysis: Train decision tree**
+
+```{python}
+# Decision tree: easy to interpret, explains WHY predictions are made
+# max_depth=3: keep tree shallow so we can understand the rules
+tree = DecisionTreeClassifier(max_depth=3, random_state=42)
+tree.fit(X, y)
+
+print("\nMODEL TRAINED")
+print("=" * 60)
+
+# Evaluate on training data
+accuracy = tree.score(X, y)
+print(f"Accuracy: {accuracy:.2%}")
+
+# Make prediction for a new student
+new_student = pd.DataFrame({'study_hours': [6], 'attendance': [85]})
+prediction = tree.predict(new_student)
+probability = tree.predict_proba(new_student)[0]
+
+print("\nPREDICTION FOR NEW STUDENT")
+print("=" * 60)
+print(f"Study hours: {new_student['study_hours'].values[0]}")
+print(f"Attendance: {new_student['attendance'].values[0]}%")
+print(f"Prediction: {'✓ Pass' if prediction[0] == 1 else '✗ Fail'}")
+print(f"Confidence: {probability.max():.1%}")
+
+assert accuracy > 0.7
+print("\n✓ Exercise 2 passed!")
+```
+
+---
+
+## Exercise 3: Market Segmentation (Clustering)
+
+**Goal:** Group market vendors into segments based on revenue and experience.
+
+**Setup: Load vendor data**
+
+```{python}
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Ghana market vendor data (realistic Accra market patterns)
+vendor_data = {
+    'daily_revenue_cedis': [100, 200, 150, 800, 1200, 250, 900, 300, 1500, 350],  # GHS
+    'experience_years': [1, 2, 1.5, 15, 20, 3, 18, 4, 22, 5],  # Years selling
+}
+
+df_vendors = pd.DataFrame(vendor_data)
+
+print("VENDOR DATA")
+print("=" * 60)
+print(df_vendors)
+print(f"\nAverage daily revenue: GHS {df_vendors['daily_revenue_cedis'].mean():.0f}")
+print(f"Average experience: {df_vendors['experience_years'].mean():.1f} years")
+
+# Scale data before clustering
+# Why? KMeans uses distance, and revenue (0-1500) would dominate experience (0-25)
+# Scaling puts them on equal footing: both become 0-1 range
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(df_vendors)
+```
+
+**Analysis: Cluster and interpret segments**
+
+```{python}
+# K-means clustering: divide vendors into 3 segments
+# This helps with targeted strategies: new vendors vs established ones
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+df_vendors['cluster'] = kmeans.fit_predict(X_scaled)
+
+print("\nCLUSTERS CREATED")
+print("=" * 60)
+print(f"Cluster assignments:\n{df_vendors}")
+
+# Analyze each cluster
+print("\nVENDOR SEGMENTS SUMMARY")
+print("=" * 60)
+segment_summary = df_vendors.groupby('cluster')[['daily_revenue_cedis', 'experience_years']].agg(['mean', 'min', 'max'])
+print(segment_summary.round(1))
+
+# Interpret the segments
+print("\nINTERPRETATION")
+print("=" * 60)
+for cluster_id in sorted(df_vendors['cluster'].unique()):
+    cluster_data = df_vendors[df_vendors['cluster'] == cluster_id]
+    avg_revenue = cluster_data['daily_revenue_cedis'].mean()
+    avg_exp = cluster_data['experience_years'].mean()
+    size = len(cluster_data)
+
+    if avg_revenue < 300:
+        segment_type = "Micro-sellers (just starting)"
+    elif avg_revenue < 700:
+        segment_type = "Growing vendors"
+    else:
+        segment_type = "Established vendors"
+
+    print(f"Cluster {cluster_id}: {segment_type}")
+    print(f"  Size: {size} vendors")
+    print(f"  Avg revenue: GHS {avg_revenue:.0f}/day")
+    print(f"  Avg experience: {avg_exp:.1f} years")
+
+assert len(df_vendors['cluster'].unique()) == 3
+print("\n✓ Exercise 3 passed!")
+```
+
+---
+
+## Exercise 4: Hyperparameter Tuning (Random Forest)
+
+**Goal:** Find the best combination of model parameters using grid search.
+
+**Setup: Create dataset and define parameter grid**
+
+```{python}
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+
+# Create synthetic binary classification dataset
+# (In practice, you'd use real data; here we use random for speed)
+X = np.random.randn(100, 5)
+y = np.random.binomial(1, 0.5, 100)
+
+print("DATASET")
+print("=" * 60)
+print(f"Samples: {len(X)}")
+print(f"Features: {X.shape[1]}")
+print(f"Target distribution: {np.bincount(y)}")
+
+# Define hyperparameter grid to search
+# n_estimators: how many trees? (more = better but slower)
+# max_depth: how deep can trees go? (deeper = more complex, risk overfitting)
+param_grid = {
+    'n_estimators': [10, 50, 100],  # Few trees, many trees, very many
+    'max_depth': [3, 5, 7],  # Shallow, medium, deep
+}
+
+print("\nPARAMETER GRID")
+print("=" * 60)
+print("n_estimators (# of trees):", param_grid['n_estimators'])
+print("max_depth (tree depth):", param_grid['max_depth'])
+print(f"Total combinations to try: {len(param_grid['n_estimators']) * len(param_grid['max_depth'])}")
+```
+
+**Analysis: Grid search and find best parameters**
+
+```{python}
+# GridSearchCV: try all combinations and pick the best
+# cv=3: use 3-fold cross-validation (train/test 3 times)
+rf = RandomForestClassifier(random_state=42)
+grid = GridSearchCV(rf, param_grid, cv=3, verbose=0)
+
+print("\nGRID SEARCH IN PROGRESS...")
+grid.fit(X, y)
+
+print("\nBEST MODEL FOUND")
+print("=" * 60)
+print(f"Best parameters: {grid.best_params_}")
+print(f"Best CV score: {grid.best_score_:.2%}")
+
+# Show all results
+results_df = pd.DataFrame(grid.cv_results_)
+results_df = results_df[['param_n_estimators', 'param_max_depth', 'mean_test_score']].sort_values('mean_test_score', ascending=False)
+print("\nTop 5 parameter combinations:")
+print(results_df.head())
+
+assert grid.best_score_ > 0.5
+print("\n✓ Exercise 4 passed!")
+```
+
+---
+
+## Exercise 5: Feature Importance on Ghana Housing
+
+**Goal:** Understand which factors matter most for predicting house prices in Ghana.
+
+**Setup: Load housing data**
+
+```{python}
+# Ghana housing data (realistic Accra/Kumasi prices in GHS)
+housing = {
+    'bedrooms': [2, 3, 1, 4, 2, 3, 5],
+    'bathrooms': [1, 2, 1, 3, 1, 2, 3],
+    'size_sqm': [80, 120, 60, 150, 90, 110, 180],
+    'price_cedis': [1200, 2500, 800, 4000, 1500, 2200, 5000],  # GHS
+}
+
+df_house = pd.DataFrame(housing)
+
+print("HOUSING DATA")
+print("=" * 60)
+print(df_house)
+print(f"\nPrice range: GHS {df_house['price_cedis'].min()}-{df_house['price_cedis'].max()}")
+print(f"Average price: GHS {df_house['price_cedis'].mean():.0f}")
+
+# Prepare features and target
+X = df_house[['bedrooms', 'bathrooms', 'size_sqm']]
+y = df_house['price_cedis']
+
+# For this exercise, convert to binary: expensive (above median) or not
+y_binary = (y > y.median()).astype(int)
+print(f"\nTarget: High price (above GHS {y.median():.0f}) vs Low price")
+```
+
+**Analysis: Calculate and interpret feature importance**
+
+```{python}
+# Random Forest automatically calculates feature importance
+# Shows: which features does the model rely on most?
+rf = RandomForestClassifier(n_estimators=50, random_state=42)
+rf.fit(X, y_binary)
+
+print("\nFEATURE IMPORTANCE")
+print("=" * 60)
+
+# Extract importance scores
+importance = pd.DataFrame({
+    'feature': X.columns,
+    'importance': rf.feature_importances_
+}).sort_values('importance', ascending=False)
+
+print("Feature importance (0 to 1, higher = more important):")
+print(importance)
+
+# Interpret results
+print("\nINTERPRETATION")
+print("=" * 60)
+for idx, row in importance.iterrows():
+    pct = row['importance'] * 100
+    importance_level = "Critical" if pct > 40 else "Important" if pct > 20 else "Moderate"
+    print(f"{row['feature']}: {pct:.1f}% ({importance_level})")
+
+print("\nWhat this tells us:")
+print("- Which features drive house prices?")
+print("- What should real estate agents focus on?")
+print("- Are size, rooms, or bathrooms more predictive?")
+
+print("\n✓ Exercise 5 passed!")
+```
+
+---
+
+## Summary
+
+You've built:
+
+- ✅ Logistic regression (classification)
+- ✅ Decision trees (interpretable models)
+- ✅ K-means clustering (unsupervised)
+- ✅ Grid search (hyperparameter tuning)
+- ✅ Feature importance analysis
+

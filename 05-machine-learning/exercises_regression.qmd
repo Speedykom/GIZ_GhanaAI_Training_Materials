@@ -1,0 +1,527 @@
+---
+title: "Regression Exercises: Predicting Ghana House Prices"
+subtitle: "Build and evaluate regression models using real Ghana housing data"
+author: "Speedykom Group GmbH"
+format:
+  html:
+    toc: true
+    toc-depth: 1
+    theme: cosmo
+    code-fold: true
+    code-block-bg: true
+    css: styles.css
+jupyter: python3
+execute:
+  eval: false
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+**Regression:** Predicting continuous values (prices, temperatures, rainfall) based on features.
+
+Unlike classification (yes/no), regression answers: "How much?" or "How many?"
+
+**Real-world problem:** A real estate agent in Accra needs to price a house. She has:
+- Number of bedrooms
+- Square footage
+- Location (suburb)
+- Number of bathrooms
+
+Your job: **Build a model to predict rental prices** using real Ghana housing data from Kaggle.
+
+**Why this matters:** Pricing is crucial. Too high = no customers. Too low = lost revenue. A regression model helps make data-driven decisions.
+
+---
+
+## Getting the Data: Standard Kaggle Setup
+
+### One-Time Setup (2 minutes)
+
+**Step 1: Get your Kaggle API credentials**
+1. Go to https://www.kaggle.com/account/settings/api
+2. Click "Create New API Token"
+3. A file `kaggle.json` downloads to your computer
+
+**Step 2: Install Kaggle library**
+```bash
+pip install kaggle
+```
+
+**Step 3: Move credentials to the right location**
+
+**Linux/Mac:**
+```bash
+mkdir -p ~/.kaggle
+cp ~/Downloads/kaggle.json ~/.kaggle/
+chmod 600 ~/.kaggle/kaggle.json
+```
+
+**Windows:**
+```bash
+# Create folder: C:\Users\YourUsername\.kaggle\
+# Copy kaggle.json file there
+```
+
+**That's it!** Kaggle library will automatically find your credentials.
+
+---
+
+## Exercise 0: Download Ghana Housing Data from Kaggle
+
+**Goal:** Download the real Ghana housing dataset and load it into memory.
+
+**Prerequisites:** Make sure you've already run `uv sync` to install kaggle and all dependencies.
+
+```{python}
+import io
+import zipfile
+import pandas as pd
+from kaggle.api.kaggle_api_extended import KaggleApi
+
+print("Connecting to Kaggle API...")
+api = KaggleApi()
+api.authenticate()
+print("✓ Authenticated\n")
+
+# Download dataset
+print("Downloading: ghana-house-rental-dataset...")
+response = api.datasets_download(
+    owner_slug='epigos',
+    dataset_slug='ghana-house-rental-dataset',
+    _preload_content=False
+)
+print("✓ Download complete\n")
+
+# Handle ZIP or CSV
+raw_bytes = io.BytesIO(response.data)
+
+if zipfile.is_zipfile(raw_bytes):
+    print("Detected: ZIP archive")
+    raw_bytes.seek(0)
+    with zipfile.ZipFile(raw_bytes) as z:
+        print(f"Files in archive: {z.namelist()}")
+        # Find CSV file
+        csv_files = [f for f in z.namelist() if f.endswith('.csv')]
+        csv_file = csv_files[0] if csv_files else z.namelist()[0]
+        df = pd.read_csv(z.open(csv_file))
+        print(f"✓ Loaded: {csv_file}\n")
+else:
+    print("Detected: Plain CSV")
+    raw_bytes.seek(0)
+    df = pd.read_csv(raw_bytes)
+
+print("✅ DATASET READY!")
+print(f"Shape: {df.shape}")
+print(f"Columns: {list(df.columns)}\n")
+print("Preview:")
+print(df.head())
+```
+
+---
+
+## Exercise 1: Explore Housing Data
+
+**Goal:** Understand the dataset structure and distributions.
+
+**Setup: Load and inspect data**
+
+```{python}
+#| eval: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+
+# Load Ghana housing data
+# (Assumes Exercise 0 was completed to download the dataset)
+try:
+    df = pd.read_csv('house-rental-prices.csv')
+    print("✓ Dataset loaded from current directory")
+except FileNotFoundError:
+    # Fallback: try manual download folder
+    try:
+        df = pd.read_csv('ghana_housing/house-rental-prices.csv')
+        print("✓ Dataset loaded from ghana_housing/ folder")
+    except FileNotFoundError:
+        print("ERROR: Dataset not found!")
+        print("Please run Exercise 0 first to download the data from Kaggle")
+        raise
+
+print("DATASET OVERVIEW")
+print("=" * 70)
+print(f"Shape: {df.shape} (rows, columns)")
+print(f"\nColumn names and types:")
+print(df.dtypes)
+print(f"\nFirst 5 rows:")
+print(df.head())
+```
+
+**Analysis: Explore key statistics and distributions**
+
+```{python}
+print("\nDESCRIPTIVE STATISTICS")
+print("=" * 70)
+print(df.describe())
+
+print("\nMISSING VALUES")
+print("=" * 70)
+missing = df.isnull().sum()
+if missing.sum() > 0:
+    print(missing[missing > 0])
+else:
+    print("No missing values! ✓")
+
+print("\nKEY INSIGHTS")
+print("=" * 70)
+
+# Focus on price column (target variable)
+if 'price' in df.columns or 'rental_price' in df.columns or 'Price' in df.columns:
+    price_col = [col for col in df.columns if 'price' in col.lower()][0]
+    print(f"Price column: {price_col}")
+    print(f"  Min: GHS {df[price_col].min():,.0f}")
+    print(f"  Max: GHS {df[price_col].max():,.0f}")
+    print(f"  Mean: GHS {df[price_col].mean():,.0f}")
+    print(f"  Median: GHS {df[price_col].median():,.0f}")
+
+# Feature columns
+feature_cols = [col for col in df.columns if col.lower() not in ['price', 'rental_price', 'id']]
+print(f"\nFeatures ({len(feature_cols)} available):")
+for col in feature_cols[:5]:
+    print(f"  - {col}")
+
+print("\n✓ Exercise 1 passed!")
+```
+
+---
+
+## Exercise 2: Simple Linear Regression (One Feature)
+
+**Goal:** Predict price using just one feature (e.g., bedrooms).
+
+**Setup: Select feature and prepare data**
+
+```{python}
+# Identify price and feature columns
+price_col = [col for col in df.columns if 'price' in col.lower()][0]
+
+# Use bedrooms as our single feature
+# (You can change this to 'bathrooms', 'size', etc.)
+feature_col = 'bedrooms'  # Adjust if your data uses different column names
+
+# Create X (features) and y (target)
+X = df[[feature_col]].dropna()
+y = df.loc[X.index, price_col]
+
+print("DATA PREPARED")
+print("=" * 70)
+print(f"Feature: {feature_col}")
+print(f"Target: {price_col}")
+print(f"Samples: {len(X)}")
+
+# Check for any NaN in y after matching indices
+if y.isnull().any():
+    valid_idx = ~y.isnull()
+    X = X[valid_idx]
+    y = y[valid_idx]
+    print(f"After removing NaNs: {len(X)} samples")
+
+print(f"\nFeature statistics:")
+print(f"  {feature_col}: min={X[feature_col].min()}, max={X[feature_col].max()}")
+print(f"\nTarget statistics:")
+print(f"  {price_col}: min=GHS {y.min():,.0f}, max=GHS {y.max():,.0f}")
+
+# Split into train/test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print(f"\nTrain set: {len(X_train)} | Test set: {len(X_test)}")
+```
+
+**Analysis: Train and evaluate simple linear regression**
+
+```{python}
+# Train simple linear regression
+# y = m*x + b (slope * feature + intercept)
+model_simple = LinearRegression()
+model_simple.fit(X_train, y_train)
+
+print("SIMPLE LINEAR REGRESSION MODEL")
+print("=" * 70)
+print(f"Equation: Price = {model_simple.intercept_:,.0f} + {model_simple.coef_[0]:,.0f} × {feature_col}")
+
+# Make predictions
+y_pred_train = model_simple.predict(X_train)
+y_pred_test = model_simple.predict(X_test)
+
+# Evaluate
+r2_train = r2_score(y_train, y_pred_train)
+r2_test = r2_score(y_test, y_pred_test)
+rmse_test = np.sqrt(mean_squared_error(y_test, y_pred_test))
+mae_test = mean_absolute_error(y_test, y_pred_test)
+
+print(f"\nMODEL PERFORMANCE")
+print("=" * 70)
+print(f"R² Score (train): {r2_train:.3f}")
+print(f"R² Score (test):  {r2_test:.3f}")
+print(f"  (R² = 1.0 is perfect, 0.0 is terrible)")
+print(f"\nRoot Mean Squared Error (test): GHS {rmse_test:,.0f}")
+print(f"Mean Absolute Error (test): GHS {mae_test:,.0f}")
+print(f"  (Average prediction error)")
+
+# Prediction example
+example_bedrooms = 3
+example_price = model_simple.predict([[example_bedrooms]])[0]
+print(f"\nEXAMPLE PREDICTION")
+print("=" * 70)
+print(f"A house with {example_bedrooms} bedrooms → Predicted price: GHS {example_price:,.0f}")
+
+print("\n✓ Exercise 2 passed!")
+```
+
+---
+
+## Exercise 3: Multiple Linear Regression
+
+**Goal:** Use multiple features to predict price (more accurate than one feature).
+
+**Setup: Prepare multiple features**
+
+```{python}
+# Select multiple features for prediction
+# Adjust column names based on your dataset
+features = [col for col in df.columns if col.lower() not in [price_col.lower(), 'id', 'location', 'title']][:4]
+
+print("MULTIPLE LINEAR REGRESSION SETUP")
+print("=" * 70)
+print(f"Features selected: {features}")
+print(f"Target: {price_col}")
+
+# Prepare data: remove rows with missing values
+data_clean = df[[price_col] + features].dropna()
+X_multi = data_clean[features]
+y_multi = data_clean[price_col]
+
+print(f"Samples with complete data: {len(X_multi)}")
+
+# Check for any remaining issues
+if X_multi.isnull().any().any() or y_multi.isnull().any():
+    print("Warning: Some NaN values remain, dropping...")
+    valid_idx = ~(X_multi.isnull().any(axis=1) | y_multi.isnull())
+    X_multi = X_multi[valid_idx]
+    y_multi = y_multi[valid_idx]
+
+print(f"Final sample size: {len(X_multi)}")
+
+# Split data
+X_train_multi, X_test_multi, y_train_multi, y_test_multi = train_test_split(
+    X_multi, y_multi, test_size=0.2, random_state=42
+)
+
+print(f"\nTrain: {len(X_train_multi)} | Test: {len(X_test_multi)}")
+```
+
+**Analysis: Train and compare with simple regression**
+
+```{python}
+# Train multiple linear regression
+model_multi = LinearRegression()
+model_multi.fit(X_train_multi, y_train_multi)
+
+print("MULTIPLE LINEAR REGRESSION MODEL")
+print("=" * 70)
+print("Coefficients (how much each feature affects price):")
+for feature, coef in zip(features, model_multi.coef_):
+    print(f"  {feature}: {coef:+,.2f}")
+print(f"Intercept (baseline): GHS {model_multi.intercept_:,.0f}")
+
+# Predictions and evaluation
+y_pred_train_multi = model_multi.predict(X_train_multi)
+y_pred_test_multi = model_multi.predict(X_test_multi)
+
+r2_train_multi = r2_score(y_train_multi, y_pred_train_multi)
+r2_test_multi = r2_score(y_test_multi, y_pred_test_multi)
+rmse_test_multi = np.sqrt(mean_squared_error(y_test_multi, y_pred_test_multi))
+mae_test_multi = mean_absolute_error(y_test_multi, y_pred_test_multi)
+
+print(f"\nMODEL PERFORMANCE")
+print("=" * 70)
+print(f"R² Score (train): {r2_train_multi:.3f}")
+print(f"R² Score (test):  {r2_test_multi:.3f}")
+print(f"RMSE (test): GHS {rmse_test_multi:,.0f}")
+print(f"MAE (test): GHS {mae_test_multi:,.0f}")
+
+# Compare: Simple vs Multiple
+print(f"\nCOMPARISON: Simple vs Multiple Regression")
+print("=" * 70)
+print(f"Simple R² (test):   {r2_test:.3f}")
+print(f"Multiple R² (test): {r2_test_multi:.3f}")
+improvement = (r2_test_multi - r2_test) * 100
+print(f"Improvement: {improvement:+.1f}%")
+
+if r2_test_multi > r2_test:
+    print("✓ Multiple features improved the model!")
+else:
+    print("⚠ Multiple features didn't help much (or overfitting?)")
+
+print("\n✓ Exercise 3 passed!")
+```
+
+---
+
+## Exercise 4: Residual Analysis
+
+**Goal:** Understand where and why the model makes mistakes.
+
+**Setup: Calculate residuals**
+
+```{python}
+# Residuals = actual - predicted
+residuals = y_test_multi - y_pred_test_multi
+
+print("RESIDUAL ANALYSIS")
+print("=" * 70)
+print(f"Mean residual: GHS {residuals.mean():,.0f}")
+print(f"  (Should be close to 0)")
+print(f"Std dev of residuals: GHS {residuals.std():,.0f}")
+print(f"  (Measure of consistency)")
+
+print(f"\nResidual distribution:")
+print(f"  Min: GHS {residuals.min():,.0f}")
+print(f"  Q1:  GHS {residuals.quantile(0.25):,.0f}")
+print(f"  Q2:  GHS {residuals.median():,.0f}")
+print(f"  Q3:  GHS {residuals.quantile(0.75):,.0f}")
+print(f"  Max: GHS {residuals.max():,.0f}")
+
+# Count over/under predictions
+over_pred = (residuals < 0).sum()
+under_pred = (residuals > 0).sum()
+print(f"\nPrediction direction:")
+print(f"  Over-predicted (too high): {over_pred} times")
+print(f"  Under-predicted (too low): {under_pred} times")
+```
+
+**Analysis: Visualize residual patterns**
+
+```{python}
+# Create residual plots
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Plot 1: Residuals vs Predicted (should be random scatter)
+ax = axes[0]
+ax.scatter(y_pred_test_multi, residuals, alpha=0.6, color='steelblue', edgecolor='navy')
+ax.axhline(y=0, color='red', linestyle='--', linewidth=2, label='Perfect predictions')
+ax.set_xlabel('Predicted Price (GHS)', fontsize=11, fontweight='bold')
+ax.set_ylabel('Residuals (GHS)', fontsize=11, fontweight='bold')
+ax.set_title('Residuals vs Predicted Values', fontsize=12, fontweight='bold')
+ax.grid(True, alpha=0.3)
+ax.legend()
+
+# Plot 2: Histogram of residuals (should look normal/bell-shaped)
+ax = axes[1]
+ax.hist(residuals, bins=15, color='green', edgecolor='darkgreen', alpha=0.7)
+ax.axvline(x=residuals.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: GHS {residuals.mean():,.0f}')
+ax.set_xlabel('Residual Size (GHS)', fontsize=11, fontweight='bold')
+ax.set_ylabel('Frequency', fontsize=11, fontweight='bold')
+ax.set_title('Distribution of Residuals', fontsize=12, fontweight='bold')
+ax.legend()
+ax.grid(True, alpha=0.3, axis='y')
+
+plt.tight_layout()
+plt.show()
+
+print("\nINTERPRETATION")
+print("=" * 70)
+print("Left plot (Residuals vs Predicted):")
+print("  ✓ Good: Random scatter around 0")
+print("  ✗ Bad: Pattern or trend (model missing something)")
+print("\nRight plot (Distribution):")
+print("  ✓ Good: Bell-shaped (normal distribution)")
+print("  ✗ Bad: Skewed (model biased)")
+
+print("\n✓ Exercise 4 passed!")
+```
+
+---
+
+## Exercise 5: Make Predictions on New Houses
+
+**Goal:** Use your trained model to predict prices for houses not in the dataset.
+
+**Setup: Create example houses**
+
+```{python}
+# Create example houses with values in realistic ranges
+# Adjust feature names and ranges based on your dataset
+
+example_houses = pd.DataFrame({
+    features[0]: [2, 3, 4, 5],  # Adjust based on actual feature
+    features[1]: [1, 2, 2, 3],
+    features[2]: [50, 100, 150, 200],
+    features[3]: [0.5, 1.0, 1.5, 2.0],
+})
+
+print("EXAMPLE HOUSES TO PREDICT")
+print("=" * 70)
+print(example_houses)
+```
+
+**Analysis: Make predictions**
+
+```{python}
+# Predict prices for example houses
+predicted_prices = model_multi.predict(example_houses)
+
+print("\nPREDICTIONS FOR NEW HOUSES")
+print("=" * 70)
+for idx, (house_idx, pred_price) in enumerate(zip(example_houses.index, predicted_prices)):
+    print(f"House {idx+1}: GHS {pred_price:,.0f}/month")
+
+# Confidence estimate (based on training R²)
+confidence = r2_test_multi * 100
+print(f"\nModel confidence: {confidence:.0f}%")
+print(f"  (Based on test R² score)")
+
+print("\nWHAT THIS MEANS")
+print("=" * 70)
+print("- These are ESTIMATES, not exact prices")
+print("- Real prices vary based on factors we didn't include")
+print("  (neighborhood, condition, amenities, market trends, etc.)")
+print("- Use predictions to: narrow down search, compare offers, negotiate")
+print("- Don't rely on them alone!")
+
+print("\n✓ Exercise 5 passed!")
+```
+
+---
+
+## Summary
+
+You've built a **complete regression pipeline**:
+
+1. ✅ Explored data
+2. ✅ Built simple model (one feature)
+3. ✅ Built complex model (multiple features)
+4. ✅ Analyzed errors (residuals)
+5. ✅ Made predictions on new data
+
+**Real-world applications:**
+- 🏠 Real estate pricing (what we just did)
+- 📈 Stock price prediction
+- 🌡️ Temperature forecasting
+- 💰 Salary estimation
+- 🚗 Car value prediction
+
+**Next steps:**
+- Try polynomial regression (curved relationships)
+- Feature scaling (normalize features)
+- Regularization (prevent overfitting)
+- Try different models (Random Forest, XGBoost, etc.)
+
+---
+
+*Ghana housing data source: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset*
