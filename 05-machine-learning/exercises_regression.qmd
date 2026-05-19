@@ -23,6 +23,7 @@ execute:
 **Regression:** Predicting continuous values (prices, temperatures, rainfall) based on features.
 
 **Real-world problem:** A real estate agent in Accra needs to price a house based on:
+
 - Number of bedrooms
 - Square footage
 - Location (suburb)
@@ -88,10 +89,12 @@ Trees can discover complex, non-linear patterns automatically.
 The `kaggle.json` method is Kaggle's **legacy authentication approach**. This still works reliably for classroom use.
 
 **Step 1: Create a Kaggle account**
+
 1. Go to https://www.kaggle.com/register
 2. Sign up (free account)
 
 **Step 2: Get your Kaggle API credentials (Legacy)**
+
 1. Go to https://www.kaggle.com/account/settings/api
 2. Click "Create New API Token" (legacy method)
 3. A `kaggle.json` file downloads
@@ -120,12 +123,53 @@ kaggle datasets list | head -5
 ### Method 2: Manual Download (If Kaggle fails)
 
 If the automated download fails, manually download and extract:
+
 1. Go to: https://www.kaggle.com/datasets/epigos/ghana-house-rental-dataset
 2. Click "Download" button
 3. Extract to this folder (05-machine-learning/)
 4. Run: `unzip ghana-house-rental-dataset.zip`
 
 The notebook will auto-detect the local CSV file.
+
+---
+
+## How We'll Judge Models: Regression Metrics
+
+**In these exercises, we judge model quality using FOUR metrics. Master these!**
+
+### **R² Score (Coefficient of Determination)**
+- **What it means:** What percentage of price variation does the model explain?
+- **Range:** 0 to 1 (higher is better)
+- **Example:** R² = 0.50 means the model explains 50% of price variation
+- **Use it for:** Overall model performance comparison
+
+### **RMSE (Root Mean Squared Error)**
+- **What it means:** Average prediction error in GHS (penalizes large errors heavily)
+- **Range:** 0 to ∞ (lower is better)
+- **Example:** RMSE = 7,500 means predictions are typically off by ±GHS 7,500
+- **Use it for:** Understanding typical error magnitude in currency terms
+
+### **MAE (Mean Absolute Error)**
+- **What it means:** Average absolute prediction error in GHS (treats all errors equally)
+- **Range:** 0 to ∞ (lower is better)
+- **Example:** MAE = 4,300 means predictions are typically off by ±GHS 4,300
+- **Use it for:** Practical interpretation (more interpretable than RMSE)
+
+### **MAPE (Mean Absolute Percentage Error)**
+- **What it means:** Average percentage error relative to actual price
+- **Range:** 0% to ∞% (lower is better)
+- **Example:** MAPE = 15% means predictions are typically off by 15% of the actual price
+- **Use it for:** Understanding error relative to property price
+
+### **How to Compare Models:**
+
+**Better model has:**
+- ✅ Higher R² (closer to 1.0)
+- ✅ Lower RMSE (smaller errors)
+- ✅ Lower MAE (smaller errors)
+- ✅ Lower MAPE (smaller percentage errors)
+
+**Always check ALL FOUR metrics, not just one!**
 
 ---
 
@@ -339,29 +383,30 @@ print(f"Max depth: {dt.get_depth()}")
 print(f"Number of leaves: {dt.get_n_leaves()}")
 ```
 
-**Analysis: Evaluate Decision Tree**
+**Analysis: Check the Errors - Evaluate Decision Tree**
 
 ```{python}
 # Predictions
 y_pred_dt = dt.predict(X_test)
 
-# Evaluation metrics
+# Evaluation metrics - CHECK ALL FOUR!
 r2_dt = r2_score(y_test, y_pred_dt)
 rmse_dt = np.sqrt(mean_squared_error(y_test, y_pred_dt))
 mae_dt = mean_absolute_error(y_test, y_pred_dt)
 mape_dt = mean_absolute_percentage_error(y_test, y_pred_dt)
 
-print("\n\nDECISION TREE PERFORMANCE")
+print("\n\nDECISION TREE PERFORMANCE - CHECK THE METRICS")
 print("=" * 70)
-print(f"R² Score: {r2_dt:.3f}")
-print(f"RMSE: GHS {rmse_dt:,.0f}")
-print(f"MAE: GHS {mae_dt:,.0f}")
-print(f"MAPE: {mape_dt:.1%}")
+print(f"R² Score: {r2_dt:.3f}        ← How much variation explained?")
+print(f"RMSE: GHS {rmse_dt:,.0f}     ← Typical error magnitude")
+print(f"MAE: GHS {mae_dt:,.0f}       ← Average absolute error")
+print(f"MAPE: {mape_dt:.1%}          ← Error as % of price")
 
-print("\nInterpretation:")
-print(f"  - Explains {r2_dt*100:.1f}% of price variation")
-print(f"  - Average prediction error: GHS {mae_dt:,.0f}")
-print(f"  - This is our BASELINE to beat with ensemble methods")
+print("\nWhat this tells us:")
+print(f"  ✓ Decision Tree explains {r2_dt*100:.1f}% of Ghana house prices")
+print(f"  ✓ Typical prediction error: GHS {mae_dt:,.0f}")
+print(f"  ✓ On average, predictions are off by {mape_dt:.1%} of actual price")
+print(f"  ✓ This is our BASELINE - we'll try to beat these numbers")
 
 print("\n✓ Exercise 3 passed!")
 ```
@@ -390,24 +435,24 @@ rf.fit(X_train, y_train)
 print("✓ Random Forest trained")
 ```
 
-**Analysis: Evaluate Random Forest & compare with Decision Tree**
+**Analysis: Check the Errors - Evaluate Random Forest & Compare**
 
 ```{python}
 # Predictions
 y_pred_rf = rf.predict(X_test)
 
-# Evaluation metrics
+# Evaluation metrics - CHECK ALL FOUR!
 r2_rf = r2_score(y_test, y_pred_rf)
 rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
 mae_rf = mean_absolute_error(y_test, y_pred_rf)
 mape_rf = mean_absolute_percentage_error(y_test, y_pred_rf)
 
-print("\n\nRANDOM FOREST PERFORMANCE")
+print("\n\nRANDOM FOREST PERFORMANCE - CHECK THE METRICS")
 print("=" * 70)
-print(f"R² Score: {r2_rf:.3f}")
-print(f"RMSE: GHS {rmse_rf:,.0f}")
-print(f"MAE: GHS {mae_rf:,.0f}")
-print(f"MAPE: {mape_rf:.1%}")
+print(f"R² Score: {r2_rf:.3f}        ← How much variation explained?")
+print(f"RMSE: GHS {rmse_rf:,.0f}     ← Typical error magnitude")
+print(f"MAE: GHS {mae_rf:,.0f}       ← Average absolute error")
+print(f"MAPE: {mape_rf:.1%}          ← Error as % of price")
 
 # Feature importance
 importance_df = pd.DataFrame({
@@ -422,13 +467,23 @@ for idx, row in importance_df.iterrows():
     bar = '█' * int(pct / 5) + '░' * (20 - int(pct / 5))
     print(f"  {row['feature']:25s} {bar} {pct:5.1f}%")
 
-# Comparison with Decision Tree
-print(f"\n\nCOMPARISON: Decision Tree vs Random Forest")
+# EXPLICIT COMPARISON WITH DECISION TREE - This is how we judge!
+print(f"\n\n🔍 METRIC COMPARISON: Decision Tree vs Random Forest")
 print("=" * 70)
+print(f"{'Metric':<20} {'Decision Tree':<15} {'Random Forest':<15} {'Better?':<15}")
+print("-" * 70)
+print(f"{'R² Score':<20} {r2_dt:.3f}{'':<11} {r2_rf:.3f}{'':<11} {('RF ↑' if r2_rf > r2_dt else 'DT ↑'):<15}")
+print(f"{'RMSE':<20} GHS {rmse_dt:>8,.0f}     GHS {rmse_rf:>8,.0f}     {('RF ↓' if rmse_rf < rmse_dt else 'DT ↓'):<15}")
+print(f"{'MAE':<20} GHS {mae_dt:>8,.0f}     GHS {mae_rf:>8,.0f}     {('RF ↓' if mae_rf < mae_dt else 'DT ↓'):<15}")
+print(f"{'MAPE':<20} {mape_dt:>13.1%}     {mape_rf:>13.1%}     {('RF ↓' if mape_rf < mape_dt else 'DT ↓'):<15}")
+
 improvement = (r2_rf - r2_dt) * 100
-print(f"Decision Tree R²:  {r2_dt:.3f}")
-print(f"Random Forest R²:  {r2_rf:.3f}")
-print(f"Improvement:       {improvement:+.1f}% ← Ensemble is better!")
+error_reduction = (mae_dt - mae_rf) / mae_dt * 100
+
+print(f"\n✓ Random Forest WINS:")
+print(f"  - R² improved by {improvement:+.2f}% (explains more variation)")
+print(f"  - MAE reduced by {error_reduction:.1f}% (smaller errors on average)")
+print(f"  - Ensemble voting > single tree")
 
 print("\n✓ Exercise 4 passed!")
 ```
@@ -460,24 +515,24 @@ xgb.fit(X_train, y_train)
 print("✓ XGBoost trained")
 ```
 
-**Analysis: Evaluate XGBoost & compare all 3 models**
+**Analysis: Check the Errors - Evaluate XGBoost & Compare All 3 Models**
 
 ```{python}
 # Predictions
 y_pred_xgb = xgb.predict(X_test)
 
-# Evaluation metrics
+# Evaluation metrics - CHECK ALL FOUR!
 r2_xgb = r2_score(y_test, y_pred_xgb)
 rmse_xgb = np.sqrt(mean_squared_error(y_test, y_pred_xgb))
 mae_xgb = mean_absolute_error(y_test, y_pred_xgb)
 mape_xgb = mean_absolute_percentage_error(y_test, y_pred_xgb)
 
-print("\n\nXGBOOST PERFORMANCE")
+print("\n\nXGBOOST PERFORMANCE - CHECK THE METRICS")
 print("=" * 70)
-print(f"R² Score: {r2_xgb:.3f}")
-print(f"RMSE: GHS {rmse_xgb:,.0f}")
-print(f"MAE: GHS {mae_xgb:,.0f}")
-print(f"MAPE: {mape_xgb:.1%}")
+print(f"R² Score: {r2_xgb:.3f}        ← How much variation explained?")
+print(f"RMSE: GHS {rmse_xgb:,.0f}     ← Typical error magnitude")
+print(f"MAE: GHS {mae_xgb:,.0f}       ← Average absolute error")
+print(f"MAPE: {mape_xgb:.1%}          ← Error as % of price")
 
 # Feature importance
 xgb_importance = pd.DataFrame({
@@ -494,7 +549,7 @@ for idx, row in xgb_importance.iterrows():
 
 # FINAL COMPARISON - All 3 Models
 print("\n\n" + "=" * 70)
-print("MODEL COMPARISON: All 3 Ensemble Methods")
+print("🔍 METRIC COMPARISON: All 3 Models - Which Metrics Matter?")
 print("=" * 70)
 comparison_df = pd.DataFrame({
     'Model': ['Decision Tree', 'Random Forest', 'XGBoost'],
@@ -521,9 +576,57 @@ print("\n✓ Exercise 5 passed!")
 
 ---
 
+## Why Tune XGBoost? What Does Tuning Offer?
+
+**XGBoost with default parameters is already excellent.** But we can do better!
+
+### **What Are Hyperparameters?**
+Settings that control HOW the algorithm learns. Unlike model weights (learned automatically), hyperparameters must be set manually BEFORE training.
+
+### **Why Tune XGBoost Specifically?**
+1. **Most sensitive to tuning** — XGBoost's performance varies dramatically with different settings
+2. **Many hyperparameters** — More options = more room for improvement
+3. **Steep payoff** — Small tweaks often yield 2-5% accuracy gains
+4. **Production-grade** — Professional ML teams always tune before deployment
+
+### **What Hyperparameters Do We Tune?**
+
+- **`max_depth`** — How deep trees can grow
+  - Shallow trees (3-5) avoid overfitting
+  - Deep trees (7-10) capture complex patterns
+  - **We'll try:** [3, 5, 7]
+
+- **`learning_rate`** — How fast the model learns
+  - Low rates (0.05) learn slowly but carefully
+  - High rates (0.2) learn fast but might miss nuances
+  - **We'll try:** [0.05, 0.1, 0.2]
+
+- **`subsample`** — What fraction of data each tree uses
+  - Lower = uses less data = reduces overfitting
+  - Higher = uses more data = captures more patterns
+  - **We'll try:** [0.6, 0.8, 1.0]
+
+- **`colsample_bytree`** — What fraction of features each tree uses
+  - Lower = uses fewer features = simpler trees
+  - Higher = uses more features = richer trees
+  - **We'll try:** [0.6, 0.8, 1.0]
+
+### **The Grid Search Process**
+We test ALL combinations: 3 × 3 × 3 × 3 = **81 different configurations**
+With 5-fold cross-validation: **81 × 5 = 405 model trainings**
+
+The computer automatically finds which combination gives best metrics (R², RMSE, MAE, MAPE).
+
+### **Expected Outcome**
+- Default XGBoost R²: ~0.51
+- Tuned XGBoost R²: ~0.52-0.54 (potential 1-5% improvement)
+- Better generalizes to future Ghana housing data
+
+---
+
 ## Exercise 6: Hyperparameter Tuning with GridSearchCV
 
-**Goal:** Find optimal hyperparameters for XGBoost using Grid Search.
+**Goal:** Automatically find optimal hyperparameters for XGBoost using Grid Search. Compare metrics before and after tuning.
 
 **Setup: Define hyperparameter grid**
 
@@ -547,7 +650,7 @@ print(f"Total model trainings: {np.prod([len(v) for v in param_grid.values()]) *
 print("\nThis will take ~30-60 seconds...\n")
 ```
 
-**Analysis: Run Grid Search**
+**Analysis: Run Grid Search - Find the Best Metrics**
 
 ```{python}
 # Create base XGBoost model
@@ -557,25 +660,26 @@ xgb_base = XGBRegressor(
     verbosity=0
 )
 
-# GridSearchCV
+# GridSearchCV - automatically test all combinations
 grid_search = GridSearchCV(
     estimator=xgb_base,
     param_grid=param_grid,
     cv=5,                           # 5-fold cross-validation
-    scoring='r2',                   # Optimize for R² score
+    scoring='r2',                   # Optimize for R² score (what we care about)
     n_jobs=-1,                      # Use all CPU cores
     verbose=1
 )
 
-print("Running Grid Search...\n")
+print("Running Grid Search (405 model trainings)...\n")
 grid_search.fit(X_train, y_train)
 
-print(f"\n\nBEST HYPERPARAMETERS FOUND")
+print(f"\n\n✅ BEST HYPERPARAMETERS FOUND")
 print("=" * 70)
 for param, value in grid_search.best_params_.items():
     print(f"  {param:20s}: {value}")
 
 print(f"\nBest Cross-Validation R² Score: {grid_search.best_score_:.3f}")
+print(f"  (This is the average R² across 5 folds of training data)")
 
 # Train final model with best parameters
 xgb_final = grid_search.best_estimator_
@@ -583,21 +687,34 @@ xgb_final = grid_search.best_estimator_
 # Predictions on test set
 y_pred_final = xgb_final.predict(X_test)
 
-# Evaluation
+# Evaluation - CHECK ALL FOUR METRICS!
 r2_final = r2_score(y_test, y_pred_final)
 rmse_final = np.sqrt(mean_squared_error(y_test, y_pred_final))
 mae_final = mean_absolute_error(y_test, y_pred_final)
 mape_final = mean_absolute_percentage_error(y_test, y_pred_final)
 
-print(f"\n\nFINAL MODEL (After Grid Search)")
+print(f"\n\n📊 TUNED MODEL PERFORMANCE - CHECK ALL METRICS")
 print("=" * 70)
-print(f"Test Set R² Score: {r2_final:.3f}")
-print(f"Test Set RMSE: GHS {rmse_final:,.0f}")
-print(f"Test Set MAE: GHS {mae_final:,.0f}")
-print(f"Test Set MAPE: {mape_final:.1%}")
+print(f"Test Set R² Score: {r2_final:.3f}        ← Explains variation")
+print(f"Test Set RMSE: GHS {rmse_final:,.0f}     ← Typical error")
+print(f"Test Set MAE: GHS {mae_final:,.0f}       ← Average error")
+print(f"Test Set MAPE: {mape_final:.1%}          ← % error")
 
+# Compare tuned vs default
 improvement_from_tuning = (r2_final - r2_xgb) * 100
-print(f"\nImprovement from tuning: {improvement_from_tuning:+.2f}% R²")
+mae_improvement = (mae_xgb - mae_final) / mae_xgb * 100
+
+print(f"\n\n🔍 TUNING IMPACT: Default XGBoost vs Tuned XGBoost")
+print("=" * 70)
+print(f"R² Score:  {r2_xgb:.3f} → {r2_final:.3f}  ({improvement_from_tuning:+.2f}% change)")
+print(f"MAE:       GHS {mae_xgb:,.0f} → GHS {mae_final:,.0f}  ({mae_improvement:+.1f}% better)")
+
+if improvement_from_tuning > 0:
+    print(f"\n✓ Tuning HELPED! Grid search found better hyperparameters.")
+else:
+    print(f"\n⚠ Tuning had minimal impact. Default was already close to optimal.")
+
+print(f"\nConclusion: Grid search systematically tested {len(param_grid['max_depth']) * len(param_grid['learning_rate']) * len(param_grid['subsample']) * len(param_grid['colsample_bytree'])} combinations")
 
 # Final comparison table
 print(f"\n\n" + "=" * 70)
@@ -638,6 +755,7 @@ You've built a complete regression pipeline on **real Ghana housing data**:
 5. **Why Grid Search matters:** Tuning hyperparameters systematically can unlock 2-5% more accuracy.
 
 **Next Steps for Production:**
+
 - Save the tuned XGBoost model for deployment
 - Monitor performance on new Ghana housing listings
 - Retrain monthly as market prices shift
