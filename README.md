@@ -1,6 +1,6 @@
 # Ghana AI Talent Accelerator - Training Materials
 
-A comprehensive 12-week curriculum transforming MERN developers into Python/AI engineers.
+A comprehensive 16-week curriculum transforming MERN developers into Python/AI engineers, with structured phases, milestone assessments, and capstone projects for 65+ students.
 
 ## About This Project
 
@@ -14,17 +14,16 @@ This repository contains pedagogical training materials with interactive noteboo
 
 ---
 
-## 12-Week Program Overview
+## 16-Week Program Overview (4 Phases)
 
-| Week | Module | Duration | Topic |
-|------|--------|----------|-------|
-| 1 | 00-01 | 4-5 hrs | Welcome + Setup |
-| 2 | 02 | 3-4 hrs | Version Control (Git/GitHub) |
-| 3-5 | 03 | 12-15 hrs | **Python Basics** (Critical Gate) |
-| 6-8 | 04 | 15-18 hrs | **Data Analysis (Pandas)** (Critical Gate) |
-| 9-10 | 05 | 10-12 hrs | Machine Learning |
-| 11 | 06.1-2 | 5-6 hrs | Deep Learning Part 1 |
-| 12 | 06.3+07 | 6-8 hrs | Deep Learning Part 2 + Agentic AI Capstone |
+| Phase | Weeks | Modules | Focus | Milestone |
+|-------|-------|---------|-------|-----------|
+| **1: Foundations** | 1-4 | 00, 01, 02, 03 | Python Basics | Mini Demo Day 1: Logic Script |
+| **2: Analytics** | 5-8 | 04 | Data Analysis + Pandas | Mini Demo Day 2: EDA Report |
+| **3: Intelligence** | 9-12 | 05 | Machine Learning | Mini Demo Day 3: ML Model |
+| **4: Advanced AI** | 13-16 | 06, 07 | Deep Learning + Agents | Final Demo Day: Capstone |
+
+**Total:** ~95 contact/study hours across 16 weeks (~6 hrs/week)
 
 ---
 
